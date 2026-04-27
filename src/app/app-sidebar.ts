@@ -14,7 +14,7 @@ export class AppSidebar extends LitElement {
     }
 
     .brand {
-      display: flex;
+      display: none;
       align-items: center;
       gap: 0.5rem;
       padding: 1rem 1.25rem;
@@ -69,33 +69,10 @@ export class AppSidebar extends LitElement {
       color: hsl(var(--primary));
     }
 
-    .theme-row {
-      padding: 0.75rem 1rem;
-      border-top: 1px solid hsl(var(--border));
-    }
-
-    .theme-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      height: 1.75rem;
-      padding: 0 0.75rem;
-      font-size: 0.75rem;
-      font-family: inherit;
-      font-weight: 500;
-      border-radius: calc(var(--radius) - 2px);
-      border: 1px solid hsl(var(--border));
-      background-color: hsl(var(--background));
-      color: hsl(var(--foreground));
-      cursor: pointer;
-      transition:
-        background-color 0.15s,
-        color 0.15s;
-    }
-
-    .theme-btn:hover {
-      background-color: hsl(var(--accent));
-      color: hsl(var(--accent-foreground));
+    @media (min-width: 768px) {
+      .brand {
+        display: flex;
+      }
     }
   `
 
@@ -147,17 +124,7 @@ export class AppSidebar extends LitElement {
           Input
         </a>
       </nav>
-
-      <div class="theme-row">
-        <button class="theme-btn" @click=${this._toggleTheme}>
-          Toggle theme
-        </button>
-      </div>
     `
-  }
-
-  private _toggleTheme() {
-    document.documentElement.classList.toggle('dark')
   }
 }
 
