@@ -9,6 +9,12 @@
     }
 
     .root {
+      margin: 0;
+      font-family: inherit;
+      font-weight: inherit;
+      line-height: inherit;
+      text-transform: none;
+      appearance: none;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -17,146 +23,136 @@
       border-radius: calc(var(--radius) - 2px);
       font-size: 0.875rem;
       font-weight: 500;
-      font-family: inherit;
+      cursor: pointer;
+      border: 1px solid transparent;
+      outline: none;
       transition:
         color 0.15s,
         background-color 0.15s,
         border-color 0.15s,
         box-shadow 0.15s;
-      cursor: pointer;
-      user-select: none;
-      border: 1px solid transparent;
-      outline: none;
-      padding: 0;
     }
 
-    /* --- sizes --- */
+    .root:disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .root:focus-visible {
+      box-shadow:
+        0 0 0 2px hsl(var(--background)),
+        0 0 0 4px hsl(var(--ring));
+    }
+
+    .root ::slotted(svg) {
+      pointer-events: none;
+      width: 1rem;
+      height: 1rem;
+      flex-shrink: 0;
+    }
+
+    /* ---- sizes ---- */
     [data-size='default'] {
       height: 2.25rem;
       padding-inline: 1rem;
     }
-
     [data-size='xs'] {
       height: 1.75rem;
       padding-inline: 0.5rem;
-      font-size: 0.75rem;
-      border-radius: calc(var(--radius) - 4px);
+      font-size: 0.8125rem;
     }
-
     [data-size='sm'] {
       height: 2rem;
       padding-inline: 0.75rem;
       font-size: 0.8125rem;
     }
-
     [data-size='lg'] {
       height: 2.5rem;
       padding-inline: 1.5rem;
     }
-
     [data-size='icon'] {
       height: 2.25rem;
       width: 2.25rem;
-      padding-inline: 0;
+      padding: 0;
     }
-
     [data-size='icon-xs'] {
       height: 1.75rem;
       width: 1.75rem;
-      padding-inline: 0;
-      border-radius: calc(var(--radius) - 4px);
+      padding: 0;
     }
-
     [data-size='icon-sm'] {
       height: 2rem;
       width: 2rem;
-      padding-inline: 0;
+      padding: 0;
     }
-
     [data-size='icon-lg'] {
       height: 2.5rem;
       width: 2.5rem;
-      padding-inline: 0;
+      padding: 0;
     }
 
-    /* --- variants --- */
-
-    /* default */
+    /* ---- variants ---- */
     [data-variant='default'] {
       background-color: hsl(var(--primary));
       color: hsl(var(--primary-foreground));
-      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      box-shadow:
+        0 1px 3px 0 rgba(0, 0, 0, 0.1),
+        0 1px 2px -1px rgba(0, 0, 0, 0.1);
     }
-    [data-variant='default']:hover:not(:disabled) {
+    [data-variant='default']:hover {
       background-color: hsl(var(--primary) / 0.9);
     }
 
-    /* outline */
-    [data-variant='outline'] {
-      background-color: hsl(var(--background));
-      color: hsl(var(--foreground));
-      border-color: hsl(var(--border));
-      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    }
-    [data-variant='outline']:hover:not(:disabled) {
-      background-color: hsl(var(--accent));
-      color: hsl(var(--accent-foreground));
-    }
-
-    /* ghost */
-    [data-variant='ghost'] {
-      color: hsl(var(--foreground));
-    }
-    [data-variant='ghost']:hover:not(:disabled) {
-      background-color: hsl(var(--accent));
-      color: hsl(var(--accent-foreground));
-    }
-
-    /* destructive */
     [data-variant='destructive'] {
       background-color: hsl(var(--destructive));
       color: hsl(var(--destructive-foreground));
       box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     }
-    [data-variant='destructive']:hover:not(:disabled) {
+    [data-variant='destructive']:hover {
       background-color: hsl(var(--destructive) / 0.9);
     }
 
-    /* secondary */
+    [data-variant='outline'] {
+      background-color: hsl(var(--background));
+      color: hsl(var(--foreground));
+      border-color: hsl(var(--input));
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    }
+    [data-variant='outline']:hover {
+      background-color: hsl(var(--accent));
+      color: hsl(var(--accent-foreground));
+    }
+
     [data-variant='secondary'] {
       background-color: hsl(var(--secondary));
       color: hsl(var(--secondary-foreground));
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     }
-    [data-variant='secondary']:hover:not(:disabled) {
+    [data-variant='secondary']:hover {
       background-color: hsl(var(--secondary) / 0.8);
     }
 
-    /* link */
+    [data-variant='ghost'] {
+      background-color: transparent;
+      color: hsl(var(--foreground));
+    }
+    [data-variant='ghost']:hover {
+      background-color: hsl(var(--accent));
+      color: hsl(var(--accent-foreground));
+    }
+
     [data-variant='link'] {
+      background-color: transparent;
       color: hsl(var(--primary));
       text-underline-offset: 4px;
     }
-    [data-variant='link']:hover:not(:disabled) {
+    [data-variant='link']:hover {
       text-decoration: underline;
     }
 
-    /* --- states --- */
-
-    .root:disabled {
-      opacity: 0.5;
-    }
-
-    .root:focus-visible {
-      box-shadow: 0 0 0 2px hsl(var(--background)),
-        0 0 0 4px hsl(var(--ring));
-    }
-
-    /* slotted icon spacing */
-    ::slotted([data-icon='inline-start']) {
-      margin-right: 0.25rem;
-    }
-    ::slotted([data-icon='inline-end']) {
-      margin-left: 0.25rem;
+    [aria-invalid='true'] {
+      border-color: hsl(var(--destructive));
+      box-shadow: 0 0 0 1px hsl(var(--destructive) / 0.2);
     }
   `}render(){return P`
       <button
@@ -168,30 +164,28 @@
       >
         <slot></slot>
       </button>
-    `}};Y([q({type:String,reflect:!0})],X.prototype,`variant`,void 0),Y([q({type:String,reflect:!0})],X.prototype,`size`,void 0),Y([q({type:Boolean,reflect:!0})],X.prototype,`disabled`,void 0),X=Y([K(`shadcx-button`)],X);var Z=class extends G{constructor(...e){super(...e),this.type=`text`,this.placeholder=``,this.value=``,this.name=``,this.disabled=!1,this.required=!1,this.readonly=!1}static{this.styles=o`
+    `}};Y([q({type:String,reflect:!0})],X.prototype,`variant`,void 0),Y([q({type:String,reflect:!0})],X.prototype,`size`,void 0),Y([q({type:Boolean,reflect:!0})],X.prototype,`disabled`,void 0),X=Y([K(`shadcx-button`)],X);var Z=class extends G{constructor(...e){super(...e),this.type=`text`,this.placeholder=``,this.disabled=!1,this.required=!1,this.readonly=!1,this.ariaInvalid=null}static{this.styles=o`
     :host {
-      display: inline-flex;
-      width: 100%;
-    }
-
-    :host([disabled]) {
-      pointer-events: none;
+      display: flex;
     }
 
     .root {
+      margin: 0;
+      font-family: inherit;
+      font-weight: inherit;
+      line-height: inherit;
       display: flex;
       width: 100%;
       height: 2.25rem;
-      padding: 0.5rem 0.75rem;
-      font-size: 0.875rem;
-      font-family: inherit;
       border-radius: calc(var(--radius) - 2px);
       border: 1px solid hsl(var(--input));
       background-color: hsl(var(--background));
+      padding-inline: 0.75rem;
+      padding-block: 0.25rem;
+      font-size: 1rem;
       color: hsl(var(--foreground));
-      outline: none;
-      box-sizing: border-box;
       transition:
+        color 0.15s,
         border-color 0.15s,
         box-shadow 0.15s;
     }
@@ -200,62 +194,47 @@
       color: hsl(var(--muted-foreground));
     }
 
-    .root:focus {
-      border-color: hsl(var(--ring));
-      box-shadow: 0 0 0 2px hsl(var(--ring) / 0.2);
+    .root:focus-visible {
+      outline: none;
+      box-shadow:
+        0 0 0 2px hsl(var(--background)),
+        0 0 0 4px hsl(var(--ring));
     }
 
     .root:disabled {
-      opacity: 0.5;
       cursor: not-allowed;
+      opacity: 0.5;
     }
 
-    .root[aria-invalid='true'] {
+    .root::file-selector-button {
+      border: 0;
+      background-color: transparent;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: hsl(var(--foreground));
+    }
+
+    .root[aria-invalid] {
       border-color: hsl(var(--destructive));
     }
 
-    .root[aria-invalid='true']:focus {
-      box-shadow: 0 0 0 2px hsl(var(--destructive) / 0.2);
+    @media (min-width: 768px) {
+      .root {
+        font-size: 0.875rem;
+      }
     }
-
-    /* file input */
-    .root[type='file'] {
-      padding: 0.375rem;
-      cursor: pointer;
-    }
-    .root[type='file']::file-selector-button {
-      height: 1.75rem;
-      padding: 0 0.75rem;
-      margin-right: 0.5rem;
-      font-size: 0.8125rem;
-      font-family: inherit;
-      border-radius: calc(var(--radius) - 2px);
-      border: 1px solid hsl(var(--input));
-      background-color: hsl(var(--background));
-      color: hsl(var(--foreground));
-      cursor: pointer;
-      transition:
-        background-color 0.15s,
-        color 0.15s;
-    }
-    .root[type='file']::file-selector-button:hover {
-      background-color: hsl(var(--accent));
-      color: hsl(var(--accent-foreground));
-    }
-  `}_onInput(e){let t=e.target;this.value=t.value,this.dispatchEvent(new CustomEvent(`shadcx-input`,{detail:{value:this.value},bubbles:!0,composed:!0}))}render(){return P`
+  `}render(){return P`
       <input
         part="root"
         class="root"
         type=${this.type}
-        .value=${this.value}
-        .placeholder=${this.placeholder}
-        .name=${this.name}
+        placeholder=${this.placeholder}
         ?disabled=${this.disabled}
         ?required=${this.required}
         ?readonly=${this.readonly}
-        @input=${this._onInput}
-      />
-    `}};Y([q({type:String})],Z.prototype,`type`,void 0),Y([q({type:String})],Z.prototype,`placeholder`,void 0),Y([q({type:String})],Z.prototype,`value`,void 0),Y([q({type:String})],Z.prototype,`name`,void 0),Y([q({type:Boolean,reflect:!0})],Z.prototype,`disabled`,void 0),Y([q({type:Boolean,reflect:!0})],Z.prototype,`required`,void 0),Y([q({type:Boolean,reflect:!0})],Z.prototype,`readonly`,void 0),Z=Y([K(`shadcx-input`)],Z);var Q=class extends G{constructor(...e){super(...e),this.active=``}static{this.styles=o`
+        aria-invalid=${this.ariaInvalid||I}
+      >
+    `}};Y([q({type:String})],Z.prototype,`type`,void 0),Y([q({type:String})],Z.prototype,`placeholder`,void 0),Y([q({type:Boolean,reflect:!0})],Z.prototype,`disabled`,void 0),Y([q({type:Boolean,reflect:!0})],Z.prototype,`required`,void 0),Y([q({type:Boolean,reflect:!0})],Z.prototype,`readonly`,void 0),Y([q({type:String,attribute:`aria-invalid`})],Z.prototype,`ariaInvalid`,void 0),Z=Y([K(`shadcx-input`)],Z);var Q=class extends G{constructor(...e){super(...e),this.active=``}static{this.styles=o`
     :host {
       display: flex;
       flex-direction: column;
@@ -340,6 +319,7 @@
         >
           Input
         </a>
+
       </nav>
     `}};Y([q({type:String})],Q.prototype,`active`,void 0),Q=Y([K(`app-sidebar`)],Q);var Se=class extends G{static{this.styles=o`
     :host {
@@ -447,7 +427,7 @@
       pre { padding: 0.75rem; font-size: 0.75rem; }
       .cards { grid-template-columns: 1fr; }
     }
-  `}render(){return P`
+  `}_navigateButton(e){e.preventDefault(),location.hash=`button`}_navigateInput(e){e.preventDefault(),location.hash=`input`}render(){return P`
       <h1>shadcx</h1>
       <p class="lead">
         shadcn/ui reimagined as Web Components. No framework lock-in, no
@@ -462,12 +442,6 @@
       <pre><code>&lt;link rel="stylesheet" href="https://dobrinyonkov.github.io/shadcx/assets/index.css"&gt;
 &lt;script type="module" src="https://dobrinyonkov.github.io/shadcx/assets/index.js"&gt;&lt;/script&gt;</code></pre>
 
-      <p>
-        Then use any component in your HTML:
-      </p>
-      <pre><code>&lt;shadcx-button variant="default"&gt;Click me&lt;/shadcx-button&gt;
-&lt;shadcx-input placeholder="Type something..."&gt;&lt;/shadcx-input&gt;</code></pre>
-
       <h2>Components</h2>
       <div class="cards">
         <a class="card" href="#/button" @click=${this._navigateButton}>
@@ -479,7 +453,7 @@
           <p>A text input component for forms and user data entry.</p>
         </a>
       </div>
-    `}_navigateButton(e){e.preventDefault(),location.hash=`button`}_navigateInput(e){e.preventDefault(),location.hash=`input`}};Se=Y([K(`overview-page`)],Se);var Ce=class extends G{static{this.styles=o`
+    `}};Se=Y([K(`overview-page`)],Se);var Ce=class extends G{static{this.styles=o`
     :host {
       display: block;
       font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
@@ -645,26 +619,6 @@ background-color: hsl(var(--primary));</code></pre>
   --background: 0 0% 5%;
 }</code></pre>
 
-      <h2>CSS Shadow Parts</h2>
-      <p>
-        Every component exposes a CSS
-        <a
-          href="https://developer.mozilla.org/en-US/docs/Web/CSS/::part"
-          target="_blank"
-          rel="noopener"
-        ><code>::part()</code></a>
-        for fine-grained styling from outside the Shadow DOM:
-      </p>
-      <pre><code>shadcx-button::part(root) {
-  border-radius: 0;
-  text-transform: uppercase;
-  font-weight: 700;
-}
-
-shadcx-input::part(root) {
-  border-width: 2px;
-}</code></pre>
-
       <h2>Design Tokens</h2>
       <p>
         All values are <strong>HSL channels</strong> (H S% L%).
@@ -797,6 +751,7 @@ shadcx-input::part(root) {
       display: block;
       font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
     }
+
     h1 {
       font-size: 1.75rem;
       font-weight: 700;
@@ -804,28 +759,33 @@ shadcx-input::part(root) {
       margin: 0 0 0.5rem;
       color: hsl(var(--foreground));
     }
+
     h2 {
       font-size: 1.25rem;
       font-weight: 600;
       margin: 2.25rem 0 0.75rem;
       color: hsl(var(--foreground));
     }
+
     h3 {
       font-size: 1rem;
       font-weight: 600;
       margin: 1.5rem 0 0.5rem;
       color: hsl(var(--foreground));
     }
+
     p {
       font-size: 0.9375rem;
       line-height: 1.65;
       color: hsl(var(--foreground));
       margin: 0 0 0.75rem;
     }
+
     .desc {
       color: hsl(var(--muted-foreground));
       margin-bottom: 1.5rem;
     }
+
     .preview {
       border: 1px solid hsl(var(--border));
       border-radius: calc(var(--radius) - 2px);
@@ -838,12 +798,14 @@ shadcx-input::part(root) {
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
     }
+
     .preview + pre {
       margin-top: 0;
       border-top-left-radius: 0;
       border-top-right-radius: 0;
       border-top: none;
     }
+
     pre {
       background-color: hsl(var(--muted));
       border: 1px solid hsl(var(--border));
@@ -854,59 +816,78 @@ shadcx-input::part(root) {
       line-height: 1.6;
       margin: 0 0 1.5rem;
     }
+
     code {
       font-family: var(--font-mono, ui-monospace, SFMono-Regular, monospace);
       font-size: 0.8125rem;
     }
+
     :not(pre) > code {
       background-color: hsl(var(--muted));
       padding: 0.15rem 0.4rem;
       border-radius: calc(var(--radius) - 4px);
     }
+
     .table-wrap {
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
       margin-bottom: 1.5rem;
     }
+
     table {
       width: 100%;
       min-width: 24rem;
       font-size: 0.875rem;
       border-collapse: collapse;
     }
-    th, td {
+
+    th,
+    td {
       text-align: left;
       padding: 0.5rem 0.75rem;
       border-bottom: 1px solid hsl(var(--border));
     }
+
     th {
       font-weight: 600;
       color: hsl(var(--foreground));
       font-size: 0.8125rem;
     }
+
     td {
       color: hsl(var(--muted-foreground));
-      font-family: var(--font-mono, ui-monospace, SFMono-Regular, monospace);
       font-size: 0.8125rem;
-      white-space: nowrap;
     }
+
     td:first-child {
       color: hsl(var(--foreground));
       font-weight: 500;
-      font-family: inherit;
     }
-    td:nth-child(2) {
-      white-space: normal;
+
+    td code {
+      font-size: 0.75rem;
     }
+
     @media (max-width: 640px) {
-      h1 { font-size: 1.375rem; }
-      h2 { font-size: 1.125rem; }
-      .preview { padding: 1rem; }
-      pre { padding: 0.75rem; font-size: 0.75rem; }
+      h1 {
+        font-size: 1.375rem;
+      }
+      h2 {
+        font-size: 1.125rem;
+      }
+      .preview {
+        padding: 1rem;
+      }
+      pre {
+        padding: 0.75rem;
+        font-size: 0.75rem;
+      }
     }
   `}render(){return P`
       <h1>Button</h1>
-      <p class="desc">Displays a button or a component that looks like a button.</p>
+      <p class="desc">
+        Displays a button or a component that looks like a button.
+      </p>
 
       <h2>Installation</h2>
       <pre><code>&lt;link rel="stylesheet" href=".../assets/index.css"&gt;
@@ -917,24 +898,29 @@ shadcx-input::part(root) {
 
       <h2>Examples</h2>
 
+      <h3>Basic</h3>
+      <div class="preview">
+        <shadcx-button>Button</shadcx-button>
+      </div>
+      <pre><code>&lt;shadcx-button&gt;Button&lt;/shadcx-button&gt;</code></pre>
+
       <h3>Variants</h3>
       <div class="preview">
         <shadcx-button variant="default">Default</shadcx-button>
-        <shadcx-button variant="outline">Outline</shadcx-button>
-        <shadcx-button variant="ghost">Ghost</shadcx-button>
         <shadcx-button variant="destructive">Destructive</shadcx-button>
+        <shadcx-button variant="outline">Outline</shadcx-button>
         <shadcx-button variant="secondary">Secondary</shadcx-button>
+        <shadcx-button variant="ghost">Ghost</shadcx-button>
         <shadcx-button variant="link">Link</shadcx-button>
       </div>
       <pre><code>&lt;shadcx-button variant="default"&gt;Default&lt;/shadcx-button&gt;
-&lt;shadcx-button variant="outline"&gt;Outline&lt;/shadcx-button&gt;
-&lt;shadcx-button variant="ghost"&gt;Ghost&lt;/shadcx-button&gt;
 &lt;shadcx-button variant="destructive"&gt;Destructive&lt;/shadcx-button&gt;
+&lt;shadcx-button variant="outline"&gt;Outline&lt;/shadcx-button&gt;
 &lt;shadcx-button variant="secondary"&gt;Secondary&lt;/shadcx-button&gt;
+&lt;shadcx-button variant="ghost"&gt;Ghost&lt;/shadcx-button&gt;
 &lt;shadcx-button variant="link"&gt;Link&lt;/shadcx-button&gt;</code></pre>
 
-      <h3>Size</h3>
-      <p>Use the <code>size</code> prop to change the size of the button.</p>
+      <h3>Sizes</h3>
       <div class="preview">
         <shadcx-button size="xs">Extra Small</shadcx-button>
         <shadcx-button size="sm">Small</shadcx-button>
@@ -948,33 +934,68 @@ shadcx-input::part(root) {
 
       <h3>Icon</h3>
       <div class="preview">
-        <shadcx-button size="icon-xs">?</shadcx-button>
-        <shadcx-button size="icon-sm">?</shadcx-button>
-        <shadcx-button size="icon">?</shadcx-button>
-        <shadcx-button size="icon-lg">?</shadcx-button>
+        <shadcx-button size="icon" variant="outline" aria-label="Search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </shadcx-button>
+        <shadcx-button size="icon-xs" variant="outline" aria-label="Search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </shadcx-button>
+        <shadcx-button size="icon-sm" variant="outline" aria-label="Search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </shadcx-button>
+        <shadcx-button size="icon-lg" variant="outline" aria-label="Search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </shadcx-button>
       </div>
-      <pre><code>&lt;shadcx-button size="icon"&gt;&lt;svg ... /&gt;&lt;/shadcx-button&gt;
-&lt;shadcx-button size="icon-sm"&gt;+&lt;/shadcx-button&gt;</code></pre>
+      <pre><code>&lt;shadcx-button size="icon" variant="outline" aria-label="Search"&gt;
+  &lt;svg ...&gt;&lt;/svg&gt;
+&lt;/shadcx-button&gt;
+&lt;shadcx-button size="icon-xs" variant="outline" aria-label="Search"&gt;
+  &lt;svg ...&gt;&lt;/svg&gt;
+&lt;/shadcx-button&gt;
+&lt;shadcx-button size="icon-sm" variant="outline" aria-label="Search"&gt;
+  &lt;svg ...&gt;&lt;/svg&gt;
+&lt;/shadcx-button&gt;
+&lt;shadcx-button size="icon-lg" variant="outline" aria-label="Search"&gt;
+  &lt;svg ...&gt;&lt;/svg&gt;
+&lt;/shadcx-button&gt;</code></pre>
 
       <h3>Disabled</h3>
       <div class="preview">
-        <shadcx-button variant="default" disabled>Default</shadcx-button>
+        <shadcx-button disabled>Primary</shadcx-button>
         <shadcx-button variant="outline" disabled>Outline</shadcx-button>
         <shadcx-button variant="ghost" disabled>Ghost</shadcx-button>
       </div>
-      <pre><code>&lt;shadcx-button variant="default" disabled&gt;Default&lt;/shadcx-button&gt;
-&lt;shadcx-button variant="outline" disabled&gt;Outline&lt;/shadcx-button&gt;</code></pre>
+      <pre><code>&lt;shadcx-button disabled&gt;Primary&lt;/shadcx-button&gt;
+&lt;shadcx-button variant="outline" disabled&gt;Outline&lt;/shadcx-button&gt;
+&lt;shadcx-button variant="ghost" disabled&gt;Ghost&lt;/shadcx-button&gt;</code></pre>
 
       <h2>API Reference</h2>
       <div class="table-wrap">
         <table>
           <thead>
-            <tr><th>Prop</th><th>Type</th><th>Default</th></tr>
+            <tr>
+              <th>Prop</th>
+              <th>Type</th>
+              <th>Default</th>
+            </tr>
           </thead>
           <tbody>
-            <tr><td>variant</td><td>"default" | "outline" | "ghost" | "destructive" | "secondary" | "link"</td><td>"default"</td></tr>
-            <tr><td>size</td><td>"default" | "xs" | "sm" | "lg" | "icon" | "icon-xs" | "icon-sm" | "icon-lg"</td><td>"default"</td></tr>
-            <tr><td>disabled</td><td>boolean</td><td>false</td></tr>
+            <tr>
+              <td><code>variant</code></td>
+              <td><code>"default" | "destructive" | "outline" | "secondary" | "ghost" | "link"</code></td>
+              <td><code>"default"</code></td>
+            </tr>
+            <tr>
+              <td><code>size</code></td>
+              <td><code>"default" | "xs" | "sm" | "lg" | "icon" | "icon-xs" | "icon-sm" | "icon-lg"</code></td>
+              <td><code>"default"</code></td>
+            </tr>
+            <tr>
+              <td><code>disabled</code></td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -983,10 +1004,16 @@ shadcx-input::part(root) {
       <div class="table-wrap">
         <table>
           <thead>
-            <tr><th>Part</th><th>Description</th></tr>
+            <tr>
+              <th>Part</th>
+              <th>Description</th>
+            </tr>
           </thead>
           <tbody>
-            <tr><td>root</td><td>The button element</td></tr>
+            <tr>
+              <td><code>root</code></td>
+              <td>The <code>&lt;button&gt;</code> element</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -1035,9 +1062,9 @@ shadcx-input::part(root) {
       border-radius: calc(var(--radius) - 2px);
       padding: 1.5rem;
       display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      max-width: 24rem;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
       margin-bottom: 0;
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
@@ -1080,7 +1107,7 @@ shadcx-input::part(root) {
 
     table {
       width: 100%;
-      min-width: 28rem;
+      min-width: 24rem;
       font-size: 0.875rem;
       border-collapse: collapse;
     }
@@ -1100,26 +1127,39 @@ shadcx-input::part(root) {
 
     td {
       color: hsl(var(--muted-foreground));
-      font-family: var(--font-mono, ui-monospace, SFMono-Regular, monospace);
       font-size: 0.8125rem;
-      white-space: nowrap;
     }
 
     td:first-child {
       color: hsl(var(--foreground));
       font-weight: 500;
-      font-family: inherit;
     }
 
-    td:last-child {
-      white-space: normal;
+    td code {
+      font-size: 0.75rem;
+    }
+
+    .inline-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      width: 100%;
     }
 
     @media (max-width: 640px) {
-      h1 { font-size: 1.375rem; }
-      h2 { font-size: 1.125rem; }
-      .preview { padding: 1rem; max-width: 100%; }
-      pre { padding: 0.75rem; font-size: 0.75rem; }
+      h1 {
+        font-size: 1.375rem;
+      }
+      h2 {
+        font-size: 1.125rem;
+      }
+      .preview {
+        padding: 1rem;
+      }
+      pre {
+        padding: 0.75rem;
+        font-size: 0.75rem;
+      }
     }
   `}render(){return P`
       <h1>Input</h1>
@@ -1133,30 +1173,63 @@ shadcx-input::part(root) {
 &lt;script type="module" src=".../assets/index.js"&gt;&lt;/script&gt;</code></pre>
 
       <h2>Usage</h2>
-      <pre><code>&lt;shadcx-input /&gt;</code></pre>
+      <pre><code>&lt;shadcx-input placeholder="Enter text"&gt;&lt;/shadcx-input&gt;</code></pre>
 
       <h2>Examples</h2>
 
       <h3>Basic</h3>
       <div class="preview">
-        <shadcx-input placeholder="Placeholder text..."></shadcx-input>
+        <shadcx-input placeholder="Enter text"></shadcx-input>
       </div>
-      <pre><code>&lt;shadcx-input placeholder="Placeholder text..."&gt;&lt;/shadcx-input&gt;</code></pre>
+      <pre><code>&lt;shadcx-input placeholder="Enter text"&gt;&lt;/shadcx-input&gt;</code></pre>
+
+      <h3>Types</h3>
+      <div class="preview">
+        <shadcx-input type="text" placeholder="Text"></shadcx-input>
+        <shadcx-input type="email" placeholder="Email"></shadcx-input>
+        <shadcx-input type="password" placeholder="Password"></shadcx-input>
+        <shadcx-input type="search" placeholder="Search"></shadcx-input>
+      </div>
+      <pre><code>&lt;shadcx-input type="text" placeholder="Text"&gt;&lt;/shadcx-input&gt;
+&lt;shadcx-input type="email" placeholder="Email"&gt;&lt;/shadcx-input&gt;
+&lt;shadcx-input type="password" placeholder="Password"&gt;&lt;/shadcx-input&gt;
+&lt;shadcx-input type="search" placeholder="Search"&gt;&lt;/shadcx-input&gt;</code></pre>
 
       <h3>Disabled</h3>
       <div class="preview">
-        <shadcx-input disabled placeholder="Disabled input..."></shadcx-input>
+        <shadcx-input placeholder="Disabled" disabled></shadcx-input>
       </div>
-      <pre><code>&lt;shadcx-input disabled placeholder="Disabled input..."&gt;&lt;/shadcx-input&gt;</code></pre>
+      <pre><code>&lt;shadcx-input placeholder="Disabled" disabled&gt;&lt;/shadcx-input&gt;</code></pre>
+
+      <h3>Invalid</h3>
+      <div class="preview">
+        <shadcx-input placeholder="Error" aria-invalid="true"></shadcx-input>
+      </div>
+      <pre><code>&lt;shadcx-input placeholder="Error" aria-invalid="true"&gt;&lt;/shadcx-input&gt;</code></pre>
 
       <h3>File</h3>
-      <p>
-        Use the <code>type="file"</code> prop to create a file input.
-      </p>
       <div class="preview">
         <shadcx-input type="file"></shadcx-input>
       </div>
       <pre><code>&lt;shadcx-input type="file"&gt;&lt;/shadcx-input&gt;</code></pre>
+
+      <h3>Required</h3>
+      <div class="preview">
+        <shadcx-input placeholder="Required field" required></shadcx-input>
+      </div>
+      <pre><code>&lt;shadcx-input placeholder="Required field" required&gt;&lt;/shadcx-input&gt;</code></pre>
+
+      <h3>With Button</h3>
+      <div class="preview">
+        <div class="inline-row">
+          <shadcx-input type="search" placeholder="Search..."></shadcx-input>
+          <shadcx-button variant="outline">Search</shadcx-button>
+        </div>
+      </div>
+      <pre><code>&lt;div style="display: flex; gap: 0.5rem;"&gt;
+  &lt;shadcx-input type="search" placeholder="Search..."&gt;&lt;/shadcx-input&gt;
+  &lt;shadcx-button variant="outline"&gt;Search&lt;/shadcx-button&gt;
+&lt;/div&gt;</code></pre>
 
       <h2>API Reference</h2>
       <div class="table-wrap">
@@ -1170,59 +1243,34 @@ shadcx-input::part(root) {
           </thead>
           <tbody>
             <tr>
-              <td>type</td>
-              <td>string</td>
-              <td>"text"</td>
+              <td><code>type</code></td>
+              <td><code>string</code></td>
+              <td><code>"text"</code></td>
             </tr>
             <tr>
-              <td>placeholder</td>
-              <td>string</td>
-              <td>""</td>
+              <td><code>placeholder</code></td>
+              <td><code>string</code></td>
+              <td><code>""</code></td>
             </tr>
             <tr>
-              <td>value</td>
-              <td>string</td>
-              <td>""</td>
+              <td><code>disabled</code></td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
             </tr>
             <tr>
-              <td>name</td>
-              <td>string</td>
-              <td>""</td>
+              <td><code>required</code></td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
             </tr>
             <tr>
-              <td>disabled</td>
-              <td>boolean</td>
-              <td>false</td>
+              <td><code>readonly</code></td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
             </tr>
             <tr>
-              <td>required</td>
-              <td>boolean</td>
-              <td>false</td>
-            </tr>
-            <tr>
-              <td>readonly</td>
-              <td>boolean</td>
-              <td>false</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h3>Events</h3>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Event</th>
-              <th>Detail</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>shadcx-input</td>
-              <td>{ value: string }</td>
-              <td>Fires on every input change</td>
+              <td><code>aria-invalid</code></td>
+              <td><code>string</code></td>
+              <td><code>—</code></td>
             </tr>
           </tbody>
         </table>
@@ -1239,8 +1287,8 @@ shadcx-input::part(root) {
           </thead>
           <tbody>
             <tr>
-              <td>root</td>
-              <td>The input element</td>
+              <td><code>root</code></td>
+              <td>The <code>&lt;input&gt;</code> element</td>
             </tr>
           </tbody>
         </table>
@@ -1413,4 +1461,4 @@ shadcx-input::part(root) {
 
         <main class="content">${this._renderPage()}</main>
       </div>
-    `}_renderPage(){switch(this._page){case`theming`:return P`<theming-page></theming-page>`;case`button`:return P`<button-page></button-page>`;case`input`:return P`<input-page></input-page>`;default:return P`<overview-page></overview-page>`}}};Y([J()],$.prototype,`_page`,void 0),Y([J()],$.prototype,`_sidebarOpen`,void 0),Y([J()],$.prototype,`_dark`,void 0),$=Y([K(`app-layout`)],$);
+    `}_renderPage(){switch(this._page){case`button`:return P`<button-page></button-page>`;case`input`:return P`<input-page></input-page>`;case`theming`:return P`<theming-page></theming-page>`;default:return P`<overview-page></overview-page>`}}};Y([J()],$.prototype,`_page`,void 0),Y([J()],$.prototype,`_sidebarOpen`,void 0),Y([J()],$.prototype,`_dark`,void 0),$=Y([K(`app-layout`)],$);
