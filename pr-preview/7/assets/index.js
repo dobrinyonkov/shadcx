@@ -1,5 +1,5 @@
 (function(){let e=document.createElement(`link`).relList;if(e&&e.supports&&e.supports(`modulepreload`))return;for(let e of document.querySelectorAll(`link[rel="modulepreload"]`))n(e);new MutationObserver(e=>{for(let t of e)if(t.type===`childList`)for(let e of t.addedNodes)e.tagName===`LINK`&&e.rel===`modulepreload`&&n(e)}).observe(document,{childList:!0,subtree:!0});function t(e){let t={};return e.integrity&&(t.integrity=e.integrity),e.referrerPolicy&&(t.referrerPolicy=e.referrerPolicy),e.crossOrigin===`use-credentials`?t.credentials=`include`:e.crossOrigin===`anonymous`?t.credentials=`omit`:t.credentials=`same-origin`,t}function n(e){if(e.ep)return;e.ep=!0;let n=t(e);fetch(e.href,n)}})();var e=globalThis,t=e.ShadowRoot&&(e.ShadyCSS===void 0||e.ShadyCSS.nativeShadow)&&`adoptedStyleSheets`in Document.prototype&&`replace`in CSSStyleSheet.prototype,n=Symbol(),r=new WeakMap,i=class{constructor(e,t,r){if(this._$cssResult$=!0,r!==n)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=e,this.t=t}get styleSheet(){let e=this.o,n=this.t;if(t&&e===void 0){let t=n!==void 0&&n.length===1;t&&(e=r.get(n)),e===void 0&&((this.o=e=new CSSStyleSheet).replaceSync(this.cssText),t&&r.set(n,e))}return e}toString(){return this.cssText}},a=e=>new i(typeof e==`string`?e:e+``,void 0,n),o=(e,...t)=>new i(e.length===1?e[0]:t.reduce((t,n,r)=>t+(e=>{if(!0===e._$cssResult$)return e.cssText;if(typeof e==`number`)return e;throw Error(`Value passed to 'css' function must be a 'css' function result: `+e+`. Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.`)})(n)+e[r+1],e[0]),e,n),s=(n,r)=>{if(t)n.adoptedStyleSheets=r.map(e=>e instanceof CSSStyleSheet?e:e.styleSheet);else for(let t of r){let r=document.createElement(`style`),i=e.litNonce;i!==void 0&&r.setAttribute(`nonce`,i),r.textContent=t.cssText,n.appendChild(r)}},c=t?e=>e:e=>e instanceof CSSStyleSheet?(e=>{let t=``;for(let n of e.cssRules)t+=n.cssText;return a(t)})(e):e,{is:l,defineProperty:u,getOwnPropertyDescriptor:d,getOwnPropertyNames:ee,getOwnPropertySymbols:te,getPrototypeOf:ne}=Object,f=globalThis,re=f.trustedTypes,ie=re?re.emptyScript:``,ae=f.reactiveElementPolyfillSupport,p=(e,t)=>e,m={toAttribute(e,t){switch(t){case Boolean:e=e?ie:null;break;case Object:case Array:e=e==null?e:JSON.stringify(e)}return e},fromAttribute(e,t){let n=e;switch(t){case Boolean:n=e!==null;break;case Number:n=e===null?null:Number(e);break;case Object:case Array:try{n=JSON.parse(e)}catch{n=null}}return n}},h=(e,t)=>!l(e,t),oe={attribute:!0,type:String,converter:m,reflect:!1,useDefault:!1,hasChanged:h};Symbol.metadata??=Symbol(`metadata`),f.litPropertyMetadata??=new WeakMap;var g=class extends HTMLElement{static addInitializer(e){this._$Ei(),(this.l??=[]).push(e)}static get observedAttributes(){return this.finalize(),this._$Eh&&[...this._$Eh.keys()]}static createProperty(e,t=oe){if(t.state&&(t.attribute=!1),this._$Ei(),this.prototype.hasOwnProperty(e)&&((t=Object.create(t)).wrapped=!0),this.elementProperties.set(e,t),!t.noAccessor){let n=Symbol(),r=this.getPropertyDescriptor(e,n,t);r!==void 0&&u(this.prototype,e,r)}}static getPropertyDescriptor(e,t,n){let{get:r,set:i}=d(this.prototype,e)??{get(){return this[t]},set(e){this[t]=e}};return{get:r,set(t){let a=r?.call(this);i?.call(this,t),this.requestUpdate(e,a,n)},configurable:!0,enumerable:!0}}static getPropertyOptions(e){return this.elementProperties.get(e)??oe}static _$Ei(){if(this.hasOwnProperty(p(`elementProperties`)))return;let e=ne(this);e.finalize(),e.l!==void 0&&(this.l=[...e.l]),this.elementProperties=new Map(e.elementProperties)}static finalize(){if(this.hasOwnProperty(p(`finalized`)))return;if(this.finalized=!0,this._$Ei(),this.hasOwnProperty(p(`properties`))){let e=this.properties,t=[...ee(e),...te(e)];for(let n of t)this.createProperty(n,e[n])}let e=this[Symbol.metadata];if(e!==null){let t=litPropertyMetadata.get(e);if(t!==void 0)for(let[e,n]of t)this.elementProperties.set(e,n)}this._$Eh=new Map;for(let[e,t]of this.elementProperties){let n=this._$Eu(e,t);n!==void 0&&this._$Eh.set(n,e)}this.elementStyles=this.finalizeStyles(this.styles)}static finalizeStyles(e){let t=[];if(Array.isArray(e)){let n=new Set(e.flat(1/0).reverse());for(let e of n)t.unshift(c(e))}else e!==void 0&&t.push(c(e));return t}static _$Eu(e,t){let n=t.attribute;return!1===n?void 0:typeof n==`string`?n:typeof e==`string`?e.toLowerCase():void 0}constructor(){super(),this._$Ep=void 0,this.isUpdatePending=!1,this.hasUpdated=!1,this._$Em=null,this._$Ev()}_$Ev(){this._$ES=new Promise(e=>this.enableUpdating=e),this._$AL=new Map,this._$E_(),this.requestUpdate(),this.constructor.l?.forEach(e=>e(this))}addController(e){(this._$EO??=new Set).add(e),this.renderRoot!==void 0&&this.isConnected&&e.hostConnected?.()}removeController(e){this._$EO?.delete(e)}_$E_(){let e=new Map,t=this.constructor.elementProperties;for(let n of t.keys())this.hasOwnProperty(n)&&(e.set(n,this[n]),delete this[n]);e.size>0&&(this._$Ep=e)}createRenderRoot(){let e=this.shadowRoot??this.attachShadow(this.constructor.shadowRootOptions);return s(e,this.constructor.elementStyles),e}connectedCallback(){this.renderRoot??=this.createRenderRoot(),this.enableUpdating(!0),this._$EO?.forEach(e=>e.hostConnected?.())}enableUpdating(e){}disconnectedCallback(){this._$EO?.forEach(e=>e.hostDisconnected?.())}attributeChangedCallback(e,t,n){this._$AK(e,n)}_$ET(e,t){let n=this.constructor.elementProperties.get(e),r=this.constructor._$Eu(e,n);if(r!==void 0&&!0===n.reflect){let i=(n.converter?.toAttribute===void 0?m:n.converter).toAttribute(t,n.type);this._$Em=e,i==null?this.removeAttribute(r):this.setAttribute(r,i),this._$Em=null}}_$AK(e,t){let n=this.constructor,r=n._$Eh.get(e);if(r!==void 0&&this._$Em!==r){let e=n.getPropertyOptions(r),i=typeof e.converter==`function`?{fromAttribute:e.converter}:e.converter?.fromAttribute===void 0?m:e.converter;this._$Em=r;let a=i.fromAttribute(t,e.type);this[r]=a??this._$Ej?.get(r)??a,this._$Em=null}}requestUpdate(e,t,n,r=!1,i){if(e!==void 0){let a=this.constructor;if(!1===r&&(i=this[e]),n??=a.getPropertyOptions(e),!((n.hasChanged??h)(i,t)||n.useDefault&&n.reflect&&i===this._$Ej?.get(e)&&!this.hasAttribute(a._$Eu(e,n))))return;this.C(e,t,n)}!1===this.isUpdatePending&&(this._$ES=this._$EP())}C(e,t,{useDefault:n,reflect:r,wrapped:i},a){n&&!(this._$Ej??=new Map).has(e)&&(this._$Ej.set(e,a??t??this[e]),!0!==i||a!==void 0)||(this._$AL.has(e)||(this.hasUpdated||n||(t=void 0),this._$AL.set(e,t)),!0===r&&this._$Em!==e&&(this._$Eq??=new Set).add(e))}async _$EP(){this.isUpdatePending=!0;try{await this._$ES}catch(e){Promise.reject(e)}let e=this.scheduleUpdate();return e!=null&&await e,!this.isUpdatePending}scheduleUpdate(){return this.performUpdate()}performUpdate(){if(!this.isUpdatePending)return;if(!this.hasUpdated){if(this.renderRoot??=this.createRenderRoot(),this._$Ep){for(let[e,t]of this._$Ep)this[e]=t;this._$Ep=void 0}let e=this.constructor.elementProperties;if(e.size>0)for(let[t,n]of e){let{wrapped:e}=n,r=this[t];!0!==e||this._$AL.has(t)||r===void 0||this.C(t,void 0,n,r)}}let e=!1,t=this._$AL;try{e=this.shouldUpdate(t),e?(this.willUpdate(t),this._$EO?.forEach(e=>e.hostUpdate?.()),this.update(t)):this._$EM()}catch(t){throw e=!1,this._$EM(),t}e&&this._$AE(t)}willUpdate(e){}_$AE(e){this._$EO?.forEach(e=>e.hostUpdated?.()),this.hasUpdated||(this.hasUpdated=!0,this.firstUpdated(e)),this.updated(e)}_$EM(){this._$AL=new Map,this.isUpdatePending=!1}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this._$ES}shouldUpdate(e){return!0}update(e){this._$Eq&&=this._$Eq.forEach(e=>this._$ET(e,this[e])),this._$EM()}updated(e){}firstUpdated(e){}};g.elementStyles=[],g.shadowRootOptions={mode:`open`},g[p(`elementProperties`)]=new Map,g[p(`finalized`)]=new Map,ae?.({ReactiveElement:g}),(f.reactiveElementVersions??=[]).push(`2.1.2`);var _=globalThis,se=e=>e,v=_.trustedTypes,ce=v?v.createPolicy(`lit-html`,{createHTML:e=>e}):void 0,le=`$lit$`,y=`lit$${Math.random().toFixed(9).slice(2)}$`,ue=`?`+y,de=`<${ue}>`,b=document,x=()=>b.createComment(``),S=e=>e===null||typeof e!=`object`&&typeof e!=`function`,C=Array.isArray,fe=e=>C(e)||typeof e?.[Symbol.iterator]==`function`,w=`[ 	
-\f\r]`,T=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,pe=/-->/g,me=/>/g,E=RegExp(`>|${w}(?:([^\\s"'>=/]+)(${w}*=${w}*(?:[^ \t\n\f\r"'\`<>=]|("|')|))|$)`,`g`),D=/'/g,he=/"/g,O=/^(?:script|style|textarea|title)$/i,k=(e=>(t,...n)=>({_$litType$:e,strings:t,values:n}))(1),A=Symbol.for(`lit-noChange`),j=Symbol.for(`lit-nothing`),M=new WeakMap,N=b.createTreeWalker(b,129);function ge(e,t){if(!C(e)||!e.hasOwnProperty(`raw`))throw Error(`invalid template strings array`);return ce===void 0?t:ce.createHTML(t)}var _e=(e,t)=>{let n=e.length-1,r=[],i,a=t===2?`<svg>`:t===3?`<math>`:``,o=T;for(let t=0;t<n;t++){let n=e[t],s,c,l=-1,u=0;for(;u<n.length&&(o.lastIndex=u,c=o.exec(n),c!==null);)u=o.lastIndex,o===T?c[1]===`!--`?o=pe:c[1]===void 0?c[2]===void 0?c[3]!==void 0&&(o=E):(O.test(c[2])&&(i=RegExp(`</`+c[2],`g`)),o=E):o=me:o===E?c[0]===`>`?(o=i??T,l=-1):c[1]===void 0?l=-2:(l=o.lastIndex-c[2].length,s=c[1],o=c[3]===void 0?E:c[3]===`"`?he:D):o===he||o===D?o=E:o===pe||o===me?o=T:(o=E,i=void 0);let d=o===E&&e[t+1].startsWith(`/>`)?` `:``;a+=o===T?n+de:l>=0?(r.push(s),n.slice(0,l)+le+n.slice(l)+y+d):n+y+(l===-2?t:d)}return[ge(e,a+(e[n]||`<?>`)+(t===2?`</svg>`:t===3?`</math>`:``)),r]},P=class e{constructor({strings:t,_$litType$:n},r){let i;this.parts=[];let a=0,o=0,s=t.length-1,c=this.parts,[l,u]=_e(t,n);if(this.el=e.createElement(l,r),N.currentNode=this.el.content,n===2||n===3){let e=this.el.content.firstChild;e.replaceWith(...e.childNodes)}for(;(i=N.nextNode())!==null&&c.length<s;){if(i.nodeType===1){if(i.hasAttributes())for(let e of i.getAttributeNames())if(e.endsWith(le)){let t=u[o++],n=i.getAttribute(e).split(y),r=/([.?@])?(.*)/.exec(t);c.push({type:1,index:a,name:r[2],strings:n,ctor:r[1]===`.`?ye:r[1]===`?`?be:r[1]===`@`?xe:L}),i.removeAttribute(e)}else e.startsWith(y)&&(c.push({type:6,index:a}),i.removeAttribute(e));if(O.test(i.tagName)){let e=i.textContent.split(y),t=e.length-1;if(t>0){i.textContent=v?v.emptyScript:``;for(let n=0;n<t;n++)i.append(e[n],x()),N.nextNode(),c.push({type:2,index:++a});i.append(e[t],x())}}}else if(i.nodeType===8)if(i.data===ue)c.push({type:2,index:a});else{let e=-1;for(;(e=i.data.indexOf(y,e+1))!==-1;)c.push({type:7,index:a}),e+=y.length-1}a++}}static createElement(e,t){let n=b.createElement(`template`);return n.innerHTML=e,n}};function F(e,t,n=e,r){if(t===A)return t;let i=r===void 0?n._$Cl:n._$Co?.[r],a=S(t)?void 0:t._$litDirective$;return i?.constructor!==a&&(i?._$AO?.(!1),a===void 0?i=void 0:(i=new a(e),i._$AT(e,n,r)),r===void 0?n._$Cl=i:(n._$Co??=[])[r]=i),i!==void 0&&(t=F(e,i._$AS(e,t.values),i,r)),t}var ve=class{constructor(e,t){this._$AV=[],this._$AN=void 0,this._$AD=e,this._$AM=t}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(e){let{el:{content:t},parts:n}=this._$AD,r=(e?.creationScope??b).importNode(t,!0);N.currentNode=r;let i=N.nextNode(),a=0,o=0,s=n[0];for(;s!==void 0;){if(a===s.index){let t;s.type===2?t=new I(i,i.nextSibling,this,e):s.type===1?t=new s.ctor(i,s.name,s.strings,this,e):s.type===6&&(t=new Se(i,this,e)),this._$AV.push(t),s=n[++o]}a!==s?.index&&(i=N.nextNode(),a++)}return N.currentNode=b,r}p(e){let t=0;for(let n of this._$AV)n!==void 0&&(n.strings===void 0?n._$AI(e[t]):(n._$AI(e,n,t),t+=n.strings.length-2)),t++}},I=class e{get _$AU(){return this._$AM?._$AU??this._$Cv}constructor(e,t,n,r){this.type=2,this._$AH=j,this._$AN=void 0,this._$AA=e,this._$AB=t,this._$AM=n,this.options=r,this._$Cv=r?.isConnected??!0}get parentNode(){let e=this._$AA.parentNode,t=this._$AM;return t!==void 0&&e?.nodeType===11&&(e=t.parentNode),e}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(e,t=this){e=F(this,e,t),S(e)?e===j||e==null||e===``?(this._$AH!==j&&this._$AR(),this._$AH=j):e!==this._$AH&&e!==A&&this._(e):e._$litType$===void 0?e.nodeType===void 0?fe(e)?this.k(e):this._(e):this.T(e):this.$(e)}O(e){return this._$AA.parentNode.insertBefore(e,this._$AB)}T(e){this._$AH!==e&&(this._$AR(),this._$AH=this.O(e))}_(e){this._$AH!==j&&S(this._$AH)?this._$AA.nextSibling.data=e:this.T(b.createTextNode(e)),this._$AH=e}$(e){let{values:t,_$litType$:n}=e,r=typeof n==`number`?this._$AC(e):(n.el===void 0&&(n.el=P.createElement(ge(n.h,n.h[0]),this.options)),n);if(this._$AH?._$AD===r)this._$AH.p(t);else{let e=new ve(r,this),n=e.u(this.options);e.p(t),this.T(n),this._$AH=e}}_$AC(e){let t=M.get(e.strings);return t===void 0&&M.set(e.strings,t=new P(e)),t}k(t){C(this._$AH)||(this._$AH=[],this._$AR());let n=this._$AH,r,i=0;for(let a of t)i===n.length?n.push(r=new e(this.O(x()),this.O(x()),this,this.options)):r=n[i],r._$AI(a),i++;i<n.length&&(this._$AR(r&&r._$AB.nextSibling,i),n.length=i)}_$AR(e=this._$AA.nextSibling,t){for(this._$AP?.(!1,!0,t);e!==this._$AB;){let t=se(e).nextSibling;se(e).remove(),e=t}}setConnected(e){this._$AM===void 0&&(this._$Cv=e,this._$AP?.(e))}},L=class{get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}constructor(e,t,n,r,i){this.type=1,this._$AH=j,this._$AN=void 0,this.element=e,this.name=t,this._$AM=r,this.options=i,n.length>2||n[0]!==``||n[1]!==``?(this._$AH=Array(n.length-1).fill(new String),this.strings=n):this._$AH=j}_$AI(e,t=this,n,r){let i=this.strings,a=!1;if(i===void 0)e=F(this,e,t,0),a=!S(e)||e!==this._$AH&&e!==A,a&&(this._$AH=e);else{let r=e,o,s;for(e=i[0],o=0;o<i.length-1;o++)s=F(this,r[n+o],t,o),s===A&&(s=this._$AH[o]),a||=!S(s)||s!==this._$AH[o],s===j?e=j:e!==j&&(e+=(s??``)+i[o+1]),this._$AH[o]=s}a&&!r&&this.j(e)}j(e){e===j?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,e??``)}},ye=class extends L{constructor(){super(...arguments),this.type=3}j(e){this.element[this.name]=e===j?void 0:e}},be=class extends L{constructor(){super(...arguments),this.type=4}j(e){this.element.toggleAttribute(this.name,!!e&&e!==j)}},xe=class extends L{constructor(e,t,n,r,i){super(e,t,n,r,i),this.type=5}_$AI(e,t=this){if((e=F(this,e,t,0)??j)===A)return;let n=this._$AH,r=e===j&&n!==j||e.capture!==n.capture||e.once!==n.once||e.passive!==n.passive,i=e!==j&&(n===j||r);r&&this.element.removeEventListener(this.name,this,n),i&&this.element.addEventListener(this.name,this,e),this._$AH=e}handleEvent(e){typeof this._$AH==`function`?this._$AH.call(this.options?.host??this.element,e):this._$AH.handleEvent(e)}},Se=class{constructor(e,t,n){this.element=e,this.type=6,this._$AN=void 0,this._$AM=t,this.options=n}get _$AU(){return this._$AM._$AU}_$AI(e){F(this,e)}},Ce=_.litHtmlPolyfillSupport;Ce?.(P,I),(_.litHtmlVersions??=[]).push(`3.3.2`);var we=(e,t,n)=>{let r=n?.renderBefore??t,i=r._$litPart$;if(i===void 0){let e=n?.renderBefore??null;r._$litPart$=i=new I(t.insertBefore(x(),e),e,void 0,n??{})}return i._$AI(e),i},R=globalThis,z=class extends g{constructor(){super(...arguments),this.renderOptions={host:this},this._$Do=void 0}createRenderRoot(){let e=super.createRenderRoot();return this.renderOptions.renderBefore??=e.firstChild,e}update(e){let t=this.render();this.hasUpdated||(this.renderOptions.isConnected=this.isConnected),super.update(e),this._$Do=we(t,this.renderRoot,this.renderOptions)}connectedCallback(){super.connectedCallback(),this._$Do?.setConnected(!0)}disconnectedCallback(){super.disconnectedCallback(),this._$Do?.setConnected(!1)}render(){return A}};z._$litElement$=!0,z.finalized=!0,R.litElementHydrateSupport?.({LitElement:z});var Te=R.litElementPolyfillSupport;Te?.({LitElement:z}),(R.litElementVersions??=[]).push(`4.2.2`);var B=e=>(t,n)=>{n===void 0?customElements.define(e,t):n.addInitializer(()=>{customElements.define(e,t)})},Ee={attribute:!0,type:String,converter:m,reflect:!1,hasChanged:h},De=(e=Ee,t,n)=>{let{kind:r,metadata:i}=n,a=globalThis.litPropertyMetadata.get(i);if(a===void 0&&globalThis.litPropertyMetadata.set(i,a=new Map),r===`setter`&&((e=Object.create(e)).wrapped=!0),a.set(n.name,e),r===`accessor`){let{name:r}=n;return{set(n){let i=t.get.call(this);t.set.call(this,n),this.requestUpdate(r,i,e,!0,n)},init(t){return t!==void 0&&this.C(r,void 0,e,t),t}}}if(r===`setter`){let{name:r}=n;return function(n){let i=this[r];t.call(this,n),this.requestUpdate(r,i,e,!0,n)}}throw Error(`Unsupported decorator location: `+r)};function V(e){return(t,n)=>typeof n==`object`?De(e,t,n):((e,t,n)=>{let r=t.hasOwnProperty(n);return t.constructor.createProperty(n,e),r?Object.getOwnPropertyDescriptor(t,n):void 0})(e,t,n)}function H(e){return V({...e,state:!0,attribute:!1})}var U=o`
+\f\r]`,T=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,pe=/-->/g,E=/>/g,D=RegExp(`>|${w}(?:([^\\s"'>=/]+)(${w}*=${w}*(?:[^ \t\n\f\r"'\`<>=]|("|')|))|$)`,`g`),O=/'/g,me=/"/g,he=/^(?:script|style|textarea|title)$/i,k=(e=>(t,...n)=>({_$litType$:e,strings:t,values:n}))(1),A=Symbol.for(`lit-noChange`),j=Symbol.for(`lit-nothing`),ge=new WeakMap,M=b.createTreeWalker(b,129);function _e(e,t){if(!C(e)||!e.hasOwnProperty(`raw`))throw Error(`invalid template strings array`);return ce===void 0?t:ce.createHTML(t)}var ve=(e,t)=>{let n=e.length-1,r=[],i,a=t===2?`<svg>`:t===3?`<math>`:``,o=T;for(let t=0;t<n;t++){let n=e[t],s,c,l=-1,u=0;for(;u<n.length&&(o.lastIndex=u,c=o.exec(n),c!==null);)u=o.lastIndex,o===T?c[1]===`!--`?o=pe:c[1]===void 0?c[2]===void 0?c[3]!==void 0&&(o=D):(he.test(c[2])&&(i=RegExp(`</`+c[2],`g`)),o=D):o=E:o===D?c[0]===`>`?(o=i??T,l=-1):c[1]===void 0?l=-2:(l=o.lastIndex-c[2].length,s=c[1],o=c[3]===void 0?D:c[3]===`"`?me:O):o===me||o===O?o=D:o===pe||o===E?o=T:(o=D,i=void 0);let d=o===D&&e[t+1].startsWith(`/>`)?` `:``;a+=o===T?n+de:l>=0?(r.push(s),n.slice(0,l)+le+n.slice(l)+y+d):n+y+(l===-2?t:d)}return[_e(e,a+(e[n]||`<?>`)+(t===2?`</svg>`:t===3?`</math>`:``)),r]},N=class e{constructor({strings:t,_$litType$:n},r){let i;this.parts=[];let a=0,o=0,s=t.length-1,c=this.parts,[l,u]=ve(t,n);if(this.el=e.createElement(l,r),M.currentNode=this.el.content,n===2||n===3){let e=this.el.content.firstChild;e.replaceWith(...e.childNodes)}for(;(i=M.nextNode())!==null&&c.length<s;){if(i.nodeType===1){if(i.hasAttributes())for(let e of i.getAttributeNames())if(e.endsWith(le)){let t=u[o++],n=i.getAttribute(e).split(y),r=/([.?@])?(.*)/.exec(t);c.push({type:1,index:a,name:r[2],strings:n,ctor:r[1]===`.`?be:r[1]===`?`?xe:r[1]===`@`?Se:I}),i.removeAttribute(e)}else e.startsWith(y)&&(c.push({type:6,index:a}),i.removeAttribute(e));if(he.test(i.tagName)){let e=i.textContent.split(y),t=e.length-1;if(t>0){i.textContent=v?v.emptyScript:``;for(let n=0;n<t;n++)i.append(e[n],x()),M.nextNode(),c.push({type:2,index:++a});i.append(e[t],x())}}}else if(i.nodeType===8)if(i.data===ue)c.push({type:2,index:a});else{let e=-1;for(;(e=i.data.indexOf(y,e+1))!==-1;)c.push({type:7,index:a}),e+=y.length-1}a++}}static createElement(e,t){let n=b.createElement(`template`);return n.innerHTML=e,n}};function P(e,t,n=e,r){if(t===A)return t;let i=r===void 0?n._$Cl:n._$Co?.[r],a=S(t)?void 0:t._$litDirective$;return i?.constructor!==a&&(i?._$AO?.(!1),a===void 0?i=void 0:(i=new a(e),i._$AT(e,n,r)),r===void 0?n._$Cl=i:(n._$Co??=[])[r]=i),i!==void 0&&(t=P(e,i._$AS(e,t.values),i,r)),t}var ye=class{constructor(e,t){this._$AV=[],this._$AN=void 0,this._$AD=e,this._$AM=t}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(e){let{el:{content:t},parts:n}=this._$AD,r=(e?.creationScope??b).importNode(t,!0);M.currentNode=r;let i=M.nextNode(),a=0,o=0,s=n[0];for(;s!==void 0;){if(a===s.index){let t;s.type===2?t=new F(i,i.nextSibling,this,e):s.type===1?t=new s.ctor(i,s.name,s.strings,this,e):s.type===6&&(t=new Ce(i,this,e)),this._$AV.push(t),s=n[++o]}a!==s?.index&&(i=M.nextNode(),a++)}return M.currentNode=b,r}p(e){let t=0;for(let n of this._$AV)n!==void 0&&(n.strings===void 0?n._$AI(e[t]):(n._$AI(e,n,t),t+=n.strings.length-2)),t++}},F=class e{get _$AU(){return this._$AM?._$AU??this._$Cv}constructor(e,t,n,r){this.type=2,this._$AH=j,this._$AN=void 0,this._$AA=e,this._$AB=t,this._$AM=n,this.options=r,this._$Cv=r?.isConnected??!0}get parentNode(){let e=this._$AA.parentNode,t=this._$AM;return t!==void 0&&e?.nodeType===11&&(e=t.parentNode),e}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(e,t=this){e=P(this,e,t),S(e)?e===j||e==null||e===``?(this._$AH!==j&&this._$AR(),this._$AH=j):e!==this._$AH&&e!==A&&this._(e):e._$litType$===void 0?e.nodeType===void 0?fe(e)?this.k(e):this._(e):this.T(e):this.$(e)}O(e){return this._$AA.parentNode.insertBefore(e,this._$AB)}T(e){this._$AH!==e&&(this._$AR(),this._$AH=this.O(e))}_(e){this._$AH!==j&&S(this._$AH)?this._$AA.nextSibling.data=e:this.T(b.createTextNode(e)),this._$AH=e}$(e){let{values:t,_$litType$:n}=e,r=typeof n==`number`?this._$AC(e):(n.el===void 0&&(n.el=N.createElement(_e(n.h,n.h[0]),this.options)),n);if(this._$AH?._$AD===r)this._$AH.p(t);else{let e=new ye(r,this),n=e.u(this.options);e.p(t),this.T(n),this._$AH=e}}_$AC(e){let t=ge.get(e.strings);return t===void 0&&ge.set(e.strings,t=new N(e)),t}k(t){C(this._$AH)||(this._$AH=[],this._$AR());let n=this._$AH,r,i=0;for(let a of t)i===n.length?n.push(r=new e(this.O(x()),this.O(x()),this,this.options)):r=n[i],r._$AI(a),i++;i<n.length&&(this._$AR(r&&r._$AB.nextSibling,i),n.length=i)}_$AR(e=this._$AA.nextSibling,t){for(this._$AP?.(!1,!0,t);e!==this._$AB;){let t=se(e).nextSibling;se(e).remove(),e=t}}setConnected(e){this._$AM===void 0&&(this._$Cv=e,this._$AP?.(e))}},I=class{get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}constructor(e,t,n,r,i){this.type=1,this._$AH=j,this._$AN=void 0,this.element=e,this.name=t,this._$AM=r,this.options=i,n.length>2||n[0]!==``||n[1]!==``?(this._$AH=Array(n.length-1).fill(new String),this.strings=n):this._$AH=j}_$AI(e,t=this,n,r){let i=this.strings,a=!1;if(i===void 0)e=P(this,e,t,0),a=!S(e)||e!==this._$AH&&e!==A,a&&(this._$AH=e);else{let r=e,o,s;for(e=i[0],o=0;o<i.length-1;o++)s=P(this,r[n+o],t,o),s===A&&(s=this._$AH[o]),a||=!S(s)||s!==this._$AH[o],s===j?e=j:e!==j&&(e+=(s??``)+i[o+1]),this._$AH[o]=s}a&&!r&&this.j(e)}j(e){e===j?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,e??``)}},be=class extends I{constructor(){super(...arguments),this.type=3}j(e){this.element[this.name]=e===j?void 0:e}},xe=class extends I{constructor(){super(...arguments),this.type=4}j(e){this.element.toggleAttribute(this.name,!!e&&e!==j)}},Se=class extends I{constructor(e,t,n,r,i){super(e,t,n,r,i),this.type=5}_$AI(e,t=this){if((e=P(this,e,t,0)??j)===A)return;let n=this._$AH,r=e===j&&n!==j||e.capture!==n.capture||e.once!==n.once||e.passive!==n.passive,i=e!==j&&(n===j||r);r&&this.element.removeEventListener(this.name,this,n),i&&this.element.addEventListener(this.name,this,e),this._$AH=e}handleEvent(e){typeof this._$AH==`function`?this._$AH.call(this.options?.host??this.element,e):this._$AH.handleEvent(e)}},Ce=class{constructor(e,t,n){this.element=e,this.type=6,this._$AN=void 0,this._$AM=t,this.options=n}get _$AU(){return this._$AM._$AU}_$AI(e){P(this,e)}},we=_.litHtmlPolyfillSupport;we?.(N,F),(_.litHtmlVersions??=[]).push(`3.3.2`);var Te=(e,t,n)=>{let r=n?.renderBefore??t,i=r._$litPart$;if(i===void 0){let e=n?.renderBefore??null;r._$litPart$=i=new F(t.insertBefore(x(),e),e,void 0,n??{})}return i._$AI(e),i},L=globalThis,R=class extends g{constructor(){super(...arguments),this.renderOptions={host:this},this._$Do=void 0}createRenderRoot(){let e=super.createRenderRoot();return this.renderOptions.renderBefore??=e.firstChild,e}update(e){let t=this.render();this.hasUpdated||(this.renderOptions.isConnected=this.isConnected),super.update(e),this._$Do=Te(t,this.renderRoot,this.renderOptions)}connectedCallback(){super.connectedCallback(),this._$Do?.setConnected(!0)}disconnectedCallback(){super.disconnectedCallback(),this._$Do?.setConnected(!1)}render(){return A}};R._$litElement$=!0,R.finalized=!0,L.litElementHydrateSupport?.({LitElement:R});var Ee=L.litElementPolyfillSupport;Ee?.({LitElement:R}),(L.litElementVersions??=[]).push(`4.2.2`);var z=e=>(t,n)=>{n===void 0?customElements.define(e,t):n.addInitializer(()=>{customElements.define(e,t)})},De={attribute:!0,type:String,converter:m,reflect:!1,hasChanged:h},Oe=(e=De,t,n)=>{let{kind:r,metadata:i}=n,a=globalThis.litPropertyMetadata.get(i);if(a===void 0&&globalThis.litPropertyMetadata.set(i,a=new Map),r===`setter`&&((e=Object.create(e)).wrapped=!0),a.set(n.name,e),r===`accessor`){let{name:r}=n;return{set(n){let i=t.get.call(this);t.set.call(this,n),this.requestUpdate(r,i,e,!0,n)},init(t){return t!==void 0&&this.C(r,void 0,e,t),t}}}if(r===`setter`){let{name:r}=n;return function(n){let i=this[r];t.call(this,n),this.requestUpdate(r,i,e,!0,n)}}throw Error(`Unsupported decorator location: `+r)};function B(e){return(t,n)=>typeof n==`object`?Oe(e,t,n):((e,t,n)=>{let r=t.hasOwnProperty(n);return t.constructor.createProperty(n,e),r?Object.getOwnPropertyDescriptor(t,n):void 0})(e,t,n)}function V(e){return B({...e,state:!0,attribute:!1})}var H=o`
   *,
   *::before,
   *::after {
@@ -150,7 +150,7 @@
   [hidden] {
     display: none !important;
   }
-`;function W(e,t,n,r){var i=arguments.length,a=i<3?t:r===null?r=Object.getOwnPropertyDescriptor(t,n):r,o;if(typeof Reflect==`object`&&typeof Reflect.decorate==`function`)a=Reflect.decorate(e,t,n,r);else for(var s=e.length-1;s>=0;s--)(o=e[s])&&(a=(i<3?o(a):i>3?o(t,n,a):o(t,n))||a);return i>3&&a&&Object.defineProperty(t,n,a),a}var G=class extends z{constructor(...e){super(...e),this.variant=`default`,this.size=`default`,this.disabled=!1}static{this.styles=[U,o`
+`;function U(e,t,n,r){var i=arguments.length,a=i<3?t:r===null?r=Object.getOwnPropertyDescriptor(t,n):r,o;if(typeof Reflect==`object`&&typeof Reflect.decorate==`function`)a=Reflect.decorate(e,t,n,r);else for(var s=e.length-1;s>=0;s--)(o=e[s])&&(a=(i<3?o(a):i>3?o(t,n,a):o(t,n))||a);return i>3&&a&&Object.defineProperty(t,n,a),a}var W=class extends R{constructor(...e){super(...e),this.variant=`default`,this.size=`default`,this.disabled=!1}static{this.styles=[H,o`
     :host {
       display: inline-flex;
     }
@@ -311,7 +311,121 @@
       >
         <slot></slot>
       </button>
-    `}};W([V({type:String,reflect:!0})],G.prototype,`variant`,void 0),W([V({type:String,reflect:!0})],G.prototype,`size`,void 0),W([V({type:Boolean,reflect:!0})],G.prototype,`disabled`,void 0),G=W([B(`shadcx-button`)],G);var K=class extends z{constructor(...e){super(...e),this.type=`text`,this.placeholder=``,this.disabled=!1,this.required=!1,this.readonly=!1,this.ariaInvalid=null}static{this.styles=[U,o`
+    `}};U([B({type:String,reflect:!0})],W.prototype,`variant`,void 0),U([B({type:String,reflect:!0})],W.prototype,`size`,void 0),U([B({type:Boolean,reflect:!0})],W.prototype,`disabled`,void 0),W=U([z(`shadcx-button`)],W);var G=class extends R{constructor(...e){super(...e),this.variant=`default`}static{this.styles=[H,o`
+      :host {
+        display: inline-flex;
+      }
+
+      .root {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.25rem;
+        white-space: nowrap;
+        border-radius: var(--radius);
+        border: 1px solid transparent;
+        padding-inline: 0.625rem;
+        height: 1.375rem;
+        font-size: 0.75rem;
+        line-height: 1;
+        font-weight: 500;
+        transition:
+          color 0.15s,
+          background-color 0.15s,
+          border-color 0.15s,
+          box-shadow 0.15s;
+      }
+
+      .root:focus-visible {
+        outline: none;
+        box-shadow:
+          0 0 0 2px hsl(var(--background)),
+          0 0 0 4px hsl(var(--ring));
+      }
+
+      .root ::slotted(svg),
+      .root ::slotted([data-icon]) {
+        width: 0.75rem;
+        height: 0.75rem;
+        flex-shrink: 0;
+      }
+
+      .root ::slotted([data-icon='inline-start']) {
+        margin-inline-end: 0.125rem;
+      }
+
+      .root ::slotted([data-icon='inline-end']) {
+        margin-inline-start: 0.125rem;
+      }
+
+      [data-variant='default'] {
+        background-color: hsl(var(--primary));
+        color: hsl(var(--primary-foreground));
+      }
+
+      [data-variant='default']:hover {
+        background-color: hsl(var(--primary) / 0.9);
+      }
+
+      [data-variant='secondary'] {
+        background-color: hsl(var(--secondary));
+        color: hsl(var(--secondary-foreground));
+      }
+
+      [data-variant='secondary']:hover {
+        background-color: hsl(var(--secondary) / 0.8);
+      }
+
+      [data-variant='destructive'] {
+        background-color: hsl(var(--destructive));
+        color: hsl(var(--destructive-foreground));
+      }
+
+      [data-variant='destructive']:hover {
+        background-color: hsl(var(--destructive) / 0.9);
+      }
+
+      [data-variant='outline'] {
+        background-color: hsl(var(--background));
+        color: hsl(var(--foreground));
+        border-color: hsl(var(--border));
+      }
+
+      [data-variant='outline']:hover {
+        background-color: hsl(var(--accent));
+        color: hsl(var(--accent-foreground));
+      }
+
+      [data-variant='ghost'] {
+        background-color: transparent;
+        color: hsl(var(--foreground));
+      }
+
+      [data-variant='ghost']:hover {
+        background-color: hsl(var(--accent));
+        color: hsl(var(--accent-foreground));
+      }
+
+      [data-variant='link'] {
+        background-color: transparent;
+        border-color: transparent;
+        color: hsl(var(--primary));
+        text-underline-offset: 4px;
+      }
+
+      [data-variant='link']:hover {
+        text-decoration: underline;
+      }
+    `]}render(){return k`
+      <span
+        part="root"
+        class="root"
+        data-variant=${this.variant}
+        tabindex="0"
+      >
+        <slot></slot>
+      </span>
+    `}};U([B({type:String,reflect:!0})],G.prototype,`variant`,void 0),G=U([z(`shadcx-badge`)],G);var K=class extends R{constructor(...e){super(...e),this.type=`text`,this.placeholder=``,this.disabled=!1,this.required=!1,this.readonly=!1,this.ariaInvalid=null}static{this.styles=[H,o`
     :host {
       display: flex;
     }
@@ -377,7 +491,7 @@
         ?readonly=${this.readonly}
         aria-invalid=${this.ariaInvalid||j}
       >
-    `}};W([V({type:String})],K.prototype,`type`,void 0),W([V({type:String})],K.prototype,`placeholder`,void 0),W([V({type:Boolean,reflect:!0})],K.prototype,`disabled`,void 0),W([V({type:Boolean,reflect:!0})],K.prototype,`required`,void 0),W([V({type:Boolean,reflect:!0})],K.prototype,`readonly`,void 0),W([V({type:String,attribute:`aria-invalid`})],K.prototype,`ariaInvalid`,void 0),K=W([B(`shadcx-input`)],K);var q=class extends z{constructor(...e){super(...e),this.checked=!1,this.indeterminate=!1,this.disabled=!1,this.ariaInvalid=null}static{this.styles=[U,o`
+    `}};U([B({type:String})],K.prototype,`type`,void 0),U([B({type:String})],K.prototype,`placeholder`,void 0),U([B({type:Boolean,reflect:!0})],K.prototype,`disabled`,void 0),U([B({type:Boolean,reflect:!0})],K.prototype,`required`,void 0),U([B({type:Boolean,reflect:!0})],K.prototype,`readonly`,void 0),U([B({type:String,attribute:`aria-invalid`})],K.prototype,`ariaInvalid`,void 0),K=U([z(`shadcx-input`)],K);var q=class extends R{constructor(...e){super(...e),this.checked=!1,this.indeterminate=!1,this.disabled=!1,this.ariaInvalid=null}static{this.styles=[H,o`
     :host {
       display: inline-flex;
       vertical-align: middle;
@@ -467,7 +581,7 @@
           ${this._state===`checked`?k`<svg class="icon" viewBox="0 0 16 16"><polyline points="3.5 8.5 6.8 11.8 12.5 5.5" /></svg>`:this._state===`indeterminate`?k`<svg class="icon" viewBox="0 0 16 16"><line x1="3.5" y1="8" x2="12.5" y2="8" /></svg>`:j}
         </span>
       </button>
-    `}};W([V({type:Boolean,reflect:!0})],q.prototype,`checked`,void 0),W([V({type:Boolean,reflect:!0})],q.prototype,`indeterminate`,void 0),W([V({type:Boolean,reflect:!0})],q.prototype,`disabled`,void 0),W([V({type:String,attribute:`aria-invalid`})],q.prototype,`ariaInvalid`,void 0),q=W([B(`shadcx-checkbox`)],q);var J=class extends z{constructor(...e){super(...e),this.items=[],this.placeholder=`Select an option`,this.disabled=!1,this.multiple=!1,this.showClear=!1,this.autoHighlight=!1,this.ariaInvalid=null,this.value=``,this.values=[],this._query=``,this._open=!1,this._highlightedIndex=-1,this._onWindowPointerDown=e=>{e.composedPath().includes(this)||(this._open=!1)}}static{this.styles=[U,o`
+    `}};U([B({type:Boolean,reflect:!0})],q.prototype,`checked`,void 0),U([B({type:Boolean,reflect:!0})],q.prototype,`indeterminate`,void 0),U([B({type:Boolean,reflect:!0})],q.prototype,`disabled`,void 0),U([B({type:String,attribute:`aria-invalid`})],q.prototype,`ariaInvalid`,void 0),q=U([z(`shadcx-checkbox`)],q);var J=class extends R{constructor(...e){super(...e),this.items=[],this.placeholder=`Select an option`,this.disabled=!1,this.multiple=!1,this.showClear=!1,this.autoHighlight=!1,this.ariaInvalid=null,this.value=``,this.values=[],this._query=``,this._open=!1,this._highlightedIndex=-1,this._onWindowPointerDown=e=>{e.composedPath().includes(this)||(this._open=!1)}}static{this.styles=[H,o`
       :host {
         display: block;
         width: 100%;
@@ -671,7 +785,7 @@
                   `}
             </div>
           `:j}
-    `}};W([V({attribute:!1})],J.prototype,`items`,void 0),W([V({type:String})],J.prototype,`placeholder`,void 0),W([V({type:Boolean,reflect:!0})],J.prototype,`disabled`,void 0),W([V({type:Boolean,reflect:!0})],J.prototype,`multiple`,void 0),W([V({type:Boolean,attribute:`show-clear`})],J.prototype,`showClear`,void 0),W([V({type:Boolean,attribute:`auto-highlight`})],J.prototype,`autoHighlight`,void 0),W([V({type:String,attribute:`aria-invalid`})],J.prototype,`ariaInvalid`,void 0),W([V({type:String})],J.prototype,`value`,void 0),W([V({attribute:!1})],J.prototype,`values`,void 0),W([H()],J.prototype,`_query`,void 0),W([H()],J.prototype,`_open`,void 0),W([H()],J.prototype,`_highlightedIndex`,void 0),J=W([B(`shadcx-combobox`)],J);var Y=class extends z{constructor(...e){super(...e),this.active=``}static{this.styles=o`
+    `}};U([B({attribute:!1})],J.prototype,`items`,void 0),U([B({type:String})],J.prototype,`placeholder`,void 0),U([B({type:Boolean,reflect:!0})],J.prototype,`disabled`,void 0),U([B({type:Boolean,reflect:!0})],J.prototype,`multiple`,void 0),U([B({type:Boolean,attribute:`show-clear`})],J.prototype,`showClear`,void 0),U([B({type:Boolean,attribute:`auto-highlight`})],J.prototype,`autoHighlight`,void 0),U([B({type:String,attribute:`aria-invalid`})],J.prototype,`ariaInvalid`,void 0),U([B({type:String})],J.prototype,`value`,void 0),U([B({attribute:!1})],J.prototype,`values`,void 0),U([V()],J.prototype,`_query`,void 0),U([V()],J.prototype,`_open`,void 0),U([V()],J.prototype,`_highlightedIndex`,void 0),J=U([z(`shadcx-combobox`)],J);var Y=class extends R{constructor(...e){super(...e),this.active=``}static{this.styles=o`
     :host {
       display: flex;
       flex-direction: column;
@@ -743,6 +857,13 @@
 
         <div class="nav-section">Components</div>
         <a
+          class="nav-item ${e(`badge`)}"
+          href="#/badge"
+          @click=${e=>this._navigate(`badge`,e)}
+        >
+          Badge
+        </a>
+        <a
           class="nav-item ${e(`button`)}"
           href="#/button"
           @click=${e=>this._navigate(`button`,e)}
@@ -772,7 +893,7 @@
         </a>
 
       </nav>
-    `}};W([V({type:String})],Y.prototype,`active`,void 0),Y=W([B(`app-sidebar`)],Y);var Oe=class extends z{static{this.styles=o`
+    `}};U([B({type:String})],Y.prototype,`active`,void 0),Y=U([z(`app-sidebar`)],Y);var ke=class extends R{static{this.styles=o`
     :host {
       display: block;
       font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
@@ -878,7 +999,7 @@
       pre { padding: 0.75rem; font-size: 0.75rem; }
       .cards { grid-template-columns: 1fr; }
     }
-  `}_navigateButton(e){e.preventDefault(),location.hash=`button`}_navigateInput(e){e.preventDefault(),location.hash=`input`}_navigateCombobox(e){e.preventDefault(),location.hash=`combobox`}render(){return k`
+  `}_navigateBadge(e){e.preventDefault(),location.hash=`badge`}_navigateButton(e){e.preventDefault(),location.hash=`button`}_navigateInput(e){e.preventDefault(),location.hash=`input`}_navigateCombobox(e){e.preventDefault(),location.hash=`combobox`}render(){return k`
       <h1>shadcx</h1>
       <p class="lead">
         shadcn/ui reimagined as Web Components. No framework lock-in, no
@@ -895,6 +1016,10 @@
 
       <h2>Components</h2>
       <div class="cards">
+        <a class="card" href="#/badge" @click=${this._navigateBadge}>
+          <h3>Badge</h3>
+          <p>Displays a badge or a component that looks like a badge.</p>
+        </a>
         <a class="card" href="#/button" @click=${this._navigateButton}>
           <h3>Button</h3>
           <p>Displays a button or a component that looks like a button.</p>
@@ -908,7 +1033,7 @@
           <p>Autocomplete input with suggestion list and multi-select support.</p>
         </a>
       </div>
-    `}};Oe=W([B(`overview-page`)],Oe);var ke=class extends z{static{this.styles=o`
+    `}};ke=U([z(`overview-page`)],ke);var Ae=class extends R{static{this.styles=o`
     :host {
       display: block;
       font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
@@ -1201,7 +1326,7 @@ background-color: hsl(var(--primary));</code></pre>
           </tbody>
         </table>
       </div>
-    `}};ke=W([B(`theming-page`)],ke);var Ae=class extends z{static{this.styles=o`
+    `}};Ae=U([z(`theming-page`)],Ae);var je=class extends R{static{this.styles=o`
     :host {
       display: block;
       font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
@@ -1472,7 +1597,289 @@ background-color: hsl(var(--primary));</code></pre>
           </tbody>
         </table>
       </div>
-    `}};Ae=W([B(`button-page`)],Ae);var je=class extends z{static{this.styles=o`
+    `}};je=U([z(`button-page`)],je);var Me=class extends R{static{this.styles=o`
+    :host {
+      display: block;
+      font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      margin: 0 0 0.5rem;
+      color: hsl(var(--foreground));
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 2.25rem 0 0.75rem;
+      color: hsl(var(--foreground));
+    }
+
+    h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 1.5rem 0 0.5rem;
+      color: hsl(var(--foreground));
+    }
+
+    p {
+      font-size: 0.9375rem;
+      line-height: 1.65;
+      color: hsl(var(--foreground));
+      margin: 0 0 0.75rem;
+    }
+
+    .desc {
+      color: hsl(var(--muted-foreground));
+      margin-bottom: 1.5rem;
+    }
+
+    .preview {
+      border: 1px solid hsl(var(--border));
+      border-radius: calc(var(--radius) - 2px);
+      padding: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .preview + pre {
+      margin-top: 0;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      border-top: none;
+    }
+
+    pre {
+      background-color: hsl(var(--muted));
+      border: 1px solid hsl(var(--border));
+      border-radius: calc(var(--radius) - 2px);
+      padding: 1rem;
+      overflow-x: auto;
+      font-size: 0.8125rem;
+      line-height: 1.6;
+      margin: 0 0 1.5rem;
+    }
+
+    code {
+      font-family: var(--font-mono, ui-monospace, SFMono-Regular, monospace);
+      font-size: 0.8125rem;
+    }
+
+    :not(pre) > code {
+      background-color: hsl(var(--muted));
+      padding: 0.15rem 0.4rem;
+      border-radius: calc(var(--radius) - 4px);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-bottom: 1.5rem;
+    }
+
+    table {
+      width: 100%;
+      min-width: 24rem;
+      font-size: 0.875rem;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid hsl(var(--border));
+    }
+
+    th {
+      font-weight: 600;
+      color: hsl(var(--foreground));
+      font-size: 0.8125rem;
+    }
+
+    td {
+      color: hsl(var(--muted-foreground));
+      font-size: 0.8125rem;
+    }
+
+    td:first-child {
+      color: hsl(var(--foreground));
+      font-weight: 500;
+    }
+
+    a.inline-link {
+      color: hsl(var(--primary));
+      text-decoration: none;
+    }
+
+    a.inline-link:hover {
+      text-decoration: underline;
+    }
+
+    .spinner {
+      border: 2px solid currentColor;
+      border-right-color: transparent;
+      border-radius: 9999px;
+      animation: spin 0.8s linear infinite;
+      display: inline-block;
+    }
+
+    shadcx-badge.success::part(root) {
+      background-color: hsl(142 71% 45% / 0.15);
+      border-color: hsl(142 71% 45% / 0.35);
+      color: hsl(142 84% 25%);
+    }
+
+    :host-context(.dark) shadcx-badge.success::part(root) {
+      background-color: hsl(142 70% 35% / 0.25);
+      border-color: hsl(142 70% 45% / 0.45);
+      color: hsl(142 100% 85%);
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @media (max-width: 640px) {
+      h1 {
+        font-size: 1.375rem;
+      }
+      h2 {
+        font-size: 1.125rem;
+      }
+      .preview {
+        padding: 1rem;
+      }
+      pre {
+        padding: 0.75rem;
+        font-size: 0.75rem;
+      }
+    }
+  `}render(){return k`
+      <h1>Badge</h1>
+      <p class="desc">Displays a badge or a component that looks like a badge.</p>
+
+      <h2>Installation</h2>
+      <pre><code>&lt;link rel="stylesheet" href=".../assets/index.css"&gt;
+&lt;script type="module" src=".../assets/index.js"&gt;&lt;/script&gt;</code></pre>
+
+      <h2>Usage</h2>
+      <pre><code>&lt;shadcx-badge variant="default"&gt;Badge&lt;/shadcx-badge&gt;</code></pre>
+
+      <h2>Examples</h2>
+
+      <h3>Variants</h3>
+      <div class="preview">
+        <shadcx-badge>Default</shadcx-badge>
+        <shadcx-badge variant="secondary">Secondary</shadcx-badge>
+        <shadcx-badge variant="destructive">Destructive</shadcx-badge>
+        <shadcx-badge variant="outline">Outline</shadcx-badge>
+        <shadcx-badge variant="ghost">Ghost</shadcx-badge>
+        <shadcx-badge variant="link">Link</shadcx-badge>
+      </div>
+      <pre><code>&lt;shadcx-badge&gt;Default&lt;/shadcx-badge&gt;
+&lt;shadcx-badge variant="secondary"&gt;Secondary&lt;/shadcx-badge&gt;
+&lt;shadcx-badge variant="destructive"&gt;Destructive&lt;/shadcx-badge&gt;
+&lt;shadcx-badge variant="outline"&gt;Outline&lt;/shadcx-badge&gt;
+&lt;shadcx-badge variant="ghost"&gt;Ghost&lt;/shadcx-badge&gt;
+&lt;shadcx-badge variant="link"&gt;Link&lt;/shadcx-badge&gt;</code></pre>
+
+      <h3>With Icon</h3>
+      <div class="preview">
+        <shadcx-badge>
+          <svg data-icon="inline-start" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>
+          Verified
+        </shadcx-badge>
+        <shadcx-badge variant="outline">
+          New
+          <svg data-icon="inline-end" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+        </shadcx-badge>
+      </div>
+      <pre><code>&lt;shadcx-badge&gt;
+  &lt;svg data-icon="inline-start" ...&gt;&lt;/svg&gt;
+  Verified
+&lt;/shadcx-badge&gt;</code></pre>
+
+      <h3>With Spinner</h3>
+      <div class="preview">
+        <shadcx-badge variant="secondary">
+          <span data-icon="inline-start" class="spinner"></span>
+          Syncing
+        </shadcx-badge>
+      </div>
+      <pre><code>&lt;shadcx-badge variant="secondary"&gt;
+  &lt;span data-icon="inline-start" class="spinner"&gt;&lt;/span&gt;
+  Syncing
+&lt;/shadcx-badge&gt;</code></pre>
+
+      <h3>Link</h3>
+      <div class="preview">
+        <a class="inline-link" href="https://example.com" target="_blank" rel="noreferrer">
+          <shadcx-badge variant="link">Read docs</shadcx-badge>
+        </a>
+      </div>
+      <pre><code>&lt;a href="https://example.com"&gt;
+  &lt;shadcx-badge variant="link"&gt;Read docs&lt;/shadcx-badge&gt;
+&lt;/a&gt;</code></pre>
+
+      <h3>Custom Colors</h3>
+      <div class="preview">
+        <shadcx-badge class="success">Success</shadcx-badge>
+      </div>
+      <pre><code>shadcx-badge.success::part(root) {
+  background-color: hsl(142 71% 45% / 0.15);
+  border-color: hsl(142 71% 45% / 0.35);
+  color: hsl(142 84% 25%);
+}</code></pre>
+
+      <h2>API Reference</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Prop</th>
+              <th>Type</th>
+              <th>Default</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>variant</code></td>
+              <td><code>"default" | "secondary" | "destructive" | "outline" | "ghost" | "link"</code></td>
+              <td><code>"default"</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>CSS Parts</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Part</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>root</code></td>
+              <td>The internal <code>&lt;span&gt;</code> badge element.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    `}};Me=U([z(`badge-page`)],Me);var Ne=class extends R{static{this.styles=o`
     :host {
       display: block;
       font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
@@ -1748,7 +2155,7 @@ background-color: hsl(var(--primary));</code></pre>
           </tbody>
         </table>
       </div>
-    `}};je=W([B(`input-page`)],je);var X=class extends z{constructor(...e){super(...e),this._checked=!1}static{this.styles=o`
+    `}};Ne=U([z(`input-page`)],Ne);var X=class extends R{constructor(...e){super(...e),this._checked=!1}static{this.styles=o`
     :host {
       display: block;
       font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
@@ -1997,22 +2404,140 @@ background-color: hsl(var(--primary));</code></pre>
           </tbody>
         </table>
       </div>
-    `}};W([H()],X.prototype,`_checked`,void 0),X=W([B(`checkbox-page`)],X);var Z=[`Next.js`,`SvelteKit`,`Nuxt.js`,`Remix`,`Astro`],Q=class extends z{constructor(...e){super(...e),this._singleValue=``,this._multipleValues=[]}static{this.styles=o`
-    :host { display: block; font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif); }
-    h1 { font-size: 1.75rem; font-weight: 700; margin: 0 0 0.5rem; color: hsl(var(--foreground)); }
-    h2 { font-size: 1.25rem; font-weight: 600; margin: 2rem 0 0.75rem; color: hsl(var(--foreground)); }
-    h3 { font-size: 1rem; font-weight: 600; margin: 1.5rem 0 0.5rem; color: hsl(var(--foreground)); }
-    p { color: hsl(var(--muted-foreground)); margin: 0 0 1rem; font-size: 0.9375rem; line-height: 1.6; }
-    .preview { border: 1px solid hsl(var(--border)); border-radius: calc(var(--radius) - 2px); padding: 1rem; margin-bottom: 1rem; }
-    pre { background-color: hsl(var(--muted)); border: 1px solid hsl(var(--border)); border-radius: calc(var(--radius) - 2px); padding: 1rem; overflow-x: auto; font-size: 0.8125rem; }
-    code { font-family: var(--font-mono, ui-monospace, monospace); }
-    .state { margin-top: 0.5rem; font-size: 0.8125rem; color: hsl(var(--muted-foreground)); }
+    `}};U([V()],X.prototype,`_checked`,void 0),X=U([z(`checkbox-page`)],X);var Z=[`Next.js`,`SvelteKit`,`Nuxt.js`,`Remix`,`Astro`],Q=class extends R{constructor(...e){super(...e),this._singleValue=``,this._multipleValues=[]}static{this.styles=o`
+    :host {
+      display: block;
+      font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin: 0 0 0.5rem;
+      color: hsl(var(--foreground));
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 2rem 0 0.75rem;
+      color: hsl(var(--foreground));
+    }
+
+    h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 1.5rem 0 0.5rem;
+      color: hsl(var(--foreground));
+    }
+
+    p {
+      color: hsl(var(--foreground));
+      margin: 0 0 0.75rem;
+      font-size: 0.9375rem;
+      line-height: 1.65;
+    }
+
+    .desc {
+      color: hsl(var(--muted-foreground));
+      margin-bottom: 1.5rem;
+    }
+
+    .preview {
+      border: 1px solid hsl(var(--border));
+      border-radius: calc(var(--radius) - 2px);
+      padding: 1.5rem;
+      margin-bottom: 0;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .preview + pre {
+      margin-top: 0;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      border-top: none;
+    }
+
+    pre {
+      background-color: hsl(var(--muted));
+      border: 1px solid hsl(var(--border));
+      border-radius: calc(var(--radius) - 2px);
+      padding: 1rem;
+      overflow-x: auto;
+      font-size: 0.8125rem;
+      margin: 0 0 1.5rem;
+    }
+
+    code {
+      font-family: var(--font-mono, ui-monospace, monospace);
+      font-size: 0.8125rem;
+    }
+
+    .state {
+      margin-top: 0.75rem;
+      font-size: 0.8125rem;
+      color: hsl(var(--muted-foreground));
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-bottom: 1.5rem;
+    }
+
+    table {
+      width: 100%;
+      min-width: 28rem;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid hsl(var(--border));
+    }
+
+    th {
+      font-weight: 600;
+      color: hsl(var(--foreground));
+      font-size: 0.8125rem;
+    }
+
+    td {
+      color: hsl(var(--muted-foreground));
+      font-size: 0.8125rem;
+    }
+
+    td:first-child {
+      color: hsl(var(--foreground));
+      font-weight: 500;
+    }
   `}_onSingleValueChange(e){let t=e;this._singleValue=t.detail.value}_onMultipleValueChange(e){let t=e;this._multipleValues=t.detail.value}render(){return k`
       <h1>Combobox</h1>
-      <p>Autocomplete input with suggestions, keyboard navigation, optional clear behavior, and multi-select chips.</p>
+      <p class="desc">
+        Autocomplete input with suggestion filtering, keyboard navigation, clear
+        behavior, and optional multi-select chips.
+      </p>
+
+      <h2>Installation</h2>
+      <pre><code>&lt;link rel="stylesheet" href=".../assets/index.css"&gt;
+&lt;script type="module" src=".../assets/index.js"&gt;&lt;/script&gt;</code></pre>
 
       <h2>Usage</h2>
-      <pre><code>&lt;shadcx-combobox .items=${'${["Next.js","SvelteKit"]}'} placeholder="Select a framework"&gt;&lt;/shadcx-combobox&gt;</code></pre>
+      <p>
+        In shadcx, list rendering is handled internally by
+        <code>&lt;shadcx-combobox&gt;</code>, so there is no separate
+        <code>ComboboxItem</code> component to compose.
+      </p>
+      <pre><code>&lt;shadcx-combobox id="framework-combobox" placeholder="Select a framework"&gt;&lt;/shadcx-combobox&gt;
+&lt;script type="module"&gt;
+  const frameworks = ["Next.js", "SvelteKit", "Nuxt.js", "Remix", "Astro"]
+  const combobox = document.getElementById("framework-combobox")
+  combobox.items = frameworks
+&lt;/script&gt;</code></pre>
 
       <h2>Examples</h2>
       <h3>Basic</h3>
@@ -2027,6 +2552,12 @@ background-color: hsl(var(--primary));</code></pre>
         ></shadcx-combobox>
         <div class="state">Value: ${this._singleValue||`(none)`}</div>
       </div>
+      <pre><code>&lt;shadcx-combobox
+  id="framework-single"
+  placeholder="Select a framework"
+  show-clear
+  auto-highlight
+&gt;&lt;/shadcx-combobox&gt;</code></pre>
 
       <h3>Multiple</h3>
       <div class="preview">
@@ -2041,6 +2572,13 @@ background-color: hsl(var(--primary));</code></pre>
         ></shadcx-combobox>
         <div class="state">Values: ${this._multipleValues.length>0?this._multipleValues.join(`, `):`(none)`}</div>
       </div>
+      <pre><code>&lt;shadcx-combobox
+  id="framework-multiple"
+  multiple
+  show-clear
+  auto-highlight
+  placeholder="Add framework"
+&gt;&lt;/shadcx-combobox&gt;</code></pre>
 
       <h3>Disabled + Invalid</h3>
       <div class="preview">
@@ -2048,7 +2586,52 @@ background-color: hsl(var(--primary));</code></pre>
         <br><br>
         <shadcx-combobox .items=${Z} aria-invalid="true" placeholder="Required framework"></shadcx-combobox>
       </div>
-    `}};W([H()],Q.prototype,`_singleValue`,void 0),W([H()],Q.prototype,`_multipleValues`,void 0),Q=W([B(`combobox-page`)],Q);var $=class extends z{constructor(){super(),this._page=`/`,this._sidebarOpen=!1,this._dark=!1,this._dark=window.matchMedia(`(prefers-color-scheme: dark)`).matches,this._applyTheme(),this._updatePage(),window.addEventListener(`hashchange`,()=>this._updatePage()),window.matchMedia(`(prefers-color-scheme: dark)`).addEventListener(`change`,e=>{this._dark=e.matches,this._applyTheme()})}_updatePage(){let e=location.hash.slice(1)||`/`;this._page=e,this._sidebarOpen=!1}_applyTheme(){document.documentElement.classList.toggle(`dark`,this._dark),document.documentElement.style.colorScheme=this._dark?`dark`:`light`}_toggleTheme(){this._dark=!this._dark,this._applyTheme()}static{this.styles=o`
+      <pre><code>&lt;shadcx-combobox disabled&gt;&lt;/shadcx-combobox&gt;
+&lt;shadcx-combobox aria-invalid="true"&gt;&lt;/shadcx-combobox&gt;</code></pre>
+
+      <h2>API Reference</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Prop</th>
+              <th>Type</th>
+              <th>Default</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><code>items</code></td><td><code>string[]</code></td><td><code>[]</code></td></tr>
+            <tr><td><code>placeholder</code></td><td><code>string</code></td><td><code>"Select an option"</code></td></tr>
+            <tr><td><code>value</code></td><td><code>string</code></td><td><code>""</code></td></tr>
+            <tr><td><code>values</code></td><td><code>string[]</code></td><td><code>[]</code></td></tr>
+            <tr><td><code>multiple</code></td><td><code>boolean</code></td><td><code>false</code></td></tr>
+            <tr><td><code>show-clear</code></td><td><code>boolean</code></td><td><code>false</code></td></tr>
+            <tr><td><code>auto-highlight</code></td><td><code>boolean</code></td><td><code>false</code></td></tr>
+            <tr><td><code>disabled</code></td><td><code>boolean</code></td><td><code>false</code></td></tr>
+            <tr><td><code>aria-invalid</code></td><td><code>string | null</code></td><td><code>null</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Event</th>
+              <th>Detail</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>value-change</code></td>
+              <td><code>{ value: string | string[] }</code></td>
+              <td>Fires whenever selected value(s) change.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    `}};U([V()],Q.prototype,`_singleValue`,void 0),U([V()],Q.prototype,`_multipleValues`,void 0),Q=U([z(`combobox-page`)],Q);var $=class extends R{constructor(){super(),this._page=`/`,this._sidebarOpen=!1,this._dark=!1,this._dark=window.matchMedia(`(prefers-color-scheme: dark)`).matches,this._applyTheme(),this._updatePage(),window.addEventListener(`hashchange`,()=>this._updatePage()),window.matchMedia(`(prefers-color-scheme: dark)`).addEventListener(`change`,e=>{this._dark=e.matches,this._applyTheme()})}_updatePage(){let e=location.hash.slice(1)||`/`;this._page=e,this._sidebarOpen=!1}_applyTheme(){document.documentElement.classList.toggle(`dark`,this._dark),document.documentElement.style.colorScheme=this._dark?`dark`:`light`}_toggleTheme(){this._dark=!this._dark,this._applyTheme()}static{this.styles=o`
     :host {
       display: flex;
       flex-direction: column;
@@ -2216,4 +2799,4 @@ background-color: hsl(var(--primary));</code></pre>
 
         <main class="content">${this._renderPage()}</main>
       </div>
-    `}_renderPage(){switch(this._page){case`button`:return k`<button-page></button-page>`;case`input`:return k`<input-page></input-page>`;case`checkbox`:return k`<checkbox-page></checkbox-page>`;case`combobox`:return k`<combobox-page></combobox-page>`;case`theming`:return k`<theming-page></theming-page>`;default:return k`<overview-page></overview-page>`}}};W([H()],$.prototype,`_page`,void 0),W([H()],$.prototype,`_sidebarOpen`,void 0),W([H()],$.prototype,`_dark`,void 0),$=W([B(`app-layout`)],$);
+    `}_renderPage(){switch(this._page){case`badge`:return k`<badge-page></badge-page>`;case`button`:return k`<button-page></button-page>`;case`input`:return k`<input-page></input-page>`;case`checkbox`:return k`<checkbox-page></checkbox-page>`;case`combobox`:return k`<combobox-page></combobox-page>`;case`theming`:return k`<theming-page></theming-page>`;default:return k`<overview-page></overview-page>`}}};U([V()],$.prototype,`_page`,void 0),U([V()],$.prototype,`_sidebarOpen`,void 0),U([V()],$.prototype,`_dark`,void 0),$=U([z(`app-layout`)],$);
