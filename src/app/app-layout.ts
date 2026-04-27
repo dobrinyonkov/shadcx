@@ -6,6 +6,7 @@ import './pages/theming-page.ts'
 import './pages/button-page.ts'
 import './pages/input-page.ts'
 import './pages/checkbox-page.ts'
+import './pages/select-page.ts'
 
 @customElement('app-layout')
 export class AppLayout extends LitElement {
@@ -227,6 +228,8 @@ export class AppLayout extends LitElement {
         return html`<input-page></input-page>`
       case 'checkbox':
         return html`<checkbox-page></checkbox-page>`
+      case 'select':
+        return html`<select-page></select-page>`
       case 'theming':
         return html`<theming-page></theming-page>`
       default:
