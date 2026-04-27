@@ -110,6 +110,14 @@ export class AppSidebar extends LitElement {
           Checkbox
         </a>
 
+        <a
+          class="nav-item ${isActive('popover')}"
+          href="#/popover"
+          @click=${(e: Event) => this._navigate('popover', e)}
+        >
+          Popover
+        </a>
+
       </nav>
     `
   }

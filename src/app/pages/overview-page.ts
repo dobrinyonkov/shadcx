@@ -121,6 +121,11 @@ export class OverviewPage extends LitElement {
     location.hash = 'input'
   }
 
+  private _navigatePopover(e: Event) {
+    e.preventDefault()
+    location.hash = 'popover'
+  }
+
   render() {
     return html`
       <h1>shadcx</h1>
@@ -146,6 +151,10 @@ export class OverviewPage extends LitElement {
         <a class="card" href="#/input" @click=${this._navigateInput}>
           <h3>Input</h3>
           <p>A text input component for forms and user data entry.</p>
+        </a>
+        <a class="card" href="#/popover" @click=${this._navigatePopover}>
+          <h3>Popover</h3>
+          <p>Displays rich content in a floating panel, triggered by a button.</p>
         </a>
       </div>
     `
