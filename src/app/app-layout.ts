@@ -153,17 +153,18 @@ export class AppLayout extends LitElement {
 
     @media (min-width: 768px) {
       .topbar {
-        display: none;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
       }
 
-      .layout-body {
-        padding-top: 0;
+      .menu-btn {
+        display: none;
       }
 
       .sidebar {
         position: sticky;
-        top: 0;
-        height: 100svh;
+        top: 3rem;
+        height: calc(100svh - 3rem);
         transform: translateX(0);
       }
 

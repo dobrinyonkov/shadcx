@@ -13,18 +13,6 @@ export class AppSidebar extends LitElement {
       font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
     }
 
-    .brand {
-      display: none;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 1rem 1.25rem;
-      font-size: 1.125rem;
-      font-weight: 700;
-      color: hsl(var(--foreground));
-      text-decoration: none;
-      border-bottom: 1px solid hsl(var(--border));
-    }
-
     .nav {
       flex: 1;
       overflow-y: auto;
@@ -69,11 +57,6 @@ export class AppSidebar extends LitElement {
       color: hsl(var(--primary));
     }
 
-    @media (min-width: 768px) {
-      .brand {
-        display: flex;
-      }
-    }
   `
 
   private _navigate(hash: string, e: Event) {
@@ -87,10 +70,6 @@ export class AppSidebar extends LitElement {
       this.active === hash ? 'active' : ''
 
     return html`
-      <a class="brand" href="#" @click=${(e: Event) => this._navigate('/', e)}>
-        shadcx
-      </a>
-
       <nav class="nav">
         <div class="nav-section">Getting Started</div>
         <a
