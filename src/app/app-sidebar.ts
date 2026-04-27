@@ -10,6 +10,7 @@ export class AppSidebar extends LitElement {
       display: flex;
       flex-direction: column;
       height: 100%;
+      font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
     }
 
     .brand {
@@ -34,7 +35,7 @@ export class AppSidebar extends LitElement {
     }
 
     .nav-section {
-      font-size: 0.75rem;
+      font-size: 0.6875rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -121,6 +122,13 @@ export class AppSidebar extends LitElement {
           @click=${(e: Event) => this._navigate('/', e)}
         >
           Introduction
+        </a>
+        <a
+          class="nav-item ${isActive('theming')}"
+          href="#/theming"
+          @click=${(e: Event) => this._navigate('theming', e)}
+        >
+          Theming
         </a>
 
         <div class="nav-section">Components</div>

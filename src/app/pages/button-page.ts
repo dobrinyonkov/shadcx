@@ -6,8 +6,8 @@ export class ButtonPage extends LitElement {
   static styles = css`
     :host {
       display: block;
+      font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
     }
-
     h1 {
       font-size: 1.75rem;
       font-weight: 700;
@@ -15,33 +15,28 @@ export class ButtonPage extends LitElement {
       margin: 0 0 0.5rem;
       color: hsl(var(--foreground));
     }
-
     h2 {
       font-size: 1.25rem;
       font-weight: 600;
       margin: 2.25rem 0 0.75rem;
       color: hsl(var(--foreground));
     }
-
     h3 {
       font-size: 1rem;
       font-weight: 600;
       margin: 1.5rem 0 0.5rem;
       color: hsl(var(--foreground));
     }
-
     p {
       font-size: 0.9375rem;
       line-height: 1.65;
       color: hsl(var(--foreground));
       margin: 0 0 0.75rem;
     }
-
     .desc {
       color: hsl(var(--muted-foreground));
       margin-bottom: 1.5rem;
     }
-
     .preview {
       border: 1px solid hsl(var(--border));
       border-radius: calc(var(--radius) - 2px);
@@ -54,14 +49,12 @@ export class ButtonPage extends LitElement {
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
     }
-
     .preview + pre {
       margin-top: 0;
       border-top-left-radius: 0;
       border-top-right-radius: 0;
       border-top: none;
     }
-
     pre {
       background-color: hsl(var(--muted));
       border: 1px solid hsl(var(--border));
@@ -72,58 +65,62 @@ export class ButtonPage extends LitElement {
       line-height: 1.6;
       margin: 0 0 1.5rem;
     }
-
     code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-family: var(--font-mono, ui-monospace, SFMono-Regular, monospace);
       font-size: 0.8125rem;
     }
-
     :not(pre) > code {
       background-color: hsl(var(--muted));
       padding: 0.15rem 0.4rem;
       border-radius: calc(var(--radius) - 4px);
-      font-size: 0.8125rem;
     }
-
-    table {
-      width: 100%;
-      font-size: 0.875rem;
-      border-collapse: collapse;
+    .table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
       margin-bottom: 1.5rem;
     }
-
-    th,
-    td {
+    table {
+      width: 100%;
+      min-width: 24rem;
+      font-size: 0.875rem;
+      border-collapse: collapse;
+    }
+    th, td {
       text-align: left;
       padding: 0.5rem 0.75rem;
       border-bottom: 1px solid hsl(var(--border));
     }
-
     th {
       font-weight: 600;
       color: hsl(var(--foreground));
       font-size: 0.8125rem;
     }
-
     td {
       color: hsl(var(--muted-foreground));
-      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-family: var(--font-mono, ui-monospace, SFMono-Regular, monospace);
       font-size: 0.8125rem;
+      white-space: nowrap;
     }
-
     td:first-child {
       color: hsl(var(--foreground));
       font-weight: 500;
       font-family: inherit;
+    }
+    td:nth-child(2) {
+      white-space: normal;
+    }
+    @media (max-width: 640px) {
+      h1 { font-size: 1.375rem; }
+      h2 { font-size: 1.125rem; }
+      .preview { padding: 1rem; }
+      pre { padding: 0.75rem; font-size: 0.75rem; }
     }
   `
 
   render() {
     return html`
       <h1>Button</h1>
-      <p class="desc">
-        Displays a button or a component that looks like a button.
-      </p>
+      <p class="desc">Displays a button or a component that looks like a button.</p>
 
       <h2>Installation</h2>
       <pre><code>&lt;link rel="stylesheet" href=".../assets/index.css"&gt;
@@ -151,9 +148,7 @@ export class ButtonPage extends LitElement {
 &lt;shadcx-button variant="link"&gt;Link&lt;/shadcx-button&gt;</code></pre>
 
       <h3>Size</h3>
-      <p>
-        Use the <code>size</code> prop to change the size of the button.
-      </p>
+      <p>Use the <code>size</code> prop to change the size of the button.</p>
       <div class="preview">
         <shadcx-button size="xs">Extra Small</shadcx-button>
         <shadcx-button size="sm">Small</shadcx-button>
@@ -185,48 +180,30 @@ export class ButtonPage extends LitElement {
 &lt;shadcx-button variant="outline" disabled&gt;Outline&lt;/shadcx-button&gt;</code></pre>
 
       <h2>API Reference</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Prop</th>
-            <th>Type</th>
-            <th>Default</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>variant</td>
-            <td>"default" | "outline" | "ghost" | "destructive" | "secondary" | "link"</td>
-            <td>"default"</td>
-          </tr>
-          <tr>
-            <td>size</td>
-            <td>"default" | "xs" | "sm" | "lg" | "icon" | "icon-xs" | "icon-sm" | "icon-lg"</td>
-            <td>"default"</td>
-          </tr>
-          <tr>
-            <td>disabled</td>
-            <td>boolean</td>
-            <td>false</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Prop</th><th>Type</th><th>Default</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>variant</td><td>"default" | "outline" | "ghost" | "destructive" | "secondary" | "link"</td><td>"default"</td></tr>
+            <tr><td>size</td><td>"default" | "xs" | "sm" | "lg" | "icon" | "icon-xs" | "icon-sm" | "icon-lg"</td><td>"default"</td></tr>
+            <tr><td>disabled</td><td>boolean</td><td>false</td></tr>
+          </tbody>
+        </table>
+      </div>
 
       <h3>CSS Parts</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Part</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>root</td>
-            <td>The button element</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Part</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>root</td><td>The button element</td></tr>
+          </tbody>
+        </table>
+      </div>
     `
   }
 }

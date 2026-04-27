@@ -2,6 +2,7 @@ import { LitElement, css, html } from 'lit'
 import { customElement, state } from 'lit/decorators.js'
 import './app-sidebar.ts'
 import './pages/overview-page.ts'
+import './pages/theming-page.ts'
 import './pages/button-page.ts'
 import './pages/input-page.ts'
 
@@ -33,6 +34,7 @@ export class AppLayout extends LitElement {
     :host {
       display: flex;
       min-height: 100svh;
+      font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
     }
 
     .overlay {
@@ -67,8 +69,9 @@ export class AppLayout extends LitElement {
     .content {
       flex: 1;
       margin-left: 0;
-      padding: 2rem;
+      padding: 1.25rem;
       max-width: 48rem;
+      min-width: 0;
       transition: margin-left 0.2s ease;
     }
 
@@ -88,6 +91,7 @@ export class AppLayout extends LitElement {
       color: hsl(var(--foreground));
       cursor: pointer;
       font-size: 1.25rem;
+      font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
     }
 
     @media (min-width: 768px) {
@@ -99,6 +103,7 @@ export class AppLayout extends LitElement {
 
       .content {
         margin-left: 0;
+        padding: 2rem 3rem;
       }
 
       .overlay {
@@ -138,6 +143,8 @@ export class AppLayout extends LitElement {
 
   private _renderPage() {
     switch (this._page) {
+      case 'theming':
+        return html`<theming-page></theming-page>`
       case 'button':
         return html`<button-page></button-page>`
       case 'input':

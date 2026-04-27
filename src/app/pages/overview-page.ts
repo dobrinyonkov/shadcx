@@ -6,6 +6,7 @@ export class OverviewPage extends LitElement {
   static styles = css`
     :host {
       display: block;
+      font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
     }
 
     h1 {
@@ -49,7 +50,7 @@ export class OverviewPage extends LitElement {
     }
 
     code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-family: var(--font-mono, ui-monospace, SFMono-Regular, monospace);
       font-size: 0.8125rem;
     }
 
@@ -57,7 +58,12 @@ export class OverviewPage extends LitElement {
       background-color: hsl(var(--muted));
       padding: 0.15rem 0.4rem;
       border-radius: calc(var(--radius) - 4px);
-      font-size: 0.8125rem;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-bottom: 1.5rem;
     }
 
     .cards {
@@ -95,6 +101,14 @@ export class OverviewPage extends LitElement {
       color: hsl(var(--muted-foreground));
       margin: 0;
     }
+
+    @media (max-width: 640px) {
+      h1 { font-size: 1.375rem; }
+      h2 { font-size: 1.125rem; }
+      .lead { font-size: 1rem; }
+      pre { padding: 0.75rem; font-size: 0.75rem; }
+      .cards { grid-template-columns: 1fr; }
+    }
   `
 
   render() {
@@ -102,7 +116,7 @@ export class OverviewPage extends LitElement {
       <h1>shadcx</h1>
       <p class="lead">
         shadcn/ui reimagined as Web Components. No framework lock-in, no
-        Tailwind CSS &mdash; just reusable components thats work anywhere.
+        Tailwind CSS &mdash; just reusable components that work anywhere.
       </p>
 
       <h2>Getting Started</h2>

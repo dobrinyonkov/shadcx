@@ -6,6 +6,7 @@ export class InputPage extends LitElement {
   static styles = css`
     :host {
       display: block;
+      font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
     }
 
     h1 {
@@ -74,7 +75,7 @@ export class InputPage extends LitElement {
     }
 
     code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-family: var(--font-mono, ui-monospace, SFMono-Regular, monospace);
       font-size: 0.8125rem;
     }
 
@@ -82,14 +83,19 @@ export class InputPage extends LitElement {
       background-color: hsl(var(--muted));
       padding: 0.15rem 0.4rem;
       border-radius: calc(var(--radius) - 4px);
-      font-size: 0.8125rem;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-bottom: 1.5rem;
     }
 
     table {
       width: 100%;
+      min-width: 28rem;
       font-size: 0.875rem;
       border-collapse: collapse;
-      margin-bottom: 1.5rem;
     }
 
     th,
@@ -107,14 +113,26 @@ export class InputPage extends LitElement {
 
     td {
       color: hsl(var(--muted-foreground));
-      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-family: var(--font-mono, ui-monospace, SFMono-Regular, monospace);
       font-size: 0.8125rem;
+      white-space: nowrap;
     }
 
     td:first-child {
       color: hsl(var(--foreground));
       font-weight: 500;
       font-family: inherit;
+    }
+
+    td:last-child {
+      white-space: normal;
+    }
+
+    @media (max-width: 640px) {
+      h1 { font-size: 1.375rem; }
+      h2 { font-size: 1.125rem; }
+      .preview { padding: 1rem; max-width: 100%; }
+      pre { padding: 0.75rem; font-size: 0.75rem; }
     }
   `
 
@@ -157,86 +175,92 @@ export class InputPage extends LitElement {
       <pre><code>&lt;shadcx-input type="file"&gt;&lt;/shadcx-input&gt;</code></pre>
 
       <h2>API Reference</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Prop</th>
-            <th>Type</th>
-            <th>Default</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>type</td>
-            <td>string</td>
-            <td>"text"</td>
-          </tr>
-          <tr>
-            <td>placeholder</td>
-            <td>string</td>
-            <td>""</td>
-          </tr>
-          <tr>
-            <td>value</td>
-            <td>string</td>
-            <td>""</td>
-          </tr>
-          <tr>
-            <td>name</td>
-            <td>string</td>
-            <td>""</td>
-          </tr>
-          <tr>
-            <td>disabled</td>
-            <td>boolean</td>
-            <td>false</td>
-          </tr>
-          <tr>
-            <td>required</td>
-            <td>boolean</td>
-            <td>false</td>
-          </tr>
-          <tr>
-            <td>readonly</td>
-            <td>boolean</td>
-            <td>false</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Prop</th>
+              <th>Type</th>
+              <th>Default</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>type</td>
+              <td>string</td>
+              <td>"text"</td>
+            </tr>
+            <tr>
+              <td>placeholder</td>
+              <td>string</td>
+              <td>""</td>
+            </tr>
+            <tr>
+              <td>value</td>
+              <td>string</td>
+              <td>""</td>
+            </tr>
+            <tr>
+              <td>name</td>
+              <td>string</td>
+              <td>""</td>
+            </tr>
+            <tr>
+              <td>disabled</td>
+              <td>boolean</td>
+              <td>false</td>
+            </tr>
+            <tr>
+              <td>required</td>
+              <td>boolean</td>
+              <td>false</td>
+            </tr>
+            <tr>
+              <td>readonly</td>
+              <td>boolean</td>
+              <td>false</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <h3>Events</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Event</th>
-            <th>Detail</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>shadcx-input</td>
-            <td>{ value: string }</td>
-            <td>Fires on every input change</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Event</th>
+              <th>Detail</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>shadcx-input</td>
+              <td>{ value: string }</td>
+              <td>Fires on every input change</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <h3>CSS Parts</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Part</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>root</td>
-            <td>The input element</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Part</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>root</td>
+              <td>The input element</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     `
   }
 }

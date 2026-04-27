@@ -1,7 +1,24 @@
 /* shadcx theming layer — matches shadcn CSS custom properties */
 /* Values are HSL channels: use hsl(var(--name)) to compose */
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 :root {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
   --radius: 0.5rem;
 
   --background: 0 0% 100%;
