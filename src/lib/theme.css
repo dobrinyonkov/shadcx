@@ -17,6 +17,8 @@ body {
 }
 
 :root {
+  color-scheme: light;
+
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
   --radius: 0.5rem;

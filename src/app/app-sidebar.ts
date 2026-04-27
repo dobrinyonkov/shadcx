@@ -13,18 +13,6 @@ export class AppSidebar extends LitElement {
       font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 1rem 1.25rem;
-      font-size: 1.125rem;
-      font-weight: 700;
-      color: hsl(var(--foreground));
-      text-decoration: none;
-      border-bottom: 1px solid hsl(var(--border));
-    }
-
     .nav {
       flex: 1;
       overflow-y: auto;
@@ -69,34 +57,6 @@ export class AppSidebar extends LitElement {
       color: hsl(var(--primary));
     }
 
-    .theme-row {
-      padding: 0.75rem 1rem;
-      border-top: 1px solid hsl(var(--border));
-    }
-
-    .theme-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      height: 1.75rem;
-      padding: 0 0.75rem;
-      font-size: 0.75rem;
-      font-family: inherit;
-      font-weight: 500;
-      border-radius: calc(var(--radius) - 2px);
-      border: 1px solid hsl(var(--border));
-      background-color: hsl(var(--background));
-      color: hsl(var(--foreground));
-      cursor: pointer;
-      transition:
-        background-color 0.15s,
-        color 0.15s;
-    }
-
-    .theme-btn:hover {
-      background-color: hsl(var(--accent));
-      color: hsl(var(--accent-foreground));
-    }
   `
 
   private _navigate(hash: string, e: Event) {
@@ -110,10 +70,6 @@ export class AppSidebar extends LitElement {
       this.active === hash ? 'active' : ''
 
     return html`
-      <a class="brand" href="#" @click=${(e: Event) => this._navigate('/', e)}>
-        shadcx
-      </a>
-
       <nav class="nav">
         <div class="nav-section">Getting Started</div>
         <a
@@ -147,17 +103,7 @@ export class AppSidebar extends LitElement {
           Input
         </a>
       </nav>
-
-      <div class="theme-row">
-        <button class="theme-btn" @click=${this._toggleTheme}>
-          Toggle theme
-        </button>
-      </div>
     `
-  }
-
-  private _toggleTheme() {
-    document.documentElement.classList.toggle('dark')
   }
 }
 

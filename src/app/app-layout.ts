@@ -10,12 +10,18 @@ import './pages/input-page.ts'
 export class AppLayout extends LitElement {
   @state() private _page = '/'
   @state() private _sidebarOpen = false
+  @state() private _dark = false
 
   constructor() {
     super()
+    this._dark = window.matchMedia('(prefers-color-scheme: dark)').matches
     this._applyTheme()
     this._updatePage()
     window.addEventListener('hashchange', () => this._updatePage())
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+      this._dark = e.matches
+      this._applyTheme()
+    })
   }
 
   private _updatePage() {
@@ -25,16 +31,87 @@ export class AppLayout extends LitElement {
   }
 
   private _applyTheme() {
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      document.documentElement.classList.add('dark')
-    }
+    document.documentElement.classList.toggle('dark', this._dark)
+    document.documentElement.style.colorScheme = this._dark ? 'dark' : 'light'
+  }
+
+  private _toggleTheme() {
+    this._dark = !this._dark
+    this._applyTheme()
   }
 
   static styles = css`
     :host {
       display: flex;
+      flex-direction: column;
       min-height: 100svh;
+      background-color: hsl(var(--background));
+      color: hsl(var(--foreground));
       font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
+    }
+
+    /* --- topbar --- */
+    .topbar {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      height: 3rem;
+      padding: 0 1rem;
+      background-color: hsl(var(--background));
+      border-bottom: 1px solid hsl(var(--border));
+      z-index: 70;
+      flex-shrink: 0;
+    }
+
+    .topbar-brand {
+      font-size: 1rem;
+      font-weight: 700;
+      color: hsl(var(--foreground));
+      flex: 1;
+    }
+
+    .menu-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 2rem;
+      width: 2rem;
+      border: 1px solid hsl(var(--border));
+      border-radius: calc(var(--radius) - 2px);
+      background-color: hsl(var(--background));
+      color: hsl(var(--foreground));
+      cursor: pointer;
+      font-size: 1.125rem;
+      font-family: inherit;
+      flex-shrink: 0;
+    }
+
+    .theme-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 2rem;
+      width: 2rem;
+      border: 1px solid hsl(var(--border));
+      border-radius: calc(var(--radius) - 2px);
+      background-color: hsl(var(--background));
+      color: hsl(var(--foreground));
+      cursor: pointer;
+      font-size: 1rem;
+      font-family: inherit;
+      flex-shrink: 0;
+      transition: background-color 0.15s, color 0.15s;
+    }
+
+    .theme-btn:hover {
+      background-color: hsl(var(--accent));
+      color: hsl(var(--accent-foreground));
+    }
+
+    /* --- body layout --- */
+    .layout-body {
+      display: flex;
+      flex: 1;
     }
 
     .overlay {
@@ -42,7 +119,7 @@ export class AppLayout extends LitElement {
       position: fixed;
       inset: 0;
       background: rgba(0, 0, 0, 0.4);
-      z-index: 40;
+      z-index: 49;
     }
 
     .overlay.open {
@@ -51,7 +128,7 @@ export class AppLayout extends LitElement {
 
     .sidebar {
       position: fixed;
-      top: 0;
+      top: 3rem;
       left: 0;
       bottom: 0;
       width: 15rem;
@@ -68,50 +145,35 @@ export class AppLayout extends LitElement {
 
     .content {
       flex: 1;
-      margin-left: 0;
       padding: 1.25rem;
       max-width: 48rem;
       min-width: 0;
-      transition: margin-left 0.2s ease;
-    }
-
-    .menu-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: fixed;
-      top: 0.75rem;
-      left: 0.75rem;
-      z-index: 60;
-      height: 2.25rem;
-      width: 2.25rem;
-      border: 1px solid hsl(var(--border));
-      border-radius: calc(var(--radius) - 2px);
       background-color: hsl(var(--background));
-      color: hsl(var(--foreground));
-      cursor: pointer;
-      font-size: 1.25rem;
-      font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
     }
 
     @media (min-width: 768px) {
+      .topbar {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+
+      .menu-btn {
+        display: none;
+      }
+
       .sidebar {
         position: sticky;
-        height: 100svh;
+        top: 3rem;
+        height: calc(100svh - 3rem);
         transform: translateX(0);
       }
 
       .content {
-        margin-left: 0;
         padding: 2rem 3rem;
       }
 
       .overlay {
         display: none !important;
-      }
-
-      .menu-btn {
-        display: none;
       }
     }
   `
@@ -119,25 +181,40 @@ export class AppLayout extends LitElement {
   render() {
     const sidebarClasses = this._sidebarOpen ? 'sidebar open' : 'sidebar'
     const overlayClasses = this._sidebarOpen ? 'overlay open' : 'overlay'
+    const themeIcon = this._dark ? '\u2600' : '\u263D'
 
     return html`
-      <div
-        class=${overlayClasses}
-        @click=${() => (this._sidebarOpen = false)}
-      ></div>
-      <div class=${sidebarClasses}>
-        <app-sidebar active=${this._page}></app-sidebar>
+      <!-- topbar (mobile only) -->
+      <header class="topbar">
+        <button
+          class="menu-btn"
+          @click=${() => (this._sidebarOpen = !this._sidebarOpen)}
+          aria-label="Toggle navigation"
+        >
+          &#9776;
+        </button>
+        <span class="topbar-brand">shadcx</span>
+        <button
+          class="theme-btn"
+          @click=${this._toggleTheme}
+          aria-label="Toggle theme"
+        >
+          ${themeIcon}
+        </button>
+      </header>
+
+      <div class="layout-body">
+        <div
+          class=${overlayClasses}
+          @click=${() => (this._sidebarOpen = false)}
+        ></div>
+
+        <aside class=${sidebarClasses}>
+          <app-sidebar active=${this._page}></app-sidebar>
+        </aside>
+
+        <main class="content">${this._renderPage()}</main>
       </div>
-
-      <button
-        class="menu-btn"
-        @click=${() => (this._sidebarOpen = !this._sidebarOpen)}
-        aria-label="Toggle navigation"
-      >
-        &#9776;
-      </button>
-
-      <main class="content">${this._renderPage()}</main>
     `
   }
 

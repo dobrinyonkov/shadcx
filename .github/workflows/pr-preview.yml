@@ -34,5 +34,6 @@ jobs:
           keep_files: true
       - uses: thollander/actions-comment-pull-request@v3
         with:
+          comment-tag: pr-preview
           message: |
             Preview: https://dobrinyonkov.github.io/shadcx/pr-preview/${{ github.event.pull_request.number }}/
