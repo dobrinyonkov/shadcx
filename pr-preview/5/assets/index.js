@@ -1609,6 +1609,46 @@ background-color: hsl(var(--primary));</code></pre>
       font-size: 0.8125rem;
     }
 
+    .table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-bottom: 1.5rem;
+    }
+
+    table {
+      width: 100%;
+      min-width: 24rem;
+      font-size: 0.875rem;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid hsl(var(--border));
+    }
+
+    th {
+      font-weight: 600;
+      color: hsl(var(--foreground));
+      font-size: 0.8125rem;
+    }
+
+    td {
+      color: hsl(var(--muted-foreground));
+      font-size: 0.8125rem;
+    }
+
+    td:first-child {
+      color: hsl(var(--foreground));
+      font-weight: 500;
+    }
+
+    td code {
+      font-size: 0.75rem;
+    }
+
     .row {
       display: inline-flex;
       align-items: center;
@@ -1707,6 +1747,41 @@ background-color: hsl(var(--primary));</code></pre>
         </label>
       </div>
       <pre><code>&lt;shadcx-checkbox aria-invalid="true"&gt;&lt;/shadcx-checkbox&gt;</code></pre>
+
+      <h2>API Reference</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Prop</th>
+              <th>Type</th>
+              <th>Default</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>checked</code></td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+            </tr>
+            <tr>
+              <td><code>indeterminate</code></td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+            </tr>
+            <tr>
+              <td><code>disabled</code></td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+            </tr>
+            <tr>
+              <td><code>aria-invalid</code></td>
+              <td><code>string | null</code></td>
+              <td><code>null</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     `}};q([G()],Q.prototype,`_checked`,void 0),Q=q([U(`checkbox-page`)],Q);var $=class extends H{constructor(){super(),this._page=`/`,this._sidebarOpen=!1,this._dark=!1,this._dark=window.matchMedia(`(prefers-color-scheme: dark)`).matches,this._applyTheme(),this._updatePage(),window.addEventListener(`hashchange`,()=>this._updatePage()),window.matchMedia(`(prefers-color-scheme: dark)`).addEventListener(`change`,e=>{this._dark=e.matches,this._applyTheme()})}_updatePage(){let e=location.hash.slice(1)||`/`;this._page=e,this._sidebarOpen=!1}_applyTheme(){document.documentElement.classList.toggle(`dark`,this._dark),document.documentElement.style.colorScheme=this._dark?`dark`:`light`}_toggleTheme(){this._dark=!this._dark,this._applyTheme()}static{this.styles=o`
     :host {
       display: flex;
