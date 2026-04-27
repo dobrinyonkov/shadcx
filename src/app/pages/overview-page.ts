@@ -121,6 +121,11 @@ export class OverviewPage extends LitElement {
     location.hash = 'input'
   }
 
+  private _navigateCombobox(e: Event) {
+    e.preventDefault()
+    location.hash = 'combobox'
+  }
+
   render() {
     return html`
       <h1>shadcx</h1>
@@ -146,6 +151,10 @@ export class OverviewPage extends LitElement {
         <a class="card" href="#/input" @click=${this._navigateInput}>
           <h3>Input</h3>
           <p>A text input component for forms and user data entry.</p>
+        </a>
+        <a class="card" href="#/combobox" @click=${this._navigateCombobox}>
+          <h3>Combobox</h3>
+          <p>Autocomplete input with suggestion list and multi-select support.</p>
         </a>
       </div>
     `
