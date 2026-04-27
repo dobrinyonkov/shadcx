@@ -111,6 +111,11 @@ export class OverviewPage extends LitElement {
     }
   `
 
+  private _navigateBadge(e: Event) {
+    e.preventDefault()
+    location.hash = 'badge'
+  }
+
   private _navigateButton(e: Event) {
     e.preventDefault()
     location.hash = 'button'
@@ -139,6 +144,10 @@ export class OverviewPage extends LitElement {
 
       <h2>Components</h2>
       <div class="cards">
+        <a class="card" href="#/badge" @click=${this._navigateBadge}>
+          <h3>Badge</h3>
+          <p>Displays a badge or a component that looks like a badge.</p>
+        </a>
         <a class="card" href="#/button" @click=${this._navigateButton}>
           <h3>Button</h3>
           <p>Displays a button or a component that looks like a button.</p>
