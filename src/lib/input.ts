@@ -1,5 +1,6 @@
 import { LitElement, css, html, nothing } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
+import { preflight } from './preflight.ts'
 
 @customElement('shadcx-input')
 export class Input extends LitElement {
@@ -10,16 +11,14 @@ export class Input extends LitElement {
   @property({ type: Boolean, reflect: true }) readonly = false
   @property({ type: String, attribute: 'aria-invalid' }) ariaInvalid: string | null = null
 
-  static styles = css`
+  static styles = [
+    preflight,
+    css`
     :host {
       display: flex;
     }
 
     .root {
-      margin: 0;
-      font-family: inherit;
-      font-weight: inherit;
-      line-height: inherit;
       display: flex;
       width: 100%;
       height: 2.25rem;
@@ -69,7 +68,8 @@ export class Input extends LitElement {
         font-size: 0.875rem;
       }
     }
-  `
+  `,
+  ]
 
   render() {
     return html`

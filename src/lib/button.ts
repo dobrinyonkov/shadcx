@@ -1,5 +1,6 @@
 import { LitElement, css, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
+import { preflight } from './preflight.ts'
 
 export type ButtonVariant =
   | 'default'
@@ -25,7 +26,9 @@ export class Button extends LitElement {
   @property({ type: String, reflect: true }) size: ButtonSize = 'default'
   @property({ type: Boolean, reflect: true }) disabled = false
 
-  static styles = css`
+  static styles = [
+    preflight,
+    css`
     :host {
       display: inline-flex;
     }
@@ -35,10 +38,6 @@ export class Button extends LitElement {
     }
 
     .root {
-      margin: 0;
-      font-family: inherit;
-      font-weight: inherit;
-      line-height: inherit;
       text-transform: none;
       appearance: none;
       display: inline-flex;
@@ -180,7 +179,8 @@ export class Button extends LitElement {
       border-color: hsl(var(--destructive));
       box-shadow: 0 0 0 1px hsl(var(--destructive) / 0.2);
     }
-  `
+  `,
+  ]
 
   render() {
     return html`
