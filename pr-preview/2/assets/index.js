@@ -263,18 +263,6 @@
       font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
     }
 
-    .brand {
-      display: none;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 1rem 1.25rem;
-      font-size: 1.125rem;
-      font-weight: 700;
-      color: hsl(var(--foreground));
-      text-decoration: none;
-      border-bottom: 1px solid hsl(var(--border));
-    }
-
     .nav {
       flex: 1;
       overflow-y: auto;
@@ -319,16 +307,7 @@
       color: hsl(var(--primary));
     }
 
-    @media (min-width: 768px) {
-      .brand {
-        display: flex;
-      }
-    }
   `}_navigate(e,t){t.preventDefault(),location.hash=e,this.active=e}render(){let e=e=>this.active===e?`active`:``;return P`
-      <a class="brand" href="#" @click=${e=>this._navigate(`/`,e)}>
-        shadcx
-      </a>
-
       <nav class="nav">
         <div class="nav-section">Getting Started</div>
         <a
@@ -1379,17 +1358,18 @@ shadcx-input::part(root) {
 
     @media (min-width: 768px) {
       .topbar {
-        display: none;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
       }
 
-      .layout-body {
-        padding-top: 0;
+      .menu-btn {
+        display: none;
       }
 
       .sidebar {
         position: sticky;
-        top: 0;
-        height: 100svh;
+        top: 3rem;
+        height: calc(100svh - 3rem);
         transform: translateX(0);
       }
 
