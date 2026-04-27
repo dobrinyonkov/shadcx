@@ -121,6 +121,11 @@ export class OverviewPage extends LitElement {
     location.hash = 'input'
   }
 
+  private _navigateDropdownMenu(e: Event) {
+    e.preventDefault()
+    location.hash = 'dropdown-menu'
+  }
+
   render() {
     return html`
       <h1>shadcx</h1>
@@ -146,6 +151,10 @@ export class OverviewPage extends LitElement {
         <a class="card" href="#/input" @click=${this._navigateInput}>
           <h3>Input</h3>
           <p>A text input component for forms and user data entry.</p>
+        </a>
+        <a class="card" href="#/dropdown-menu" @click=${this._navigateDropdownMenu}>
+          <h3>Dropdown Menu</h3>
+          <p>Displays a list of actions and options from a trigger button.</p>
         </a>
       </div>
     `
