@@ -89,6 +89,13 @@ export class AppSidebar extends LitElement {
 
         <div class="nav-section">Components</div>
         <a
+          class="nav-item ${isActive('badge')}"
+          href="#/badge"
+          @click=${(e: Event) => this._navigate('badge', e)}
+        >
+          Badge
+        </a>
+        <a
           class="nav-item ${isActive('button')}"
           href="#/button"
           @click=${(e: Event) => this._navigate('button', e)}

@@ -4,6 +4,7 @@ import './app-sidebar.ts'
 import './pages/overview-page.ts'
 import './pages/theming-page.ts'
 import './pages/button-page.ts'
+import './pages/badge-page.ts'
 import './pages/input-page.ts'
 import './pages/checkbox-page.ts'
 
@@ -221,6 +222,8 @@ export class AppLayout extends LitElement {
 
   private _renderPage() {
     switch (this._page) {
+      case 'badge':
+        return html`<badge-page></badge-page>`
       case 'button':
         return html`<button-page></button-page>`
       case 'input':
