@@ -2,15 +2,166 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>shadcx</title>
-    <link rel="stylesheet" href="./src/index.css" />
-    <script type="module" src="/src/my-element.ts"></script>
+    <title>shadcx — shadcn/ui for Web Components</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
   <body>
-    <my-element>
-      <h1>Get started</h1>
-    </my-element>
+    <header>
+      <h1>shadcx</h1>
+      <p class="subtitle">shadcn/ui reimagined as Web Components (no Tailwind)</p>
+      <button class="theme-toggle" id="theme-toggle">Toggle dark mode</button>
+    </header>
+
+    <main>
+      <section>
+        <h2>Button Variants</h2>
+        <div class="demo-row">
+          <shadcx-button variant="default">Default</shadcx-button>
+          <shadcx-button variant="outline">Outline</shadcx-button>
+          <shadcx-button variant="ghost">Ghost</shadcx-button>
+          <shadcx-button variant="destructive">Destructive</shadcx-button>
+          <shadcx-button variant="secondary">Secondary</shadcx-button>
+          <shadcx-button variant="link">Link</shadcx-button>
+        </div>
+      </section>
+
+      <section>
+        <h2>Button Sizes</h2>
+        <div class="demo-row">
+          <shadcx-button size="xs">Extra Small</shadcx-button>
+          <shadcx-button size="sm">Small</shadcx-button>
+          <shadcx-button size="default">Default</shadcx-button>
+          <shadcx-button size="lg">Large</shadcx-button>
+        </div>
+      </section>
+
+      <section>
+        <h2>Icon Buttons</h2>
+        <div class="demo-row">
+          <shadcx-button size="icon-xs">?</shadcx-button>
+          <shadcx-button size="icon-sm">?</shadcx-button>
+          <shadcx-button size="icon">?</shadcx-button>
+          <shadcx-button size="icon-lg">?</shadcx-button>
+        </div>
+      </section>
+
+      <section>
+        <h2>Disabled</h2>
+        <div class="demo-row">
+          <shadcx-button variant="default" disabled>Default</shadcx-button>
+          <shadcx-button variant="outline" disabled>Outline</shadcx-button>
+          <shadcx-button variant="ghost" disabled>Ghost</shadcx-button>
+        </div>
+      </section>
+
+      <section>
+        <h2>Input</h2>
+        <div class="demo-row demo-col">
+          <shadcx-input placeholder="Placeholder text..."></shadcx-input>
+          <shadcx-input disabled placeholder="Disabled input..."></shadcx-input>
+          <shadcx-input type="file"></shadcx-input>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="/src/main.ts"></script>
+
+    <script>
+      const toggle = document.getElementById('theme-toggle')
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)')
+      function applyTheme(dark) {
+        document.documentElement.classList.toggle('dark', dark)
+      }
+      applyTheme(prefersDark.matches)
+      prefersDark.addEventListener('change', (e) => applyTheme(e.matches))
+      toggle.addEventListener('click', () => {
+        document.documentElement.classList.toggle('dark')
+      })
+    </script>
+
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, sans-serif;
+        background-color: hsl(var(--background));
+        color: hsl(var(--foreground));
+        min-height: 100svh;
+      }
+
+      header {
+        text-align: center;
+        padding: 3rem 1rem 2rem;
+        border-bottom: 1px solid hsl(var(--border));
+      }
+
+      header h1 {
+        font-size: 2.25rem;
+        font-weight: 700;
+        margin: 0;
+        letter-spacing: -0.025em;
+      }
+
+      .subtitle {
+        color: hsl(var(--muted-foreground));
+        margin: 0.5rem 0 1.5rem;
+      }
+
+      .theme-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 2rem;
+        padding: 0 1rem;
+        font-size: 0.8125rem;
+        font-family: inherit;
+        font-weight: 500;
+        border-radius: calc(var(--radius) - 2px);
+        border: 1px solid hsl(var(--border));
+        background-color: hsl(var(--background));
+        color: hsl(var(--foreground));
+        cursor: pointer;
+      }
+
+      .theme-toggle:hover {
+        background-color: hsl(var(--accent));
+        color: hsl(var(--accent-foreground));
+      }
+
+      main {
+        max-width: 48rem;
+        margin: 0 auto;
+        padding: 2rem 1rem 4rem;
+      }
+
+      section {
+        margin-bottom: 2.5rem;
+      }
+
+      h2 {
+        font-size: 1.125rem;
+        font-weight: 600;
+        margin: 0 0 1rem;
+      }
+
+      .demo-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .demo-col {
+        flex-direction: column;
+        align-items: stretch;
+        max-width: 20rem;
+      }
+    </style>
   </body>
 </html>
