@@ -109,6 +109,13 @@ export class AppSidebar extends LitElement {
         >
           Checkbox
         </a>
+        <a
+          class="nav-item ${isActive('textarea')}"
+          href="#/textarea"
+          @click=${(e: Event) => this._navigate('textarea', e)}
+        >
+          Textarea
+        </a>
 
       </nav>
     `

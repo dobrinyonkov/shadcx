@@ -3,5 +3,6 @@
 export { Button } from './button.ts'
 export type { ButtonVariant, ButtonSize } from './button.ts'
 export { Input } from './input.ts'
+export { Textarea } from './textarea.ts'
 
 export { Checkbox } from './checkbox.ts'
