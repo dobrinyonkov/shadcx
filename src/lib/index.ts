@@ -7,3 +7,4 @@ export type { BadgeVariant } from './badge.ts'
 export { Input } from './input.ts'
 
 export { Checkbox } from './checkbox.ts'
+export { Combobox } from './combobox.ts'
