@@ -9,9 +9,6 @@ Load via CDN and drop components into any HTML page:
 ```html
 <link rel="stylesheet" href="https://dobrinyonkov.github.io/shadcx/assets/index.css" />
 <script type="module" src="https://dobrinyonkov.github.io/shadcx/assets/index.js"></script>
-
-<shadcx-button variant="default">Click me</shadcx-button>
-<shadcx-input placeholder="Type something..."></shadcx-input>
 ```
 
 ## Dev Setup
@@ -40,8 +37,6 @@ pnpm preview
 src/
   lib/               # The component library (published to CDN)
     theme.css         # CSS custom properties (theming layer)
-    button.ts         # <shadcx-button>
-    input.ts          # <shadcx-input>
     index.ts          # Barrel export
   app/               # Playground / docs site
     app-layout.ts     # Shell layout (sidebar + content + hash router)
@@ -50,42 +45,6 @@ src/
   main.ts            # Entry point — loads theme + components + playground
 index.html           # Docs site entry HTML
 ```
-
-## Component API
-
-### Button
-
-```html
-<shadcx-button variant="outline" size="lg" disabled>Button</shadcx-button>
-```
-
-| Prop | Type | Default |
-|------|------|---------|
-| `variant` | `"default" \| "outline" \| "ghost" \| "destructive" \| "secondary" \| "link"` | `"default"` |
-| `size` | `"default" \| "xs" \| "sm" \| "lg" \| "icon" \| "icon-xs" \| "icon-sm" \| "icon-lg"` | `"default"` |
-| `disabled` | `boolean` | `false` |
-
-**CSS Part:** `root` — the inner `<button>` element.
-
-### Input
-
-```html
-<shadcx-input placeholder="Email" type="email" disabled></shadcx-input>
-```
-
-| Prop | Type | Default |
-|------|------|---------|
-| `type` | `string` | `"text"` |
-| `placeholder` | `string` | `""` |
-| `value` | `string` | `""` |
-| `name` | `string` | `""` |
-| `disabled` | `boolean` | `false` |
-| `required` | `boolean` | `false` |
-| `readonly` | `boolean` | `false` |
-
-**Event:** `shadcx-input` — fires on every keystroke with `detail: { value: string }`.
-
-**CSS Part:** `root` — the inner `<input>` element.
 
 ## Theming
 

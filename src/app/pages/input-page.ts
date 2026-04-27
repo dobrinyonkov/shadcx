@@ -1,5 +1,7 @@
 import { LitElement, css, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
+import '../../lib/input.ts'
+import '../../lib/button.ts'
 
 @customElement('input-page')
 export class InputPage extends LitElement {
@@ -48,9 +50,9 @@ export class InputPage extends LitElement {
       border-radius: calc(var(--radius) - 2px);
       padding: 1.5rem;
       display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      max-width: 24rem;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
       margin-bottom: 0;
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
@@ -93,7 +95,7 @@ export class InputPage extends LitElement {
 
     table {
       width: 100%;
-      min-width: 28rem;
+      min-width: 24rem;
       font-size: 0.875rem;
       border-collapse: collapse;
     }
@@ -113,26 +115,39 @@ export class InputPage extends LitElement {
 
     td {
       color: hsl(var(--muted-foreground));
-      font-family: var(--font-mono, ui-monospace, SFMono-Regular, monospace);
       font-size: 0.8125rem;
-      white-space: nowrap;
     }
 
     td:first-child {
       color: hsl(var(--foreground));
       font-weight: 500;
-      font-family: inherit;
     }
 
-    td:last-child {
-      white-space: normal;
+    td code {
+      font-size: 0.75rem;
+    }
+
+    .inline-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      width: 100%;
     }
 
     @media (max-width: 640px) {
-      h1 { font-size: 1.375rem; }
-      h2 { font-size: 1.125rem; }
-      .preview { padding: 1rem; max-width: 100%; }
-      pre { padding: 0.75rem; font-size: 0.75rem; }
+      h1 {
+        font-size: 1.375rem;
+      }
+      h2 {
+        font-size: 1.125rem;
+      }
+      .preview {
+        padding: 1rem;
+      }
+      pre {
+        padding: 0.75rem;
+        font-size: 0.75rem;
+      }
     }
   `
 
@@ -149,30 +164,63 @@ export class InputPage extends LitElement {
 &lt;script type="module" src=".../assets/index.js"&gt;&lt;/script&gt;</code></pre>
 
       <h2>Usage</h2>
-      <pre><code>&lt;shadcx-input /&gt;</code></pre>
+      <pre><code>&lt;shadcx-input placeholder="Enter text"&gt;&lt;/shadcx-input&gt;</code></pre>
 
       <h2>Examples</h2>
 
       <h3>Basic</h3>
       <div class="preview">
-        <shadcx-input placeholder="Placeholder text..."></shadcx-input>
+        <shadcx-input placeholder="Enter text"></shadcx-input>
       </div>
-      <pre><code>&lt;shadcx-input placeholder="Placeholder text..."&gt;&lt;/shadcx-input&gt;</code></pre>
+      <pre><code>&lt;shadcx-input placeholder="Enter text"&gt;&lt;/shadcx-input&gt;</code></pre>
+
+      <h3>Types</h3>
+      <div class="preview">
+        <shadcx-input type="text" placeholder="Text"></shadcx-input>
+        <shadcx-input type="email" placeholder="Email"></shadcx-input>
+        <shadcx-input type="password" placeholder="Password"></shadcx-input>
+        <shadcx-input type="search" placeholder="Search"></shadcx-input>
+      </div>
+      <pre><code>&lt;shadcx-input type="text" placeholder="Text"&gt;&lt;/shadcx-input&gt;
+&lt;shadcx-input type="email" placeholder="Email"&gt;&lt;/shadcx-input&gt;
+&lt;shadcx-input type="password" placeholder="Password"&gt;&lt;/shadcx-input&gt;
+&lt;shadcx-input type="search" placeholder="Search"&gt;&lt;/shadcx-input&gt;</code></pre>
 
       <h3>Disabled</h3>
       <div class="preview">
-        <shadcx-input disabled placeholder="Disabled input..."></shadcx-input>
+        <shadcx-input placeholder="Disabled" disabled></shadcx-input>
       </div>
-      <pre><code>&lt;shadcx-input disabled placeholder="Disabled input..."&gt;&lt;/shadcx-input&gt;</code></pre>
+      <pre><code>&lt;shadcx-input placeholder="Disabled" disabled&gt;&lt;/shadcx-input&gt;</code></pre>
+
+      <h3>Invalid</h3>
+      <div class="preview">
+        <shadcx-input placeholder="Error" aria-invalid="true"></shadcx-input>
+      </div>
+      <pre><code>&lt;shadcx-input placeholder="Error" aria-invalid="true"&gt;&lt;/shadcx-input&gt;</code></pre>
 
       <h3>File</h3>
-      <p>
-        Use the <code>type="file"</code> prop to create a file input.
-      </p>
       <div class="preview">
         <shadcx-input type="file"></shadcx-input>
       </div>
       <pre><code>&lt;shadcx-input type="file"&gt;&lt;/shadcx-input&gt;</code></pre>
+
+      <h3>Required</h3>
+      <div class="preview">
+        <shadcx-input placeholder="Required field" required></shadcx-input>
+      </div>
+      <pre><code>&lt;shadcx-input placeholder="Required field" required&gt;&lt;/shadcx-input&gt;</code></pre>
+
+      <h3>With Button</h3>
+      <div class="preview">
+        <div class="inline-row">
+          <shadcx-input type="search" placeholder="Search..."></shadcx-input>
+          <shadcx-button variant="outline">Search</shadcx-button>
+        </div>
+      </div>
+      <pre><code>&lt;div style="display: flex; gap: 0.5rem;"&gt;
+  &lt;shadcx-input type="search" placeholder="Search..."&gt;&lt;/shadcx-input&gt;
+  &lt;shadcx-button variant="outline"&gt;Search&lt;/shadcx-button&gt;
+&lt;/div&gt;</code></pre>
 
       <h2>API Reference</h2>
       <div class="table-wrap">
@@ -186,59 +234,34 @@ export class InputPage extends LitElement {
           </thead>
           <tbody>
             <tr>
-              <td>type</td>
-              <td>string</td>
-              <td>"text"</td>
+              <td><code>type</code></td>
+              <td><code>string</code></td>
+              <td><code>"text"</code></td>
             </tr>
             <tr>
-              <td>placeholder</td>
-              <td>string</td>
-              <td>""</td>
+              <td><code>placeholder</code></td>
+              <td><code>string</code></td>
+              <td><code>""</code></td>
             </tr>
             <tr>
-              <td>value</td>
-              <td>string</td>
-              <td>""</td>
+              <td><code>disabled</code></td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
             </tr>
             <tr>
-              <td>name</td>
-              <td>string</td>
-              <td>""</td>
+              <td><code>required</code></td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
             </tr>
             <tr>
-              <td>disabled</td>
-              <td>boolean</td>
-              <td>false</td>
+              <td><code>readonly</code></td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
             </tr>
             <tr>
-              <td>required</td>
-              <td>boolean</td>
-              <td>false</td>
-            </tr>
-            <tr>
-              <td>readonly</td>
-              <td>boolean</td>
-              <td>false</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h3>Events</h3>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Event</th>
-              <th>Detail</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>shadcx-input</td>
-              <td>{ value: string }</td>
-              <td>Fires on every input change</td>
+              <td><code>aria-invalid</code></td>
+              <td><code>string</code></td>
+              <td><code>—</code></td>
             </tr>
           </tbody>
         </table>
@@ -255,8 +278,8 @@ export class InputPage extends LitElement {
           </thead>
           <tbody>
             <tr>
-              <td>root</td>
-              <td>The input element</td>
+              <td><code>root</code></td>
+              <td>The <code>&lt;input&gt;</code> element</td>
             </tr>
           </tbody>
         </table>

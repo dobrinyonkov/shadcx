@@ -220,12 +220,12 @@ export class AppLayout extends LitElement {
 
   private _renderPage() {
     switch (this._page) {
-      case 'theming':
-        return html`<theming-page></theming-page>`
       case 'button':
         return html`<button-page></button-page>`
       case 'input':
         return html`<input-page></input-page>`
+      case 'theming':
+        return html`<theming-page></theming-page>`
       default:
         return html`<overview-page></overview-page>`
     }

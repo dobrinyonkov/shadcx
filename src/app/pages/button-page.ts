@@ -1,5 +1,6 @@
 import { LitElement, css, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
+import '../../lib/button.ts'
 
 @customElement('button-page')
 export class ButtonPage extends LitElement {
@@ -8,6 +9,7 @@ export class ButtonPage extends LitElement {
       display: block;
       font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
     }
+
     h1 {
       font-size: 1.75rem;
       font-weight: 700;
@@ -15,28 +17,33 @@ export class ButtonPage extends LitElement {
       margin: 0 0 0.5rem;
       color: hsl(var(--foreground));
     }
+
     h2 {
       font-size: 1.25rem;
       font-weight: 600;
       margin: 2.25rem 0 0.75rem;
       color: hsl(var(--foreground));
     }
+
     h3 {
       font-size: 1rem;
       font-weight: 600;
       margin: 1.5rem 0 0.5rem;
       color: hsl(var(--foreground));
     }
+
     p {
       font-size: 0.9375rem;
       line-height: 1.65;
       color: hsl(var(--foreground));
       margin: 0 0 0.75rem;
     }
+
     .desc {
       color: hsl(var(--muted-foreground));
       margin-bottom: 1.5rem;
     }
+
     .preview {
       border: 1px solid hsl(var(--border));
       border-radius: calc(var(--radius) - 2px);
@@ -49,12 +56,14 @@ export class ButtonPage extends LitElement {
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
     }
+
     .preview + pre {
       margin-top: 0;
       border-top-left-radius: 0;
       border-top-right-radius: 0;
       border-top: none;
     }
+
     pre {
       background-color: hsl(var(--muted));
       border: 1px solid hsl(var(--border));
@@ -65,62 +74,81 @@ export class ButtonPage extends LitElement {
       line-height: 1.6;
       margin: 0 0 1.5rem;
     }
+
     code {
       font-family: var(--font-mono, ui-monospace, SFMono-Regular, monospace);
       font-size: 0.8125rem;
     }
+
     :not(pre) > code {
       background-color: hsl(var(--muted));
       padding: 0.15rem 0.4rem;
       border-radius: calc(var(--radius) - 4px);
     }
+
     .table-wrap {
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
       margin-bottom: 1.5rem;
     }
+
     table {
       width: 100%;
       min-width: 24rem;
       font-size: 0.875rem;
       border-collapse: collapse;
     }
-    th, td {
+
+    th,
+    td {
       text-align: left;
       padding: 0.5rem 0.75rem;
       border-bottom: 1px solid hsl(var(--border));
     }
+
     th {
       font-weight: 600;
       color: hsl(var(--foreground));
       font-size: 0.8125rem;
     }
+
     td {
       color: hsl(var(--muted-foreground));
-      font-family: var(--font-mono, ui-monospace, SFMono-Regular, monospace);
       font-size: 0.8125rem;
-      white-space: nowrap;
     }
+
     td:first-child {
       color: hsl(var(--foreground));
       font-weight: 500;
-      font-family: inherit;
     }
-    td:nth-child(2) {
-      white-space: normal;
+
+    td code {
+      font-size: 0.75rem;
     }
+
     @media (max-width: 640px) {
-      h1 { font-size: 1.375rem; }
-      h2 { font-size: 1.125rem; }
-      .preview { padding: 1rem; }
-      pre { padding: 0.75rem; font-size: 0.75rem; }
+      h1 {
+        font-size: 1.375rem;
+      }
+      h2 {
+        font-size: 1.125rem;
+      }
+      .preview {
+        padding: 1rem;
+      }
+      pre {
+        padding: 0.75rem;
+        font-size: 0.75rem;
+      }
     }
   `
 
   render() {
     return html`
       <h1>Button</h1>
-      <p class="desc">Displays a button or a component that looks like a button.</p>
+      <p class="desc">
+        Displays a button or a component that looks like a button.
+      </p>
 
       <h2>Installation</h2>
       <pre><code>&lt;link rel="stylesheet" href=".../assets/index.css"&gt;
@@ -131,24 +159,29 @@ export class ButtonPage extends LitElement {
 
       <h2>Examples</h2>
 
+      <h3>Basic</h3>
+      <div class="preview">
+        <shadcx-button>Button</shadcx-button>
+      </div>
+      <pre><code>&lt;shadcx-button&gt;Button&lt;/shadcx-button&gt;</code></pre>
+
       <h3>Variants</h3>
       <div class="preview">
         <shadcx-button variant="default">Default</shadcx-button>
-        <shadcx-button variant="outline">Outline</shadcx-button>
-        <shadcx-button variant="ghost">Ghost</shadcx-button>
         <shadcx-button variant="destructive">Destructive</shadcx-button>
+        <shadcx-button variant="outline">Outline</shadcx-button>
         <shadcx-button variant="secondary">Secondary</shadcx-button>
+        <shadcx-button variant="ghost">Ghost</shadcx-button>
         <shadcx-button variant="link">Link</shadcx-button>
       </div>
       <pre><code>&lt;shadcx-button variant="default"&gt;Default&lt;/shadcx-button&gt;
-&lt;shadcx-button variant="outline"&gt;Outline&lt;/shadcx-button&gt;
-&lt;shadcx-button variant="ghost"&gt;Ghost&lt;/shadcx-button&gt;
 &lt;shadcx-button variant="destructive"&gt;Destructive&lt;/shadcx-button&gt;
+&lt;shadcx-button variant="outline"&gt;Outline&lt;/shadcx-button&gt;
 &lt;shadcx-button variant="secondary"&gt;Secondary&lt;/shadcx-button&gt;
+&lt;shadcx-button variant="ghost"&gt;Ghost&lt;/shadcx-button&gt;
 &lt;shadcx-button variant="link"&gt;Link&lt;/shadcx-button&gt;</code></pre>
 
-      <h3>Size</h3>
-      <p>Use the <code>size</code> prop to change the size of the button.</p>
+      <h3>Sizes</h3>
       <div class="preview">
         <shadcx-button size="xs">Extra Small</shadcx-button>
         <shadcx-button size="sm">Small</shadcx-button>
@@ -162,33 +195,68 @@ export class ButtonPage extends LitElement {
 
       <h3>Icon</h3>
       <div class="preview">
-        <shadcx-button size="icon-xs">?</shadcx-button>
-        <shadcx-button size="icon-sm">?</shadcx-button>
-        <shadcx-button size="icon">?</shadcx-button>
-        <shadcx-button size="icon-lg">?</shadcx-button>
+        <shadcx-button size="icon" variant="outline" aria-label="Search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </shadcx-button>
+        <shadcx-button size="icon-xs" variant="outline" aria-label="Search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </shadcx-button>
+        <shadcx-button size="icon-sm" variant="outline" aria-label="Search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </shadcx-button>
+        <shadcx-button size="icon-lg" variant="outline" aria-label="Search">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </shadcx-button>
       </div>
-      <pre><code>&lt;shadcx-button size="icon"&gt;&lt;svg ... /&gt;&lt;/shadcx-button&gt;
-&lt;shadcx-button size="icon-sm"&gt;+&lt;/shadcx-button&gt;</code></pre>
+      <pre><code>&lt;shadcx-button size="icon" variant="outline" aria-label="Search"&gt;
+  &lt;svg ...&gt;&lt;/svg&gt;
+&lt;/shadcx-button&gt;
+&lt;shadcx-button size="icon-xs" variant="outline" aria-label="Search"&gt;
+  &lt;svg ...&gt;&lt;/svg&gt;
+&lt;/shadcx-button&gt;
+&lt;shadcx-button size="icon-sm" variant="outline" aria-label="Search"&gt;
+  &lt;svg ...&gt;&lt;/svg&gt;
+&lt;/shadcx-button&gt;
+&lt;shadcx-button size="icon-lg" variant="outline" aria-label="Search"&gt;
+  &lt;svg ...&gt;&lt;/svg&gt;
+&lt;/shadcx-button&gt;</code></pre>
 
       <h3>Disabled</h3>
       <div class="preview">
-        <shadcx-button variant="default" disabled>Default</shadcx-button>
+        <shadcx-button disabled>Primary</shadcx-button>
         <shadcx-button variant="outline" disabled>Outline</shadcx-button>
         <shadcx-button variant="ghost" disabled>Ghost</shadcx-button>
       </div>
-      <pre><code>&lt;shadcx-button variant="default" disabled&gt;Default&lt;/shadcx-button&gt;
-&lt;shadcx-button variant="outline" disabled&gt;Outline&lt;/shadcx-button&gt;</code></pre>
+      <pre><code>&lt;shadcx-button disabled&gt;Primary&lt;/shadcx-button&gt;
+&lt;shadcx-button variant="outline" disabled&gt;Outline&lt;/shadcx-button&gt;
+&lt;shadcx-button variant="ghost" disabled&gt;Ghost&lt;/shadcx-button&gt;</code></pre>
 
       <h2>API Reference</h2>
       <div class="table-wrap">
         <table>
           <thead>
-            <tr><th>Prop</th><th>Type</th><th>Default</th></tr>
+            <tr>
+              <th>Prop</th>
+              <th>Type</th>
+              <th>Default</th>
+            </tr>
           </thead>
           <tbody>
-            <tr><td>variant</td><td>"default" | "outline" | "ghost" | "destructive" | "secondary" | "link"</td><td>"default"</td></tr>
-            <tr><td>size</td><td>"default" | "xs" | "sm" | "lg" | "icon" | "icon-xs" | "icon-sm" | "icon-lg"</td><td>"default"</td></tr>
-            <tr><td>disabled</td><td>boolean</td><td>false</td></tr>
+            <tr>
+              <td><code>variant</code></td>
+              <td><code>"default" | "destructive" | "outline" | "secondary" | "ghost" | "link"</code></td>
+              <td><code>"default"</code></td>
+            </tr>
+            <tr>
+              <td><code>size</code></td>
+              <td><code>"default" | "xs" | "sm" | "lg" | "icon" | "icon-xs" | "icon-sm" | "icon-lg"</code></td>
+              <td><code>"default"</code></td>
+            </tr>
+            <tr>
+              <td><code>disabled</code></td>
+              <td><code>boolean</code></td>
+              <td><code>false</code></td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -197,10 +265,16 @@ export class ButtonPage extends LitElement {
       <div class="table-wrap">
         <table>
           <thead>
-            <tr><th>Part</th><th>Description</th></tr>
+            <tr>
+              <th>Part</th>
+              <th>Description</th>
+            </tr>
           </thead>
           <tbody>
-            <tr><td>root</td><td>The button element</td></tr>
+            <tr>
+              <td><code>root</code></td>
+              <td>The <code>&lt;button&gt;</code> element</td>
+            </tr>
           </tbody>
         </table>
       </div>
