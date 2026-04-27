@@ -5,3 +5,6 @@ export type { ButtonVariant, ButtonSize } from './button.ts'
 export { Input } from './input.ts'
 
 export { Checkbox } from './checkbox.ts'
+
+export { Switch } from './switch.ts'
+export type { SwitchSize } from './switch.ts'

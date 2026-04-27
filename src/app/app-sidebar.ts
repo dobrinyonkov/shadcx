@@ -109,6 +109,13 @@ export class AppSidebar extends LitElement {
         >
           Checkbox
         </a>
+        <a
+          class="nav-item ${isActive('switch')}"
+          href="#/switch"
+          @click=${(e: Event) => this._navigate('switch', e)}
+        >
+          Switch
+        </a>
 
       </nav>
     `
