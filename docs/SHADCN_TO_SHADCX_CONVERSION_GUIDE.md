@@ -577,6 +577,12 @@ private _navigate<Name>(e: Event) {
 }
 ```
 
+**Docs page completeness checklist (`src/app/pages/<name>-page.ts`):**
+- Include sections for: `Installation`, `Usage`, and representative `Examples`.
+- End every component page with an **`API Reference`** section that contains a 3-column table: `Prop`, `Type`, `Default`.
+- Ensure every public property exposed in the component class (`@property`) is represented in the API table.
+- Keep table row order stable: primary props first, state/boolean flags next, aria/data attributes last.
+
 ---
 
 
