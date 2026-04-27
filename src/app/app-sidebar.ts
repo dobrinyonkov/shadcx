@@ -146,6 +146,7 @@ export class AppSidebar extends LitElement {
         >
           Input
         </a>
+
       </nav>
 
       <div class="theme-row">

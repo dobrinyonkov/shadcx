@@ -111,6 +111,61 @@ target-component.ts
 └── declare global { HTMLElementTagNameMap }
 ```
 
+#### CSS Priority: Host First, Parts Second
+
+When styling a shadcx component, follow this two-tier priority:
+
+**Priority 1 — Style via `:host`**
+
+The host element is styled from inside the shadow DOM. Consumers can influence it via CSS custom properties and attribute selectors. This lets the user control appearance without touching internals.
+
+```css
+/* Inside shadow DOM — host accepts theme tokens from outside */
+:host {
+  background-color: hsl(var(--background));
+  border-radius: var(--radius);
+  font-family: var(--font-sans);
+}
+
+:host([variant="destructive"]) {
+  /* consumer sets variant="destructive" → host reacts */
+  --_bg: hsl(var(--destructive));
+  --_fg: hsl(var(--destructive-foreground));
+}
+```
+
+```css
+/* Outside — consumer overrides tokens, not internals */
+shadcx-button {
+  --radius: 0;
+  --font-sans: 'Courier New', monospace;
+}
+```
+
+**Priority 2 — Expose internals via `::part()`**
+
+If host-only styling isn't enough (e.g. a compound component with multiple interactive regions), expose specific internal elements with `part`. This gives targeted access without breaking the shadow boundary entirely.
+
+```html
+<!-- Inside shadow DOM — annotate elements the consumer may style -->
+<div part="root">
+  <button part="trigger">Open</button>
+  <div part="panel"><slot></slot></div>
+</div>
+```
+
+```css
+/* Outside — consumer styles named parts */
+shadcx-dropdown::part(trigger) {
+  border-radius: 0;
+}
+shadcx-dropdown::part(panel) {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+```
+
+**Decision rule**: Start with `:host`. Only add `part` when a consumer has a concrete need to style a specific internal element. Prefer a single `part="root"` on the top-level interactive element (button, input, etc.) for coarse-grained overrides.
+
 ---
 
 ### Phase 3: Implement the Transformation
@@ -351,7 +406,179 @@ Before marking a conversion complete, verify:
 
 ---
 
-## Appendix A: Button Conversion — Feature Checklist
+### Phase 7: Wire Up the Playground
+
+Once the component is converted, add it to the docs playground so users can see live examples and API documentation.
+
+The playground is a SPA built with Lit. Each component gets its own docs page with live previews, code snippets, and API reference tables.
+
+**Step-by-step wiring (7 files to touch):**
+
+| # | File | Action |
+|---|------|--------|
+| 1 | `src/lib/<name>.ts` | Your converted component |
+| 2 | `src/main.ts` | `import './lib/<name>.ts'` to register the custom element |
+| 3 | `src/lib/index.ts` | `export { <Name> } from './<name>.ts'` for consumers |
+| 4 | `src/app/pages/<name>-page.ts` | Create the docs page (template below) |
+| 5 | `src/app/app-layout.ts` | Import page + add `case` in `_renderPage()` router |
+| 6 | `src/app/app-sidebar.ts` | Add nav link under "Components" section |
+| 7 | `src/app/pages/overview-page.ts` | Add a card linking to the new page |
+
+**Page template (`src/app/pages/<name>-page.ts`):**
+
+```ts
+import { LitElement, css, html } from 'lit'
+import { customElement } from 'lit/decorators.js'
+
+@customElement('<name>-page')
+export class <Name>Page extends LitElement {
+  static styles = css`
+    :host {
+      display: block;
+      font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
+    }
+    h1 { font-size: 1.75rem; font-weight: 700; margin: 0 0 0.5rem; color: hsl(var(--foreground)); }
+    h2 { font-size: 1.25rem; font-weight: 600; margin: 2.25rem 0 0.75rem; color: hsl(var(--foreground)); }
+    h3 { font-size: 1rem; font-weight: 600; margin: 1.5rem 0 0.5rem; color: hsl(var(--foreground)); }
+    p { font-size: 0.9375rem; line-height: 1.65; color: hsl(var(--foreground)); margin: 0 0 0.75rem; }
+    .desc { color: hsl(var(--muted-foreground)); margin-bottom: 1.5rem; }
+    .preview {
+      border: 1px solid hsl(var(--border));
+      border-radius: calc(var(--radius) - 2px);
+      padding: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    .preview + pre { margin-top: 0; border-top-left-radius: 0; border-top-right-radius: 0; border-top: none; }
+    pre {
+      background-color: hsl(var(--muted));
+      border: 1px solid hsl(var(--border));
+      border-radius: calc(var(--radius) - 2px);
+      padding: 1rem;
+      overflow-x: auto;
+      font-size: 0.8125rem;
+      line-height: 1.6;
+      margin: 0 0 1.5rem;
+    }
+    code { font-family: var(--font-mono, ui-monospace, monospace); font-size: 0.8125rem; }
+    :not(pre) > code { background-color: hsl(var(--muted)); padding: 0.15rem 0.4rem; border-radius: calc(var(--radius) - 4px); }
+    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 1.5rem; }
+    table { width: 100%; min-width: 24rem; font-size: 0.875rem; border-collapse: collapse; }
+    th, td { text-align: left; padding: 0.5rem 0.75rem; border-bottom: 1px solid hsl(var(--border)); }
+    th { font-weight: 600; color: hsl(var(--foreground)); font-size: 0.8125rem; }
+    td { color: hsl(var(--muted-foreground)); font-size: 0.8125rem; }
+    td:first-child { color: hsl(var(--foreground)); font-weight: 500; }
+    @media (max-width: 640px) {
+      h1 { font-size: 1.375rem; }
+      h2 { font-size: 1.125rem; }
+      .preview { padding: 1rem; }
+      pre { padding: 0.75rem; font-size: 0.75rem; }
+    }
+  `
+
+  render() {
+    return html`
+      <h1><DisplayName></h1>
+      <p class="desc"><Description of the component></p>
+
+      <h2>Installation</h2>
+      <pre><code>&lt;link rel="stylesheet" href=".../assets/index.css"&gt;
+&lt;script type="module" src=".../assets/index.js"&gt;&lt;/script&gt;</code></pre>
+
+      <h2>Usage</h2>
+      <pre><code>&lt;shadcx-<name>&gt;&lt;/shadcx-<name>&gt;</code></pre>
+
+      <h2>Examples</h2>
+
+      <h3>Basic</h3>
+      <div class="preview">
+        <shadcx-<name>>Example</shadcx-<name>>
+      </div>
+      <pre><code>&lt;shadcx-<name>&gt;Example&lt;/shadcx-<name>&gt;</code></pre>
+
+      <h2>API Reference</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Prop</th><th>Type</th><th>Default</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>exampleProp</td><td>string</td><td>"default"</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>CSS Parts</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Part</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>root</td><td>The root element</td></tr>
+          </tbody>
+        </table>
+      </div>
+    `
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    '<name>-page': <Name>Page
+  }
+}
+```
+
+**Hook into routing (`src/app/app-layout.ts`):**
+
+Add the import:
+```ts
+import './pages/<name>-page.ts'
+```
+
+Add a route case inside `_renderPage()`:
+```ts
+case '<name>':
+  return html`<<name>-page></<name>-page>`
+```
+
+**Hook into navigation (`src/app/app-sidebar.ts`):**
+
+Add a nav link under the `Components` section:
+```html
+<a class="nav-item ${isActive('<name>')}" href="#/<name>"
+   @click=${(e: Event) => this._navigate('<name>', e)}
+>
+  <DisplayName>
+</a>
+```
+
+**Add overview card (`src/app/pages/overview-page.ts`):**
+
+Add a card in the `.cards` grid:
+```html
+<a class="card" href="#/<name>" @click=${this._navigate<Name>}>
+  <h3><DisplayName></h3>
+  <p><One-line description></p>
+</a>
+```
+
+And the navigate handler:
+```ts
+private _navigate<Name>(e: Event) {
+  e.preventDefault()
+  location.hash = '<name>'
+}
+```
+
+---
+
 
 | Feature | shadcn | shadcx Status |
 |---------|--------|---------------|

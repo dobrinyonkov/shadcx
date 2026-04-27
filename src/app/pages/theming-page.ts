@@ -172,26 +172,6 @@ background-color: hsl(var(--primary));</code></pre>
   --background: 0 0% 5%;
 }</code></pre>
 
-      <h2>CSS Shadow Parts</h2>
-      <p>
-        Every component exposes a CSS
-        <a
-          href="https://developer.mozilla.org/en-US/docs/Web/CSS/::part"
-          target="_blank"
-          rel="noopener"
-        ><code>::part()</code></a>
-        for fine-grained styling from outside the Shadow DOM:
-      </p>
-      <pre><code>shadcx-button::part(root) {
-  border-radius: 0;
-  text-transform: uppercase;
-  font-weight: 700;
-}
-
-shadcx-input::part(root) {
-  border-width: 2px;
-}</code></pre>
-
       <h2>Design Tokens</h2>
       <p>
         All values are <strong>HSL channels</strong> (H S% L%).

@@ -111,6 +111,16 @@ export class OverviewPage extends LitElement {
     }
   `
 
+  private _navigateButton(e: Event) {
+    e.preventDefault()
+    location.hash = 'button'
+  }
+
+  private _navigateInput(e: Event) {
+    e.preventDefault()
+    location.hash = 'input'
+  }
+
   render() {
     return html`
       <h1>shadcx</h1>
@@ -127,12 +137,6 @@ export class OverviewPage extends LitElement {
       <pre><code>&lt;link rel="stylesheet" href="https://dobrinyonkov.github.io/shadcx/assets/index.css"&gt;
 &lt;script type="module" src="https://dobrinyonkov.github.io/shadcx/assets/index.js"&gt;&lt;/script&gt;</code></pre>
 
-      <p>
-        Then use any component in your HTML:
-      </p>
-      <pre><code>&lt;shadcx-button variant="default"&gt;Click me&lt;/shadcx-button&gt;
-&lt;shadcx-input placeholder="Type something..."&gt;&lt;/shadcx-input&gt;</code></pre>
-
       <h2>Components</h2>
       <div class="cards">
         <a class="card" href="#/button" @click=${this._navigateButton}>
@@ -147,15 +151,6 @@ export class OverviewPage extends LitElement {
     `
   }
 
-  private _navigateButton(e: Event) {
-    e.preventDefault()
-    location.hash = 'button'
-  }
-
-  private _navigateInput(e: Event) {
-    e.preventDefault()
-    location.hash = 'input'
-  }
 }
 
 declare global {
