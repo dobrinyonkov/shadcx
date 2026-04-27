@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  base: '/shadcx/',
+  base: process.env.BASE_PATH || '/shadcx/',
   build: {
     rollupOptions: {
       output: {
