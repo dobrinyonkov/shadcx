@@ -186,41 +186,41 @@ export class TextareaPage extends LitElement {
       <h3>Field</h3>
       <div class="preview">
         <div class="field">
-          <label class="field-label" for="feedback-field">Your feedback</label>
-          <shadcx-textarea id="feedback-field" placeholder="Tell us what you think."></shadcx-textarea>
+          <p class="field-label">Your feedback</p>
+          <shadcx-textarea placeholder="Tell us what you think."></shadcx-textarea>
           <p class="field-description">Please include as much detail as possible.</p>
         </div>
       </div>
       <pre><code>&lt;div class="field"&gt;
-  &lt;label class="field-label" for="feedback-field"&gt;Your feedback&lt;/label&gt;
-  &lt;shadcx-textarea id="feedback-field" placeholder="Tell us what you think."&gt;&lt;/shadcx-textarea&gt;
+  &lt;p class="field-label"&gt;Your feedback&lt;/p&gt;
+  &lt;shadcx-textarea placeholder="Tell us what you think."&gt;&lt;/shadcx-textarea&gt;
   &lt;p class="field-description"&gt;Please include as much detail as possible.&lt;/p&gt;
 &lt;/div&gt;</code></pre>
 
       <h3>Disabled</h3>
       <div class="preview">
         <div class="field" data-disabled>
-          <label class="field-label" for="disabled-field">Project notes</label>
-          <shadcx-textarea id="disabled-field" placeholder="Disabled" disabled></shadcx-textarea>
+          <p class="field-label">Project notes</p>
+          <shadcx-textarea placeholder="Disabled" disabled></shadcx-textarea>
           <p class="field-description">This field is read-only for your role.</p>
         </div>
       </div>
       <pre><code>&lt;div class="field" data-disabled&gt;
-  &lt;label class="field-label" for="disabled-field"&gt;Project notes&lt;/label&gt;
-  &lt;shadcx-textarea id="disabled-field" disabled&gt;&lt;/shadcx-textarea&gt;
+  &lt;p class="field-label"&gt;Project notes&lt;/p&gt;
+  &lt;shadcx-textarea disabled&gt;&lt;/shadcx-textarea&gt;
 &lt;/div&gt;</code></pre>
 
       <h3>Invalid</h3>
       <div class="preview">
         <div class="field" data-invalid>
-          <label class="field-label" for="invalid-field">Bio</label>
-          <shadcx-textarea id="invalid-field" aria-invalid="true" placeholder="At least 20 characters"></shadcx-textarea>
+          <p class="field-label">Bio</p>
+          <shadcx-textarea aria-invalid="true" placeholder="At least 20 characters"></shadcx-textarea>
           <p class="field-description">Your bio must be at least 20 characters long.</p>
         </div>
       </div>
       <pre><code>&lt;div class="field" data-invalid&gt;
-  &lt;label class="field-label" for="invalid-field"&gt;Bio&lt;/label&gt;
-  &lt;shadcx-textarea id="invalid-field" aria-invalid="true"&gt;&lt;/shadcx-textarea&gt;
+  &lt;p class="field-label"&gt;Bio&lt;/p&gt;
+  &lt;shadcx-textarea aria-invalid="true"&gt;&lt;/shadcx-textarea&gt;
 &lt;/div&gt;</code></pre>
 
       <h3>Button</h3>
@@ -243,6 +243,8 @@ export class TextareaPage extends LitElement {
           </thead>
           <tbody>
             <tr><td><code>placeholder</code></td><td><code>string</code></td><td><code>""</code></td></tr>
+            <tr><td><code>value</code></td><td><code>string</code></td><td><code>""</code></td></tr>
+            <tr><td><code>name</code></td><td><code>string</code></td><td><code>""</code></td></tr>
             <tr><td><code>rows</code></td><td><code>number</code></td><td><code>4</code></td></tr>
             <tr><td><code>disabled</code></td><td><code>boolean</code></td><td><code>false</code></td></tr>
             <tr><td><code>required</code></td><td><code>boolean</code></td><td><code>false</code></td></tr>

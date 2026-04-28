@@ -4,7 +4,14 @@ import { preflight } from './preflight.ts'
 
 @customElement('shadcx-textarea')
 export class Textarea extends LitElement {
+  static override shadowRootOptions = {
+    ...LitElement.shadowRootOptions,
+    delegatesFocus: true,
+  }
+
   @property({ type: String }) placeholder = ''
+  @property({ type: String }) value = ''
+  @property({ type: String }) name = ''
   @property({ type: Boolean, reflect: true }) disabled = false
   @property({ type: Boolean, reflect: true }) required = false
   @property({ type: Boolean, reflect: true }) readonly = false
@@ -15,12 +22,13 @@ export class Textarea extends LitElement {
     preflight,
     css`
       :host {
-        display: flex;
+        display: block;
       }
 
       .root {
         display: flex;
         width: 100%;
+        box-sizing: border-box;
         min-height: 4rem;
         resize: vertical;
         border-radius: calc(var(--radius) - 2px);
@@ -65,17 +73,37 @@ export class Textarea extends LitElement {
     `,
   ]
 
+  private _onInput(e: Event) {
+    const target = e.target as HTMLTextAreaElement
+    this.value = target.value
+    this.dispatchEvent(
+      new CustomEvent('shadcx-input', {
+        detail: { value: this.value },
+        bubbles: true,
+        composed: true,
+      }),
+    )
+  }
+
+  override focus(options?: FocusOptions) {
+    const textarea = this.shadowRoot?.querySelector<HTMLTextAreaElement>('.root')
+    textarea?.focus(options)
+  }
+
   render() {
     return html`
       <textarea
         part="root"
         class="root"
+        name=${this.name}
         placeholder=${this.placeholder}
+        .value=${this.value}
         ?disabled=${this.disabled}
         ?required=${this.required}
         ?readonly=${this.readonly}
         rows=${this.rows}
         aria-invalid=${this.ariaInvalid || nothing}
+        @input=${this._onInput}
       ></textarea>
     `
   }
