@@ -74,7 +74,7 @@ For each shadcn component being converted, document:
 | **className** | `data-*` attributes in shadow DOM | Enables variant/size-based CSS |
 | **Tailwind classes** | Shadow DOM `css\`...\`` static styles | Scoped, no collision |
 | **CVA variants** | `data-variant="..."` + CSS attribute selectors | `[data-variant="ghost"] { ... }` |
-| **`asChild`** | Slot | User puts content inside `<shadcx-button>` |
+| **`asChild`** | Slot | User puts content inside `<button class="scx-button">` |
 | **hover:** | `:hover` in shadow CSS | `[data-variant="outline"]:hover { ... }` |
 | **focus-visible:** | `:focus-visible` in shadow CSS | `:focus-visible { box-shadow: ... }` |
 | **Tailwind colors** | `hsl(var(--primary))` | Theme tokens as HSL channels |
@@ -128,7 +128,7 @@ The host element is styled from inside the shadow DOM. Consumers can influence i
 }
 
 :host([variant="destructive"]) {
-  /* consumer sets variant="destructive" → host reacts */
+  /* consumer sets class="scx-button scx-destructive" → host reacts */
   --_bg: hsl(var(--destructive));
   --_fg: hsl(var(--destructive-foreground));
 }

@@ -1,6 +1,5 @@
 import { LitElement, css, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
-import '../../lib/badge.ts'
 
 @customElement('badge-page')
 export class BadgePage extends LitElement {
@@ -190,30 +189,30 @@ export class BadgePage extends LitElement {
 
       <h3>Variants</h3>
       <div class="preview">
-        <shadcx-badge>Default</shadcx-badge>
-        <shadcx-badge variant="secondary">Secondary</shadcx-badge>
-        <shadcx-badge variant="destructive">Destructive</shadcx-badge>
-        <shadcx-badge variant="outline">Outline</shadcx-badge>
-        <shadcx-badge variant="ghost">Ghost</shadcx-badge>
-        <shadcx-badge variant="link">Link</shadcx-badge>
+        <span class="scx-badge">Default</span>
+        <span class="scx-badge" class="scx-button scx-secondary">Secondary</span>
+        <span class="scx-badge" class="scx-button scx-destructive">Destructive</span>
+        <span class="scx-badge" class="scx-button scx-outline">Outline</span>
+        <span class="scx-badge" class="scx-button scx-ghost">Ghost</span>
+        <span class="scx-badge" class="scx-button scx-link">Link</span>
       </div>
       <pre><code>&lt;shadcx-badge&gt;Default&lt;/shadcx-badge&gt;
-&lt;shadcx-badge variant="secondary"&gt;Secondary&lt;/shadcx-badge&gt;
-&lt;shadcx-badge variant="destructive"&gt;Destructive&lt;/shadcx-badge&gt;
-&lt;shadcx-badge variant="outline"&gt;Outline&lt;/shadcx-badge&gt;
-&lt;shadcx-badge variant="ghost"&gt;Ghost&lt;/shadcx-badge&gt;
-&lt;shadcx-badge variant="link"&gt;Link&lt;/shadcx-badge&gt;</code></pre>
+&lt;shadcx-badge class="scx-button scx-secondary"&gt;Secondary&lt;/shadcx-badge&gt;
+&lt;shadcx-badge class="scx-button scx-destructive"&gt;Destructive&lt;/shadcx-badge&gt;
+&lt;shadcx-badge class="scx-button scx-outline"&gt;Outline&lt;/shadcx-badge&gt;
+&lt;shadcx-badge class="scx-button scx-ghost"&gt;Ghost&lt;/shadcx-badge&gt;
+&lt;shadcx-badge class="scx-button scx-link"&gt;Link&lt;/shadcx-badge&gt;</code></pre>
 
       <h3>With Icon</h3>
       <div class="preview">
-        <shadcx-badge>
+        <span class="scx-badge">
           <svg data-icon="inline-start" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>
           Verified
-        </shadcx-badge>
-        <shadcx-badge variant="outline">
+        </span>
+        <span class="scx-badge" class="scx-button scx-outline">
           New
           <svg data-icon="inline-end" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
-        </shadcx-badge>
+        </span>
       </div>
       <pre><code>&lt;shadcx-badge&gt;
   &lt;svg data-icon="inline-start" ...&gt;&lt;/svg&gt;
@@ -222,12 +221,12 @@ export class BadgePage extends LitElement {
 
       <h3>With Spinner</h3>
       <div class="preview">
-        <shadcx-badge variant="secondary">
+        <span class="scx-badge" class="scx-button scx-secondary">
           <span data-icon="inline-start" class="spinner"></span>
           Syncing
-        </shadcx-badge>
+        </span>
       </div>
-      <pre><code>&lt;shadcx-badge variant="secondary"&gt;
+      <pre><code>&lt;shadcx-badge class="scx-button scx-secondary"&gt;
   &lt;span data-icon="inline-start" class="spinner"&gt;&lt;/span&gt;
   Syncing
 &lt;/shadcx-badge&gt;</code></pre>
@@ -235,16 +234,16 @@ export class BadgePage extends LitElement {
       <h3>Link</h3>
       <div class="preview">
         <a class="inline-link" href="https://example.com" target="_blank" rel="noreferrer">
-          <shadcx-badge variant="link">Read docs</shadcx-badge>
+          <span class="scx-badge" class="scx-button scx-link">Read docs</span>
         </a>
       </div>
       <pre><code>&lt;a href="https://example.com"&gt;
-  &lt;shadcx-badge variant="link"&gt;Read docs&lt;/shadcx-badge&gt;
+  &lt;shadcx-badge class="scx-button scx-link"&gt;Read docs&lt;/shadcx-badge&gt;
 &lt;/a&gt;</code></pre>
 
       <h3>Custom Colors</h3>
       <div class="preview">
-        <shadcx-badge class="success">Success</shadcx-badge>
+        <span class="scx-badge" class="success">Success</span>
       </div>
       <pre><code>shadcx-badge.success::part(root) {
   background-color: hsl(142 71% 45% / 0.15);

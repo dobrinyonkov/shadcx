@@ -1,6 +1,5 @@
 import { LitElement, css, html } from 'lit'
 import { customElement, state } from 'lit/decorators.js'
-import '../../lib/combobox.ts'
 
 const frameworks = ['Next.js', 'SvelteKit', 'Nuxt.js', 'Remix', 'Astro']
 
@@ -160,14 +159,14 @@ export class ComboboxPage extends LitElement {
       <h2>Examples</h2>
       <h3>Basic</h3>
       <div class="preview">
-        <shadcx-combobox
+        <input list="frameworks" class="scx-combobox"
           .items=${frameworks}
           placeholder="Select a framework"
           show-clear
           auto-highlight
           .value=${this._singleValue}
           @value-change=${this._onSingleValueChange}
-        ></shadcx-combobox>
+        >
         <div class="state">Value: ${this._singleValue || '(none)'}</div>
       </div>
       <pre><code>&lt;shadcx-combobox
@@ -179,7 +178,7 @@ export class ComboboxPage extends LitElement {
 
       <h3>Multiple</h3>
       <div class="preview">
-        <shadcx-combobox
+        <input list="frameworks" class="scx-combobox"
           .items=${frameworks}
           multiple
           show-clear
@@ -187,7 +186,7 @@ export class ComboboxPage extends LitElement {
           placeholder="Add framework"
           .values=${this._multipleValues}
           @value-change=${this._onMultipleValueChange}
-        ></shadcx-combobox>
+        >
         <div class="state">Values: ${this._multipleValues.length > 0 ? this._multipleValues.join(', ') : '(none)'}</div>
       </div>
       <pre><code>&lt;shadcx-combobox
@@ -200,9 +199,9 @@ export class ComboboxPage extends LitElement {
 
       <h3>Disabled + Invalid</h3>
       <div class="preview">
-        <shadcx-combobox .items=${frameworks} disabled placeholder="Disabled"></shadcx-combobox>
+        <input list="frameworks" class="scx-combobox" .items=${frameworks} disabled placeholder="Disabled">
         <br><br>
-        <shadcx-combobox .items=${frameworks} aria-invalid="true" placeholder="Required framework"></shadcx-combobox>
+        <input list="frameworks" class="scx-combobox" .items=${frameworks} aria-invalid="true" placeholder="Required framework">
       </div>
       <pre><code>&lt;shadcx-combobox disabled&gt;&lt;/shadcx-combobox&gt;
 &lt;shadcx-combobox aria-invalid="true"&gt;&lt;/shadcx-combobox&gt;</code></pre>

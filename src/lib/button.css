@@ -1,0 +1,24 @@
+.scx-button, button.scx-button {
+  text-transform:none;appearance:none;display:inline-flex;align-items:center;justify-content:center;gap:.5rem;white-space:nowrap;border-radius:calc(var(--radius) - 2px);font-size:.875rem;font-weight:500;cursor:pointer;border:1px solid transparent;outline:none;transition:color .15s,background-color .15s,border-color .15s,box-shadow .15s;height:2.25rem;padding-inline:1rem;
+}
+.scx-button:disabled{opacity:.5;pointer-events:none}
+.scx-button:focus-visible{box-shadow:0 0 0 2px hsl(var(--background)),0 0 0 4px hsl(var(--ring))}
+.scx-button svg{pointer-events:none;width:1rem;height:1rem;flex-shrink:0}
+.scx-button.scx-xs{height:1.75rem;padding-inline:.5rem;font-size:.8125rem}
+.scx-button.scx-sm{height:2rem;padding-inline:.75rem;font-size:.8125rem}
+.scx-button.scx-lg{height:2.5rem;padding-inline:1.5rem}
+.scx-button.scx-icon,.scx-button.scx-icon-xs,.scx-button.scx-icon-sm,.scx-button.scx-icon-lg{padding:0}
+.scx-button.scx-icon{height:2.25rem;width:2.25rem}
+.scx-button.scx-icon-xs{height:1.75rem;width:1.75rem}
+.scx-button.scx-icon-sm{height:2rem;width:2rem}
+.scx-button.scx-icon-lg{height:2.5rem;width:2.5rem}
+.scx-button{background-color:hsl(var(--primary));color:hsl(var(--primary-foreground));box-shadow:0 1px 3px 0 rgba(0,0,0,.1),0 1px 2px -1px rgba(0,0,0,.1)}
+.scx-button:hover{background-color:hsl(var(--primary)/.9)}
+.scx-button.scx-destructive{background-color:hsl(var(--destructive));color:hsl(var(--destructive-foreground))}
+.scx-button.scx-outline{background-color:hsl(var(--background));color:hsl(var(--foreground));border-color:hsl(var(--input));box-shadow:0 1px 2px 0 rgba(0,0,0,.05)}
+.scx-button.scx-outline:hover{background-color:hsl(var(--accent));color:hsl(var(--accent-foreground))}
+.scx-button.scx-secondary{background-color:hsl(var(--secondary));color:hsl(var(--secondary-foreground))}
+.scx-button.scx-ghost{background:transparent;color:hsl(var(--foreground));box-shadow:none}
+.scx-button.scx-link{background:transparent;color:hsl(var(--primary));text-underline-offset:4px;box-shadow:none}
+.scx-button.scx-link:hover{text-decoration:underline}
+.scx-button[aria-invalid='true']{border-color:hsl(var(--destructive));box-shadow:0 0 0 1px hsl(var(--destructive)/.2)}

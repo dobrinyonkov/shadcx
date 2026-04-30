@@ -1,7 +1,5 @@
 import { LitElement, css, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
-import '../../lib/input.ts'
-import '../../lib/button.ts'
 
 @customElement('input-page')
 export class InputPage extends LitElement {
@@ -170,16 +168,16 @@ export class InputPage extends LitElement {
 
       <h3>Basic</h3>
       <div class="preview">
-        <shadcx-input placeholder="Enter text"></shadcx-input>
+        <input class="scx-input" placeholder="Enter text">
       </div>
       <pre><code>&lt;shadcx-input placeholder="Enter text"&gt;&lt;/shadcx-input&gt;</code></pre>
 
       <h3>Types</h3>
       <div class="preview">
-        <shadcx-input type="text" placeholder="Text"></shadcx-input>
-        <shadcx-input type="email" placeholder="Email"></shadcx-input>
-        <shadcx-input type="password" placeholder="Password"></shadcx-input>
-        <shadcx-input type="search" placeholder="Search"></shadcx-input>
+        <input class="scx-input" type="text" placeholder="Text">
+        <input class="scx-input" type="email" placeholder="Email">
+        <input class="scx-input" type="password" placeholder="Password">
+        <input class="scx-input" type="search" placeholder="Search">
       </div>
       <pre><code>&lt;shadcx-input type="text" placeholder="Text"&gt;&lt;/shadcx-input&gt;
 &lt;shadcx-input type="email" placeholder="Email"&gt;&lt;/shadcx-input&gt;
@@ -188,38 +186,38 @@ export class InputPage extends LitElement {
 
       <h3>Disabled</h3>
       <div class="preview">
-        <shadcx-input placeholder="Disabled" disabled></shadcx-input>
+        <input class="scx-input" placeholder="Disabled" disabled>
       </div>
       <pre><code>&lt;shadcx-input placeholder="Disabled" disabled&gt;&lt;/shadcx-input&gt;</code></pre>
 
       <h3>Invalid</h3>
       <div class="preview">
-        <shadcx-input placeholder="Error" aria-invalid="true"></shadcx-input>
+        <input class="scx-input" placeholder="Error" aria-invalid="true">
       </div>
       <pre><code>&lt;shadcx-input placeholder="Error" aria-invalid="true"&gt;&lt;/shadcx-input&gt;</code></pre>
 
       <h3>File</h3>
       <div class="preview">
-        <shadcx-input type="file"></shadcx-input>
+        <input class="scx-input" type="file">
       </div>
       <pre><code>&lt;shadcx-input type="file"&gt;&lt;/shadcx-input&gt;</code></pre>
 
       <h3>Required</h3>
       <div class="preview">
-        <shadcx-input placeholder="Required field" required></shadcx-input>
+        <input class="scx-input" placeholder="Required field" required>
       </div>
       <pre><code>&lt;shadcx-input placeholder="Required field" required&gt;&lt;/shadcx-input&gt;</code></pre>
 
       <h3>With Button</h3>
       <div class="preview">
         <div class="inline-row">
-          <shadcx-input type="search" placeholder="Search..."></shadcx-input>
-          <shadcx-button variant="outline">Search</shadcx-button>
+          <input class="scx-input" type="search" placeholder="Search...">
+          <button class="scx-button" class="scx-button scx-outline">Search</button>
         </div>
       </div>
       <pre><code>&lt;div style="display: flex; gap: 0.5rem;"&gt;
   &lt;shadcx-input type="search" placeholder="Search..."&gt;&lt;/shadcx-input&gt;
-  &lt;shadcx-button variant="outline"&gt;Search&lt;/shadcx-button&gt;
+  &lt;shadcx-button class="scx-button scx-outline"&gt;Search&lt;/shadcx-button&gt;
 &lt;/div&gt;</code></pre>
 
       <h2>API Reference</h2>

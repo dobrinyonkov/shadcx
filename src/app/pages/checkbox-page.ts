@@ -1,6 +1,5 @@
 import { LitElement, css, html } from 'lit'
 import { customElement, state } from 'lit/decorators.js'
-import '../../lib/checkbox.ts'
 
 @customElement('checkbox-page')
 export class CheckboxPage extends LitElement {
@@ -180,7 +179,7 @@ export class CheckboxPage extends LitElement {
       <h3>Basic</h3>
       <div class="preview">
         <label class="row">
-          <shadcx-checkbox></shadcx-checkbox>
+          <input type="checkbox" class="scx-checkbox">
           <span class="label">Accept terms and conditions</span>
         </label>
       </div>
@@ -192,10 +191,10 @@ export class CheckboxPage extends LitElement {
       <h3>Checked + Controlled</h3>
       <div class="preview">
         <label class="row">
-          <shadcx-checkbox
+          <input type="checkbox" class="scx-checkbox"
             .checked=${this._checked}
             @change=${this._onCheckedChange}
-          ></shadcx-checkbox>
+          >
           <span class="label">Enable notifications</span>
         </label>
         <span class="muted">State: ${this._checked ? 'checked' : 'unchecked'}</span>
@@ -205,7 +204,7 @@ export class CheckboxPage extends LitElement {
       <h3>Indeterminate</h3>
       <div class="preview">
         <label class="row">
-          <shadcx-checkbox indeterminate></shadcx-checkbox>
+          <input type="checkbox" class="scx-checkbox" indeterminate>
           <span class="label">Partially selected</span>
         </label>
       </div>
@@ -214,7 +213,7 @@ export class CheckboxPage extends LitElement {
       <h3>Disabled</h3>
       <div class="preview">
         <label class="row">
-          <shadcx-checkbox disabled></shadcx-checkbox>
+          <input type="checkbox" class="scx-checkbox" disabled>
           <span class="label">Disabled option</span>
         </label>
       </div>
@@ -223,7 +222,7 @@ export class CheckboxPage extends LitElement {
       <h3>Invalid</h3>
       <div class="preview">
         <label class="row">
-          <shadcx-checkbox aria-invalid="true"></shadcx-checkbox>
+          <input type="checkbox" class="scx-checkbox" aria-invalid="true">
           <span class="label">Required field</span>
         </label>
       </div>

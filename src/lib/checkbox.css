@@ -1,0 +1,5 @@
+.scx-checkbox{appearance:none;border:1px solid hsl(var(--primary));box-shadow:0 1px 2px 0 rgb(0 0 0 / .05);outline:none;display:inline-grid;place-content:center;width:1rem;height:1rem;flex-shrink:0;border-radius:calc(var(--radius) - 4px);background-color:hsl(var(--background));cursor:pointer}
+.scx-checkbox:focus-visible{box-shadow:0 0 0 2px hsl(var(--background)),0 0 0 4px hsl(var(--ring))}
+.scx-checkbox:disabled{opacity:.5;cursor:not-allowed}
+.scx-checkbox:checked,.scx-checkbox:indeterminate{border-color:hsl(var(--primary));background-color:hsl(var(--primary))}
+.scx-checkbox[aria-invalid='true']{border-color:hsl(var(--destructive));box-shadow:0 0 0 1px hsl(var(--destructive)/.2)}

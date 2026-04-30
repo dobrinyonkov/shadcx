@@ -1,6 +1,5 @@
 import { LitElement, css, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
-import '../../lib/button.ts'
 
 @customElement('button-page')
 export class ButtonPage extends LitElement {
@@ -155,81 +154,81 @@ export class ButtonPage extends LitElement {
 &lt;script type="module" src=".../assets/index.js"&gt;&lt;/script&gt;</code></pre>
 
       <h2>Usage</h2>
-      <pre><code>&lt;shadcx-button variant="outline"&gt;Button&lt;/shadcx-button&gt;</code></pre>
+      <pre><code>&lt;shadcx-button class="scx-button scx-outline"&gt;Button&lt;/shadcx-button&gt;</code></pre>
 
       <h2>Examples</h2>
 
       <h3>Basic</h3>
       <div class="preview">
-        <shadcx-button>Button</shadcx-button>
+        <button class="scx-button">Button</button>
       </div>
       <pre><code>&lt;shadcx-button&gt;Button&lt;/shadcx-button&gt;</code></pre>
 
       <h3>Variants</h3>
       <div class="preview">
-        <shadcx-button variant="default">Default</shadcx-button>
-        <shadcx-button variant="destructive">Destructive</shadcx-button>
-        <shadcx-button variant="outline">Outline</shadcx-button>
-        <shadcx-button variant="secondary">Secondary</shadcx-button>
-        <shadcx-button variant="ghost">Ghost</shadcx-button>
-        <shadcx-button variant="link">Link</shadcx-button>
+        <button class="scx-button" variant="default">Default</button>
+        <button class="scx-button" class="scx-button scx-destructive">Destructive</button>
+        <button class="scx-button" class="scx-button scx-outline">Outline</button>
+        <button class="scx-button" class="scx-button scx-secondary">Secondary</button>
+        <button class="scx-button" class="scx-button scx-ghost">Ghost</button>
+        <button class="scx-button" class="scx-button scx-link">Link</button>
       </div>
       <pre><code>&lt;shadcx-button variant="default"&gt;Default&lt;/shadcx-button&gt;
-&lt;shadcx-button variant="destructive"&gt;Destructive&lt;/shadcx-button&gt;
-&lt;shadcx-button variant="outline"&gt;Outline&lt;/shadcx-button&gt;
-&lt;shadcx-button variant="secondary"&gt;Secondary&lt;/shadcx-button&gt;
-&lt;shadcx-button variant="ghost"&gt;Ghost&lt;/shadcx-button&gt;
-&lt;shadcx-button variant="link"&gt;Link&lt;/shadcx-button&gt;</code></pre>
+&lt;shadcx-button class="scx-button scx-destructive"&gt;Destructive&lt;/shadcx-button&gt;
+&lt;shadcx-button class="scx-button scx-outline"&gt;Outline&lt;/shadcx-button&gt;
+&lt;shadcx-button class="scx-button scx-secondary"&gt;Secondary&lt;/shadcx-button&gt;
+&lt;shadcx-button class="scx-button scx-ghost"&gt;Ghost&lt;/shadcx-button&gt;
+&lt;shadcx-button class="scx-button scx-link"&gt;Link&lt;/shadcx-button&gt;</code></pre>
 
       <h3>Sizes</h3>
       <div class="preview">
-        <shadcx-button size="xs">Extra Small</shadcx-button>
-        <shadcx-button size="sm">Small</shadcx-button>
-        <shadcx-button size="default">Default</shadcx-button>
-        <shadcx-button size="lg">Large</shadcx-button>
+        <button class="scx-button" class="scx-button scx-xs">Extra Small</button>
+        <button class="scx-button" class="scx-button scx-sm">Small</button>
+        <button class="scx-button" size="default">Default</button>
+        <button class="scx-button" class="scx-button scx-lg">Large</button>
       </div>
-      <pre><code>&lt;shadcx-button size="xs"&gt;Extra Small&lt;/shadcx-button&gt;
-&lt;shadcx-button size="sm"&gt;Small&lt;/shadcx-button&gt;
+      <pre><code>&lt;shadcx-button class="scx-button scx-xs"&gt;Extra Small&lt;/shadcx-button&gt;
+&lt;shadcx-button class="scx-button scx-sm"&gt;Small&lt;/shadcx-button&gt;
 &lt;shadcx-button size="default"&gt;Default&lt;/shadcx-button&gt;
-&lt;shadcx-button size="lg"&gt;Large&lt;/shadcx-button&gt;</code></pre>
+&lt;shadcx-button class="scx-button scx-lg"&gt;Large&lt;/shadcx-button&gt;</code></pre>
 
       <h3>Icon</h3>
       <div class="preview">
-        <shadcx-button size="icon" variant="outline" aria-label="Search">
+        <button class="scx-button" class="scx-button scx-icon" class="scx-button scx-outline" aria-label="Search">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-        </shadcx-button>
-        <shadcx-button size="icon-xs" variant="outline" aria-label="Search">
+        </button>
+        <button class="scx-button" class="scx-button scx-icon-xs" class="scx-button scx-outline" aria-label="Search">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-        </shadcx-button>
-        <shadcx-button size="icon-sm" variant="outline" aria-label="Search">
+        </button>
+        <button class="scx-button" class="scx-button scx-icon-sm" class="scx-button scx-outline" aria-label="Search">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-        </shadcx-button>
-        <shadcx-button size="icon-lg" variant="outline" aria-label="Search">
+        </button>
+        <button class="scx-button" class="scx-button scx-icon-lg" class="scx-button scx-outline" aria-label="Search">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-        </shadcx-button>
+        </button>
       </div>
-      <pre><code>&lt;shadcx-button size="icon" variant="outline" aria-label="Search"&gt;
+      <pre><code>&lt;shadcx-button class="scx-button scx-icon" class="scx-button scx-outline" aria-label="Search"&gt;
   &lt;svg ...&gt;&lt;/svg&gt;
 &lt;/shadcx-button&gt;
-&lt;shadcx-button size="icon-xs" variant="outline" aria-label="Search"&gt;
+&lt;shadcx-button class="scx-button scx-icon-xs" class="scx-button scx-outline" aria-label="Search"&gt;
   &lt;svg ...&gt;&lt;/svg&gt;
 &lt;/shadcx-button&gt;
-&lt;shadcx-button size="icon-sm" variant="outline" aria-label="Search"&gt;
+&lt;shadcx-button class="scx-button scx-icon-sm" class="scx-button scx-outline" aria-label="Search"&gt;
   &lt;svg ...&gt;&lt;/svg&gt;
 &lt;/shadcx-button&gt;
-&lt;shadcx-button size="icon-lg" variant="outline" aria-label="Search"&gt;
+&lt;shadcx-button class="scx-button scx-icon-lg" class="scx-button scx-outline" aria-label="Search"&gt;
   &lt;svg ...&gt;&lt;/svg&gt;
 &lt;/shadcx-button&gt;</code></pre>
 
       <h3>Disabled</h3>
       <div class="preview">
-        <shadcx-button disabled>Primary</shadcx-button>
-        <shadcx-button variant="outline" disabled>Outline</shadcx-button>
-        <shadcx-button variant="ghost" disabled>Ghost</shadcx-button>
+        <button class="scx-button" disabled>Primary</button>
+        <button class="scx-button" class="scx-button scx-outline" disabled>Outline</button>
+        <button class="scx-button" class="scx-button scx-ghost" disabled>Ghost</button>
       </div>
       <pre><code>&lt;shadcx-button disabled&gt;Primary&lt;/shadcx-button&gt;
-&lt;shadcx-button variant="outline" disabled&gt;Outline&lt;/shadcx-button&gt;
-&lt;shadcx-button variant="ghost" disabled&gt;Ghost&lt;/shadcx-button&gt;</code></pre>
+&lt;shadcx-button class="scx-button scx-outline" disabled&gt;Outline&lt;/shadcx-button&gt;
+&lt;shadcx-button class="scx-button scx-ghost" disabled&gt;Ghost&lt;/shadcx-button&gt;</code></pre>
 
       <h2>API Reference</h2>
       <div class="table-wrap">
