@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>shadcx — semantic CSS components</title>
+    <link rel="icon" type="image/svg+xml" href="/shadcx/pr-preview/14/favicon.svg" />
+    <link rel="stylesheet" crossorigin href="/shadcx/pr-preview/14/assets/style.css">
+  </head>
+  <body>
+    <main>
+      <h1>shadcx (Pure CSS)</h1>
+      <p>Semantic HTML styling with shadcn-compatible CSS variables.</p>
+
+      <section>
+        <h2>Buttons</h2>
+        <div class="row">
+          <button>Primary</button>
+          <button class="scx-secondary">Secondary</button>
+          <button class="scx-outline">Outline</button>
+          <button class="scx-ghost">Ghost</button>
+          <button class="scx-link">Link</button>
+          <button class="scx-destructive">Destructive</button>
+        </div>
+      </section>
+
+      <section>
+        <h2>Inputs and aria state</h2>
+        <label>Email<input type="email" placeholder="you@example.com" /></label>
+        <label>Invalid<input aria-invalid="true" placeholder="Missing value" /></label>
+        <label>Combobox<select class="scx-combobox"><option>Apple</option><option>Banana</option></select></label>
+      </section>
+
+      <section>
+        <h2>Checkbox + badges</h2>
+        <div class="row"><label><input type="checkbox" checked /> Accept terms</label></div>
+        <div class="row">
+          <span class="scx-badge">Default</span>
+          <span class="scx-badge scx-secondary">Secondary</span>
+          <span class="scx-badge scx-outline">Outline</span>
+          <span class="scx-badge scx-destructive">Destructive</span>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
