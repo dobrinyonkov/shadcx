@@ -700,14 +700,14 @@ background-color: hsl(var(--primary));</code></pre>
 
       <h3>Variants</h3>
       <div class="preview">
-        <button class="scx-button" variant="default">Default</button>
-        <button class="scx-button" class="scx-button scx-destructive">Destructive</button>
-        <button class="scx-button" class="scx-button scx-outline">Outline</button>
-        <button class="scx-button" class="scx-button scx-secondary">Secondary</button>
-        <button class="scx-button" class="scx-button scx-ghost">Ghost</button>
-        <button class="scx-button" class="scx-button scx-link">Link</button>
+        <button class="scx-button" >Default</button>
+        <button class="scx-button scx-destructive">Destructive</button>
+        <button class="scx-button scx-outline">Outline</button>
+        <button class="scx-button scx-secondary">Secondary</button>
+        <button class="scx-button scx-ghost">Ghost</button>
+        <button class="scx-button scx-link">Link</button>
       </div>
-      <pre><code>&lt;shadcx-button variant="default"&gt;Default&lt;/shadcx-button&gt;
+      <pre><code>&lt;shadcx-button &gt;Default&lt;/shadcx-button&gt;
 &lt;shadcx-button class="scx-button scx-destructive"&gt;Destructive&lt;/shadcx-button&gt;
 &lt;shadcx-button class="scx-button scx-outline"&gt;Outline&lt;/shadcx-button&gt;
 &lt;shadcx-button class="scx-button scx-secondary"&gt;Secondary&lt;/shadcx-button&gt;
@@ -716,49 +716,49 @@ background-color: hsl(var(--primary));</code></pre>
 
       <h3>Sizes</h3>
       <div class="preview">
-        <button class="scx-button" class="scx-button scx-xs">Extra Small</button>
-        <button class="scx-button" class="scx-button scx-sm">Small</button>
-        <button class="scx-button" size="default">Default</button>
-        <button class="scx-button" class="scx-button scx-lg">Large</button>
+        <button class="scx-button scx-xs">Extra Small</button>
+        <button class="scx-button scx-sm">Small</button>
+        <button class="scx-button" >Default</button>
+        <button class="scx-button scx-lg">Large</button>
       </div>
       <pre><code>&lt;shadcx-button class="scx-button scx-xs"&gt;Extra Small&lt;/shadcx-button&gt;
 &lt;shadcx-button class="scx-button scx-sm"&gt;Small&lt;/shadcx-button&gt;
-&lt;shadcx-button size="default"&gt;Default&lt;/shadcx-button&gt;
+&lt;shadcx-button &gt;Default&lt;/shadcx-button&gt;
 &lt;shadcx-button class="scx-button scx-lg"&gt;Large&lt;/shadcx-button&gt;</code></pre>
 
       <h3>Icon</h3>
       <div class="preview">
-        <button class="scx-button" class="scx-button scx-icon" class="scx-button scx-outline" aria-label="Search">
+        <button class="scx-button scx-icon scx-outline" aria-label="Search">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
         </button>
-        <button class="scx-button" class="scx-button scx-icon-xs" class="scx-button scx-outline" aria-label="Search">
+        <button class="scx-button scx-icon-xs scx-outline" aria-label="Search">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
         </button>
-        <button class="scx-button" class="scx-button scx-icon-sm" class="scx-button scx-outline" aria-label="Search">
+        <button class="scx-button scx-icon-sm scx-outline" aria-label="Search">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
         </button>
-        <button class="scx-button" class="scx-button scx-icon-lg" class="scx-button scx-outline" aria-label="Search">
+        <button class="scx-button scx-icon-lg scx-outline" aria-label="Search">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
         </button>
       </div>
-      <pre><code>&lt;shadcx-button class="scx-button scx-icon" class="scx-button scx-outline" aria-label="Search"&gt;
+      <pre><code>&lt;shadcx-button class="scx-button scx-icon scx-outline" aria-label="Search"&gt;
   &lt;svg ...&gt;&lt;/svg&gt;
 &lt;/shadcx-button&gt;
-&lt;shadcx-button class="scx-button scx-icon-xs" class="scx-button scx-outline" aria-label="Search"&gt;
+&lt;shadcx-button class="scx-button scx-icon-xs scx-outline" aria-label="Search"&gt;
   &lt;svg ...&gt;&lt;/svg&gt;
 &lt;/shadcx-button&gt;
-&lt;shadcx-button class="scx-button scx-icon-sm" class="scx-button scx-outline" aria-label="Search"&gt;
+&lt;shadcx-button class="scx-button scx-icon-sm scx-outline" aria-label="Search"&gt;
   &lt;svg ...&gt;&lt;/svg&gt;
 &lt;/shadcx-button&gt;
-&lt;shadcx-button class="scx-button scx-icon-lg" class="scx-button scx-outline" aria-label="Search"&gt;
+&lt;shadcx-button class="scx-button scx-icon-lg scx-outline" aria-label="Search"&gt;
   &lt;svg ...&gt;&lt;/svg&gt;
 &lt;/shadcx-button&gt;</code></pre>
 
       <h3>Disabled</h3>
       <div class="preview">
         <button class="scx-button" disabled>Primary</button>
-        <button class="scx-button" class="scx-button scx-outline" disabled>Outline</button>
-        <button class="scx-button" class="scx-button scx-ghost" disabled>Ghost</button>
+        <button class="scx-button scx-outline" disabled>Outline</button>
+        <button class="scx-button scx-ghost" disabled>Ghost</button>
       </div>
       <pre><code>&lt;shadcx-button disabled&gt;Primary&lt;/shadcx-button&gt;
 &lt;shadcx-button class="scx-button scx-outline" disabled&gt;Outline&lt;/shadcx-button&gt;
@@ -988,25 +988,25 @@ background-color: hsl(var(--primary));</code></pre>
 &lt;script type="module" src=".../assets/index.js"&gt;&lt;/script&gt;</code></pre>
 
       <h2>Usage</h2>
-      <pre><code>&lt;shadcx-badge variant="default"&gt;Badge&lt;/shadcx-badge&gt;</code></pre>
+      <pre><code>&lt;shadcx-badge &gt;Badge&lt;/shadcx-badge&gt;</code></pre>
 
       <h2>Examples</h2>
 
       <h3>Variants</h3>
       <div class="preview">
         <span class="scx-badge">Default</span>
-        <span class="scx-badge" class="scx-button scx-secondary">Secondary</span>
-        <span class="scx-badge" class="scx-button scx-destructive">Destructive</span>
-        <span class="scx-badge" class="scx-button scx-outline">Outline</span>
-        <span class="scx-badge" class="scx-button scx-ghost">Ghost</span>
-        <span class="scx-badge" class="scx-button scx-link">Link</span>
+        <span class="scx-badge scx-secondary">Secondary</span>
+        <span class="scx-badge scx-destructive">Destructive</span>
+        <span class="scx-badge scx-outline">Outline</span>
+        <span class="scx-badge scx-ghost">Ghost</span>
+        <span class="scx-badge scx-link">Link</span>
       </div>
       <pre><code>&lt;shadcx-badge&gt;Default&lt;/shadcx-badge&gt;
-&lt;shadcx-badge class="scx-button scx-secondary"&gt;Secondary&lt;/shadcx-badge&gt;
-&lt;shadcx-badge class="scx-button scx-destructive"&gt;Destructive&lt;/shadcx-badge&gt;
-&lt;shadcx-badge class="scx-button scx-outline"&gt;Outline&lt;/shadcx-badge&gt;
-&lt;shadcx-badge class="scx-button scx-ghost"&gt;Ghost&lt;/shadcx-badge&gt;
-&lt;shadcx-badge class="scx-button scx-link"&gt;Link&lt;/shadcx-badge&gt;</code></pre>
+&lt;shadcx-badge class="scx-badge scx-secondary"&gt;Secondary&lt;/shadcx-badge&gt;
+&lt;shadcx-badge class="scx-badge scx-destructive"&gt;Destructive&lt;/shadcx-badge&gt;
+&lt;shadcx-badge class="scx-badge scx-outline"&gt;Outline&lt;/shadcx-badge&gt;
+&lt;shadcx-badge class="scx-badge scx-ghost"&gt;Ghost&lt;/shadcx-badge&gt;
+&lt;shadcx-badge class="scx-badge scx-link"&gt;Link&lt;/shadcx-badge&gt;</code></pre>
 
       <h3>With Icon</h3>
       <div class="preview">
@@ -1014,7 +1014,7 @@ background-color: hsl(var(--primary));</code></pre>
           <svg data-icon="inline-start" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>
           Verified
         </span>
-        <span class="scx-badge" class="scx-button scx-outline">
+        <span class="scx-badge scx-outline">
           New
           <svg data-icon="inline-end" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
         </span>
@@ -1026,12 +1026,12 @@ background-color: hsl(var(--primary));</code></pre>
 
       <h3>With Spinner</h3>
       <div class="preview">
-        <span class="scx-badge" class="scx-button scx-secondary">
+        <span class="scx-badge scx-secondary">
           <span data-icon="inline-start" class="spinner"></span>
           Syncing
         </span>
       </div>
-      <pre><code>&lt;shadcx-badge class="scx-button scx-secondary"&gt;
+      <pre><code>&lt;shadcx-badge class="scx-badge scx-secondary"&gt;
   &lt;span data-icon="inline-start" class="spinner"&gt;&lt;/span&gt;
   Syncing
 &lt;/shadcx-badge&gt;</code></pre>
@@ -1039,16 +1039,16 @@ background-color: hsl(var(--primary));</code></pre>
       <h3>Link</h3>
       <div class="preview">
         <a class="inline-link" href="https://example.com" target="_blank" rel="noreferrer">
-          <span class="scx-badge" class="scx-button scx-link">Read docs</span>
+          <span class="scx-badge scx-link">Read docs</span>
         </a>
       </div>
       <pre><code>&lt;a href="https://example.com"&gt;
-  &lt;shadcx-badge class="scx-button scx-link"&gt;Read docs&lt;/shadcx-badge&gt;
+  &lt;shadcx-badge class="scx-badge scx-link"&gt;Read docs&lt;/shadcx-badge&gt;
 &lt;/a&gt;</code></pre>
 
       <h3>Custom Colors</h3>
       <div class="preview">
-        <span class="scx-badge" class="success">Success</span>
+        <span class="success">Success</span>
       </div>
       <pre><code>shadcx-badge.success::part(root) {
   background-color: hsl(142 71% 45% / 0.15);
@@ -1289,6 +1289,12 @@ background-color: hsl(var(--primary));</code></pre>
       </div>
       <pre><code>&lt;shadcx-input type="file"&gt;&lt;/shadcx-input&gt;</code></pre>
 
+      <h3>Readonly</h3>
+      <div class="preview">
+        <input class="scx-input" placeholder="Readonly field" readonly>
+      </div>
+      <pre><code>&lt;input class="scx-input" readonly /&gt;</code></pre>
+
       <h3>Required</h3>
       <div class="preview">
         <input class="scx-input" placeholder="Required field" required>
@@ -1299,7 +1305,7 @@ background-color: hsl(var(--primary));</code></pre>
       <div class="preview">
         <div class="inline-row">
           <input class="scx-input" type="search" placeholder="Search...">
-          <button class="scx-button" class="scx-button scx-outline">Search</button>
+          <button class="scx-button scx-outline">Search</button>
         </div>
       </div>
       <pre><code>&lt;div style="display: flex; gap: 0.5rem;"&gt;
