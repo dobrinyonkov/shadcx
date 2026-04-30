@@ -1,0 +1,10 @@
+@import './lib/index.css';
+
+:root { font-family: Inter, system-ui, sans-serif; }
+body { margin: 0; background: hsl(var(--background)); color: hsl(var(--foreground)); }
+main { max-width: 900px; margin: 0 auto; padding: 2rem 1rem 4rem; }
+section { border: 1px solid hsl(var(--border)); border-radius: var(--radius); padding: 1rem; margin-block: 1rem; }
+h1,h2 { margin: 0 0 0.75rem; }
+.row { display:flex; gap:.5rem; flex-wrap:wrap; align-items:center; }
+label { display:grid; gap:.375rem; margin-bottom:.75rem; }
+small { color: hsl(var(--muted-foreground)); }

@@ -1,0 +1,14 @@
+.scx-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  padding: 0.125rem 0.625rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+.scx-badge.scx-secondary { background: hsl(var(--secondary)); color: hsl(var(--secondary-foreground)); }
+.scx-badge.scx-outline { background: transparent; border-color: hsl(var(--border)); color: hsl(var(--foreground)); }
+.scx-badge.scx-destructive { background: hsl(var(--destructive)); color: hsl(var(--destructive-foreground)); }
