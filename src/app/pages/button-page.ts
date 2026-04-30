@@ -1,10 +1,10 @@
 import { LitElement, css, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
-import '../../lib/button.ts'
+import { componentStyles } from '../component-styles.ts'
 
 @customElement('button-page')
 export class ButtonPage extends LitElement {
-  static styles = css`
+  static styles = [componentStyles, css`
     :host {
       display: block;
       font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
@@ -141,7 +141,7 @@ export class ButtonPage extends LitElement {
         font-size: 0.75rem;
       }
     }
-  `
+  `]
 
   render() {
     return html`
@@ -151,129 +151,128 @@ export class ButtonPage extends LitElement {
       </p>
 
       <h2>Installation</h2>
-      <pre><code>&lt;link rel="stylesheet" href=".../assets/index.css"&gt;
-&lt;script type="module" src=".../assets/index.js"&gt;&lt;/script&gt;</code></pre>
+      <pre><code>&lt;link rel="stylesheet" href=".../assets/index.css"&gt;</code></pre>
 
       <h2>Usage</h2>
-      <pre><code>&lt;shadcx-button variant="outline"&gt;Button&lt;/shadcx-button&gt;</code></pre>
+      <pre><code>&lt;button class="scx-outline"&gt;Button&lt;/button&gt;</code></pre>
 
       <h2>Examples</h2>
 
       <h3>Basic</h3>
       <div class="preview">
-        <shadcx-button>Button</shadcx-button>
+        <button>Button</button>
       </div>
-      <pre><code>&lt;shadcx-button&gt;Button&lt;/shadcx-button&gt;</code></pre>
+      <pre><code>&lt;button&gt;Button&lt;/button&gt;</code></pre>
 
       <h3>Variants</h3>
       <div class="preview">
-        <shadcx-button variant="default">Default</shadcx-button>
-        <shadcx-button variant="destructive">Destructive</shadcx-button>
-        <shadcx-button variant="outline">Outline</shadcx-button>
-        <shadcx-button variant="secondary">Secondary</shadcx-button>
-        <shadcx-button variant="ghost">Ghost</shadcx-button>
-        <shadcx-button variant="link">Link</shadcx-button>
+        <button>Default</button>
+        <button class="scx-destructive">Destructive</button>
+        <button class="scx-outline">Outline</button>
+        <button class="scx-secondary">Secondary</button>
+        <button class="scx-ghost">Ghost</button>
+        <button class="scx-link">Link</button>
       </div>
-      <pre><code>&lt;shadcx-button variant="default"&gt;Default&lt;/shadcx-button&gt;
-&lt;shadcx-button variant="destructive"&gt;Destructive&lt;/shadcx-button&gt;
-&lt;shadcx-button variant="outline"&gt;Outline&lt;/shadcx-button&gt;
-&lt;shadcx-button variant="secondary"&gt;Secondary&lt;/shadcx-button&gt;
-&lt;shadcx-button variant="ghost"&gt;Ghost&lt;/shadcx-button&gt;
-&lt;shadcx-button variant="link"&gt;Link&lt;/shadcx-button&gt;</code></pre>
+      <pre><code>&lt;button&gt;Default&lt;/button&gt;
+&lt;button class="scx-destructive"&gt;Destructive&lt;/button&gt;
+&lt;button class="scx-outline"&gt;Outline&lt;/button&gt;
+&lt;button class="scx-secondary"&gt;Secondary&lt;/button&gt;
+&lt;button class="scx-ghost"&gt;Ghost&lt;/button&gt;
+&lt;button class="scx-link"&gt;Link&lt;/button&gt;</code></pre>
 
       <h3>Sizes</h3>
       <div class="preview">
-        <shadcx-button size="xs">Extra Small</shadcx-button>
-        <shadcx-button size="sm">Small</shadcx-button>
-        <shadcx-button size="default">Default</shadcx-button>
-        <shadcx-button size="lg">Large</shadcx-button>
+        <button class="scx-xs">Extra Small</button>
+        <button class="scx-sm">Small</button>
+        <button>Default</button>
+        <button class="scx-lg">Large</button>
       </div>
-      <pre><code>&lt;shadcx-button size="xs"&gt;Extra Small&lt;/shadcx-button&gt;
-&lt;shadcx-button size="sm"&gt;Small&lt;/shadcx-button&gt;
-&lt;shadcx-button size="default"&gt;Default&lt;/shadcx-button&gt;
-&lt;shadcx-button size="lg"&gt;Large&lt;/shadcx-button&gt;</code></pre>
+      <pre><code>&lt;button class="scx-xs"&gt;Extra Small&lt;/button&gt;
+&lt;button class="scx-sm"&gt;Small&lt;/button&gt;
+&lt;button&gt;Default&lt;/button&gt;
+&lt;button class="scx-lg"&gt;Large&lt;/button&gt;</code></pre>
 
       <h3>Icon</h3>
       <div class="preview">
-        <shadcx-button size="icon" variant="outline" aria-label="Search">
+        <button class="scx-icon scx-outline" aria-label="Search">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-        </shadcx-button>
-        <shadcx-button size="icon-xs" variant="outline" aria-label="Search">
+        </button>
+        <button class="scx-icon-xs scx-outline" aria-label="Search">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-        </shadcx-button>
-        <shadcx-button size="icon-sm" variant="outline" aria-label="Search">
+        </button>
+        <button class="scx-icon-sm scx-outline" aria-label="Search">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-        </shadcx-button>
-        <shadcx-button size="icon-lg" variant="outline" aria-label="Search">
+        </button>
+        <button class="scx-icon-lg scx-outline" aria-label="Search">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-        </shadcx-button>
+        </button>
       </div>
-      <pre><code>&lt;shadcx-button size="icon" variant="outline" aria-label="Search"&gt;
+      <pre><code>&lt;button class="scx-icon scx-outline" aria-label="Search"&gt;
   &lt;svg ...&gt;&lt;/svg&gt;
-&lt;/shadcx-button&gt;
-&lt;shadcx-button size="icon-xs" variant="outline" aria-label="Search"&gt;
+&lt;/button&gt;
+&lt;button class="scx-icon-xs scx-outline" aria-label="Search"&gt;
   &lt;svg ...&gt;&lt;/svg&gt;
-&lt;/shadcx-button&gt;
-&lt;shadcx-button size="icon-sm" variant="outline" aria-label="Search"&gt;
+&lt;/button&gt;
+&lt;button class="scx-icon-sm scx-outline" aria-label="Search"&gt;
   &lt;svg ...&gt;&lt;/svg&gt;
-&lt;/shadcx-button&gt;
-&lt;shadcx-button size="icon-lg" variant="outline" aria-label="Search"&gt;
+&lt;/button&gt;
+&lt;button class="scx-icon-lg scx-outline" aria-label="Search"&gt;
   &lt;svg ...&gt;&lt;/svg&gt;
-&lt;/shadcx-button&gt;</code></pre>
+&lt;/button&gt;</code></pre>
 
       <h3>Disabled</h3>
       <div class="preview">
-        <shadcx-button disabled>Primary</shadcx-button>
-        <shadcx-button variant="outline" disabled>Outline</shadcx-button>
-        <shadcx-button variant="ghost" disabled>Ghost</shadcx-button>
+        <button disabled>Primary</button>
+        <button class="scx-outline" disabled>Outline</button>
+        <button class="scx-ghost" disabled>Ghost</button>
       </div>
-      <pre><code>&lt;shadcx-button disabled&gt;Primary&lt;/shadcx-button&gt;
-&lt;shadcx-button variant="outline" disabled&gt;Outline&lt;/shadcx-button&gt;
-&lt;shadcx-button variant="ghost" disabled&gt;Ghost&lt;/shadcx-button&gt;</code></pre>
+      <pre><code>&lt;button disabled&gt;Primary&lt;/button&gt;
+&lt;button class="scx-outline" disabled&gt;Outline&lt;/button&gt;
+&lt;button class="scx-ghost" disabled&gt;Ghost&lt;/button&gt;</code></pre>
 
       <h2>API Reference</h2>
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
-              <th>Prop</th>
-              <th>Type</th>
-              <th>Default</th>
+              <th>Class / attribute</th>
+              <th>Values</th>
+              <th>Purpose</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><code>variant</code></td>
-              <td><code>"default" | "destructive" | "outline" | "secondary" | "ghost" | "link"</code></td>
-              <td><code>"default"</code></td>
+              <td><code>class</code></td>
+              <td><code>scx-destructive | scx-outline | scx-secondary | scx-ghost | scx-link</code></td>
+              <td>Visual variants. No class is the default button.</td>
             </tr>
             <tr>
-              <td><code>size</code></td>
-              <td><code>"default" | "xs" | "sm" | "lg" | "icon" | "icon-xs" | "icon-sm" | "icon-lg"</code></td>
-              <td><code>"default"</code></td>
+              <td><code>class</code></td>
+              <td><code>scx-xs | scx-sm | scx-lg | scx-icon | scx-icon-xs | scx-icon-sm | scx-icon-lg</code></td>
+              <td>Size presets. No size class is the default size.</td>
             </tr>
             <tr>
               <td><code>disabled</code></td>
-              <td><code>boolean</code></td>
-              <td><code>false</code></td>
+              <td><code>boolean attribute</code></td>
+              <td>Disabled state on native buttons.</td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <h3>CSS Parts</h3>
+      <h3>States</h3>
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
-              <th>Part</th>
+              <th>Selector</th>
               <th>Description</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><code>root</code></td>
-              <td>The <code>&lt;button&gt;</code> element</td>
+              <td><code>:hover</code>, <code>:focus-visible</code>, <code>:disabled</code>, <code>[aria-invalid="true"]</code></td>
+              <td>Native and ARIA states are styled directly by CSS.</td>
             </tr>
           </tbody>
         </table>

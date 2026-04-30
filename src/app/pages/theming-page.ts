@@ -65,6 +65,29 @@ export class ThemingPage extends LitElement {
       border-radius: calc(var(--radius) - 4px);
     }
 
+    .inline-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 2.25rem;
+      padding: 0 1rem;
+      border: 1px solid hsl(var(--input));
+      border-radius: calc(var(--radius) - 2px);
+      background-color: hsl(var(--background));
+      color: hsl(var(--foreground));
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition:
+        background-color 0.15s,
+        color 0.15s;
+    }
+
+    .inline-action:hover {
+      background-color: hsl(var(--accent));
+      color: hsl(var(--accent-foreground));
+    }
+
     .table-wrap {
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
@@ -116,6 +139,11 @@ export class ThemingPage extends LitElement {
     }
   `
 
+  private _navigateThemeGenerator(e: Event) {
+    e.preventDefault()
+    location.hash = 'theme-generator'
+  }
+
   render() {
     return html`
       <h1>Theming</h1>
@@ -126,9 +154,10 @@ export class ThemingPage extends LitElement {
       <h2>Architecture</h2>
       <p>
         shadcx uses CSS custom properties (variables) based on
-        shadcn/ui&rsquo;s theming system. Each design token is stored as
-        space-separated <strong>H S L</strong> channels, and components compose
-        full colors at usage sites:
+        shadcn/ui&rsquo;s theming system. The stylesheet targets native HTML
+        elements directly. Each design token is stored as space-separated
+        <strong>H S L</strong> channels, and component rules compose full
+        colors at usage sites:
       </p>
       <pre><code>/* Definition (stores HSL channels only) */
 --primary: 0 0% 9%;
@@ -144,7 +173,7 @@ background-color: hsl(var(--primary));</code></pre>
       <h2>Customizing Colors</h2>
       <p>
         Override any variable on <code>:root</code> to change the default
-        theme before the components load:
+        theme before the stylesheet is applied:
       </p>
       <pre><code>&lt;style&gt;
   :root {
@@ -153,6 +182,22 @@ background-color: hsl(var(--primary));</code></pre>
     --radius: 0.75rem;
   }
 &lt;/style&gt;</code></pre>
+
+      <h2>Theme Generator</h2>
+      <p>
+        Use the generator to tune the shadcn variables visually, preview the
+        native components, shuffle palettes, and copy a ready-to-use
+        <code>:root</code> block.
+      </p>
+      <p>
+        <a
+          class="inline-action"
+          href="#/theme-generator"
+          @click=${(event: Event) => this._navigateThemeGenerator(event)}
+        >
+          Open Theme Generator
+        </a>
+      </p>
 
       <h2>Dark Mode</h2>
       <p>

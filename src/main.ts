@@ -1,7 +1,2 @@
-import './lib/theme.css'
-import './lib/button.ts'
-import './lib/badge.ts'
-import './lib/input.ts'
-import './lib/checkbox.ts'
-import './lib/combobox.ts'
+import './lib/index.css'
 import './app/app-layout.ts'
