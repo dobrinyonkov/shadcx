@@ -202,6 +202,12 @@ export class InputPage extends LitElement {
       </div>
       <pre><code>&lt;shadcx-input type="file"&gt;&lt;/shadcx-input&gt;</code></pre>
 
+      <h3>Readonly</h3>
+      <div class="preview">
+        <input class="scx-input" placeholder="Readonly field" readonly>
+      </div>
+      <pre><code>&lt;input class="scx-input" readonly /&gt;</code></pre>
+
       <h3>Required</h3>
       <div class="preview">
         <input class="scx-input" placeholder="Required field" required>
@@ -212,7 +218,7 @@ export class InputPage extends LitElement {
       <div class="preview">
         <div class="inline-row">
           <input class="scx-input" type="search" placeholder="Search...">
-          <button class="scx-button" class="scx-button scx-outline">Search</button>
+          <button class="scx-button scx-outline">Search</button>
         </div>
       </div>
       <pre><code>&lt;div style="display: flex; gap: 0.5rem;"&gt;
