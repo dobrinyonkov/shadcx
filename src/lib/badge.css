@@ -99,3 +99,23 @@ mark.scx-link:hover {
   background-color: transparent;
   text-decoration: underline;
 }
+
+@keyframes scx-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.scx-spinner {
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 9999px;
+  animation: scx-spin 0.8s linear infinite;
+  display: inline-block;
+}
+
+mark[aria-busy='true'] {
+  cursor: wait;
+  pointer-events: none;
+  opacity: 0.8;
+}

@@ -183,3 +183,25 @@ a[role='button'][aria-invalid='true']:focus-visible {
     0 0 0 2px hsl(var(--background)),
     0 0 0 4px hsl(var(--destructive));
 }
+
+button[aria-busy='true'],
+a[role='button'][aria-busy='true'] {
+  cursor: wait;
+  pointer-events: none;
+}
+
+button[aria-busy='true'] > .scx-spinner,
+a[role='button'][aria-busy='true'] > .scx-spinner {
+  width: 1rem;
+  height: 1rem;
+}
+
+button[aria-busy='true'].scx-icon > .scx-spinner,
+a[role='button'][aria-busy='true'].scx-icon > .scx-spinner {
+  position: absolute;
+}
+
+button[aria-busy='true'].scx-icon :not(.scx-spinner),
+a[role='button'][aria-busy='true'].scx-icon :not(.scx-spinner) {
+  visibility: hidden;
+}

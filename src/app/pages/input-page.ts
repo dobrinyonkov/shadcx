@@ -196,6 +196,12 @@ export class InputPage extends LitElement {
       </div>
       <pre><code>&lt;input placeholder="Error" aria-invalid="true"&gt;</code></pre>
 
+      <h3>Readonly</h3>
+      <div class="preview">
+        <input placeholder="Read only" readonly value="Cannot edit">
+      </div>
+      <pre><code>&lt;input placeholder="Read only" readonly value="Cannot edit"&gt;</code></pre>
+
       <h3>File</h3>
       <div class="preview">
         <input type="file">

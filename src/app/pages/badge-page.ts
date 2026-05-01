@@ -131,14 +131,6 @@ export class BadgePage extends LitElement {
       text-decoration: underline;
     }
 
-    .spinner {
-      border: 2px solid currentColor;
-      border-right-color: transparent;
-      border-radius: 9999px;
-      animation: spin 0.8s linear infinite;
-      display: inline-block;
-    }
-
     mark.success {
       background-color: hsl(142 71% 45% / 0.15);
       border-color: hsl(142 71% 45% / 0.35);
@@ -149,12 +141,6 @@ export class BadgePage extends LitElement {
       background-color: hsl(142 70% 35% / 0.25);
       border-color: hsl(142 70% 45% / 0.45);
       color: hsl(142 100% 85%);
-    }
-
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
     }
 
     @media (max-width: 640px) {
@@ -221,13 +207,13 @@ export class BadgePage extends LitElement {
 
       <h3>With Spinner</h3>
       <div class="preview">
-        <mark class="scx-secondary">
-          <span data-icon="inline-start" class="spinner"></span>
+        <mark class="scx-secondary" aria-busy="true">
+          <span data-icon="inline-start" class="scx-spinner"></span>
           Syncing
         </mark>
       </div>
-      <pre><code>&lt;mark class="scx-secondary"&gt;
-  &lt;span data-icon="inline-start" class="spinner"&gt;&lt;/span&gt;
+      <pre><code>&lt;mark class="scx-secondary" aria-busy="true"&gt;
+  &lt;span data-icon="inline-start" class="scx-spinner"&gt;&lt;/span&gt;
   Syncing
 &lt;/mark&gt;</code></pre>
 
