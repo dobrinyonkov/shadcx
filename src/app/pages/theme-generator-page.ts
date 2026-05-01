@@ -700,6 +700,10 @@ export class ThemeGeneratorPage extends LitElement {
       min-width: 0;
     }
 
+    .field.wide {
+      grid-column: 1 / -1;
+    }
+
     .field label {
       color: hsl(var(--foreground));
       font-size: 0.8125rem;
@@ -1281,6 +1285,11 @@ export class ThemeGeneratorPage extends LitElement {
                   <label for="generator-invalid">Invalid state</label>
                   <input id="generator-invalid" value="Missing value" aria-invalid="true">
                   <small>Uses aria-invalid and destructive tokens.</small>
+                </div>
+                <div class="field wide">
+                  <label for="generator-message">Message</label>
+                  <textarea id="generator-message" placeholder="Share a few details."></textarea>
+                  <small>Textarea background, radius, and ring follow the same tokens.</small>
                 </div>
                 <div class="field">
                   <label for="generator-framework">Framework</label>

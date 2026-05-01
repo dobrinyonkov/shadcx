@@ -126,6 +126,11 @@ export class OverviewPage extends LitElement {
     location.hash = 'input'
   }
 
+  private _navigateTextarea(e: Event) {
+    e.preventDefault()
+    location.hash = 'textarea'
+  }
+
   private _navigateCheckbox(e: Event) {
     e.preventDefault()
     location.hash = 'checkbox'
@@ -186,6 +191,10 @@ export class OverviewPage extends LitElement {
         <a class="card" href="#/input" @click=${(event: Event) => this._navigateInput(event)}>
           <h3>Input</h3>
           <p>A text input component for forms and user data entry.</p>
+        </a>
+        <a class="card" href="#/textarea" @click=${(event: Event) => this._navigateTextarea(event)}>
+          <h3>Textarea</h3>
+          <p>Displays a form textarea or a component that looks like one.</p>
         </a>
         <a class="card" href="#/checkbox" @click=${(event: Event) => this._navigateCheckbox(event)}>
           <h3>Checkbox</h3>
