@@ -86,6 +86,13 @@ export class AppSidebar extends LitElement {
         >
           Theming
         </a>
+        <a
+          class="nav-item ${isActive('theme-generator')}"
+          href="#/theme-generator"
+          @click=${(e: Event) => this._navigate('theme-generator', e)}
+        >
+          Theme Generator
+        </a>
 
         <div class="nav-section">Components</div>
         <a

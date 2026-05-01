@@ -1,12 +1,12 @@
 import { LitElement, css, html } from 'lit'
 import { customElement, state } from 'lit/decorators.js'
-import '../../lib/checkbox.ts'
+import { componentStyles } from '../component-styles.ts'
 
 @customElement('checkbox-page')
 export class CheckboxPage extends LitElement {
   @state() private _checked = false
 
-  static styles = css`
+  static styles = [componentStyles, css`
     :host {
       display: block;
       font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
@@ -153,11 +153,11 @@ export class CheckboxPage extends LitElement {
         font-size: 0.75rem;
       }
     }
-  `
+  `]
 
   private _onCheckedChange(event: Event) {
-    const checkbox = event.currentTarget as HTMLElement & { checked?: boolean }
-    this._checked = Boolean(checkbox.checked)
+    const checkbox = event.currentTarget as HTMLInputElement
+    this._checked = checkbox.checked
   }
 
   render() {
@@ -169,96 +169,104 @@ export class CheckboxPage extends LitElement {
       </p>
 
       <h2>Installation</h2>
-      <pre><code>&lt;link rel="stylesheet" href=".../assets/index.css"&gt;
-&lt;script type="module" src=".../assets/index.js"&gt;&lt;/script&gt;</code></pre>
+      <pre><code>&lt;link rel="stylesheet" href=".../assets/index.css"&gt;</code></pre>
 
       <h2>Usage</h2>
-      <pre><code>&lt;shadcx-checkbox&gt;&lt;/shadcx-checkbox&gt;</code></pre>
+      <pre><code>&lt;input type="checkbox"&gt;</code></pre>
 
       <h2>Examples</h2>
 
       <h3>Basic</h3>
       <div class="preview">
         <label class="row">
-          <shadcx-checkbox></shadcx-checkbox>
+          <input type="checkbox">
           <span class="label">Accept terms and conditions</span>
         </label>
       </div>
       <pre><code>&lt;label style="display: inline-flex; align-items: center; gap: 0.5rem;"&gt;
-  &lt;shadcx-checkbox&gt;&lt;/shadcx-checkbox&gt;
+  &lt;input type="checkbox"&gt;
   &lt;span&gt;Accept terms and conditions&lt;/span&gt;
 &lt;/label&gt;</code></pre>
 
       <h3>Checked + Controlled</h3>
       <div class="preview">
         <label class="row">
-          <shadcx-checkbox
+          <input
+            type="checkbox"
             .checked=${this._checked}
-            @change=${this._onCheckedChange}
-          ></shadcx-checkbox>
+            @change=${(event: Event) => this._onCheckedChange(event)}
+          >
           <span class="label">Enable notifications</span>
         </label>
         <span class="muted">State: ${this._checked ? 'checked' : 'unchecked'}</span>
       </div>
-      <pre><code>&lt;shadcx-checkbox .checked=${'${checked}'} @change=${'${onChange}'}&gt;&lt;/shadcx-checkbox&gt;</code></pre>
+      <pre><code>&lt;input type="checkbox" checked&gt;
+&lt;script&gt;
+  checkbox.addEventListener('change', (event) =&gt; {
+    console.log(event.currentTarget.checked)
+  })
+&lt;/script&gt;</code></pre>
 
       <h3>Indeterminate</h3>
       <div class="preview">
         <label class="row">
-          <shadcx-checkbox indeterminate></shadcx-checkbox>
+          <input type="checkbox" .indeterminate=${true} aria-checked="mixed">
           <span class="label">Partially selected</span>
         </label>
       </div>
-      <pre><code>&lt;shadcx-checkbox indeterminate&gt;&lt;/shadcx-checkbox&gt;</code></pre>
+      <pre><code>&lt;input id="partial" type="checkbox" aria-checked="mixed"&gt;
+&lt;script&gt;
+  document.getElementById('partial').indeterminate = true
+&lt;/script&gt;</code></pre>
 
       <h3>Disabled</h3>
       <div class="preview">
         <label class="row">
-          <shadcx-checkbox disabled></shadcx-checkbox>
+          <input type="checkbox" disabled>
           <span class="label">Disabled option</span>
         </label>
       </div>
-      <pre><code>&lt;shadcx-checkbox disabled&gt;&lt;/shadcx-checkbox&gt;</code></pre>
+      <pre><code>&lt;input type="checkbox" disabled&gt;</code></pre>
 
       <h3>Invalid</h3>
       <div class="preview">
         <label class="row">
-          <shadcx-checkbox aria-invalid="true"></shadcx-checkbox>
+          <input type="checkbox" aria-invalid="true">
           <span class="label">Required field</span>
         </label>
       </div>
-      <pre><code>&lt;shadcx-checkbox aria-invalid="true"&gt;&lt;/shadcx-checkbox&gt;</code></pre>
+      <pre><code>&lt;input type="checkbox" aria-invalid="true"&gt;</code></pre>
 
       <h2>API Reference</h2>
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
-              <th>Prop</th>
-              <th>Type</th>
-              <th>Default</th>
+              <th>State / attribute</th>
+              <th>Values</th>
+              <th>Purpose</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td><code>checked</code></td>
-              <td><code>boolean</code></td>
-              <td><code>false</code></td>
+              <td>Native property / attribute</td>
+              <td>Applies checked visual state.</td>
             </tr>
             <tr>
               <td><code>indeterminate</code></td>
-              <td><code>boolean</code></td>
-              <td><code>false</code></td>
+              <td>Native property</td>
+              <td>Applies mixed visual state via <code>:indeterminate</code>.</td>
             </tr>
             <tr>
               <td><code>disabled</code></td>
-              <td><code>boolean</code></td>
-              <td><code>false</code></td>
+              <td>Boolean attribute</td>
+              <td>Applies disabled opacity and cursor.</td>
             </tr>
             <tr>
               <td><code>aria-invalid</code></td>
-              <td><code>string | null</code></td>
-              <td><code>null</code></td>
+              <td><code>true</code></td>
+              <td>Applies destructive border and invalid ring.</td>
             </tr>
           </tbody>
         </table>
