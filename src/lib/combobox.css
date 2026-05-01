@@ -40,6 +40,8 @@ select[multiple] {
 }
 
 select:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
   box-shadow:
     0 0 0 2px hsl(var(--background)),
     0 0 0 4px hsl(var(--ring));
@@ -53,6 +55,13 @@ select:disabled {
 select[aria-invalid='true'] {
   border-color: hsl(var(--destructive));
   box-shadow: 0 0 0 1px hsl(var(--destructive) / 0.2);
+}
+
+select[aria-invalid='true']:focus-visible {
+  outline-color: hsl(var(--destructive));
+  box-shadow:
+    0 0 0 2px hsl(var(--background)),
+    0 0 0 4px hsl(var(--destructive));
 }
 
 select option {
@@ -80,6 +89,8 @@ fieldset.scx-option-list {
 }
 
 fieldset.scx-option-list:focus-within {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
   box-shadow:
     0 0 0 2px hsl(var(--background)),
     0 0 0 4px hsl(var(--ring));
@@ -88,6 +99,13 @@ fieldset.scx-option-list:focus-within {
 fieldset.scx-option-list[aria-invalid='true'] {
   border-color: hsl(var(--destructive));
   box-shadow: 0 0 0 1px hsl(var(--destructive) / 0.2);
+}
+
+fieldset.scx-option-list[aria-invalid='true']:focus-within {
+  outline-color: hsl(var(--destructive));
+  box-shadow:
+    0 0 0 2px hsl(var(--background)),
+    0 0 0 4px hsl(var(--destructive));
 }
 
 fieldset.scx-option-list legend {
@@ -130,4 +148,12 @@ fieldset.scx-option-list button[aria-pressed='true'] {
 
 fieldset.scx-option-list button[aria-pressed='true']:hover {
   background-color: hsl(var(--primary) / 0.9);
+}
+
+fieldset.scx-option-list button:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+  box-shadow:
+    0 0 0 2px hsl(var(--background)),
+    0 0 0 4px hsl(var(--ring));
 }
