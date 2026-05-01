@@ -230,6 +230,42 @@ export class ButtonPage extends LitElement {
 &lt;button class="scx-outline" disabled&gt;Outline&lt;/button&gt;
 &lt;button class="scx-ghost" disabled&gt;Ghost&lt;/button&gt;</code></pre>
 
+      <h3>Busy</h3>
+      <div class="preview">
+        <button aria-busy="true">
+          <span class="scx-spinner"></span>
+          Please wait
+        </button>
+        <button class="scx-outline" aria-busy="true">
+          <span class="scx-spinner"></span>
+          Please wait
+        </button>
+        <button class="scx-ghost" aria-busy="true">
+          <span class="scx-spinner"></span>
+          Please wait
+        </button>
+        <button class="scx-icon scx-outline" aria-busy="true" aria-label="Loading">
+          <span class="scx-spinner"></span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+        </button>
+      </div>
+      <pre><code>&lt;button aria-busy="true"&gt;
+  &lt;span class="scx-spinner"&gt;&lt;/span&gt;
+  Please wait
+&lt;/button&gt;
+&lt;button class="scx-outline" aria-busy="true"&gt;
+  &lt;span class="scx-spinner"&gt;&lt;/span&gt;
+  Please wait
+&lt;/button&gt;
+&lt;button class="scx-ghost" aria-busy="true"&gt;
+  &lt;span class="scx-spinner"&gt;&lt;/span&gt;
+  Please wait
+&lt;/button&gt;
+&lt;button class="scx-icon scx-outline" aria-busy="true" aria-label="Loading"&gt;
+  &lt;span class="scx-spinner"&gt;&lt;/span&gt;
+  &lt;svg ...&gt;&lt;/svg&gt;
+&lt;/button&gt;</code></pre>
+
       <h2>API Reference</h2>
       <div class="table-wrap">
         <table>
@@ -255,6 +291,11 @@ export class ButtonPage extends LitElement {
               <td><code>disabled</code></td>
               <td><code>boolean attribute</code></td>
               <td>Disabled state on native buttons.</td>
+            </tr>
+            <tr>
+              <td><code>aria-busy</code></td>
+              <td><code>true</code></td>
+              <td>Busy/loading state. Use with an inline <code>scx-spinner</code> element.</td>
             </tr>
           </tbody>
         </table>
