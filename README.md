@@ -13,6 +13,7 @@ Load one stylesheet and use native elements:
 
 <button class="scx-outline">Button</button>
 <input placeholder="Email" aria-invalid="true" />
+<textarea placeholder="Message"></textarea>
 <mark class="scx-secondary">Beta</mark>
 ```
 
@@ -44,7 +45,8 @@ src/
     index.css         # Generated import entry for every lib/*.css file
     theme.css         # shadcn-compatible CSS custom properties
     button.css        # Native button styles and scx-* variants
-    input.css         # Native input and textarea styles
+    input.css         # Native input styles
+    textarea.css      # Native textarea styles
     checkbox.css      # Native checkbox states
     badge.css         # mark-based badge styles
     combobox.css      # select and input[list] styles
@@ -105,6 +107,7 @@ shadcx styles HTML directly:
 <button class="scx-icon scx-outline" aria-label="Search">...</button>
 
 <input placeholder="Name" />
+<textarea placeholder="Message"></textarea>
 <input type="checkbox" aria-invalid="true" />
 
 <select>

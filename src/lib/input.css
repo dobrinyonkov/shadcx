@@ -1,5 +1,4 @@
-input:not([type='button']):not([type='submit']):not([type='reset']):not([type='checkbox']):not([type='radio']):not([type='range']):not([type='color']):not([type='hidden']),
-textarea {
+input:not([type='button']):not([type='submit']):not([type='reset']):not([type='checkbox']):not([type='radio']):not([type='range']):not([type='color']):not([type='hidden']) {
   display: flex;
   width: 100%;
   min-width: 0;
@@ -19,17 +18,11 @@ textarea {
     box-shadow 0.15s;
 }
 
-textarea {
-  min-height: 5rem;
-}
-
-input:not([type='button']):not([type='submit']):not([type='reset']):not([type='checkbox']):not([type='radio']):not([type='range']):not([type='color']):not([type='hidden'])::placeholder,
-textarea::placeholder {
+input:not([type='button']):not([type='submit']):not([type='reset']):not([type='checkbox']):not([type='radio']):not([type='range']):not([type='color']):not([type='hidden'])::placeholder {
   color: hsl(var(--muted-foreground));
 }
 
-input:not([type='button']):not([type='submit']):not([type='reset']):not([type='checkbox']):not([type='radio']):not([type='range']):not([type='color']):not([type='hidden']):focus-visible,
-textarea:focus-visible {
+input:not([type='button']):not([type='submit']):not([type='reset']):not([type='checkbox']):not([type='radio']):not([type='range']):not([type='color']):not([type='hidden']):focus-visible {
   outline: 2px solid hsl(var(--ring));
   outline-offset: 2px;
   box-shadow:
@@ -37,20 +30,17 @@ textarea:focus-visible {
     0 0 0 4px hsl(var(--ring));
 }
 
-input:not([type='button']):not([type='submit']):not([type='reset']):not([type='checkbox']):not([type='radio']):not([type='range']):not([type='color']):not([type='hidden']):disabled,
-textarea:disabled {
+input:not([type='button']):not([type='submit']):not([type='reset']):not([type='checkbox']):not([type='radio']):not([type='range']):not([type='color']):not([type='hidden']):disabled {
   cursor: not-allowed;
   opacity: 0.5;
 }
 
-input[aria-invalid='true'],
-textarea[aria-invalid='true'] {
+input[aria-invalid='true'] {
   border-color: hsl(var(--destructive));
   box-shadow: 0 0 0 1px hsl(var(--destructive) / 0.2);
 }
 
-input[aria-invalid='true']:focus-visible,
-textarea[aria-invalid='true']:focus-visible {
+input[aria-invalid='true']:focus-visible {
   outline-color: hsl(var(--destructive));
   box-shadow:
     0 0 0 2px hsl(var(--background)),
@@ -83,8 +73,7 @@ input[type='file']::file-selector-button:hover {
 }
 
 @media (min-width: 768px) {
-  input:not([type='button']):not([type='submit']):not([type='reset']):not([type='checkbox']):not([type='radio']):not([type='range']):not([type='color']):not([type='hidden']),
-  textarea {
+  input:not([type='button']):not([type='submit']):not([type='reset']):not([type='checkbox']):not([type='radio']):not([type='range']):not([type='color']):not([type='hidden']) {
     font-size: 0.875rem;
   }
 }

@@ -2,8 +2,8 @@ import { LitElement, css, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
 import { componentStyles } from '../component-styles.ts'
 
-@customElement('input-page')
-export class InputPage extends LitElement {
+@customElement('textarea-page')
+export class TextareaPage extends LitElement {
   static styles = [componentStyles, css`
     :host {
       display: block;
@@ -50,11 +50,18 @@ export class InputPage extends LitElement {
       padding: 1.5rem;
       display: flex;
       flex-wrap: wrap;
-      align-items: center;
-      gap: 0.5rem;
+      align-items: flex-start;
+      gap: 0.75rem;
       margin-bottom: 0;
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
+    }
+
+    .preview > textarea,
+    .preview > .field,
+    .preview > .stack,
+    .preview > .rtl-box {
+      max-width: 20rem;
     }
 
     .preview + pre {
@@ -126,11 +133,41 @@ export class InputPage extends LitElement {
       font-size: 0.75rem;
     }
 
-    .inline-row {
-      display: flex;
-      align-items: center;
+    .field,
+    .stack,
+    .rtl-box {
+      display: grid;
       gap: 0.5rem;
       width: 100%;
+      min-width: 0;
+    }
+
+    .field label,
+    .rtl-box label {
+      color: hsl(var(--foreground));
+      font-size: 0.875rem;
+      font-weight: 500;
+      line-height: 1.35;
+    }
+
+    .field small {
+      color: hsl(var(--muted-foreground));
+      font-size: 0.8125rem;
+      line-height: 1.5;
+    }
+
+    .field[data-disabled] label,
+    .field[data-disabled] small {
+      opacity: 0.5;
+    }
+
+    .field[data-invalid] label,
+    .field[data-invalid] small {
+      color: hsl(var(--destructive));
+    }
+
+    .stack {
+      justify-items: start;
     }
 
     @media (max-width: 640px) {
@@ -152,72 +189,85 @@ export class InputPage extends LitElement {
 
   render() {
     return html`
-      <h1>Input</h1>
+      <h1>Textarea</h1>
       <p class="desc">
-        A text input component for forms and user data entry with built-in
-        styling and accessibility features.
+        Displays a form textarea or a component that looks like a textarea.
       </p>
 
       <h2>Installation</h2>
       <pre><code>&lt;link rel="stylesheet" href=".../assets/index.css"&gt;</code></pre>
 
       <h2>Usage</h2>
-      <pre><code>&lt;input placeholder="Enter text"&gt;</code></pre>
+      <pre><code>&lt;textarea placeholder="Type your message here."&gt;&lt;/textarea&gt;</code></pre>
 
       <h2>Examples</h2>
 
       <h3>Basic</h3>
       <div class="preview">
-        <input placeholder="Enter text">
+        <textarea placeholder="Type your message here."></textarea>
       </div>
-      <pre><code>&lt;input placeholder="Enter text"&gt;</code></pre>
+      <pre><code>&lt;textarea placeholder="Type your message here."&gt;&lt;/textarea&gt;</code></pre>
 
-      <h3>Types</h3>
+      <h3>Field</h3>
       <div class="preview">
-        <input type="text" placeholder="Text">
-        <input type="email" placeholder="Email">
-        <input type="password" placeholder="Password">
-        <input type="search" placeholder="Search">
+        <div class="field">
+          <label for="textarea-message">Message</label>
+          <textarea id="textarea-message" placeholder="Type your message here." rows="6"></textarea>
+          <small>Enter your message below.</small>
+        </div>
       </div>
-      <pre><code>&lt;input type="text" placeholder="Text"&gt;
-&lt;input type="email" placeholder="Email"&gt;
-&lt;input type="password" placeholder="Password"&gt;
-&lt;input type="search" placeholder="Search"&gt;</code></pre>
+      <pre><code>&lt;label for="textarea-message"&gt;Message&lt;/label&gt;
+&lt;textarea id="textarea-message" placeholder="Type your message here." rows="6"&gt;&lt;/textarea&gt;
+&lt;small&gt;Enter your message below.&lt;/small&gt;</code></pre>
 
       <h3>Disabled</h3>
       <div class="preview">
-        <input placeholder="Disabled" disabled>
+        <div class="field" data-disabled>
+          <label for="textarea-disabled">Message</label>
+          <textarea id="textarea-disabled" placeholder="Type your message here." disabled></textarea>
+        </div>
       </div>
-      <pre><code>&lt;input placeholder="Disabled" disabled&gt;</code></pre>
+      <pre><code>&lt;div data-disabled&gt;
+  &lt;label for="textarea-disabled"&gt;Message&lt;/label&gt;
+  &lt;textarea id="textarea-disabled" placeholder="Type your message here." disabled&gt;&lt;/textarea&gt;
+&lt;/div&gt;</code></pre>
 
       <h3>Invalid</h3>
       <div class="preview">
-        <input placeholder="Error" aria-invalid="true">
-      </div>
-      <pre><code>&lt;input placeholder="Error" aria-invalid="true"&gt;</code></pre>
-
-      <h3>File</h3>
-      <div class="preview">
-        <input type="file">
-      </div>
-      <pre><code>&lt;input type="file"&gt;</code></pre>
-
-      <h3>Required</h3>
-      <div class="preview">
-        <input placeholder="Required field" required>
-      </div>
-      <pre><code>&lt;input placeholder="Required field" required&gt;</code></pre>
-
-      <h3>With Button</h3>
-      <div class="preview">
-        <div class="inline-row">
-          <input type="search" placeholder="Search...">
-          <button class="scx-outline">Search</button>
+        <div class="field" data-invalid>
+          <label for="textarea-invalid">Message</label>
+          <textarea id="textarea-invalid" placeholder="Type your message here." aria-invalid="true"></textarea>
+          <small>Please enter a valid message.</small>
         </div>
       </div>
-      <pre><code>&lt;div style="display: flex; gap: 0.5rem;"&gt;
-  &lt;input type="search" placeholder="Search..."&gt;
-  &lt;button class="scx-outline"&gt;Search&lt;/button&gt;
+      <pre><code>&lt;div data-invalid&gt;
+  &lt;label for="textarea-invalid"&gt;Message&lt;/label&gt;
+  &lt;textarea id="textarea-invalid" placeholder="Type your message here." aria-invalid="true"&gt;&lt;/textarea&gt;
+  &lt;small&gt;Please enter a valid message.&lt;/small&gt;
+&lt;/div&gt;</code></pre>
+
+      <h3>Button</h3>
+      <div class="preview">
+        <div class="stack">
+          <textarea placeholder="Type your message here."></textarea>
+          <button>Send message</button>
+        </div>
+      </div>
+      <pre><code>&lt;div style="display: grid; gap: 0.5rem;"&gt;
+  &lt;textarea placeholder="Type your message here."&gt;&lt;/textarea&gt;
+  &lt;button&gt;Send message&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+
+      <h3>RTL</h3>
+      <div class="preview">
+        <div class="rtl-box" dir="rtl">
+          <label for="textarea-rtl">التعليقات</label>
+          <textarea id="textarea-rtl" placeholder="شاركنا أفكارك حول خدمتنا."></textarea>
+        </div>
+      </div>
+      <pre><code>&lt;div dir="rtl"&gt;
+  &lt;label for="textarea-rtl"&gt;التعليقات&lt;/label&gt;
+  &lt;textarea id="textarea-rtl" placeholder="شاركنا أفكارك حول خدمتنا."&gt;&lt;/textarea&gt;
 &lt;/div&gt;</code></pre>
 
       <h2>API Reference</h2>
@@ -232,9 +282,9 @@ export class InputPage extends LitElement {
           </thead>
           <tbody>
             <tr>
-              <td><code>type</code></td>
-              <td>Native input types</td>
-              <td>Text-like input styling, including file inputs.</td>
+              <td><code>textarea</code></td>
+              <td>Native element</td>
+              <td>Styled directly with shadcn-compatible border, radius, focus, and text tokens.</td>
             </tr>
             <tr>
               <td><code>placeholder</code></td>
@@ -242,14 +292,14 @@ export class InputPage extends LitElement {
               <td>Placeholder text uses <code>--muted-foreground</code>.</td>
             </tr>
             <tr>
-              <td><code>disabled</code></td>
-              <td>Boolean attribute</td>
-              <td>Applies disabled opacity and cursor.</td>
+              <td><code>rows</code></td>
+              <td>Native attribute</td>
+              <td>Controls the visible line count while preserving the component styles.</td>
             </tr>
             <tr>
-              <td><code>required</code></td>
+              <td><code>disabled</code></td>
               <td>Boolean attribute</td>
-              <td>Native form validation remains unchanged.</td>
+              <td>Applies disabled opacity, cursor, and input-token background.</td>
             </tr>
             <tr>
               <td><code>readonly</code></td>
@@ -259,25 +309,12 @@ export class InputPage extends LitElement {
             <tr>
               <td><code>aria-invalid</code></td>
               <td><code>true</code></td>
-              <td>Applies destructive border and invalid ring.</td>
+              <td>Applies destructive border and ring styles.</td>
             </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h3>Styled Elements</h3>
-      <div class="table-wrap">
-        <table>
-          <thead>
             <tr>
-              <th>Selector</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>input</code></td>
-              <td>Text-like inputs are styled directly. Checkboxes and textareas have their own styles.</td>
+              <td><code>dir</code></td>
+              <td><code>rtl | ltr</code></td>
+              <td>Uses browser text direction and logical padding for RTL layouts.</td>
             </tr>
           </tbody>
         </table>
@@ -288,6 +325,6 @@ export class InputPage extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'input-page': InputPage
+    'textarea-page': TextareaPage
   }
 }

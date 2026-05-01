@@ -39,6 +39,7 @@ src/lib/
   button.css
   badge.css
   input.css
+  textarea.css
   checkbox.css
   combobox.css
 ```
@@ -55,6 +56,7 @@ Consumer usage:
 
 <button class="scx-outline">Save</button>
 <input placeholder="Email" aria-invalid="true">
+<textarea placeholder="Message"></textarea>
 <mark class="scx-secondary">Beta</mark>
 ```
 
@@ -78,7 +80,8 @@ For each component, capture:
 | Old shadcx Web Component | CSS-only shadcx target | Notes |
 |--------------------------|------------------------|-------|
 | `<shadcx-button>` | `<button>` or `<a role="button">` | Variants and sizes use `scx-*` classes |
-| `<shadcx-input>` | `<input>` and `<textarea>` | Invalid state uses `aria-invalid="true"` |
+| `<shadcx-input>` | `<input>` | Invalid state uses `aria-invalid="true"` |
+| `<shadcx-textarea>` | `<textarea>` | Invalid state uses `aria-invalid="true"` |
 | `<shadcx-checkbox>` | `<input type="checkbox">` | Checked and indeterminate use native selectors |
 | `<shadcx-badge>` | `<mark>` | Variants use `scx-*` classes |
 | `<shadcx-combobox>` | `<select>`, `<input list>`, or `fieldset.scx-option-list` | Browser owns dropdown/autocomplete behavior |
@@ -241,7 +244,13 @@ Before marking a conversion complete:
 ```html
 <input placeholder="Name">
 <input type="email" aria-invalid="true">
+```
+
+### Textarea
+
+```html
 <textarea placeholder="Message"></textarea>
+<textarea placeholder="Message" aria-invalid="true"></textarea>
 ```
 
 ### Checkbox
