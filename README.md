@@ -41,7 +41,7 @@ pnpm preview
 ```
 src/
   lib/               # The CSS library (bundled to one public stylesheet)
-    index.css         # Imports theme, preflight, and component CSS files
+    index.css         # Generated import entry for every lib/*.css file
     theme.css         # shadcn-compatible CSS custom properties
     button.css        # Native button styles and scx-* variants
     input.css         # Native input and textarea styles
@@ -55,6 +55,11 @@ src/
   main.ts            # Entry point - loads CSS + playground
 index.html           # Docs site entry HTML
 ```
+
+Adding a component is file-based: add `src/lib/component-name.css` and
+`src/app/pages/component-name-page.ts`. Vite discovers both automatically,
+bundles the CSS into `dist/assets/index.css`, registers the playground page,
+and adds the page to the component navigation.
 
 ## Theming
 

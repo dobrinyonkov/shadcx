@@ -1,5 +1,6 @@
 import { LitElement, css, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
+import { componentRoutes, gettingStartedRoutes, type PageRoute } from './page-registry.ts'
 
 @customElement('app-sidebar')
 export class AppSidebar extends LitElement {
@@ -73,71 +74,32 @@ export class AppSidebar extends LitElement {
     this.active = hash
   }
 
-  render() {
-    const isActive = (hash: string) =>
-      this.active === hash ? 'active' : ''
+  private _renderNavItem(page: PageRoute) {
+    const href = page.route === '/' ? '#/' : `#/${page.route}`
 
+    return html`
+      <a
+        class="nav-item ${this._isActive(page.route)}"
+        href=${href}
+        @click=${(e: Event) => this._navigate(page.route, e)}
+      >
+        ${page.label}
+      </a>
+    `
+  }
+
+  private _isActive(hash: string) {
+    return this.active === hash ? 'active' : ''
+  }
+
+  render() {
     return html`
       <nav class="nav">
         <div class="nav-section">Getting Started</div>
-        <a
-          class="nav-item ${isActive('/')}"
-          href="#/"
-          @click=${(e: Event) => this._navigate('/', e)}
-        >
-          Introduction
-        </a>
-        <a
-          class="nav-item ${isActive('theming')}"
-          href="#/theming"
-          @click=${(e: Event) => this._navigate('theming', e)}
-        >
-          Theming
-        </a>
-        <a
-          class="nav-item ${isActive('theme-generator')}"
-          href="#/theme-generator"
-          @click=${(e: Event) => this._navigate('theme-generator', e)}
-        >
-          Theme Generator
-        </a>
+        ${gettingStartedRoutes.map((page) => this._renderNavItem(page))}
 
         <div class="nav-section">Components</div>
-        <a
-          class="nav-item ${isActive('badge')}"
-          href="#/badge"
-          @click=${(e: Event) => this._navigate('badge', e)}
-        >
-          Badge
-        </a>
-        <a
-          class="nav-item ${isActive('button')}"
-          href="#/button"
-          @click=${(e: Event) => this._navigate('button', e)}
-        >
-          Button
-        </a>
-        <a
-          class="nav-item ${isActive('input')}"
-          href="#/input"
-          @click=${(e: Event) => this._navigate('input', e)}
-        >
-          Input
-        </a>
-        <a
-          class="nav-item ${isActive('checkbox')}"
-          href="#/checkbox"
-          @click=${(e: Event) => this._navigate('checkbox', e)}
-        >
-          Checkbox
-        </a>
-        <a
-          class="nav-item ${isActive('combobox')}"
-          href="#/combobox"
-          @click=${(e: Event) => this._navigate('combobox', e)}
-        >
-          Combobox
-        </a>
+        ${componentRoutes.map((page) => this._renderNavItem(page))}
 
       </nav>
     `

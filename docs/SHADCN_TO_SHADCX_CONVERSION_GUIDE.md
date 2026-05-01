@@ -33,7 +33,7 @@ Each converted component contributes CSS only:
 
 ```text
 src/lib/
-  index.css       # imports every library stylesheet
+  index.css       # Vite-generated import entry for every library stylesheet
   theme.css       # shadcn-compatible variables
   preflight.css   # shared base reset
   button.css
@@ -43,8 +43,10 @@ src/lib/
   combobox.css
 ```
 
-`src/main.ts` imports `src/lib/index.css`, and Vite bundles that tree into the
-single public stylesheet at `dist/assets/index.css`.
+`src/main.ts` imports `src/lib/index.css`. The Vite `shadcx-css-index` plugin
+discovers `src/lib/*.css`, keeps `theme.css` and `preflight.css` first, and
+bundles the result into the single public stylesheet at
+`dist/assets/index.css`.
 
 Consumer usage:
 
@@ -208,7 +210,11 @@ place.
 Before marking a conversion complete:
 
 - The old component `.ts` file is removed from `src/lib`.
-- The component has a CSS file imported by `src/lib/index.css`.
+- The component has a `src/lib/component-name.css` file. Do not add it to an
+  import list; Vite discovers it automatically.
+- The playground has a matching `src/app/pages/component-name-page.ts` file
+  registered as `<component-name-page>`. The route and sidebar entry are
+  discovered automatically.
 - `src/main.ts` imports only the bundled CSS plus the playground shell.
 - Docs and examples use native HTML, not `shadcx-*` elements.
 - Installation snippets include only the stylesheet link.
