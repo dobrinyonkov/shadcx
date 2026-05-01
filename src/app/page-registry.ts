@@ -8,7 +8,7 @@ const corePages = new Map([
   ['theme-generator', { elementName: 'theme-generator-page', label: 'Theme Generator', wide: true }],
 ])
 
-const componentOrder = ['badge', 'button', 'input', 'checkbox', 'combobox']
+const componentOrder = ['badge', 'button', 'input', 'checkbox', 'switch', 'combobox']
 
 export interface PageRoute {
   route: string
