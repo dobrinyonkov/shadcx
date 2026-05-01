@@ -34,13 +34,6 @@ a[role='button']:hover {
   background-color: hsl(var(--primary) / 0.9);
 }
 
-button:focus-visible,
-a[role='button']:focus-visible {
-  box-shadow:
-    0 0 0 2px hsl(var(--background)),
-    0 0 0 4px hsl(var(--ring));
-}
-
 button:disabled,
 button[aria-disabled='true'],
 a[role='button'][aria-disabled='true'] {
@@ -172,4 +165,21 @@ button[aria-invalid='true'],
 a[role='button'][aria-invalid='true'] {
   border-color: hsl(var(--destructive));
   box-shadow: 0 0 0 1px hsl(var(--destructive) / 0.2);
+}
+
+button:focus-visible,
+a[role='button']:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+  box-shadow:
+    0 0 0 2px hsl(var(--background)),
+    0 0 0 4px hsl(var(--ring));
+}
+
+button[aria-invalid='true']:focus-visible,
+a[role='button'][aria-invalid='true']:focus-visible {
+  outline-color: hsl(var(--destructive));
+  box-shadow:
+    0 0 0 2px hsl(var(--background)),
+    0 0 0 4px hsl(var(--destructive));
 }

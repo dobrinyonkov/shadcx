@@ -57,6 +57,14 @@ export class AppSidebar extends LitElement {
       color: hsl(var(--primary));
     }
 
+    .nav-item:focus-visible {
+      outline: 2px solid hsl(var(--ring));
+      outline-offset: 2px;
+      box-shadow:
+        0 0 0 2px hsl(var(--background)),
+        0 0 0 4px hsl(var(--ring));
+    }
+
   `
 
   private _navigate(hash: string, e: Event) {
