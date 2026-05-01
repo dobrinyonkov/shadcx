@@ -1,0 +1,188 @@
+input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 1.25rem;
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+  touch-action: none;
+}
+
+input[type='range']::-webkit-slider-runnable-track {
+  height: 0.375rem;
+  border-radius: 9999px;
+  background-color: hsl(var(--primary) / 0.2);
+}
+
+input[type='range']::-moz-range-track {
+  height: 0.375rem;
+  border-radius: 9999px;
+  background-color: hsl(var(--primary) / 0.2);
+}
+
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: -0.4375rem;
+  border-radius: 9999px;
+  border: 2px solid hsl(var(--primary));
+  background-color: hsl(var(--background));
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+input[type='range']::-moz-range-thumb {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 9999px;
+  border: 2px solid hsl(var(--primary));
+  background-color: hsl(var(--background));
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+input[type='range']:focus-visible::-webkit-slider-thumb {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+  box-shadow:
+    0 0 0 2px hsl(var(--background)),
+    0 0 0 4px hsl(var(--ring));
+}
+
+input[type='range']:focus-visible::-moz-range-thumb {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+  box-shadow:
+    0 0 0 2px hsl(var(--background)),
+    0 0 0 4px hsl(var(--ring));
+}
+
+input[type='range']:focus-visible {
+  outline: none;
+}
+
+input[type='range']:focus-visible::-moz-focus-outer {
+  border: 0;
+}
+
+input[type='range']:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+input[type='range']:disabled::-webkit-slider-thumb {
+  cursor: not-allowed;
+}
+
+input[type='range']:disabled::-moz-range-thumb {
+  cursor: not-allowed;
+}
+
+input[type='range'].scx-vertical {
+  writing-mode: vertical-lr;
+  direction: rtl;
+  width: 1.25rem;
+  height: 12rem;
+}
+
+input[type='range'].scx-vertical::-webkit-slider-runnable-track {
+  width: 0.375rem;
+  height: 100%;
+}
+
+input[type='range'].scx-vertical::-webkit-slider-thumb {
+  margin-left: -0.4375rem;
+  margin-top: 0;
+}
+
+input[type='range'].scx-vertical::-moz-range-track {
+  width: 0.375rem;
+  height: 100%;
+}
+
+.scx-slider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 1.25rem;
+  touch-action: none;
+  user-select: none;
+}
+
+.scx-slider-track {
+  position: relative;
+  height: 0.375rem;
+  flex-grow: 1;
+  border-radius: 9999px;
+  background-color: hsl(var(--primary) / 0.2);
+}
+
+.scx-slider-range {
+  position: absolute;
+  height: 100%;
+  border-radius: 9999px;
+  background-color: hsl(var(--primary));
+}
+
+.scx-slider-thumb {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: block;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 9999px;
+  border: 2px solid hsl(var(--primary));
+  background-color: hsl(var(--background));
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  transition: border-color 0.15s, box-shadow 0.15s;
+  outline: none;
+  cursor: pointer;
+}
+
+.scx-slider-thumb:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+  box-shadow:
+    0 0 0 2px hsl(var(--background)),
+    0 0 0 4px hsl(var(--ring));
+}
+
+.scx-slider-thumb:disabled,
+.scx-slider-thumb[aria-disabled='true'] {
+  display: none;
+}
+
+.scx-slider-vertical {
+  flex-direction: column;
+  width: 1.25rem;
+  height: 12rem;
+}
+
+.scx-slider-vertical .scx-slider-track {
+  width: 0.375rem;
+  height: 100%;
+  flex-grow: 0;
+}
+
+.scx-slider-vertical .scx-slider-range {
+  width: 100%;
+  height: auto;
+}
+
+.scx-slider-vertical .scx-slider-thumb {
+  left: auto;
+}
+
+.scx-slider.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.scx-slider.disabled .scx-slider-thumb {
+  cursor: not-allowed;
+}
