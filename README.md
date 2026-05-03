@@ -1,4 +1,4 @@
-# shadcx
+# shadcx <!-- dummy change for testing -->
 
 shadcn/ui reimagined as pure CSS for native HTML. No framework lock-in, no
 Tailwind CSS, no Web Components runtime - just semantic elements styled by
