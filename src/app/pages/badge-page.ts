@@ -1,6 +1,7 @@
 import { LitElement, css, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
 import { componentStyles } from '../component-styles.ts'
+import '../../components/scx-badge.ts'
 
 @customElement('badge-page')
 export class BadgePage extends LitElement {
@@ -139,13 +140,13 @@ export class BadgePage extends LitElement {
       display: inline-block;
     }
 
-    mark.success {
+    scx-badge.success::part(badge) {
       background-color: hsl(142 71% 45% / 0.15);
       border-color: hsl(142 71% 45% / 0.35);
       color: hsl(142 84% 25%);
     }
 
-    :host-context(.dark) mark.success {
+    :host-context(.dark) scx-badge.success::part(badge) {
       background-color: hsl(142 70% 35% / 0.25);
       border-color: hsl(142 70% 45% / 0.45);
       color: hsl(142 100% 85%);
@@ -180,72 +181,72 @@ export class BadgePage extends LitElement {
       <p class="desc">Displays a badge or a component that looks like a badge.</p>
 
       <h2>Installation</h2>
-      <pre><code>&lt;link rel="stylesheet" href=".../assets/index.css"&gt;</code></pre>
+      <pre><code>import './scx-badge.js'</code></pre>
 
       <h2>Usage</h2>
-      <pre><code>&lt;mark&gt;Badge&lt;/mark&gt;</code></pre>
+      <pre><code>&lt;scx-badge&gt;Badge&lt;/scx-badge&gt;</code></pre>
 
       <h2>Examples</h2>
 
       <h3>Variants</h3>
       <div class="preview">
-        <mark>Default</mark>
-        <mark class="scx-secondary">Secondary</mark>
-        <mark class="scx-destructive">Destructive</mark>
-        <mark class="scx-outline">Outline</mark>
-        <mark class="scx-ghost">Ghost</mark>
-        <mark class="scx-link">Link</mark>
+        <scx-badge>Default</scx-badge>
+        <scx-badge variant="secondary">Secondary</scx-badge>
+        <scx-badge variant="destructive">Destructive</scx-badge>
+        <scx-badge variant="outline">Outline</scx-badge>
+        <scx-badge variant="ghost">Ghost</scx-badge>
+        <scx-badge variant="link">Link</scx-badge>
       </div>
-      <pre><code>&lt;mark&gt;Default&lt;/mark&gt;
-&lt;mark class="scx-secondary"&gt;Secondary&lt;/mark&gt;
-&lt;mark class="scx-destructive"&gt;Destructive&lt;/mark&gt;
-&lt;mark class="scx-outline"&gt;Outline&lt;/mark&gt;
-&lt;mark class="scx-ghost"&gt;Ghost&lt;/mark&gt;
-&lt;mark class="scx-link"&gt;Link&lt;/mark&gt;</code></pre>
+      <pre><code>&lt;scx-badge&gt;Default&lt;/scx-badge&gt;
+&lt;scx-badge variant="secondary"&gt;Secondary&lt;/scx-badge&gt;
+&lt;scx-badge variant="destructive"&gt;Destructive&lt;/scx-badge&gt;
+&lt;scx-badge variant="outline"&gt;Outline&lt;/scx-badge&gt;
+&lt;scx-badge variant="ghost"&gt;Ghost&lt;/scx-badge&gt;
+&lt;scx-badge variant="link"&gt;Link&lt;/scx-badge&gt;</code></pre>
 
       <h3>With Icon</h3>
       <div class="preview">
-        <mark>
+        <scx-badge>
           <svg data-icon="inline-start" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>
           Verified
-        </mark>
-        <mark class="scx-outline">
+        </scx-badge>
+        <scx-badge variant="outline">
           New
           <svg data-icon="inline-end" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
-        </mark>
+        </scx-badge>
       </div>
-      <pre><code>&lt;mark&gt;
+      <pre><code>&lt;scx-badge&gt;
   &lt;svg data-icon="inline-start" ...&gt;&lt;/svg&gt;
   Verified
-&lt;/mark&gt;</code></pre>
+&lt;/scx-badge&gt;</code></pre>
 
       <h3>With Spinner</h3>
       <div class="preview">
-        <mark class="scx-secondary">
+        <scx-badge variant="secondary">
           <span data-icon="inline-start" class="spinner"></span>
           Syncing
-        </mark>
+        </scx-badge>
       </div>
-      <pre><code>&lt;mark class="scx-secondary"&gt;
+      <pre><code>&lt;scx-badge variant="secondary"&gt;
   &lt;span data-icon="inline-start" class="spinner"&gt;&lt;/span&gt;
   Syncing
-&lt;/mark&gt;</code></pre>
+&lt;/scx-badge&gt;</code></pre>
 
       <h3>Link</h3>
       <div class="preview">
         <a class="inline-link" href="https://example.com" target="_blank" rel="noreferrer">
-          <mark class="scx-link">Read docs</mark>
+          <scx-badge variant="link">Read docs</scx-badge>
         </a>
       </div>
       <pre><code>&lt;a href="https://example.com"&gt;
-  &lt;mark class="scx-link"&gt;Read docs&lt;/mark&gt;
+  &lt;scx-badge variant="link"&gt;Read docs&lt;/scx-badge&gt;
 &lt;/a&gt;</code></pre>
 
       <h3>Custom Colors</h3>
       <div class="preview">
-        <mark class="success">Success</mark>
+        <scx-badge class="success">Success</scx-badge>
       </div>
-      <pre><code>mark.success {
+      <pre><code>scx-badge.success::part(badge) {
   background-color: hsl(142 71% 45% / 0.15);
   border-color: hsl(142 71% 45% / 0.35);
   color: hsl(142 84% 25%);
@@ -256,16 +257,16 @@ export class BadgePage extends LitElement {
         <table>
           <thead>
             <tr>
-              <th>Element / class</th>
+              <th>Attribute</th>
               <th>Values</th>
               <th>Purpose</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><code>mark</code></td>
-              <td><code>scx-secondary | scx-destructive | scx-outline | scx-ghost | scx-link</code></td>
-              <td>Badge variants. No class is the default badge.</td>
+              <td><code>variant</code></td>
+              <td><code>secondary | destructive | outline | ghost | link</code></td>
+              <td>Badge variants. No attribute is the default badge.</td>
             </tr>
           </tbody>
         </table>
@@ -282,7 +283,7 @@ export class BadgePage extends LitElement {
           </thead>
           <tbody>
             <tr>
-              <td><code>mark.your-class</code></td>
+              <td><code>scx-badge.your-class::part(badge)</code></td>
               <td>Override colors, borders, radius, or spacing directly with CSS variables or standard CSS.</td>
             </tr>
           </tbody>

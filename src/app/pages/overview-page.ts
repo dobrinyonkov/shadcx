@@ -150,22 +150,25 @@ export class OverviewPage extends LitElement {
     return html`
       <h1>shadcx</h1>
       <p class="lead">
-        shadcn/ui reimagined as pure CSS for native HTML. No framework lock-in,
-        no Tailwind CSS, no component runtime &mdash; just semantic elements
-        styled by shadcn-compatible variables.
+        shadcn/ui reimagined as self-contained web components. No framework lock-in,
+        no Tailwind CSS — just copy-pasteable components that use shadcn-compatible
+        CSS variables.
       </p>
 
       <h2>Getting Started</h2>
       <p>
-        Load the stylesheet via CDN and start using native HTML elements in any
-        page:
+        Copy the shared theme CSS and any component file into your project. Each
+        component is a single file with its own markup, styles, and logic.
       </p>
-      <pre><code>&lt;link rel="stylesheet" href="https://dobrinyonkov.github.io/shadcx/assets/index.css"&gt;</code></pre>
+      <pre><code>&lt;link rel="stylesheet" href="./theme.css"&gt;
+&lt;script type="module" src="./scx-button.js"&gt;&lt;/script&gt;
+
+&lt;scx-button variant="outline"&gt;Button&lt;/scx-button&gt;</code></pre>
 
       <h2>Theme Generator</h2>
       <p>
         Build a shadcn-compatible variable set visually, preview it against the
-        native components, and export the CSS in one click.
+        web components, shuffle palettes, and export the CSS in one click.
       </p>
       <div class="cards">
         <a

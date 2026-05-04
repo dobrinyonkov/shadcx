@@ -1,6 +1,12 @@
 import { LitElement, css, html } from 'lit'
 import { customElement, state } from 'lit/decorators.js'
 import { componentStyles } from '../component-styles.ts'
+import '../../components/scx-button.ts'
+import '../../components/scx-badge.ts'
+import '../../components/scx-input.ts'
+import '../../components/scx-textarea.ts'
+import '../../components/scx-select.ts'
+import '../../components/scx-checkbox.ts'
 
 type ThemeVariable =
   | 'font-sans'
@@ -580,7 +586,7 @@ export class ThemeGeneratorPage extends LitElement {
       gap: 0.5rem;
     }
 
-    .action-stack button {
+    .action-stack scx-button {
       width: 100%;
     }
 
@@ -815,6 +821,69 @@ export class ThemeGeneratorPage extends LitElement {
 
     .option-list {
       max-width: none;
+    }
+
+    fieldset.scx-option-list {
+      display: grid;
+      width: 100%;
+      max-width: 24rem;
+      gap: 0.25rem;
+      margin: 0;
+      padding: 0.25rem;
+      border: 1px solid hsl(var(--input));
+      border-radius: calc(var(--radius) - 2px);
+      background-color: hsl(var(--background));
+      color: hsl(var(--foreground));
+      font-family: var(--font-sans);
+    }
+
+    fieldset.scx-option-list:focus-within {
+      outline: 2px solid hsl(var(--ring));
+      outline-offset: 2px;
+      box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--ring));
+    }
+
+    fieldset.scx-option-list legend {
+      padding: 0 0.25rem;
+      color: hsl(var(--muted-foreground));
+      font-size: 0.8125rem;
+      font-weight: 500;
+    }
+
+    fieldset.scx-option-list button {
+      justify-content: flex-start;
+      width: 100%;
+      height: 2rem;
+      appearance: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0 0.75rem;
+      border: 1px solid hsl(var(--input));
+      border-radius: calc(var(--radius) - 4px);
+      background-color: hsl(var(--background));
+      color: hsl(var(--foreground));
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.875rem;
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    fieldset.scx-option-list button[aria-pressed='true'] {
+      border-color: hsl(var(--primary));
+      background-color: hsl(var(--primary));
+      color: hsl(var(--primary-foreground));
+    }
+
+    fieldset.scx-option-list button[aria-pressed='true']:hover {
+      background-color: hsl(var(--primary) / 0.9);
+    }
+
+    fieldset.scx-option-list button:focus-visible {
+      outline: 2px solid hsl(var(--ring));
+      outline-offset: 2px;
+      box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--ring));
     }
 
     @media (max-width: 1060px) {
@@ -1140,8 +1209,9 @@ export class ThemeGeneratorPage extends LitElement {
               <strong>Theme Generator</strong>
               <span>shadcn variables</span>
             </span>
-            <button
-              class="scx-icon scx-outline"
+            <scx-button
+              size="icon"
+              variant="outline"
               type="button"
               aria-label="Shuffle theme"
               data-action="shuffle"
@@ -1154,7 +1224,7 @@ export class ThemeGeneratorPage extends LitElement {
                 <path d="m15 15 6 6"></path>
                 <path d="m4 4 5 5"></path>
               </svg>
-            </button>
+            </scx-button>
           </div>
 
           <div class="controls-body">
@@ -1211,8 +1281,8 @@ export class ThemeGeneratorPage extends LitElement {
             </div>
 
             <div class="action-stack">
-              <button
-                class="scx-outline"
+              <scx-button
+                variant="outline"
                 type="button"
                 data-action="shuffle"
               >
@@ -1224,8 +1294,8 @@ export class ThemeGeneratorPage extends LitElement {
                   <path d="m4 4 5 5"></path>
                 </svg>
                 Shuffle
-              </button>
-              <button
+              </scx-button>
+              <scx-button
                 type="button"
                 data-action="export"
                 data-testid="theme-export"
@@ -1236,7 +1306,7 @@ export class ThemeGeneratorPage extends LitElement {
                   <path d="M5 21h14"></path>
                 </svg>
                 ${this._copied ? 'Copied CSS' : 'Export CSS'}
-              </button>
+              </scx-button>
             </div>
           </div>
         </aside>
@@ -1245,11 +1315,11 @@ export class ThemeGeneratorPage extends LitElement {
           <div class="preview-header">
             <div class="preview-heading">
               <h1>Theme Preview</h1>
-              <p>Native buttons, form controls, badges, lists, and chart colors using the current variable set.</p>
+              <p>Web components, form controls, badges, lists, and chart colors using the current variable set.</p>
             </div>
             <div class="preview-actions">
-              <button>Deploy</button>
-              <button class="scx-outline">Preview</button>
+              <scx-button>Deploy</scx-button>
+              <scx-button variant="outline">Preview</scx-button>
             </div>
           </div>
 
@@ -1261,56 +1331,56 @@ export class ThemeGeneratorPage extends LitElement {
               </div>
 
               <div class="button-row">
-                <button>Primary</button>
-                <button class="scx-secondary">Secondary</button>
-                <button class="scx-outline">Outline</button>
-                <button class="scx-ghost">Ghost</button>
-                <button class="scx-destructive">Delete</button>
+                <scx-button>Primary</scx-button>
+                <scx-button variant="secondary">Secondary</scx-button>
+                <scx-button variant="outline">Outline</scx-button>
+                <scx-button variant="ghost">Ghost</scx-button>
+                <scx-button variant="destructive">Delete</scx-button>
               </div>
 
               <div class="badge-row">
-                <mark>Default</mark>
-                <mark class="scx-secondary">Secondary</mark>
-                <mark class="scx-outline">Outline</mark>
-                <mark class="scx-destructive">Invalid</mark>
+                <scx-badge>Default</scx-badge>
+                <scx-badge variant="secondary">Secondary</scx-badge>
+                <scx-badge variant="outline">Outline</scx-badge>
+                <scx-badge variant="destructive">Invalid</scx-badge>
               </div>
 
               <div class="form-grid">
                 <div class="field">
                   <label for="generator-email">Email</label>
-                  <input id="generator-email" value="hello@shadcx.dev">
+                  <scx-input id="generator-email" value="hello@shadcx.dev"></scx-input>
                   <small>Border, input, text, and focus ring tokens.</small>
                 </div>
                 <div class="field">
                   <label for="generator-invalid">Invalid state</label>
-                  <input id="generator-invalid" value="Missing value" aria-invalid="true">
+                  <scx-input id="generator-invalid" value="Missing value" aria-invalid="true"></scx-input>
                   <small>Uses aria-invalid and destructive tokens.</small>
                 </div>
                 <div class="field wide">
                   <label for="generator-message">Message</label>
-                  <textarea id="generator-message" placeholder="Share a few details."></textarea>
+                  <scx-textarea id="generator-message" placeholder="Share a few details."></scx-textarea>
                   <small>Textarea background, radius, and ring follow the same tokens.</small>
                 </div>
                 <div class="field">
                   <label for="generator-framework">Framework</label>
-                  <select id="generator-framework">
+                  <scx-select id="generator-framework">
                     <option>Native HTML</option>
                     <option>React</option>
                     <option>Vue</option>
                     <option>Svelte</option>
-                  </select>
+                  </scx-select>
                 </div>
                 <label class="checkbox-line">
-                  <input type="checkbox" checked>
+                  <scx-checkbox checked></scx-checkbox>
                   Receive release notes
                 </label>
               </div>
 
               <fieldset class="scx-option-list option-list">
                 <legend>Menu Accent</legend>
-                <button type="button" class="scx-outline" aria-pressed="true">Subtle</button>
-                <button type="button" class="scx-outline" aria-pressed="false">Solid</button>
-                <button type="button" class="scx-outline" aria-pressed="false">Ghost</button>
+                <button type="button" aria-pressed="true">Subtle</button>
+                <button type="button" aria-pressed="false">Solid</button>
+                <button type="button" aria-pressed="false">Ghost</button>
               </fieldset>
             </div>
 
@@ -1336,13 +1406,13 @@ export class ThemeGeneratorPage extends LitElement {
                 <span class="bar"></span>
               </div>
 
-              <button
-                class="scx-outline"
+              <scx-button
+                variant="outline"
                 type="button"
                 data-action="export"
               >
                 ${this._copied ? 'Copied CSS to clipboard' : 'Copy current variables'}
-              </button>
+              </scx-button>
             </div>
           </div>
         </section>

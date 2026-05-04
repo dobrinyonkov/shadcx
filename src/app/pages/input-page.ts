@@ -1,6 +1,8 @@
 import { LitElement, css, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
 import { componentStyles } from '../component-styles.ts'
+import '../../components/scx-input.ts'
+import '../../components/scx-button.ts'
 
 @customElement('input-page')
 export class InputPage extends LitElement {
@@ -159,65 +161,65 @@ export class InputPage extends LitElement {
       </p>
 
       <h2>Installation</h2>
-      <pre><code>&lt;link rel="stylesheet" href=".../assets/index.css"&gt;</code></pre>
+      <pre><code>import './scx-input.js'</code></pre>
 
       <h2>Usage</h2>
-      <pre><code>&lt;input placeholder="Enter text"&gt;</code></pre>
+      <pre><code>&lt;scx-input placeholder="Enter text"&gt;&lt;/scx-input&gt;</code></pre>
 
       <h2>Examples</h2>
 
       <h3>Basic</h3>
       <div class="preview">
-        <input placeholder="Enter text">
+        <scx-input placeholder="Enter text"></scx-input>
       </div>
-      <pre><code>&lt;input placeholder="Enter text"&gt;</code></pre>
+      <pre><code>&lt;scx-input placeholder="Enter text"&gt;&lt;/scx-input&gt;</code></pre>
 
       <h3>Types</h3>
       <div class="preview">
-        <input type="text" placeholder="Text">
-        <input type="email" placeholder="Email">
-        <input type="password" placeholder="Password">
-        <input type="search" placeholder="Search">
+        <scx-input type="text" placeholder="Text"></scx-input>
+        <scx-input type="email" placeholder="Email"></scx-input>
+        <scx-input type="password" placeholder="Password"></scx-input>
+        <scx-input type="search" placeholder="Search"></scx-input>
       </div>
-      <pre><code>&lt;input type="text" placeholder="Text"&gt;
-&lt;input type="email" placeholder="Email"&gt;
-&lt;input type="password" placeholder="Password"&gt;
-&lt;input type="search" placeholder="Search"&gt;</code></pre>
+      <pre><code>&lt;scx-input type="text" placeholder="Text"&gt;&lt;/scx-input&gt;
+&lt;scx-input type="email" placeholder="Email"&gt;&lt;/scx-input&gt;
+&lt;scx-input type="password" placeholder="Password"&gt;&lt;/scx-input&gt;
+&lt;scx-input type="search" placeholder="Search"&gt;&lt;/scx-input&gt;</code></pre>
 
       <h3>Disabled</h3>
       <div class="preview">
-        <input placeholder="Disabled" disabled>
+        <scx-input placeholder="Disabled" disabled></scx-input>
       </div>
-      <pre><code>&lt;input placeholder="Disabled" disabled&gt;</code></pre>
+      <pre><code>&lt;scx-input placeholder="Disabled" disabled&gt;&lt;/scx-input&gt;</code></pre>
 
       <h3>Invalid</h3>
       <div class="preview">
-        <input placeholder="Error" aria-invalid="true">
+        <scx-input placeholder="Error" aria-invalid="true"></scx-input>
       </div>
-      <pre><code>&lt;input placeholder="Error" aria-invalid="true"&gt;</code></pre>
+      <pre><code>&lt;scx-input placeholder="Error" aria-invalid="true"&gt;&lt;/scx-input&gt;</code></pre>
 
       <h3>File</h3>
       <div class="preview">
-        <input type="file">
+        <scx-input type="file"></scx-input>
       </div>
-      <pre><code>&lt;input type="file"&gt;</code></pre>
+      <pre><code>&lt;scx-input type="file"&gt;&lt;/scx-input&gt;</code></pre>
 
       <h3>Required</h3>
       <div class="preview">
-        <input placeholder="Required field" required>
+        <scx-input placeholder="Required field" required></scx-input>
       </div>
-      <pre><code>&lt;input placeholder="Required field" required&gt;</code></pre>
+      <pre><code>&lt;scx-input placeholder="Required field" required&gt;&lt;/scx-input&gt;</code></pre>
 
       <h3>With Button</h3>
       <div class="preview">
         <div class="inline-row">
-          <input type="search" placeholder="Search...">
-          <button class="scx-outline">Search</button>
+          <scx-input type="search" placeholder="Search..."></scx-input>
+          <scx-button variant="outline">Search</scx-button>
         </div>
       </div>
       <pre><code>&lt;div style="display: flex; gap: 0.5rem;"&gt;
-  &lt;input type="search" placeholder="Search..."&gt;
-  &lt;button class="scx-outline"&gt;Search&lt;/button&gt;
+  &lt;scx-input type="search" placeholder="Search..."&gt;&lt;/scx-input&gt;
+  &lt;scx-button variant="outline"&gt;Search&lt;/scx-button&gt;
 &lt;/div&gt;</code></pre>
 
       <h2>API Reference</h2>
@@ -225,7 +227,7 @@ export class InputPage extends LitElement {
         <table>
           <thead>
             <tr>
-              <th>Element / attribute</th>
+              <th>Attribute</th>
               <th>Values</th>
               <th>Purpose</th>
             </tr>
@@ -276,8 +278,8 @@ export class InputPage extends LitElement {
           </thead>
           <tbody>
             <tr>
-              <td><code>input</code></td>
-              <td>Text-like inputs are styled directly. Checkboxes and textareas have their own styles.</td>
+              <td><code>scx-input</code></td>
+              <td>Encapsulates an <code>input</code> inside a shadow root with shadcn-compatible tokens.</td>
             </tr>
           </tbody>
         </table>

@@ -1,6 +1,8 @@
 import { LitElement, css, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
 import { componentStyles } from '../component-styles.ts'
+import '../../components/scx-textarea.ts'
+import '../../components/scx-button.ts'
 
 @customElement('textarea-page')
 export class TextareaPage extends LitElement {
@@ -57,7 +59,7 @@ export class TextareaPage extends LitElement {
       border-bottom-right-radius: 0;
     }
 
-    .preview > textarea,
+    .preview > scx-textarea,
     .preview > .field,
     .preview > .stack,
     .preview > .rtl-box {
@@ -195,79 +197,79 @@ export class TextareaPage extends LitElement {
       </p>
 
       <h2>Installation</h2>
-      <pre><code>&lt;link rel="stylesheet" href=".../assets/index.css"&gt;</code></pre>
+      <pre><code>import './scx-textarea.js'</code></pre>
 
       <h2>Usage</h2>
-      <pre><code>&lt;textarea placeholder="Type your message here."&gt;&lt;/textarea&gt;</code></pre>
+      <pre><code>&lt;scx-textarea placeholder="Type your message here."&gt;&lt;/scx-textarea&gt;</code></pre>
 
       <h2>Examples</h2>
 
       <h3>Basic</h3>
       <div class="preview">
-        <textarea placeholder="Type your message here."></textarea>
+        <scx-textarea placeholder="Type your message here."></scx-textarea>
       </div>
-      <pre><code>&lt;textarea placeholder="Type your message here."&gt;&lt;/textarea&gt;</code></pre>
+      <pre><code>&lt;scx-textarea placeholder="Type your message here."&gt;&lt;/scx-textarea&gt;</code></pre>
 
       <h3>Field</h3>
       <div class="preview">
         <div class="field">
           <label for="textarea-message">Message</label>
-          <textarea id="textarea-message" placeholder="Type your message here." rows="6"></textarea>
+          <scx-textarea id="textarea-message" placeholder="Type your message here." rows="6"></scx-textarea>
           <small>Enter your message below.</small>
         </div>
       </div>
       <pre><code>&lt;label for="textarea-message"&gt;Message&lt;/label&gt;
-&lt;textarea id="textarea-message" placeholder="Type your message here." rows="6"&gt;&lt;/textarea&gt;
+&lt;scx-textarea id="textarea-message" placeholder="Type your message here." rows="6"&gt;&lt;/scx-textarea&gt;
 &lt;small&gt;Enter your message below.&lt;/small&gt;</code></pre>
 
       <h3>Disabled</h3>
       <div class="preview">
         <div class="field" data-disabled>
           <label for="textarea-disabled">Message</label>
-          <textarea id="textarea-disabled" placeholder="Type your message here." disabled></textarea>
+          <scx-textarea id="textarea-disabled" placeholder="Type your message here." disabled></scx-textarea>
         </div>
       </div>
       <pre><code>&lt;div data-disabled&gt;
   &lt;label for="textarea-disabled"&gt;Message&lt;/label&gt;
-  &lt;textarea id="textarea-disabled" placeholder="Type your message here." disabled&gt;&lt;/textarea&gt;
+  &lt;scx-textarea id="textarea-disabled" placeholder="Type your message here." disabled&gt;&lt;/scx-textarea&gt;
 &lt;/div&gt;</code></pre>
 
       <h3>Invalid</h3>
       <div class="preview">
         <div class="field" data-invalid>
           <label for="textarea-invalid">Message</label>
-          <textarea id="textarea-invalid" placeholder="Type your message here." aria-invalid="true"></textarea>
+          <scx-textarea id="textarea-invalid" placeholder="Type your message here." aria-invalid="true"></scx-textarea>
           <small>Please enter a valid message.</small>
         </div>
       </div>
       <pre><code>&lt;div data-invalid&gt;
   &lt;label for="textarea-invalid"&gt;Message&lt;/label&gt;
-  &lt;textarea id="textarea-invalid" placeholder="Type your message here." aria-invalid="true"&gt;&lt;/textarea&gt;
+  &lt;scx-textarea id="textarea-invalid" placeholder="Type your message here." aria-invalid="true"&gt;&lt;/scx-textarea&gt;
   &lt;small&gt;Please enter a valid message.&lt;/small&gt;
 &lt;/div&gt;</code></pre>
 
       <h3>Button</h3>
       <div class="preview">
         <div class="stack">
-          <textarea placeholder="Type your message here."></textarea>
-          <button>Send message</button>
+          <scx-textarea placeholder="Type your message here."></scx-textarea>
+          <scx-button>Send message</scx-button>
         </div>
       </div>
       <pre><code>&lt;div style="display: grid; gap: 0.5rem;"&gt;
-  &lt;textarea placeholder="Type your message here."&gt;&lt;/textarea&gt;
-  &lt;button&gt;Send message&lt;/button&gt;
+  &lt;scx-textarea placeholder="Type your message here."&gt;&lt;/scx-textarea&gt;
+  &lt;scx-button&gt;Send message&lt;/scx-button&gt;
 &lt;/div&gt;</code></pre>
 
       <h3>RTL</h3>
       <div class="preview">
         <div class="rtl-box" dir="rtl">
           <label for="textarea-rtl">التعليقات</label>
-          <textarea id="textarea-rtl" placeholder="شاركنا أفكارك حول خدمتنا."></textarea>
+          <scx-textarea id="textarea-rtl" placeholder="شاركنا أفكارك حول خدمتنا."></scx-textarea>
         </div>
       </div>
       <pre><code>&lt;div dir="rtl"&gt;
   &lt;label for="textarea-rtl"&gt;التعليقات&lt;/label&gt;
-  &lt;textarea id="textarea-rtl" placeholder="شاركنا أفكارك حول خدمتنا."&gt;&lt;/textarea&gt;
+  &lt;scx-textarea id="textarea-rtl" placeholder="شاركنا أفكارك حول خدمتنا."&gt;&lt;/scx-textarea&gt;
 &lt;/div&gt;</code></pre>
 
       <h2>API Reference</h2>
@@ -275,17 +277,12 @@ export class TextareaPage extends LitElement {
         <table>
           <thead>
             <tr>
-              <th>Element / attribute</th>
+              <th>Attribute</th>
               <th>Values</th>
               <th>Purpose</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td><code>textarea</code></td>
-              <td>Native element</td>
-              <td>Styled directly with shadcn-compatible border, radius, focus, and text tokens.</td>
-            </tr>
             <tr>
               <td><code>placeholder</code></td>
               <td>Native attribute</td>

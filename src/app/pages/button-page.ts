@@ -1,6 +1,7 @@
 import { LitElement, css, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
 import { componentStyles } from '../component-styles.ts'
+import '../../components/scx-button.ts'
 
 @customElement('button-page')
 export class ButtonPage extends LitElement {
@@ -151,110 +152,110 @@ export class ButtonPage extends LitElement {
       </p>
 
       <h2>Installation</h2>
-      <pre><code>&lt;link rel="stylesheet" href=".../assets/index.css"&gt;</code></pre>
+      <pre><code>import './scx-button.js'</code></pre>
 
       <h2>Usage</h2>
-      <pre><code>&lt;button class="scx-outline"&gt;Button&lt;/button&gt;</code></pre>
+      <pre><code>&lt;scx-button variant="outline"&gt;Button&lt;/scx-button&gt;</code></pre>
 
       <h2>Examples</h2>
 
       <h3>Basic</h3>
       <div class="preview">
-        <button>Button</button>
+        <scx-button>Button</scx-button>
       </div>
-      <pre><code>&lt;button&gt;Button&lt;/button&gt;</code></pre>
+      <pre><code>&lt;scx-button&gt;Button&lt;/scx-button&gt;</code></pre>
 
       <h3>Variants</h3>
       <div class="preview">
-        <button>Default</button>
-        <button class="scx-destructive">Destructive</button>
-        <button class="scx-outline">Outline</button>
-        <button class="scx-secondary">Secondary</button>
-        <button class="scx-ghost">Ghost</button>
-        <button class="scx-link">Link</button>
+        <scx-button>Default</scx-button>
+        <scx-button variant="destructive">Destructive</scx-button>
+        <scx-button variant="outline">Outline</scx-button>
+        <scx-button variant="secondary">Secondary</scx-button>
+        <scx-button variant="ghost">Ghost</scx-button>
+        <scx-button variant="link">Link</scx-button>
       </div>
-      <pre><code>&lt;button&gt;Default&lt;/button&gt;
-&lt;button class="scx-destructive"&gt;Destructive&lt;/button&gt;
-&lt;button class="scx-outline"&gt;Outline&lt;/button&gt;
-&lt;button class="scx-secondary"&gt;Secondary&lt;/button&gt;
-&lt;button class="scx-ghost"&gt;Ghost&lt;/button&gt;
-&lt;button class="scx-link"&gt;Link&lt;/button&gt;</code></pre>
+      <pre><code>&lt;scx-button&gt;Default&lt;/scx-button&gt;
+&lt;scx-button variant="destructive"&gt;Destructive&lt;/scx-button&gt;
+&lt;scx-button variant="outline"&gt;Outline&lt;/scx-button&gt;
+&lt;scx-button variant="secondary"&gt;Secondary&lt;/scx-button&gt;
+&lt;scx-button variant="ghost"&gt;Ghost&lt;/scx-button&gt;
+&lt;scx-button variant="link"&gt;Link&lt;/scx-button&gt;</code></pre>
 
       <h3>Sizes</h3>
       <div class="preview">
-        <button class="scx-xs">Extra Small</button>
-        <button class="scx-sm">Small</button>
-        <button>Default</button>
-        <button class="scx-lg">Large</button>
+        <scx-button size="xs">Extra Small</scx-button>
+        <scx-button size="sm">Small</scx-button>
+        <scx-button>Default</scx-button>
+        <scx-button size="lg">Large</scx-button>
       </div>
-      <pre><code>&lt;button class="scx-xs"&gt;Extra Small&lt;/button&gt;
-&lt;button class="scx-sm"&gt;Small&lt;/button&gt;
-&lt;button&gt;Default&lt;/button&gt;
-&lt;button class="scx-lg"&gt;Large&lt;/button&gt;</code></pre>
+      <pre><code>&lt;scx-button size="xs"&gt;Extra Small&lt;/scx-button&gt;
+&lt;scx-button size="sm"&gt;Small&lt;/scx-button&gt;
+&lt;scx-button&gt;Default&lt;/scx-button&gt;
+&lt;scx-button size="lg"&gt;Large&lt;/scx-button&gt;</code></pre>
 
       <h3>Icon</h3>
       <div class="preview">
-        <button class="scx-icon scx-outline" aria-label="Search">
+        <scx-button size="icon" variant="outline" aria-label="Search">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-        </button>
-        <button class="scx-icon-xs scx-outline" aria-label="Search">
+        </scx-button>
+        <scx-button size="icon-xs" variant="outline" aria-label="Search">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-        </button>
-        <button class="scx-icon-sm scx-outline" aria-label="Search">
+        </scx-button>
+        <scx-button size="icon-sm" variant="outline" aria-label="Search">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-        </button>
-        <button class="scx-icon-lg scx-outline" aria-label="Search">
+        </scx-button>
+        <scx-button size="icon-lg" variant="outline" aria-label="Search">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-        </button>
+        </scx-button>
       </div>
-      <pre><code>&lt;button class="scx-icon scx-outline" aria-label="Search"&gt;
+      <pre><code>&lt;scx-button size="icon" variant="outline" aria-label="Search"&gt;
   &lt;svg ...&gt;&lt;/svg&gt;
-&lt;/button&gt;
-&lt;button class="scx-icon-xs scx-outline" aria-label="Search"&gt;
+&lt;/scx-button&gt;
+&lt;scx-button size="icon-xs" variant="outline" aria-label="Search"&gt;
   &lt;svg ...&gt;&lt;/svg&gt;
-&lt;/button&gt;
-&lt;button class="scx-icon-sm scx-outline" aria-label="Search"&gt;
+&lt;/scx-button&gt;
+&lt;scx-button size="icon-sm" variant="outline" aria-label="Search"&gt;
   &lt;svg ...&gt;&lt;/svg&gt;
-&lt;/button&gt;
-&lt;button class="scx-icon-lg scx-outline" aria-label="Search"&gt;
+&lt;/scx-button&gt;
+&lt;scx-button size="icon-lg" variant="outline" aria-label="Search"&gt;
   &lt;svg ...&gt;&lt;/svg&gt;
-&lt;/button&gt;</code></pre>
+&lt;/scx-button&gt;</code></pre>
 
       <h3>Disabled</h3>
       <div class="preview">
-        <button disabled>Primary</button>
-        <button class="scx-outline" disabled>Outline</button>
-        <button class="scx-ghost" disabled>Ghost</button>
+        <scx-button disabled>Primary</scx-button>
+        <scx-button variant="outline" disabled>Outline</scx-button>
+        <scx-button variant="ghost" disabled>Ghost</scx-button>
       </div>
-      <pre><code>&lt;button disabled&gt;Primary&lt;/button&gt;
-&lt;button class="scx-outline" disabled&gt;Outline&lt;/button&gt;
-&lt;button class="scx-ghost" disabled&gt;Ghost&lt;/button&gt;</code></pre>
+      <pre><code>&lt;scx-button disabled&gt;Primary&lt;/scx-button&gt;
+&lt;scx-button variant="outline" disabled&gt;Outline&lt;/scx-button&gt;
+&lt;scx-button variant="ghost" disabled&gt;Ghost&lt;/scx-button&gt;</code></pre>
 
       <h2>API Reference</h2>
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
-              <th>Class / attribute</th>
+              <th>Attribute</th>
               <th>Values</th>
               <th>Purpose</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><code>class</code></td>
-              <td><code>scx-destructive | scx-outline | scx-secondary | scx-ghost | scx-link</code></td>
-              <td>Visual variants. No class is the default button.</td>
+              <td><code>variant</code></td>
+              <td><code>destructive | outline | secondary | ghost | link</code></td>
+              <td>Visual variants. No attribute is the default button.</td>
             </tr>
             <tr>
-              <td><code>class</code></td>
-              <td><code>scx-xs | scx-sm | scx-lg | scx-icon | scx-icon-xs | scx-icon-sm | scx-icon-lg</code></td>
-              <td>Size presets. No size class is the default size.</td>
+              <td><code>size</code></td>
+              <td><code>xs | sm | lg | icon | icon-xs | icon-sm | icon-lg</code></td>
+              <td>Size presets. No size attribute is the default size.</td>
             </tr>
             <tr>
               <td><code>disabled</code></td>
               <td><code>boolean attribute</code></td>
-              <td>Disabled state on native buttons.</td>
+              <td>Disabled state.</td>
             </tr>
           </tbody>
         </table>
@@ -272,7 +273,7 @@ export class ButtonPage extends LitElement {
           <tbody>
             <tr>
               <td><code>:hover</code>, <code>:focus-visible</code>, <code>:disabled</code>, <code>[aria-invalid="true"]</code></td>
-              <td>Native and ARIA states are styled directly by CSS.</td>
+              <td>Native and ARIA states are styled directly by CSS inside the shadow DOM.</td>
             </tr>
           </tbody>
         </table>

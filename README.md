@@ -1,20 +1,21 @@
 # shadcx
 
-shadcn/ui reimagined as pure CSS for native HTML. No framework lock-in, no
-Tailwind CSS, no Web Components runtime - just semantic elements styled by
-shadcn-compatible variables.
+shadcn/ui reimagined as self-contained web components. No framework lock-in, no
+Tailwind CSS — just copy-pasteable custom elements powered by shadcn-compatible
+CSS variables.
 
 ## Quick Start
 
-Load one stylesheet and use native elements:
+Load the shared theme CSS, import any component, and use it:
 
 ```html
 <link rel="stylesheet" href="https://dobrinyonkov.github.io/shadcx/assets/index.css" />
+<script type="module" src="https://dobrinyonkov.github.io/shadcx/components/scx-button.js"></script>
 
-<button class="scx-outline">Button</button>
-<input placeholder="Email" aria-invalid="true" />
-<textarea placeholder="Message"></textarea>
-<mark class="scx-secondary">Beta</mark>
+<scx-button variant="outline">Button</scx-button>
+<scx-input placeholder="Email" aria-invalid="true"></scx-input>
+<scx-textarea placeholder="Message"></scx-textarea>
+<scx-badge variant="secondary">Beta</scx-badge>
 ```
 
 ## Dev Setup
@@ -41,37 +42,51 @@ pnpm preview
 
 ```
 src/
-  lib/               # The CSS library (bundled to one public stylesheet)
-    index.css         # Generated import entry for every lib/*.css file
+  components/        # Self-contained web components (copy-paste ready)
+    scx-button.ts    # Button web component
+    scx-input.ts     # Input web component
+    scx-textarea.ts  # Textarea web component
+    scx-checkbox.ts  # Checkbox web component
+    scx-badge.ts     # Badge web component
+    scx-select.ts    # Select web component
+    scx-slider.ts    # Slider web component
+  lib/               # Shared CSS variables and preflight
     theme.css         # shadcn-compatible CSS custom properties
-    button.css        # Native button styles and scx-* variants
-    input.css         # Native input styles
-    textarea.css      # Native textarea styles
-    checkbox.css      # Native checkbox states
-    badge.css         # mark-based badge styles
-    combobox.css      # select and input[list] styles
+    preflight.css     # Reset and base styles
   app/               # Playground / docs site
-    app-layout.ts     # Shell layout (sidebar + content + hash router)
+    app-layout.ts     # Shell layout
     app-sidebar.ts    # Sidebar navigation
-    pages/            # Theming, generator, and one page per component
-  main.ts            # Entry point - loads CSS + playground
+    pages/            # One page per component
+  main.ts            # Entry point
 index.html           # Docs site entry HTML
 ```
 
-Adding a component is file-based: add `src/lib/component-name.css` and
-`src/app/pages/component-name-page.ts`. Vite discovers both automatically,
-bundles the CSS into `dist/assets/index.css`, registers the playground page,
-and adds the page to the component navigation.
+## How to use a component
+
+Each component is a single file. Copy it into your project, import it, and use
+the tag:
+
+```ts
+import './scx-button.js'
+```
+
+```html
+<scx-button variant="destructive" size="sm">Delete</scx-button>
+```
+
+You also need the shared `theme.css` (and optionally `preflight.css`) on your
+page so the components can read the design tokens.
 
 ## Theming
 
-shadcx uses CSS custom properties matching shadcn/ui's design token system. All color values are stored as **HSL channels** and composed at usage sites:
+shadcx uses CSS custom properties matching shadcn/ui's design token system. All
+color values are stored as **HSL channels** and composed at usage sites:
 
 ```css
 /* Definition */
 --primary: 0 0% 9%;
 
-/* Usage (in component CSS) */
+/* Usage (inside component shadow DOM) */
 background-color: hsl(var(--primary));
 ```
 
@@ -92,37 +107,77 @@ document.documentElement.classList.add('dark')
 
 Full theming documentation: [shadcx docs → Theming](https://dobrinyonkov.github.io/shadcx/#/theming)
 
-Use the theme generator to tweak shadcn variables visually, preview the native
+Use the theme generator to tweak shadcn variables visually, preview the
 components, shuffle palettes, and copy a ready-to-use `:root` block:
 [shadcx docs → Theme Generator](https://dobrinyonkov.github.io/shadcx/#/theme-generator)
 
-## Native API
+## Components API
 
-shadcx styles HTML directly:
+### Button
 
 ```html
-<button>Default</button>
-<button class="scx-secondary">Secondary</button>
-<button class="scx-destructive">Delete</button>
-<button class="scx-icon scx-outline" aria-label="Search">...</button>
-
-<input placeholder="Name" />
-<textarea placeholder="Message"></textarea>
-<input type="checkbox" aria-invalid="true" />
-
-<select>
-  <option>Select a framework</option>
-</select>
-
-<fieldset class="scx-option-list">
-  <legend>Frameworks</legend>
-  <button type="button" class="scx-outline" aria-pressed="false">Next.js</button>
-  <button type="button" class="scx-outline" aria-pressed="false">SvelteKit</button>
-</fieldset>
+<scx-button variant="outline" size="sm">Click me</scx-button>
 ```
 
-State uses native selectors and ARIA attributes, for example `:disabled`,
-`:checked`, `:indeterminate`, `:focus-visible`, and `aria-invalid="true"`.
+- `variant`: `destructive | outline | secondary | ghost | link`
+- `size`: `xs | sm | lg | icon | icon-xs | icon-sm | icon-lg`
+- `disabled`: boolean
+
+### Input
+
+```html
+<scx-input type="email" placeholder="Email"></scx-input>
+```
+
+- `type`: any native input type
+- `placeholder`, `disabled`, `readonly`, `required`, `aria-invalid`
+- `value`: string
+
+### Textarea
+
+```html
+<scx-textarea placeholder="Message" rows="4"></scx-textarea>
+```
+
+- `placeholder`, `rows`, `disabled`, `readonly`, `required`, `aria-invalid`
+- `value`: string
+
+### Checkbox
+
+```html
+<scx-checkbox checked></scx-checkbox>
+```
+
+- `checked`, `indeterminate`, `disabled`, `aria-invalid`
+
+### Badge
+
+```html
+<scx-badge variant="outline">New</scx-badge>
+```
+
+- `variant`: `secondary | destructive | outline | ghost | link`
+
+### Select
+
+```html
+<scx-select>
+  <option>Next.js</option>
+  <option>SvelteKit</option>
+</scx-select>
+```
+
+- `disabled`, `multiple`, `aria-invalid`
+- `value`: string
+
+### Slider
+
+```html
+<scx-slider min="0" max="100" step="1" value="33"></scx-slider>
+```
+
+- `min`, `max`, `step`, `value`
+- `disabled`, `orientation="vertical"`
 
 ## License
 

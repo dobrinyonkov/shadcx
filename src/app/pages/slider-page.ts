@@ -1,6 +1,7 @@
 import { LitElement, css, html } from 'lit'
 import { customElement, state } from 'lit/decorators.js'
 import { componentStyles } from '../component-styles.ts'
+import '../../components/scx-slider.ts'
 
 @customElement('slider-page')
 export class SliderPage extends LitElement {
@@ -138,6 +139,88 @@ export class SliderPage extends LitElement {
       color: hsl(var(--muted-foreground));
       min-width: 2rem;
       text-align: center;
+    }
+
+    .scx-slider {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 1.25rem;
+      touch-action: none;
+      user-select: none;
+    }
+
+    .scx-slider-track {
+      position: relative;
+      height: 0.375rem;
+      flex-grow: 1;
+      border-radius: 9999px;
+      background-color: hsl(var(--primary) / 0.2);
+    }
+
+    .scx-slider-range {
+      position: absolute;
+      height: 100%;
+      border-radius: 9999px;
+      background-color: hsl(var(--primary));
+    }
+
+    .scx-slider-thumb {
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display: block;
+      width: 1.25rem;
+      height: 1.25rem;
+      border-radius: 9999px;
+      border: 2px solid hsl(var(--primary));
+      background-color: hsl(var(--background));
+      box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+      transition: border-color 0.15s, box-shadow 0.15s;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .scx-slider-thumb:focus-visible {
+      outline: 2px solid hsl(var(--ring));
+      outline-offset: 2px;
+      box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--ring));
+    }
+
+    .scx-slider-thumb:disabled,
+    .scx-slider-thumb[aria-disabled='true'] {
+      display: none;
+    }
+
+    .scx-slider-vertical {
+      flex-direction: column;
+      width: 1.25rem;
+      height: 12rem;
+    }
+
+    .scx-slider-vertical .scx-slider-track {
+      width: 0.375rem;
+      height: 100%;
+      flex-grow: 0;
+    }
+
+    .scx-slider-vertical .scx-slider-range {
+      width: 100%;
+      height: auto;
+    }
+
+    .scx-slider-vertical .scx-slider-thumb {
+      left: auto;
+    }
+
+    .scx-slider.disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .scx-slider.disabled .scx-slider-thumb {
+      cursor: not-allowed;
     }
 
     @media (max-width: 640px) {
@@ -284,18 +367,18 @@ export class SliderPage extends LitElement {
       </p>
 
       <h2>Installation</h2>
-      <pre><code>&lt;link rel="stylesheet" href=".../assets/index.css"&gt;</code></pre>
+      <pre><code>import './scx-slider.js'</code></pre>
 
       <h2>Usage</h2>
-      <pre><code>&lt;input type="range" min="0" max="100" step="1" value="33"&gt;</code></pre>
+      <pre><code>&lt;scx-slider min="0" max="100" step="1" value="33"&gt;&lt;/scx-slider&gt;</code></pre>
 
       <h2>Examples</h2>
 
       <h3>Basic</h3>
       <div class="preview">
-        <input type="range" min="0" max="100" step="1" .value=${'33'}>
+        <scx-slider min="0" max="100" step="1" value="33"></scx-slider>
       </div>
-      <pre><code>&lt;input type="range" min="0" max="100" step="1" value="33"&gt;</code></pre>
+      <pre><code>&lt;scx-slider min="0" max="100" step="1" value="33"&gt;&lt;/scx-slider&gt;</code></pre>
 
       <h3>Range</h3>
       <div class="preview">
@@ -387,27 +470,26 @@ export class SliderPage extends LitElement {
 
       <h3>Vertical</h3>
       <div class="preview" style="justify-content: center;">
-        <input type="range" class="scx-vertical" min="0" max="100" step="1" .value=${'33'}>
+        <scx-slider orientation="vertical" min="0" max="100" step="1" value="33"></scx-slider>
       </div>
-      <pre><code>&lt;input type="range" class="scx-vertical" min="0" max="100" step="1" value="33"&gt;</code></pre>
+      <pre><code>&lt;scx-slider orientation="vertical" min="0" max="100" step="1" value="33"&gt;&lt;/scx-slider&gt;</code></pre>
 
       <h3>Controlled</h3>
       <div class="preview">
         <div class="flex-col">
-          <input
-            type="range"
+          <scx-slider
             min="0"
             max="100"
             step="1"
             .value=${String(this._controlledValue)}
-            @input=${(e: Event) => { this._controlledValue = Number((e.target as HTMLInputElement).value) }}
-          >
+            @input=${(e: Event) => { this._controlledValue = Number((e.target as HTMLElement & { value: string }).value) }}
+          ></scx-slider>
           <span class="value-readout">${this._controlledValue}</span>
         </div>
       </div>
-      <pre><code>&lt;input type="range" min="0" max="100" step="1"&gt;
+      <pre><code>&lt;scx-slider min="0" max="100" step="1"&gt;&lt;/scx-slider&gt;
 &lt;script&gt;
-  document.querySelector('input[type=range]')
+  document.querySelector('scx-slider')
     .addEventListener('input', (e) =&gt; {
       console.log(e.target.value)
     })
@@ -415,26 +497,21 @@ export class SliderPage extends LitElement {
 
       <h3>Disabled</h3>
       <div class="preview">
-        <input type="range" min="0" max="100" step="1" .value=${'33'} disabled>
+        <scx-slider min="0" max="100" step="1" value="33" disabled></scx-slider>
       </div>
-      <pre><code>&lt;input type="range" min="0" max="100" step="1" value="33" disabled&gt;</code></pre>
+      <pre><code>&lt;scx-slider min="0" max="100" step="1" value="33" disabled&gt;&lt;/scx-slider&gt;</code></pre>
 
       <h2>API Reference</h2>
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
-              <th>Element / Attribute</th>
+              <th>Attribute</th>
               <th>Values</th>
               <th>Purpose</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td><code>&lt;input type="range"&gt;</code></td>
-              <td>Native element</td>
-              <td>Single-thumb slider with full browser accessibility.</td>
-            </tr>
             <tr>
               <td><code>min</code></td>
               <td><code>number</code></td>
@@ -461,8 +538,8 @@ export class SliderPage extends LitElement {
               <td>Disables the slider.</td>
             </tr>
             <tr>
-              <td><code>class</code></td>
-              <td><code>scx-vertical</code></td>
+              <td><code>orientation</code></td>
+              <td><code>vertical</code></td>
               <td>Renders the slider vertically.</td>
             </tr>
           </tbody>
