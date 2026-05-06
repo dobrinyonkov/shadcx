@@ -661,7 +661,7 @@ export class ThemeGeneratorPage extends LitElement {
   private createTheme() {
     return {
       ...(this.dark ? darkTheme : defaultTheme),
-      ...basePalettes[this.base],
+      ...(!this.dark ? basePalettes[this.base] : {}),
       ...stylePresets[this.presetStyle],
     }
   }
