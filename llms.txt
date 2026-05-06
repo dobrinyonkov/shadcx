@@ -24,6 +24,9 @@ Load a component in any HTML page:
 - [Badge](https://dobrinyonkov.github.io/shadcx/assets/badge.js): Inline status label. Variants: default, secondary, destructive, outline, ghost, link. Supports inline icons via `<svg data-icon="inline-start">` or `<svg data-icon="inline-end">`.
 - [Button](https://dobrinyonkov.github.io/shadcx/assets/button.js): Action trigger. Variants: default, secondary, destructive, outline, ghost. Sizes: default, sm, lg, icon-sm. Exposes `disabled` attribute and `part="root"` for custom styling.
 - [Input](https://dobrinyonkov.github.io/shadcx/assets/input.js): Text field with built-in validation styling. Supports `type`, `placeholder`, `disabled`, `aria-invalid`. Destructive border + focus ring when `aria-invalid="true"`.
+- [Textarea](https://dobrinyonkov.github.io/shadcx/assets/textarea.js): Multi-line form control with placeholder, value, rows, disabled, readonly, required, and aria-invalid support.
+- [Card](https://dobrinyonkov.github.io/shadcx/assets/card.js): Compound content container with header, title, description, action, content, and footer elements. Supports `size="sm"`.
+- [Dropdown Menu](https://dobrinyonkov.github.io/shadcx/assets/dropdown-menu.js): Compound action menu with trigger, content, labels, groups, items, checkboxes, radio groups, shortcuts, and submenus.
 - [Checkbox](https://dobrinyonkov.github.io/shadcx/assets/checkbox.js): Toggle control with checked, indeterminate, disabled, and aria-invalid states. Dispatches `input`, `change`, and `checked-change` events.
 - [Combobox](https://dobrinyonkov.github.io/shadcx/assets/combobox.js): Autocomplete dropdown with keyboard navigation, clear button, and multi-select chip support. Set `.items` array and `.value` string.
 
@@ -53,6 +56,6 @@ Use the interactive [Theme Generator](https://dobrinyonkov.github.io/shadcx/#/th
 
 ## Optional
 
-- [Demo Dashboard](https://dobrinyonkov.github.io/shadcx/demo/): A here.now-style dashboard app built entirely with shadcx components, showing real-world usage of Button, Input, Badge, and inline Card/Alert/Textarea patterns.
+- [Demo Dashboard](https://dobrinyonkov.github.io/shadcx/demo/): A here.now-style dashboard app built with shadcx components, showing real-world usage of Button, Input, Badge, Card, Textarea, and Dropdown Menu patterns.
 - [GitHub Repository](https://github.com/dobrinyonkov/shadcx): Source code, component files, and contribution guidelines.
 - [shadcn/ui](https://ui.shadcn.com/): The original React component library that inspired this project.

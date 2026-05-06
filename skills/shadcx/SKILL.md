@@ -81,6 +81,47 @@ Load the theme and any components you need:
 <shadcx-combobox></shadcx-combobox>
 ```
 
+### Textarea
+- **Attributes**: `placeholder`, `value`, `rows`, `disabled`, `required`, `readonly`, `aria-invalid`
+- **CSS Part**: `::part(root)`
+
+```html
+<shadcx-textarea placeholder="Tell us more..."></shadcx-textarea>
+```
+
+### Card
+- **Composition**: `shadcx-card`, `shadcx-card-header`, `shadcx-card-title`, `shadcx-card-description`, `shadcx-card-action`, `shadcx-card-content`, `shadcx-card-footer`
+- **Attributes**: `size="default" | "sm"`
+- **CSS Part**: `::part(root)` on every card element
+
+```html
+<shadcx-card>
+  <shadcx-card-header>
+    <shadcx-card-title>Card Title</shadcx-card-title>
+    <shadcx-card-description>Card description</shadcx-card-description>
+  </shadcx-card-header>
+  <shadcx-card-content>Card content</shadcx-card-content>
+  <shadcx-card-footer>Card footer</shadcx-card-footer>
+</shadcx-card>
+```
+
+### Dropdown Menu
+- **Composition**: `shadcx-dropdown-menu`, `shadcx-dropdown-menu-trigger`, `shadcx-dropdown-menu-content`, `shadcx-dropdown-menu-item`, labels, groups, separators, checkbox/radio items, shortcuts, and submenus
+- **Attributes**: root `open`, content `align="start" | "end"`, item `variant="default" | "destructive"`, item `disabled`
+- **Events**: `checked-change` on checkbox items, `value-change` on radio groups
+
+```html
+<shadcx-dropdown-menu>
+  <shadcx-dropdown-menu-trigger>
+    <shadcx-button variant="outline">Open</shadcx-button>
+  </shadcx-dropdown-menu-trigger>
+  <shadcx-dropdown-menu-content>
+    <shadcx-dropdown-menu-item>Profile</shadcx-dropdown-menu-item>
+    <shadcx-dropdown-menu-item>Billing</shadcx-dropdown-menu-item>
+  </shadcx-dropdown-menu-content>
+</shadcx-dropdown-menu>
+```
+
 ## Theming
 
 The `theme.css` file defines CSS custom properties under `:root` and `.dark`:
@@ -121,13 +162,15 @@ Override variables to retheme:
 </div>
 ```
 
-### Card (inline until shadcx Card exists)
+### Card layout
 
 ```html
-<div style="border:1px solid hsl(var(--border));border-radius:calc(var(--radius) - 2px);padding:1rem">
-  <h3 style="font-size:0.875rem;font-weight:600;margin-bottom:0.5rem">Card Title</h3>
-  <p style="font-size:0.8125rem;color:hsl(var(--muted-foreground))">Card content here.</p>
-</div>
+<shadcx-card>
+  <shadcx-card-header>
+    <shadcx-card-title>Card Title</shadcx-card-title>
+    <shadcx-card-description>Card content here.</shadcx-card-description>
+  </shadcx-card-header>
+</shadcx-card>
 ```
 
 ### Horizontal button row
@@ -176,4 +219,4 @@ Download `theme.css` and individual `.js` files from the GitHub releases or buil
 - Always load `theme.css` before component scripts.
 - Components self-register on import. Do not manually call `customElements.define`.
 - Use `shadcx-*` tag names as shown — custom element names are fixed.
-- For missing primitives (Card, Select, Dialog, Tabs, Table), compose with HTML + CSS using the theme variables, or inline a custom element. Mark with a comment `<!-- replace with shadcx X -->` for future migration.
+- For missing primitives (Select, Dialog, Tabs, Table, Alert, Separator), compose with HTML + CSS using the theme variables, or inline a custom element. Mark with a comment `<!-- replace with shadcx X -->` for future migration.
