@@ -1,0 +1,58 @@
+# shadcx
+
+> shadcn/ui reimagined as self-contained Web Components. No framework lock-in, no Tailwind CSS — just reusable components that work anywhere with a single `<script type="module">` tag.
+
+Key design decisions:
+- Each component is a standalone vanilla `HTMLElement` custom element with its own shadow DOM, CSS, and JS. No runtime framework dependency.
+- Components use CSS custom properties (variables) from `theme.css` for styling. No build step needed by consumers.
+- The docs app uses Lit for routing and layout, but components themselves do not use Lit.
+- All components are auto-discovered at build time — no manual import lists to maintain.
+
+## CDN Usage
+
+Load a component in any HTML page:
+
+```html
+<link rel="stylesheet" href="https://dobrinyonkov.github.io/shadcx/assets/theme.css">
+<script type="module" src="https://dobrinyonkov.github.io/shadcx/assets/badge.js"></script>
+
+<shadcx-badge variant="secondary">New</shadcx-badge>
+```
+
+## Components
+
+- [Badge](https://dobrinyonkov.github.io/shadcx/assets/badge.js): Inline status label. Variants: default, secondary, destructive, outline, ghost, link. Supports inline icons via `<svg data-icon="inline-start">` or `<svg data-icon="inline-end">`.
+- [Button](https://dobrinyonkov.github.io/shadcx/assets/button.js): Action trigger. Variants: default, secondary, destructive, outline, ghost. Sizes: default, sm, lg, icon-sm. Exposes `disabled` attribute and `part="root"` for custom styling.
+- [Input](https://dobrinyonkov.github.io/shadcx/assets/input.js): Text field with built-in validation styling. Supports `type`, `placeholder`, `disabled`, `aria-invalid`. Destructive border + focus ring when `aria-invalid="true"`.
+- [Checkbox](https://dobrinyonkov.github.io/shadcx/assets/checkbox.js): Toggle control with checked, indeterminate, disabled, and aria-invalid states. Dispatches `input`, `change`, and `checked-change` events.
+- [Combobox](https://dobrinyonkov.github.io/shadcx/assets/combobox.js): Autocomplete dropdown with keyboard navigation, clear button, and multi-select chip support. Set `.items` array and `.value` string.
+
+## CSS Variables (theme.css)
+
+All components read from these custom properties:
+- `--background`, `--foreground`, `--card`, `--card-foreground`
+- `--popover`, `--popover-foreground`
+- `--primary`, `--primary-foreground`
+- `--secondary`, `--secondary-foreground`
+- `--muted`, `--muted-foreground`
+- `--accent`, `--accent-foreground`
+- `--destructive`, `--destructive-foreground`
+- `--border`, `--input`, `--ring`
+- `--radius`, `--font-sans`, `--font-mono`
+- `--chart-1` through `--chart-5`
+
+## Theme Generator
+
+Use the interactive [Theme Generator](https://dobrinyonkov.github.io/shadcx/#/theme-generator) to customize the variable set and export CSS for your project.
+
+## Docs
+
+- [Introduction](https://dobrinyonkov.github.io/shadcx/#/)
+- [Theming](https://dobrinyonkov.github.io/shadcx/#/theming)
+- [Theme Generator](https://dobrinyonkov.github.io/shadcx/#/theme-generator)
+
+## Optional
+
+- [Demo Dashboard](https://dobrinyonkov.github.io/shadcx/demo/): A here.now-style dashboard app built entirely with shadcx components, showing real-world usage of Button, Input, Badge, and inline Card/Alert/Textarea patterns.
+- [GitHub Repository](https://github.com/dobrinyonkov/shadcx): Source code, component files, and contribution guidelines.
+- [shadcn/ui](https://ui.shadcn.com/): The original React component library that inspired this project.

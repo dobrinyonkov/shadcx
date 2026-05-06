@@ -79,6 +79,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         index: 'index.html',
+        demo: 'demo/index.html',
         theme: 'src/lib/theme.css',
         ...discoverComponentEntries(),
       },
