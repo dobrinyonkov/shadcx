@@ -1,791 +1,5 @@
-(function(){let e=document.createElement(`link`).relList;if(e&&e.supports&&e.supports(`modulepreload`))return;for(let e of document.querySelectorAll(`link[rel="modulepreload"]`))n(e);new MutationObserver(e=>{for(let t of e)if(t.type===`childList`)for(let e of t.addedNodes)e.tagName===`LINK`&&e.rel===`modulepreload`&&n(e)}).observe(document,{childList:!0,subtree:!0});function t(e){let t={};return e.integrity&&(t.integrity=e.integrity),e.referrerPolicy&&(t.referrerPolicy=e.referrerPolicy),e.crossOrigin===`use-credentials`?t.credentials=`include`:e.crossOrigin===`anonymous`?t.credentials=`omit`:t.credentials=`same-origin`,t}function n(e){if(e.ep)return;e.ep=!0;let n=t(e);fetch(e.href,n)}})();var e=globalThis,t=e.ShadowRoot&&(e.ShadyCSS===void 0||e.ShadyCSS.nativeShadow)&&`adoptedStyleSheets`in Document.prototype&&`replace`in CSSStyleSheet.prototype,n=Symbol(),r=new WeakMap,i=class{constructor(e,t,r){if(this._$cssResult$=!0,r!==n)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=e,this.t=t}get styleSheet(){let e=this.o,n=this.t;if(t&&e===void 0){let t=n!==void 0&&n.length===1;t&&(e=r.get(n)),e===void 0&&((this.o=e=new CSSStyleSheet).replaceSync(this.cssText),t&&r.set(n,e))}return e}toString(){return this.cssText}},a=e=>new i(typeof e==`string`?e:e+``,void 0,n),o=(e,...t)=>new i(e.length===1?e[0]:t.reduce((t,n,r)=>t+(e=>{if(!0===e._$cssResult$)return e.cssText;if(typeof e==`number`)return e;throw Error(`Value passed to 'css' function must be a 'css' function result: `+e+`. Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.`)})(n)+e[r+1],e[0]),e,n),s=(n,r)=>{if(t)n.adoptedStyleSheets=r.map(e=>e instanceof CSSStyleSheet?e:e.styleSheet);else for(let t of r){let r=document.createElement(`style`),i=e.litNonce;i!==void 0&&r.setAttribute(`nonce`,i),r.textContent=t.cssText,n.appendChild(r)}},c=t?e=>e:e=>e instanceof CSSStyleSheet?(e=>{let t=``;for(let n of e.cssRules)t+=n.cssText;return a(t)})(e):e,{is:l,defineProperty:u,getOwnPropertyDescriptor:d,getOwnPropertyNames:ee,getOwnPropertySymbols:te,getPrototypeOf:ne}=Object,f=globalThis,re=f.trustedTypes,ie=re?re.emptyScript:``,ae=f.reactiveElementPolyfillSupport,p=(e,t)=>e,m={toAttribute(e,t){switch(t){case Boolean:e=e?ie:null;break;case Object:case Array:e=e==null?e:JSON.stringify(e)}return e},fromAttribute(e,t){let n=e;switch(t){case Boolean:n=e!==null;break;case Number:n=e===null?null:Number(e);break;case Object:case Array:try{n=JSON.parse(e)}catch{n=null}}return n}},h=(e,t)=>!l(e,t),oe={attribute:!0,type:String,converter:m,reflect:!1,useDefault:!1,hasChanged:h};Symbol.metadata??=Symbol(`metadata`),f.litPropertyMetadata??=new WeakMap;var g=class extends HTMLElement{static addInitializer(e){this._$Ei(),(this.l??=[]).push(e)}static get observedAttributes(){return this.finalize(),this._$Eh&&[...this._$Eh.keys()]}static createProperty(e,t=oe){if(t.state&&(t.attribute=!1),this._$Ei(),this.prototype.hasOwnProperty(e)&&((t=Object.create(t)).wrapped=!0),this.elementProperties.set(e,t),!t.noAccessor){let n=Symbol(),r=this.getPropertyDescriptor(e,n,t);r!==void 0&&u(this.prototype,e,r)}}static getPropertyDescriptor(e,t,n){let{get:r,set:i}=d(this.prototype,e)??{get(){return this[t]},set(e){this[t]=e}};return{get:r,set(t){let a=r?.call(this);i?.call(this,t),this.requestUpdate(e,a,n)},configurable:!0,enumerable:!0}}static getPropertyOptions(e){return this.elementProperties.get(e)??oe}static _$Ei(){if(this.hasOwnProperty(p(`elementProperties`)))return;let e=ne(this);e.finalize(),e.l!==void 0&&(this.l=[...e.l]),this.elementProperties=new Map(e.elementProperties)}static finalize(){if(this.hasOwnProperty(p(`finalized`)))return;if(this.finalized=!0,this._$Ei(),this.hasOwnProperty(p(`properties`))){let e=this.properties,t=[...ee(e),...te(e)];for(let n of t)this.createProperty(n,e[n])}let e=this[Symbol.metadata];if(e!==null){let t=litPropertyMetadata.get(e);if(t!==void 0)for(let[e,n]of t)this.elementProperties.set(e,n)}this._$Eh=new Map;for(let[e,t]of this.elementProperties){let n=this._$Eu(e,t);n!==void 0&&this._$Eh.set(n,e)}this.elementStyles=this.finalizeStyles(this.styles)}static finalizeStyles(e){let t=[];if(Array.isArray(e)){let n=new Set(e.flat(1/0).reverse());for(let e of n)t.unshift(c(e))}else e!==void 0&&t.push(c(e));return t}static _$Eu(e,t){let n=t.attribute;return!1===n?void 0:typeof n==`string`?n:typeof e==`string`?e.toLowerCase():void 0}constructor(){super(),this._$Ep=void 0,this.isUpdatePending=!1,this.hasUpdated=!1,this._$Em=null,this._$Ev()}_$Ev(){this._$ES=new Promise(e=>this.enableUpdating=e),this._$AL=new Map,this._$E_(),this.requestUpdate(),this.constructor.l?.forEach(e=>e(this))}addController(e){(this._$EO??=new Set).add(e),this.renderRoot!==void 0&&this.isConnected&&e.hostConnected?.()}removeController(e){this._$EO?.delete(e)}_$E_(){let e=new Map,t=this.constructor.elementProperties;for(let n of t.keys())this.hasOwnProperty(n)&&(e.set(n,this[n]),delete this[n]);e.size>0&&(this._$Ep=e)}createRenderRoot(){let e=this.shadowRoot??this.attachShadow(this.constructor.shadowRootOptions);return s(e,this.constructor.elementStyles),e}connectedCallback(){this.renderRoot??=this.createRenderRoot(),this.enableUpdating(!0),this._$EO?.forEach(e=>e.hostConnected?.())}enableUpdating(e){}disconnectedCallback(){this._$EO?.forEach(e=>e.hostDisconnected?.())}attributeChangedCallback(e,t,n){this._$AK(e,n)}_$ET(e,t){let n=this.constructor.elementProperties.get(e),r=this.constructor._$Eu(e,n);if(r!==void 0&&!0===n.reflect){let i=(n.converter?.toAttribute===void 0?m:n.converter).toAttribute(t,n.type);this._$Em=e,i==null?this.removeAttribute(r):this.setAttribute(r,i),this._$Em=null}}_$AK(e,t){let n=this.constructor,r=n._$Eh.get(e);if(r!==void 0&&this._$Em!==r){let e=n.getPropertyOptions(r),i=typeof e.converter==`function`?{fromAttribute:e.converter}:e.converter?.fromAttribute===void 0?m:e.converter;this._$Em=r;let a=i.fromAttribute(t,e.type);this[r]=a??this._$Ej?.get(r)??a,this._$Em=null}}requestUpdate(e,t,n,r=!1,i){if(e!==void 0){let a=this.constructor;if(!1===r&&(i=this[e]),n??=a.getPropertyOptions(e),!((n.hasChanged??h)(i,t)||n.useDefault&&n.reflect&&i===this._$Ej?.get(e)&&!this.hasAttribute(a._$Eu(e,n))))return;this.C(e,t,n)}!1===this.isUpdatePending&&(this._$ES=this._$EP())}C(e,t,{useDefault:n,reflect:r,wrapped:i},a){n&&!(this._$Ej??=new Map).has(e)&&(this._$Ej.set(e,a??t??this[e]),!0!==i||a!==void 0)||(this._$AL.has(e)||(this.hasUpdated||n||(t=void 0),this._$AL.set(e,t)),!0===r&&this._$Em!==e&&(this._$Eq??=new Set).add(e))}async _$EP(){this.isUpdatePending=!0;try{await this._$ES}catch(e){Promise.reject(e)}let e=this.scheduleUpdate();return e!=null&&await e,!this.isUpdatePending}scheduleUpdate(){return this.performUpdate()}performUpdate(){if(!this.isUpdatePending)return;if(!this.hasUpdated){if(this.renderRoot??=this.createRenderRoot(),this._$Ep){for(let[e,t]of this._$Ep)this[e]=t;this._$Ep=void 0}let e=this.constructor.elementProperties;if(e.size>0)for(let[t,n]of e){let{wrapped:e}=n,r=this[t];!0!==e||this._$AL.has(t)||r===void 0||this.C(t,void 0,n,r)}}let e=!1,t=this._$AL;try{e=this.shouldUpdate(t),e?(this.willUpdate(t),this._$EO?.forEach(e=>e.hostUpdate?.()),this.update(t)):this._$EM()}catch(t){throw e=!1,this._$EM(),t}e&&this._$AE(t)}willUpdate(e){}_$AE(e){this._$EO?.forEach(e=>e.hostUpdated?.()),this.hasUpdated||(this.hasUpdated=!0,this.firstUpdated(e)),this.updated(e)}_$EM(){this._$AL=new Map,this.isUpdatePending=!1}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this._$ES}shouldUpdate(e){return!0}update(e){this._$Eq&&=this._$Eq.forEach(e=>this._$ET(e,this[e])),this._$EM()}updated(e){}firstUpdated(e){}};g.elementStyles=[],g.shadowRootOptions={mode:`open`},g[p(`elementProperties`)]=new Map,g[p(`finalized`)]=new Map,ae?.({ReactiveElement:g}),(f.reactiveElementVersions??=[]).push(`2.1.2`);var _=globalThis,se=e=>e,v=_.trustedTypes,ce=v?v.createPolicy(`lit-html`,{createHTML:e=>e}):void 0,le=`$lit$`,y=`lit$${Math.random().toFixed(9).slice(2)}$`,ue=`?`+y,de=`<${ue}>`,b=document,x=()=>b.createComment(``),S=e=>e===null||typeof e!=`object`&&typeof e!=`function`,C=Array.isArray,fe=e=>C(e)||typeof e?.[Symbol.iterator]==`function`,w=`[ 	
-\f\r]`,T=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,pe=/-->/g,E=/>/g,D=RegExp(`>|${w}(?:([^\\s"'>=/]+)(${w}*=${w}*(?:[^ \t\n\f\r"'\`<>=]|("|')|))|$)`,`g`),O=/'/g,me=/"/g,he=/^(?:script|style|textarea|title)$/i,k=(e=>(t,...n)=>({_$litType$:e,strings:t,values:n}))(1),A=Symbol.for(`lit-noChange`),j=Symbol.for(`lit-nothing`),ge=new WeakMap,M=b.createTreeWalker(b,129);function _e(e,t){if(!C(e)||!e.hasOwnProperty(`raw`))throw Error(`invalid template strings array`);return ce===void 0?t:ce.createHTML(t)}var ve=(e,t)=>{let n=e.length-1,r=[],i,a=t===2?`<svg>`:t===3?`<math>`:``,o=T;for(let t=0;t<n;t++){let n=e[t],s,c,l=-1,u=0;for(;u<n.length&&(o.lastIndex=u,c=o.exec(n),c!==null);)u=o.lastIndex,o===T?c[1]===`!--`?o=pe:c[1]===void 0?c[2]===void 0?c[3]!==void 0&&(o=D):(he.test(c[2])&&(i=RegExp(`</`+c[2],`g`)),o=D):o=E:o===D?c[0]===`>`?(o=i??T,l=-1):c[1]===void 0?l=-2:(l=o.lastIndex-c[2].length,s=c[1],o=c[3]===void 0?D:c[3]===`"`?me:O):o===me||o===O?o=D:o===pe||o===E?o=T:(o=D,i=void 0);let d=o===D&&e[t+1].startsWith(`/>`)?` `:``;a+=o===T?n+de:l>=0?(r.push(s),n.slice(0,l)+le+n.slice(l)+y+d):n+y+(l===-2?t:d)}return[_e(e,a+(e[n]||`<?>`)+(t===2?`</svg>`:t===3?`</math>`:``)),r]},N=class e{constructor({strings:t,_$litType$:n},r){let i;this.parts=[];let a=0,o=0,s=t.length-1,c=this.parts,[l,u]=ve(t,n);if(this.el=e.createElement(l,r),M.currentNode=this.el.content,n===2||n===3){let e=this.el.content.firstChild;e.replaceWith(...e.childNodes)}for(;(i=M.nextNode())!==null&&c.length<s;){if(i.nodeType===1){if(i.hasAttributes())for(let e of i.getAttributeNames())if(e.endsWith(le)){let t=u[o++],n=i.getAttribute(e).split(y),r=/([.?@])?(.*)/.exec(t);c.push({type:1,index:a,name:r[2],strings:n,ctor:r[1]===`.`?be:r[1]===`?`?xe:r[1]===`@`?Se:I}),i.removeAttribute(e)}else e.startsWith(y)&&(c.push({type:6,index:a}),i.removeAttribute(e));if(he.test(i.tagName)){let e=i.textContent.split(y),t=e.length-1;if(t>0){i.textContent=v?v.emptyScript:``;for(let n=0;n<t;n++)i.append(e[n],x()),M.nextNode(),c.push({type:2,index:++a});i.append(e[t],x())}}}else if(i.nodeType===8)if(i.data===ue)c.push({type:2,index:a});else{let e=-1;for(;(e=i.data.indexOf(y,e+1))!==-1;)c.push({type:7,index:a}),e+=y.length-1}a++}}static createElement(e,t){let n=b.createElement(`template`);return n.innerHTML=e,n}};function P(e,t,n=e,r){if(t===A)return t;let i=r===void 0?n._$Cl:n._$Co?.[r],a=S(t)?void 0:t._$litDirective$;return i?.constructor!==a&&(i?._$AO?.(!1),a===void 0?i=void 0:(i=new a(e),i._$AT(e,n,r)),r===void 0?n._$Cl=i:(n._$Co??=[])[r]=i),i!==void 0&&(t=P(e,i._$AS(e,t.values),i,r)),t}var ye=class{constructor(e,t){this._$AV=[],this._$AN=void 0,this._$AD=e,this._$AM=t}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(e){let{el:{content:t},parts:n}=this._$AD,r=(e?.creationScope??b).importNode(t,!0);M.currentNode=r;let i=M.nextNode(),a=0,o=0,s=n[0];for(;s!==void 0;){if(a===s.index){let t;s.type===2?t=new F(i,i.nextSibling,this,e):s.type===1?t=new s.ctor(i,s.name,s.strings,this,e):s.type===6&&(t=new Ce(i,this,e)),this._$AV.push(t),s=n[++o]}a!==s?.index&&(i=M.nextNode(),a++)}return M.currentNode=b,r}p(e){let t=0;for(let n of this._$AV)n!==void 0&&(n.strings===void 0?n._$AI(e[t]):(n._$AI(e,n,t),t+=n.strings.length-2)),t++}},F=class e{get _$AU(){return this._$AM?._$AU??this._$Cv}constructor(e,t,n,r){this.type=2,this._$AH=j,this._$AN=void 0,this._$AA=e,this._$AB=t,this._$AM=n,this.options=r,this._$Cv=r?.isConnected??!0}get parentNode(){let e=this._$AA.parentNode,t=this._$AM;return t!==void 0&&e?.nodeType===11&&(e=t.parentNode),e}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(e,t=this){e=P(this,e,t),S(e)?e===j||e==null||e===``?(this._$AH!==j&&this._$AR(),this._$AH=j):e!==this._$AH&&e!==A&&this._(e):e._$litType$===void 0?e.nodeType===void 0?fe(e)?this.k(e):this._(e):this.T(e):this.$(e)}O(e){return this._$AA.parentNode.insertBefore(e,this._$AB)}T(e){this._$AH!==e&&(this._$AR(),this._$AH=this.O(e))}_(e){this._$AH!==j&&S(this._$AH)?this._$AA.nextSibling.data=e:this.T(b.createTextNode(e)),this._$AH=e}$(e){let{values:t,_$litType$:n}=e,r=typeof n==`number`?this._$AC(e):(n.el===void 0&&(n.el=N.createElement(_e(n.h,n.h[0]),this.options)),n);if(this._$AH?._$AD===r)this._$AH.p(t);else{let e=new ye(r,this),n=e.u(this.options);e.p(t),this.T(n),this._$AH=e}}_$AC(e){let t=ge.get(e.strings);return t===void 0&&ge.set(e.strings,t=new N(e)),t}k(t){C(this._$AH)||(this._$AH=[],this._$AR());let n=this._$AH,r,i=0;for(let a of t)i===n.length?n.push(r=new e(this.O(x()),this.O(x()),this,this.options)):r=n[i],r._$AI(a),i++;i<n.length&&(this._$AR(r&&r._$AB.nextSibling,i),n.length=i)}_$AR(e=this._$AA.nextSibling,t){for(this._$AP?.(!1,!0,t);e!==this._$AB;){let t=se(e).nextSibling;se(e).remove(),e=t}}setConnected(e){this._$AM===void 0&&(this._$Cv=e,this._$AP?.(e))}},I=class{get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}constructor(e,t,n,r,i){this.type=1,this._$AH=j,this._$AN=void 0,this.element=e,this.name=t,this._$AM=r,this.options=i,n.length>2||n[0]!==``||n[1]!==``?(this._$AH=Array(n.length-1).fill(new String),this.strings=n):this._$AH=j}_$AI(e,t=this,n,r){let i=this.strings,a=!1;if(i===void 0)e=P(this,e,t,0),a=!S(e)||e!==this._$AH&&e!==A,a&&(this._$AH=e);else{let r=e,o,s;for(e=i[0],o=0;o<i.length-1;o++)s=P(this,r[n+o],t,o),s===A&&(s=this._$AH[o]),a||=!S(s)||s!==this._$AH[o],s===j?e=j:e!==j&&(e+=(s??``)+i[o+1]),this._$AH[o]=s}a&&!r&&this.j(e)}j(e){e===j?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,e??``)}},be=class extends I{constructor(){super(...arguments),this.type=3}j(e){this.element[this.name]=e===j?void 0:e}},xe=class extends I{constructor(){super(...arguments),this.type=4}j(e){this.element.toggleAttribute(this.name,!!e&&e!==j)}},Se=class extends I{constructor(e,t,n,r,i){super(e,t,n,r,i),this.type=5}_$AI(e,t=this){if((e=P(this,e,t,0)??j)===A)return;let n=this._$AH,r=e===j&&n!==j||e.capture!==n.capture||e.once!==n.once||e.passive!==n.passive,i=e!==j&&(n===j||r);r&&this.element.removeEventListener(this.name,this,n),i&&this.element.addEventListener(this.name,this,e),this._$AH=e}handleEvent(e){typeof this._$AH==`function`?this._$AH.call(this.options?.host??this.element,e):this._$AH.handleEvent(e)}},Ce=class{constructor(e,t,n){this.element=e,this.type=6,this._$AN=void 0,this._$AM=t,this.options=n}get _$AU(){return this._$AM._$AU}_$AI(e){P(this,e)}},we=_.litHtmlPolyfillSupport;we?.(N,F),(_.litHtmlVersions??=[]).push(`3.3.2`);var Te=(e,t,n)=>{let r=n?.renderBefore??t,i=r._$litPart$;if(i===void 0){let e=n?.renderBefore??null;r._$litPart$=i=new F(t.insertBefore(x(),e),e,void 0,n??{})}return i._$AI(e),i},L=globalThis,R=class extends g{constructor(){super(...arguments),this.renderOptions={host:this},this._$Do=void 0}createRenderRoot(){let e=super.createRenderRoot();return this.renderOptions.renderBefore??=e.firstChild,e}update(e){let t=this.render();this.hasUpdated||(this.renderOptions.isConnected=this.isConnected),super.update(e),this._$Do=Te(t,this.renderRoot,this.renderOptions)}connectedCallback(){super.connectedCallback(),this._$Do?.setConnected(!0)}disconnectedCallback(){super.disconnectedCallback(),this._$Do?.setConnected(!1)}render(){return A}};R._$litElement$=!0,R.finalized=!0,L.litElementHydrateSupport?.({LitElement:R});var Ee=L.litElementPolyfillSupport;Ee?.({LitElement:R}),(L.litElementVersions??=[]).push(`4.2.2`);var z=e=>(t,n)=>{n===void 0?customElements.define(e,t):n.addInitializer(()=>{customElements.define(e,t)})},De={attribute:!0,type:String,converter:m,reflect:!1,hasChanged:h},Oe=(e=De,t,n)=>{let{kind:r,metadata:i}=n,a=globalThis.litPropertyMetadata.get(i);if(a===void 0&&globalThis.litPropertyMetadata.set(i,a=new Map),r===`setter`&&((e=Object.create(e)).wrapped=!0),a.set(n.name,e),r===`accessor`){let{name:r}=n;return{set(n){let i=t.get.call(this);t.set.call(this,n),this.requestUpdate(r,i,e,!0,n)},init(t){return t!==void 0&&this.C(r,void 0,e,t),t}}}if(r===`setter`){let{name:r}=n;return function(n){let i=this[r];t.call(this,n),this.requestUpdate(r,i,e,!0,n)}}throw Error(`Unsupported decorator location: `+r)};function B(e){return(t,n)=>typeof n==`object`?Oe(e,t,n):((e,t,n)=>{let r=t.hasOwnProperty(n);return t.constructor.createProperty(n,e),r?Object.getOwnPropertyDescriptor(t,n):void 0})(e,t,n)}function V(e){return B({...e,state:!0,attribute:!1})}var H=o`
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-
-  * {
-    margin: 0;
-  }
-
-  img,
-  svg,
-  video,
-  canvas,
-  audio,
-  iframe,
-  embed,
-  object {
-    display: block;
-    vertical-align: middle;
-  }
-
-  img,
-  video {
-    max-width: 100%;
-    height: auto;
-  }
-
-  body {
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-size: inherit;
-    font-weight: inherit;
-  }
-
-  blockquote,
-  dl,
-  dd,
-  hr,
-  figure,
-  p,
-  pre {
-    margin: 0;
-  }
-
-  ol,
-  ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  a {
-    color: inherit;
-    text-decoration: inherit;
-  }
-
-  button,
-  input,
-  optgroup,
-  select,
-  textarea {
-    font-family: inherit;
-    font-feature-settings: inherit;
-    font-variation-settings: inherit;
-    font-size: 100%;
-    font-weight: inherit;
-    line-height: inherit;
-    letter-spacing: inherit;
-    color: inherit;
-    margin: 0;
-    padding: 0;
-  }
-
-  button,
-  select {
-    text-transform: none;
-  }
-
-  button,
-  [type='button'],
-  [type='reset'],
-  [type='submit'] {
-    appearance: button;
-    background-color: transparent;
-    background-image: none;
-  }
-
-  :-moz-focusring {
-    outline: auto;
-  }
-
-  :-moz-ui-invalid {
-    box-shadow: none;
-  }
-
-  progress {
-    vertical-align: baseline;
-  }
-
-  ::-webkit-inner-spin-button,
-  ::-webkit-outer-spin-button {
-    height: auto;
-  }
-
-  [type='search'] {
-    appearance: textfield;
-    outline-offset: -2px;
-  }
-
-  ::-webkit-search-decoration {
-    -webkit-appearance: none;
-  }
-
-  ::-webkit-file-upload-button {
-    font: inherit;
-    appearance: button;
-  }
-
-  textarea {
-    resize: vertical;
-  }
-
-  fieldset {
-    margin: 0;
-    padding: 0;
-    min-width: 0;
-  }
-
-  legend {
-    padding: 0;
-  }
-
-  ::placeholder {
-    color: hsl(var(--muted-foreground));
-    opacity: 1;
-  }
-
-  [hidden] {
-    display: none !important;
-  }
-`;function U(e,t,n,r){var i=arguments.length,a=i<3?t:r===null?r=Object.getOwnPropertyDescriptor(t,n):r,o;if(typeof Reflect==`object`&&typeof Reflect.decorate==`function`)a=Reflect.decorate(e,t,n,r);else for(var s=e.length-1;s>=0;s--)(o=e[s])&&(a=(i<3?o(a):i>3?o(t,n,a):o(t,n))||a);return i>3&&a&&Object.defineProperty(t,n,a),a}var W=class extends R{constructor(...e){super(...e),this.variant=`default`,this.size=`default`,this.disabled=!1}static{this.styles=[H,o`
-    :host {
-      display: inline-flex;
-    }
-
-    :host([disabled]) {
-      pointer-events: none;
-    }
-
-    .root {
-      text-transform: none;
-      appearance: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      white-space: nowrap;
-      border-radius: calc(var(--radius) - 2px);
-      font-size: 0.875rem;
-      font-weight: 500;
-      cursor: pointer;
-      border: 1px solid transparent;
-      outline: none;
-      transition:
-        color 0.15s,
-        background-color 0.15s,
-        border-color 0.15s,
-        box-shadow 0.15s;
-    }
-
-    .root:disabled {
-      opacity: 0.5;
-      pointer-events: none;
-    }
-
-    .root:focus-visible {
-      box-shadow:
-        0 0 0 2px hsl(var(--background)),
-        0 0 0 4px hsl(var(--ring));
-    }
-
-    .root ::slotted(svg) {
-      pointer-events: none;
-      width: 1rem;
-      height: 1rem;
-      flex-shrink: 0;
-    }
-
-    /* ---- sizes ---- */
-    [data-size='default'] {
-      height: 2.25rem;
-      padding-inline: 1rem;
-    }
-    [data-size='xs'] {
-      height: 1.75rem;
-      padding-inline: 0.5rem;
-      font-size: 0.8125rem;
-    }
-    [data-size='sm'] {
-      height: 2rem;
-      padding-inline: 0.75rem;
-      font-size: 0.8125rem;
-    }
-    [data-size='lg'] {
-      height: 2.5rem;
-      padding-inline: 1.5rem;
-    }
-    [data-size='icon'] {
-      height: 2.25rem;
-      width: 2.25rem;
-      padding: 0;
-    }
-    [data-size='icon-xs'] {
-      height: 1.75rem;
-      width: 1.75rem;
-      padding: 0;
-    }
-    [data-size='icon-sm'] {
-      height: 2rem;
-      width: 2rem;
-      padding: 0;
-    }
-    [data-size='icon-lg'] {
-      height: 2.5rem;
-      width: 2.5rem;
-      padding: 0;
-    }
-
-    /* ---- variants ---- */
-    [data-variant='default'] {
-      background-color: hsl(var(--primary));
-      color: hsl(var(--primary-foreground));
-      box-shadow:
-        0 1px 3px 0 rgba(0, 0, 0, 0.1),
-        0 1px 2px -1px rgba(0, 0, 0, 0.1);
-    }
-    [data-variant='default']:hover {
-      background-color: hsl(var(--primary) / 0.9);
-    }
-
-    [data-variant='destructive'] {
-      background-color: hsl(var(--destructive));
-      color: hsl(var(--destructive-foreground));
-      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    }
-    [data-variant='destructive']:hover {
-      background-color: hsl(var(--destructive) / 0.9);
-    }
-
-    [data-variant='outline'] {
-      background-color: hsl(var(--background));
-      color: hsl(var(--foreground));
-      border-color: hsl(var(--input));
-      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    }
-    [data-variant='outline']:hover {
-      background-color: hsl(var(--accent));
-      color: hsl(var(--accent-foreground));
-    }
-
-    [data-variant='secondary'] {
-      background-color: hsl(var(--secondary));
-      color: hsl(var(--secondary-foreground));
-      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    }
-    [data-variant='secondary']:hover {
-      background-color: hsl(var(--secondary) / 0.8);
-    }
-
-    [data-variant='ghost'] {
-      background-color: transparent;
-      color: hsl(var(--foreground));
-    }
-    [data-variant='ghost']:hover {
-      background-color: hsl(var(--accent));
-      color: hsl(var(--accent-foreground));
-    }
-
-    [data-variant='link'] {
-      background-color: transparent;
-      color: hsl(var(--primary));
-      text-underline-offset: 4px;
-    }
-    [data-variant='link']:hover {
-      text-decoration: underline;
-    }
-
-    [aria-invalid='true'] {
-      border-color: hsl(var(--destructive));
-      box-shadow: 0 0 0 1px hsl(var(--destructive) / 0.2);
-    }
-  `]}render(){return k`
-      <button
-        part="root"
-        class="root"
-        data-variant=${this.variant}
-        data-size=${this.size}
-        ?disabled=${this.disabled}
-      >
-        <slot></slot>
-      </button>
-    `}};U([B({type:String,reflect:!0})],W.prototype,`variant`,void 0),U([B({type:String,reflect:!0})],W.prototype,`size`,void 0),U([B({type:Boolean,reflect:!0})],W.prototype,`disabled`,void 0),W=U([z(`shadcx-button`)],W);var G=class extends R{constructor(...e){super(...e),this.variant=`default`}static{this.styles=[H,o`
-      :host {
-        display: inline-flex;
-      }
-
-      .root {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.25rem;
-        white-space: nowrap;
-        border-radius: var(--radius);
-        border: 1px solid transparent;
-        padding-inline: 0.625rem;
-        height: 1.375rem;
-        font-size: 0.75rem;
-        line-height: 1;
-        font-weight: 500;
-        transition:
-          color 0.15s,
-          background-color 0.15s,
-          border-color 0.15s,
-          box-shadow 0.15s;
-      }
-
-      .root:focus-visible {
-        outline: none;
-        box-shadow:
-          0 0 0 2px hsl(var(--background)),
-          0 0 0 4px hsl(var(--ring));
-      }
-
-      .root ::slotted(svg),
-      .root ::slotted([data-icon]) {
-        width: 0.75rem;
-        height: 0.75rem;
-        flex-shrink: 0;
-      }
-
-      .root ::slotted([data-icon='inline-start']) {
-        margin-inline-end: 0.125rem;
-      }
-
-      .root ::slotted([data-icon='inline-end']) {
-        margin-inline-start: 0.125rem;
-      }
-
-      [data-variant='default'] {
-        background-color: hsl(var(--primary));
-        color: hsl(var(--primary-foreground));
-      }
-
-      [data-variant='default']:hover {
-        background-color: hsl(var(--primary) / 0.9);
-      }
-
-      [data-variant='secondary'] {
-        background-color: hsl(var(--secondary));
-        color: hsl(var(--secondary-foreground));
-      }
-
-      [data-variant='secondary']:hover {
-        background-color: hsl(var(--secondary) / 0.8);
-      }
-
-      [data-variant='destructive'] {
-        background-color: hsl(var(--destructive));
-        color: hsl(var(--destructive-foreground));
-      }
-
-      [data-variant='destructive']:hover {
-        background-color: hsl(var(--destructive) / 0.9);
-      }
-
-      [data-variant='outline'] {
-        background-color: hsl(var(--background));
-        color: hsl(var(--foreground));
-        border-color: hsl(var(--border));
-      }
-
-      [data-variant='outline']:hover {
-        background-color: hsl(var(--accent));
-        color: hsl(var(--accent-foreground));
-      }
-
-      [data-variant='ghost'] {
-        background-color: transparent;
-        color: hsl(var(--foreground));
-      }
-
-      [data-variant='ghost']:hover {
-        background-color: hsl(var(--accent));
-        color: hsl(var(--accent-foreground));
-      }
-
-      [data-variant='link'] {
-        background-color: transparent;
-        border-color: transparent;
-        color: hsl(var(--primary));
-        text-underline-offset: 4px;
-      }
-
-      [data-variant='link']:hover {
-        text-decoration: underline;
-      }
-    `]}render(){return k`
-      <span
-        part="root"
-        class="root"
-        data-variant=${this.variant}
-        tabindex="0"
-      >
-        <slot></slot>
-      </span>
-    `}};U([B({type:String,reflect:!0})],G.prototype,`variant`,void 0),G=U([z(`shadcx-badge`)],G);var K=class extends R{constructor(...e){super(...e),this.type=`text`,this.placeholder=``,this.disabled=!1,this.required=!1,this.readonly=!1,this.ariaInvalid=null}static{this.styles=[H,o`
-    :host {
-      display: flex;
-    }
-
-    .root {
-      display: flex;
-      width: 100%;
-      height: 2.25rem;
-      border-radius: calc(var(--radius) - 2px);
-      border: 1px solid hsl(var(--input));
-      background-color: hsl(var(--background));
-      padding-inline: 0.75rem;
-      padding-block: 0.25rem;
-      font-size: 1rem;
-      color: hsl(var(--foreground));
-      transition:
-        color 0.15s,
-        border-color 0.15s,
-        box-shadow 0.15s;
-    }
-
-    .root::placeholder {
-      color: hsl(var(--muted-foreground));
-    }
-
-    .root:focus-visible {
-      outline: none;
-      box-shadow:
-        0 0 0 2px hsl(var(--background)),
-        0 0 0 4px hsl(var(--ring));
-    }
-
-    .root:disabled {
-      cursor: not-allowed;
-      opacity: 0.5;
-    }
-
-    .root::file-selector-button {
-      border: 0;
-      background-color: transparent;
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: hsl(var(--foreground));
-    }
-
-    .root[aria-invalid] {
-      border-color: hsl(var(--destructive));
-    }
-
-    @media (min-width: 768px) {
-      .root {
-        font-size: 0.875rem;
-      }
-    }
-  `]}render(){return k`
-      <input
-        part="root"
-        class="root"
-        type=${this.type}
-        placeholder=${this.placeholder}
-        ?disabled=${this.disabled}
-        ?required=${this.required}
-        ?readonly=${this.readonly}
-        aria-invalid=${this.ariaInvalid||j}
-      >
-    `}};U([B({type:String})],K.prototype,`type`,void 0),U([B({type:String})],K.prototype,`placeholder`,void 0),U([B({type:Boolean,reflect:!0})],K.prototype,`disabled`,void 0),U([B({type:Boolean,reflect:!0})],K.prototype,`required`,void 0),U([B({type:Boolean,reflect:!0})],K.prototype,`readonly`,void 0),U([B({type:String,attribute:`aria-invalid`})],K.prototype,`ariaInvalid`,void 0),K=U([z(`shadcx-input`)],K);var q=class extends R{constructor(...e){super(...e),this.checked=!1,this.indeterminate=!1,this.disabled=!1,this.ariaInvalid=null}static{this.styles=[H,o`
-    :host {
-      display: inline-flex;
-      vertical-align: middle;
-    }
-
-    :host([disabled]) {
-      pointer-events: none;
-    }
-
-    .root {
-      appearance: none;
-      border: 1px solid hsl(var(--primary));
-      box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-      outline: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 1rem;
-      height: 1rem;
-      flex-shrink: 0;
-      border-radius: calc(var(--radius) - 4px);
-      background-color: hsl(var(--background));
-      color: transparent;
-      cursor: pointer;
-      transition:
-        background-color 0.15s,
-        border-color 0.15s,
-        box-shadow 0.15s,
-        color 0.15s;
-    }
-
-    .root:focus-visible {
-      box-shadow:
-        0 0 0 2px hsl(var(--background)),
-        0 0 0 4px hsl(var(--ring));
-    }
-
-    .root:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    .root[data-state='checked'],
-    .root[data-state='indeterminate'] {
-      border-color: hsl(var(--primary));
-      background-color: hsl(var(--primary));
-      color: hsl(var(--primary-foreground));
-    }
-
-    .root[aria-invalid='true'] {
-      border-color: hsl(var(--destructive));
-      box-shadow: 0 0 0 1px hsl(var(--destructive) / 0.2);
-    }
-
-    .indicator {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-    }
-
-    .icon {
-      width: 0.875rem;
-      height: 0.875rem;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 2.25;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-  `]}get _state(){return this.indeterminate?`indeterminate`:this.checked?`checked`:`unchecked`}_toggle(){this.disabled||(this.indeterminate?(this.indeterminate=!1,this.checked=!0):this.checked=!this.checked,this.dispatchEvent(new Event(`input`,{bubbles:!0,composed:!0})),this.dispatchEvent(new Event(`change`,{bubbles:!0,composed:!0})),this.dispatchEvent(new CustomEvent(`checked-change`,{detail:{checked:this.checked,indeterminate:this.indeterminate,state:this._state},bubbles:!0,composed:!0})))}_onKeyDown(e){e.key===`Enter`&&(e.preventDefault(),this._toggle())}render(){return k`
-      <button
-        part="root"
-        class="root"
-        type="button"
-        role="checkbox"
-        data-state=${this._state}
-        aria-checked=${this.indeterminate?`mixed`:String(this.checked)}
-        aria-invalid=${this.ariaInvalid||j}
-        ?disabled=${this.disabled}
-        @click=${this._toggle}
-        @keydown=${this._onKeyDown}
-      >
-        <span part="indicator" class="indicator" aria-hidden="true">
-          ${this._state===`checked`?k`<svg class="icon" viewBox="0 0 16 16"><polyline points="3.5 8.5 6.8 11.8 12.5 5.5" /></svg>`:this._state===`indeterminate`?k`<svg class="icon" viewBox="0 0 16 16"><line x1="3.5" y1="8" x2="12.5" y2="8" /></svg>`:j}
-        </span>
-      </button>
-    `}};U([B({type:Boolean,reflect:!0})],q.prototype,`checked`,void 0),U([B({type:Boolean,reflect:!0})],q.prototype,`indeterminate`,void 0),U([B({type:Boolean,reflect:!0})],q.prototype,`disabled`,void 0),U([B({type:String,attribute:`aria-invalid`})],q.prototype,`ariaInvalid`,void 0),q=U([z(`shadcx-checkbox`)],q);var J=class extends R{constructor(...e){super(...e),this.items=[],this.placeholder=`Select an option`,this.disabled=!1,this.multiple=!1,this.showClear=!1,this.autoHighlight=!1,this.ariaInvalid=null,this.value=``,this.values=[],this._query=``,this._open=!1,this._highlightedIndex=-1,this._onWindowPointerDown=e=>{e.composedPath().includes(this)||(this._open=!1)}}static{this.styles=[H,o`
-      :host {
-        display: block;
-        width: 100%;
-        max-width: 24rem;
-        position: relative;
-        font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
-      }
-
-      .control {
-        position: relative;
-        width: 100%;
-      }
-
-      .input {
-        width: 100%;
-        height: 2.25rem;
-        border-radius: calc(var(--radius) - 2px);
-        border: 1px solid hsl(var(--input));
-        background-color: hsl(var(--background));
-        color: hsl(var(--foreground));
-        font-size: 0.875rem;
-        padding: 0 2rem 0 0.75rem;
-        outline: none;
-      }
-
-      .input:focus-visible {
-        box-shadow:
-          0 0 0 2px hsl(var(--background)),
-          0 0 0 4px hsl(var(--ring));
-      }
-
-      .input[aria-invalid] {
-        border-color: hsl(var(--destructive));
-      }
-
-      .input:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-      }
-
-      .icon-btn {
-        position: absolute;
-        top: 50%;
-        right: 0.35rem;
-        transform: translateY(-50%);
-        border: none;
-        background: transparent;
-        color: hsl(var(--muted-foreground));
-        width: 1.5rem;
-        height: 1.5rem;
-        border-radius: calc(var(--radius) - 4px);
-        cursor: pointer;
-      }
-
-      .icon-btn:hover {
-        background-color: hsl(var(--accent));
-        color: hsl(var(--accent-foreground));
-      }
-
-      .chips {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.375rem;
-        min-height: 2.25rem;
-        border-radius: calc(var(--radius) - 2px);
-        border: 1px solid hsl(var(--input));
-        background-color: hsl(var(--background));
-        padding: 0.25rem 0.35rem;
-      }
-
-      .chip {
-        display: inline-flex;
-        align-items: center;
-        height: 1.5rem;
-        border-radius: 999px;
-        background-color: hsl(var(--secondary));
-        color: hsl(var(--secondary-foreground));
-        padding: 0 0.5rem;
-        font-size: 0.75rem;
-      }
-
-      .chips-input {
-        border: none;
-        background: transparent;
-        color: hsl(var(--foreground));
-        outline: none;
-        font-size: 0.875rem;
-        min-width: 8rem;
-        flex: 1;
-      }
-
-      .content {
-        position: absolute;
-        z-index: 30;
-        margin-top: 0.25rem;
-        width: 100%;
-        border: 1px solid hsl(var(--border));
-        border-radius: calc(var(--radius) - 2px);
-        background-color: hsl(var(--popover));
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.18);
-        overflow: hidden;
-      }
-
-      .empty {
-        padding: 0.75rem;
-        font-size: 0.8125rem;
-        color: hsl(var(--muted-foreground));
-      }
-
-      .list {
-        max-height: 15rem;
-        overflow-y: auto;
-        padding: 0.25rem;
-      }
-
-      .item {
-        width: 100%;
-        border: none;
-        background: transparent;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        text-align: left;
-        border-radius: calc(var(--radius) - 4px);
-        padding: 0.5rem;
-        color: hsl(var(--popover-foreground));
-        font-size: 0.875rem;
-        cursor: pointer;
-      }
-
-      .item:hover,
-      .item[data-highlighted='true'] {
-        background-color: hsl(var(--accent));
-        color: hsl(var(--accent-foreground));
-      }
-
-      .check {
-        color: hsl(var(--primary));
-        font-size: 0.75rem;
-      }
-    `]}connectedCallback(){super.connectedCallback(),window.addEventListener(`pointerdown`,this._onWindowPointerDown)}disconnectedCallback(){window.removeEventListener(`pointerdown`,this._onWindowPointerDown),super.disconnectedCallback()}get _filteredItems(){let e=this._query.trim().toLowerCase();return e?this.items.filter(t=>t.toLowerCase().includes(e)):this.items}_toggleOpen(){this.disabled||(this._open=!this._open,this._open&&this.autoHighlight&&this._filteredItems.length>0&&(this._highlightedIndex=0))}_onInput(e){let t=e.currentTarget;this._query=t.value,this._open=!0,this.autoHighlight&&this._filteredItems.length>0?this._highlightedIndex=0:this._highlightedIndex=-1}_onKeyDown(e){if(!this._open&&e.key===`ArrowDown`){e.preventDefault(),this._open=!0,this._highlightedIndex=0;return}if(this._open){if(e.key===`ArrowDown`){e.preventDefault(),this._highlightedIndex=Math.min(this._highlightedIndex+1,this._filteredItems.length-1);return}if(e.key===`ArrowUp`){e.preventDefault(),this._highlightedIndex=Math.max(this._highlightedIndex-1,0);return}if(e.key===`Enter`&&this._highlightedIndex>=0){e.preventDefault(),this._selectItem(this._filteredItems[this._highlightedIndex]);return}e.key===`Escape`&&(this._open=!1,this._highlightedIndex=-1)}}_selectItem(e){if(this.multiple){this.values.includes(e)?this.values=this.values.filter(t=>t!==e):this.values=[...this.values,e],this._query=``,this.dispatchEvent(new CustomEvent(`value-change`,{detail:{value:this.values},bubbles:!0,composed:!0}));return}this.value=e,this._query=e,this._open=!1,this.dispatchEvent(new CustomEvent(`value-change`,{detail:{value:this.value},bubbles:!0,composed:!0}))}_clear(){this.value=``,this.values=[],this._query=``,this.dispatchEvent(new CustomEvent(`value-change`,{detail:{value:this.multiple?this.values:this.value},bubbles:!0,composed:!0}))}_onActionButtonClick(){let e=this.multiple?this.values.length>0:!!this.value;if(this.showClear&&e){this._clear();return}this._toggleOpen()}_removeValue(e){this.values=this.values.filter(t=>t!==e),this.dispatchEvent(new CustomEvent(`value-change`,{detail:{value:this.values},bubbles:!0,composed:!0}))}updated(){!this.multiple&&!this._query&&this.value&&(this._query=this.value)}render(){let e=this._filteredItems;return k`
-      <div class="control">
-        ${this.multiple?k`
-              <div class="chips" part="chips">
-                ${this.values.map(e=>k`
-                    <span class="chip" part="chip">
-                      ${e}
-                      <button class="icon-btn" type="button" @click=${()=>this._removeValue(e)} aria-label=${`Remove ${e}`}>
-                        ×
-                      </button>
-                    </span>
-                  `)}
-                <input
-                  class="chips-input"
-                  part="input"
-                  .value=${this._query}
-                  placeholder=${this.placeholder}
-                  ?disabled=${this.disabled}
-                  aria-invalid=${this.ariaInvalid||j}
-                  @focus=${()=>this._open=!0}
-                  @input=${this._onInput}
-                  @keydown=${this._onKeyDown}
-                >
-              </div>
-            `:k`
-              <input
-                class="input"
-                part="input"
-                .value=${this._query}
-                placeholder=${this.placeholder}
-                ?disabled=${this.disabled}
-                aria-invalid=${this.ariaInvalid||j}
-                @focus=${()=>this._open=!0}
-                @input=${this._onInput}
-                @keydown=${this._onKeyDown}
-              >
-            `}
-        <button class="icon-btn" type="button" aria-label="Combobox action" @click=${this._onActionButtonClick}>
-          ${this.showClear&&(this.multiple?this.values.length>0:this.value)?`×`:`▾`}
-        </button>
-      </div>
-
-      ${this._open?k`
-            <div class="content" part="content">
-              ${e.length===0?k`<div class="empty" part="empty">No items found.</div>`:k`
-                    <div class="list" part="list">
-                      ${e.map((e,t)=>k`
-                          <button
-                            class="item"
-                            part="item"
-                            type="button"
-                            data-highlighted=${String(t===this._highlightedIndex)}
-                            @mouseenter=${()=>this._highlightedIndex=t}
-                            @click=${()=>this._selectItem(e)}
-                          >
-                            <span>${e}</span>
-                            ${this.multiple?this.values.includes(e)?k`<span class="check">✓</span>`:j:this.value===e?k`<span class="check">✓</span>`:j}
-                          </button>
-                        `)}
-                    </div>
-                  `}
-            </div>
-          `:j}
-    `}};U([B({attribute:!1})],J.prototype,`items`,void 0),U([B({type:String})],J.prototype,`placeholder`,void 0),U([B({type:Boolean,reflect:!0})],J.prototype,`disabled`,void 0),U([B({type:Boolean,reflect:!0})],J.prototype,`multiple`,void 0),U([B({type:Boolean,attribute:`show-clear`})],J.prototype,`showClear`,void 0),U([B({type:Boolean,attribute:`auto-highlight`})],J.prototype,`autoHighlight`,void 0),U([B({type:String,attribute:`aria-invalid`})],J.prototype,`ariaInvalid`,void 0),U([B({type:String})],J.prototype,`value`,void 0),U([B({attribute:!1})],J.prototype,`values`,void 0),U([V()],J.prototype,`_query`,void 0),U([V()],J.prototype,`_open`,void 0),U([V()],J.prototype,`_highlightedIndex`,void 0),J=U([z(`shadcx-combobox`)],J);var Y=class extends R{constructor(...e){super(...e),this.active=``}static{this.styles=o`
+/* empty css     */import"./button.js";import"./badge.js";import"./input.js";import"./checkbox.js";import"./combobox.js";(function(){let e=document.createElement(`link`).relList;if(e&&e.supports&&e.supports(`modulepreload`))return;for(let e of document.querySelectorAll(`link[rel="modulepreload"]`))n(e);new MutationObserver(e=>{for(let t of e)if(t.type===`childList`)for(let e of t.addedNodes)e.tagName===`LINK`&&e.rel===`modulepreload`&&n(e)}).observe(document,{childList:!0,subtree:!0});function t(e){let t={};return e.integrity&&(t.integrity=e.integrity),e.referrerPolicy&&(t.referrerPolicy=e.referrerPolicy),e.crossOrigin===`use-credentials`?t.credentials=`include`:e.crossOrigin===`anonymous`?t.credentials=`omit`:t.credentials=`same-origin`,t}function n(e){if(e.ep)return;e.ep=!0;let n=t(e);fetch(e.href,n)}})();var e=globalThis,t=e.ShadowRoot&&(e.ShadyCSS===void 0||e.ShadyCSS.nativeShadow)&&`adoptedStyleSheets`in Document.prototype&&`replace`in CSSStyleSheet.prototype,n=Symbol(),r=new WeakMap,i=class{constructor(e,t,r){if(this._$cssResult$=!0,r!==n)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=e,this.t=t}get styleSheet(){let e=this.o,n=this.t;if(t&&e===void 0){let t=n!==void 0&&n.length===1;t&&(e=r.get(n)),e===void 0&&((this.o=e=new CSSStyleSheet).replaceSync(this.cssText),t&&r.set(n,e))}return e}toString(){return this.cssText}},a=e=>new i(typeof e==`string`?e:e+``,void 0,n),o=(e,...t)=>new i(e.length===1?e[0]:t.reduce((t,n,r)=>t+(e=>{if(!0===e._$cssResult$)return e.cssText;if(typeof e==`number`)return e;throw Error(`Value passed to 'css' function must be a 'css' function result: `+e+`. Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.`)})(n)+e[r+1],e[0]),e,n),s=(n,r)=>{if(t)n.adoptedStyleSheets=r.map(e=>e instanceof CSSStyleSheet?e:e.styleSheet);else for(let t of r){let r=document.createElement(`style`),i=e.litNonce;i!==void 0&&r.setAttribute(`nonce`,i),r.textContent=t.cssText,n.appendChild(r)}},c=t?e=>e:e=>e instanceof CSSStyleSheet?(e=>{let t=``;for(let n of e.cssRules)t+=n.cssText;return a(t)})(e):e,{is:l,defineProperty:u,getOwnPropertyDescriptor:d,getOwnPropertyNames:ee,getOwnPropertySymbols:te,getPrototypeOf:ne}=Object,f=globalThis,re=f.trustedTypes,ie=re?re.emptyScript:``,ae=f.reactiveElementPolyfillSupport,p=(e,t)=>e,m={toAttribute(e,t){switch(t){case Boolean:e=e?ie:null;break;case Object:case Array:e=e==null?e:JSON.stringify(e)}return e},fromAttribute(e,t){let n=e;switch(t){case Boolean:n=e!==null;break;case Number:n=e===null?null:Number(e);break;case Object:case Array:try{n=JSON.parse(e)}catch{n=null}}return n}},h=(e,t)=>!l(e,t),oe={attribute:!0,type:String,converter:m,reflect:!1,useDefault:!1,hasChanged:h};Symbol.metadata??=Symbol(`metadata`),f.litPropertyMetadata??=new WeakMap;var g=class extends HTMLElement{static addInitializer(e){this._$Ei(),(this.l??=[]).push(e)}static get observedAttributes(){return this.finalize(),this._$Eh&&[...this._$Eh.keys()]}static createProperty(e,t=oe){if(t.state&&(t.attribute=!1),this._$Ei(),this.prototype.hasOwnProperty(e)&&((t=Object.create(t)).wrapped=!0),this.elementProperties.set(e,t),!t.noAccessor){let n=Symbol(),r=this.getPropertyDescriptor(e,n,t);r!==void 0&&u(this.prototype,e,r)}}static getPropertyDescriptor(e,t,n){let{get:r,set:i}=d(this.prototype,e)??{get(){return this[t]},set(e){this[t]=e}};return{get:r,set(t){let a=r?.call(this);i?.call(this,t),this.requestUpdate(e,a,n)},configurable:!0,enumerable:!0}}static getPropertyOptions(e){return this.elementProperties.get(e)??oe}static _$Ei(){if(this.hasOwnProperty(p(`elementProperties`)))return;let e=ne(this);e.finalize(),e.l!==void 0&&(this.l=[...e.l]),this.elementProperties=new Map(e.elementProperties)}static finalize(){if(this.hasOwnProperty(p(`finalized`)))return;if(this.finalized=!0,this._$Ei(),this.hasOwnProperty(p(`properties`))){let e=this.properties,t=[...ee(e),...te(e)];for(let n of t)this.createProperty(n,e[n])}let e=this[Symbol.metadata];if(e!==null){let t=litPropertyMetadata.get(e);if(t!==void 0)for(let[e,n]of t)this.elementProperties.set(e,n)}this._$Eh=new Map;for(let[e,t]of this.elementProperties){let n=this._$Eu(e,t);n!==void 0&&this._$Eh.set(n,e)}this.elementStyles=this.finalizeStyles(this.styles)}static finalizeStyles(e){let t=[];if(Array.isArray(e)){let n=new Set(e.flat(1/0).reverse());for(let e of n)t.unshift(c(e))}else e!==void 0&&t.push(c(e));return t}static _$Eu(e,t){let n=t.attribute;return!1===n?void 0:typeof n==`string`?n:typeof e==`string`?e.toLowerCase():void 0}constructor(){super(),this._$Ep=void 0,this.isUpdatePending=!1,this.hasUpdated=!1,this._$Em=null,this._$Ev()}_$Ev(){this._$ES=new Promise(e=>this.enableUpdating=e),this._$AL=new Map,this._$E_(),this.requestUpdate(),this.constructor.l?.forEach(e=>e(this))}addController(e){(this._$EO??=new Set).add(e),this.renderRoot!==void 0&&this.isConnected&&e.hostConnected?.()}removeController(e){this._$EO?.delete(e)}_$E_(){let e=new Map,t=this.constructor.elementProperties;for(let n of t.keys())this.hasOwnProperty(n)&&(e.set(n,this[n]),delete this[n]);e.size>0&&(this._$Ep=e)}createRenderRoot(){let e=this.shadowRoot??this.attachShadow(this.constructor.shadowRootOptions);return s(e,this.constructor.elementStyles),e}connectedCallback(){this.renderRoot??=this.createRenderRoot(),this.enableUpdating(!0),this._$EO?.forEach(e=>e.hostConnected?.())}enableUpdating(e){}disconnectedCallback(){this._$EO?.forEach(e=>e.hostDisconnected?.())}attributeChangedCallback(e,t,n){this._$AK(e,n)}_$ET(e,t){let n=this.constructor.elementProperties.get(e),r=this.constructor._$Eu(e,n);if(r!==void 0&&!0===n.reflect){let i=(n.converter?.toAttribute===void 0?m:n.converter).toAttribute(t,n.type);this._$Em=e,i==null?this.removeAttribute(r):this.setAttribute(r,i),this._$Em=null}}_$AK(e,t){let n=this.constructor,r=n._$Eh.get(e);if(r!==void 0&&this._$Em!==r){let e=n.getPropertyOptions(r),i=typeof e.converter==`function`?{fromAttribute:e.converter}:e.converter?.fromAttribute===void 0?m:e.converter;this._$Em=r;let a=i.fromAttribute(t,e.type);this[r]=a??this._$Ej?.get(r)??a,this._$Em=null}}requestUpdate(e,t,n,r=!1,i){if(e!==void 0){let a=this.constructor;if(!1===r&&(i=this[e]),n??=a.getPropertyOptions(e),!((n.hasChanged??h)(i,t)||n.useDefault&&n.reflect&&i===this._$Ej?.get(e)&&!this.hasAttribute(a._$Eu(e,n))))return;this.C(e,t,n)}!1===this.isUpdatePending&&(this._$ES=this._$EP())}C(e,t,{useDefault:n,reflect:r,wrapped:i},a){n&&!(this._$Ej??=new Map).has(e)&&(this._$Ej.set(e,a??t??this[e]),!0!==i||a!==void 0)||(this._$AL.has(e)||(this.hasUpdated||n||(t=void 0),this._$AL.set(e,t)),!0===r&&this._$Em!==e&&(this._$Eq??=new Set).add(e))}async _$EP(){this.isUpdatePending=!0;try{await this._$ES}catch(e){Promise.reject(e)}let e=this.scheduleUpdate();return e!=null&&await e,!this.isUpdatePending}scheduleUpdate(){return this.performUpdate()}performUpdate(){if(!this.isUpdatePending)return;if(!this.hasUpdated){if(this.renderRoot??=this.createRenderRoot(),this._$Ep){for(let[e,t]of this._$Ep)this[e]=t;this._$Ep=void 0}let e=this.constructor.elementProperties;if(e.size>0)for(let[t,n]of e){let{wrapped:e}=n,r=this[t];!0!==e||this._$AL.has(t)||r===void 0||this.C(t,void 0,n,r)}}let e=!1,t=this._$AL;try{e=this.shouldUpdate(t),e?(this.willUpdate(t),this._$EO?.forEach(e=>e.hostUpdate?.()),this.update(t)):this._$EM()}catch(t){throw e=!1,this._$EM(),t}e&&this._$AE(t)}willUpdate(e){}_$AE(e){this._$EO?.forEach(e=>e.hostUpdated?.()),this.hasUpdated||(this.hasUpdated=!0,this.firstUpdated(e)),this.updated(e)}_$EM(){this._$AL=new Map,this.isUpdatePending=!1}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this._$ES}shouldUpdate(e){return!0}update(e){this._$Eq&&=this._$Eq.forEach(e=>this._$ET(e,this[e])),this._$EM()}updated(e){}firstUpdated(e){}};g.elementStyles=[],g.shadowRootOptions={mode:`open`},g[p(`elementProperties`)]=new Map,g[p(`finalized`)]=new Map,ae?.({ReactiveElement:g}),(f.reactiveElementVersions??=[]).push(`2.1.2`);var _=globalThis,se=e=>e,v=_.trustedTypes,ce=v?v.createPolicy(`lit-html`,{createHTML:e=>e}):void 0,le=`$lit$`,y=`lit$${Math.random().toFixed(9).slice(2)}$`,ue=`?`+y,de=`<${ue}>`,b=document,x=()=>b.createComment(``),S=e=>e===null||typeof e!=`object`&&typeof e!=`function`,C=Array.isArray,fe=e=>C(e)||typeof e?.[Symbol.iterator]==`function`,w=`[ 	
+\f\r]`,T=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,pe=/-->/g,E=/>/g,D=RegExp(`>|${w}(?:([^\\s"'>=/]+)(${w}*=${w}*(?:[^ \t\n\f\r"'\`<>=]|("|')|))|$)`,`g`),O=/'/g,k=/"/g,me=/^(?:script|style|textarea|title)$/i,A=(e=>(t,...n)=>({_$litType$:e,strings:t,values:n}))(1),j=Symbol.for(`lit-noChange`),M=Symbol.for(`lit-nothing`),he=new WeakMap,N=b.createTreeWalker(b,129);function ge(e,t){if(!C(e)||!e.hasOwnProperty(`raw`))throw Error(`invalid template strings array`);return ce===void 0?t:ce.createHTML(t)}var _e=(e,t)=>{let n=e.length-1,r=[],i,a=t===2?`<svg>`:t===3?`<math>`:``,o=T;for(let t=0;t<n;t++){let n=e[t],s,c,l=-1,u=0;for(;u<n.length&&(o.lastIndex=u,c=o.exec(n),c!==null);)u=o.lastIndex,o===T?c[1]===`!--`?o=pe:c[1]===void 0?c[2]===void 0?c[3]!==void 0&&(o=D):(me.test(c[2])&&(i=RegExp(`</`+c[2],`g`)),o=D):o=E:o===D?c[0]===`>`?(o=i??T,l=-1):c[1]===void 0?l=-2:(l=o.lastIndex-c[2].length,s=c[1],o=c[3]===void 0?D:c[3]===`"`?k:O):o===k||o===O?o=D:o===pe||o===E?o=T:(o=D,i=void 0);let d=o===D&&e[t+1].startsWith(`/>`)?` `:``;a+=o===T?n+de:l>=0?(r.push(s),n.slice(0,l)+le+n.slice(l)+y+d):n+y+(l===-2?t:d)}return[ge(e,a+(e[n]||`<?>`)+(t===2?`</svg>`:t===3?`</math>`:``)),r]},P=class e{constructor({strings:t,_$litType$:n},r){let i;this.parts=[];let a=0,o=0,s=t.length-1,c=this.parts,[l,u]=_e(t,n);if(this.el=e.createElement(l,r),N.currentNode=this.el.content,n===2||n===3){let e=this.el.content.firstChild;e.replaceWith(...e.childNodes)}for(;(i=N.nextNode())!==null&&c.length<s;){if(i.nodeType===1){if(i.hasAttributes())for(let e of i.getAttributeNames())if(e.endsWith(le)){let t=u[o++],n=i.getAttribute(e).split(y),r=/([.?@])?(.*)/.exec(t);c.push({type:1,index:a,name:r[2],strings:n,ctor:r[1]===`.`?ye:r[1]===`?`?be:r[1]===`@`?xe:L}),i.removeAttribute(e)}else e.startsWith(y)&&(c.push({type:6,index:a}),i.removeAttribute(e));if(me.test(i.tagName)){let e=i.textContent.split(y),t=e.length-1;if(t>0){i.textContent=v?v.emptyScript:``;for(let n=0;n<t;n++)i.append(e[n],x()),N.nextNode(),c.push({type:2,index:++a});i.append(e[t],x())}}}else if(i.nodeType===8)if(i.data===ue)c.push({type:2,index:a});else{let e=-1;for(;(e=i.data.indexOf(y,e+1))!==-1;)c.push({type:7,index:a}),e+=y.length-1}a++}}static createElement(e,t){let n=b.createElement(`template`);return n.innerHTML=e,n}};function F(e,t,n=e,r){if(t===j)return t;let i=r===void 0?n._$Cl:n._$Co?.[r],a=S(t)?void 0:t._$litDirective$;return i?.constructor!==a&&(i?._$AO?.(!1),a===void 0?i=void 0:(i=new a(e),i._$AT(e,n,r)),r===void 0?n._$Cl=i:(n._$Co??=[])[r]=i),i!==void 0&&(t=F(e,i._$AS(e,t.values),i,r)),t}var ve=class{constructor(e,t){this._$AV=[],this._$AN=void 0,this._$AD=e,this._$AM=t}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(e){let{el:{content:t},parts:n}=this._$AD,r=(e?.creationScope??b).importNode(t,!0);N.currentNode=r;let i=N.nextNode(),a=0,o=0,s=n[0];for(;s!==void 0;){if(a===s.index){let t;s.type===2?t=new I(i,i.nextSibling,this,e):s.type===1?t=new s.ctor(i,s.name,s.strings,this,e):s.type===6&&(t=new Se(i,this,e)),this._$AV.push(t),s=n[++o]}a!==s?.index&&(i=N.nextNode(),a++)}return N.currentNode=b,r}p(e){let t=0;for(let n of this._$AV)n!==void 0&&(n.strings===void 0?n._$AI(e[t]):(n._$AI(e,n,t),t+=n.strings.length-2)),t++}},I=class e{get _$AU(){return this._$AM?._$AU??this._$Cv}constructor(e,t,n,r){this.type=2,this._$AH=M,this._$AN=void 0,this._$AA=e,this._$AB=t,this._$AM=n,this.options=r,this._$Cv=r?.isConnected??!0}get parentNode(){let e=this._$AA.parentNode,t=this._$AM;return t!==void 0&&e?.nodeType===11&&(e=t.parentNode),e}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(e,t=this){e=F(this,e,t),S(e)?e===M||e==null||e===``?(this._$AH!==M&&this._$AR(),this._$AH=M):e!==this._$AH&&e!==j&&this._(e):e._$litType$===void 0?e.nodeType===void 0?fe(e)?this.k(e):this._(e):this.T(e):this.$(e)}O(e){return this._$AA.parentNode.insertBefore(e,this._$AB)}T(e){this._$AH!==e&&(this._$AR(),this._$AH=this.O(e))}_(e){this._$AH!==M&&S(this._$AH)?this._$AA.nextSibling.data=e:this.T(b.createTextNode(e)),this._$AH=e}$(e){let{values:t,_$litType$:n}=e,r=typeof n==`number`?this._$AC(e):(n.el===void 0&&(n.el=P.createElement(ge(n.h,n.h[0]),this.options)),n);if(this._$AH?._$AD===r)this._$AH.p(t);else{let e=new ve(r,this),n=e.u(this.options);e.p(t),this.T(n),this._$AH=e}}_$AC(e){let t=he.get(e.strings);return t===void 0&&he.set(e.strings,t=new P(e)),t}k(t){C(this._$AH)||(this._$AH=[],this._$AR());let n=this._$AH,r,i=0;for(let a of t)i===n.length?n.push(r=new e(this.O(x()),this.O(x()),this,this.options)):r=n[i],r._$AI(a),i++;i<n.length&&(this._$AR(r&&r._$AB.nextSibling,i),n.length=i)}_$AR(e=this._$AA.nextSibling,t){for(this._$AP?.(!1,!0,t);e!==this._$AB;){let t=se(e).nextSibling;se(e).remove(),e=t}}setConnected(e){this._$AM===void 0&&(this._$Cv=e,this._$AP?.(e))}},L=class{get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}constructor(e,t,n,r,i){this.type=1,this._$AH=M,this._$AN=void 0,this.element=e,this.name=t,this._$AM=r,this.options=i,n.length>2||n[0]!==``||n[1]!==``?(this._$AH=Array(n.length-1).fill(new String),this.strings=n):this._$AH=M}_$AI(e,t=this,n,r){let i=this.strings,a=!1;if(i===void 0)e=F(this,e,t,0),a=!S(e)||e!==this._$AH&&e!==j,a&&(this._$AH=e);else{let r=e,o,s;for(e=i[0],o=0;o<i.length-1;o++)s=F(this,r[n+o],t,o),s===j&&(s=this._$AH[o]),a||=!S(s)||s!==this._$AH[o],s===M?e=M:e!==M&&(e+=(s??``)+i[o+1]),this._$AH[o]=s}a&&!r&&this.j(e)}j(e){e===M?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,e??``)}},ye=class extends L{constructor(){super(...arguments),this.type=3}j(e){this.element[this.name]=e===M?void 0:e}},be=class extends L{constructor(){super(...arguments),this.type=4}j(e){this.element.toggleAttribute(this.name,!!e&&e!==M)}},xe=class extends L{constructor(e,t,n,r,i){super(e,t,n,r,i),this.type=5}_$AI(e,t=this){if((e=F(this,e,t,0)??M)===j)return;let n=this._$AH,r=e===M&&n!==M||e.capture!==n.capture||e.once!==n.once||e.passive!==n.passive,i=e!==M&&(n===M||r);r&&this.element.removeEventListener(this.name,this,n),i&&this.element.addEventListener(this.name,this,e),this._$AH=e}handleEvent(e){typeof this._$AH==`function`?this._$AH.call(this.options?.host??this.element,e):this._$AH.handleEvent(e)}},Se=class{constructor(e,t,n){this.element=e,this.type=6,this._$AN=void 0,this._$AM=t,this.options=n}get _$AU(){return this._$AM._$AU}_$AI(e){F(this,e)}},Ce=_.litHtmlPolyfillSupport;Ce?.(P,I),(_.litHtmlVersions??=[]).push(`3.3.2`);var we=(e,t,n)=>{let r=n?.renderBefore??t,i=r._$litPart$;if(i===void 0){let e=n?.renderBefore??null;r._$litPart$=i=new I(t.insertBefore(x(),e),e,void 0,n??{})}return i._$AI(e),i},R=globalThis,z=class extends g{constructor(){super(...arguments),this.renderOptions={host:this},this._$Do=void 0}createRenderRoot(){let e=super.createRenderRoot();return this.renderOptions.renderBefore??=e.firstChild,e}update(e){let t=this.render();this.hasUpdated||(this.renderOptions.isConnected=this.isConnected),super.update(e),this._$Do=we(t,this.renderRoot,this.renderOptions)}connectedCallback(){super.connectedCallback(),this._$Do?.setConnected(!0)}disconnectedCallback(){super.disconnectedCallback(),this._$Do?.setConnected(!1)}render(){return j}};z._$litElement$=!0,z.finalized=!0,R.litElementHydrateSupport?.({LitElement:z});var Te=R.litElementPolyfillSupport;Te?.({LitElement:z}),(R.litElementVersions??=[]).push(`4.2.2`);var B=e=>(t,n)=>{n===void 0?customElements.define(e,t):n.addInitializer(()=>{customElements.define(e,t)})},Ee={attribute:!0,type:String,converter:m,reflect:!1,hasChanged:h},De=(e=Ee,t,n)=>{let{kind:r,metadata:i}=n,a=globalThis.litPropertyMetadata.get(i);if(a===void 0&&globalThis.litPropertyMetadata.set(i,a=new Map),r===`setter`&&((e=Object.create(e)).wrapped=!0),a.set(n.name,e),r===`accessor`){let{name:r}=n;return{set(n){let i=t.get.call(this);t.set.call(this,n),this.requestUpdate(r,i,e,!0,n)},init(t){return t!==void 0&&this.C(r,void 0,e,t),t}}}if(r===`setter`){let{name:r}=n;return function(n){let i=this[r];t.call(this,n),this.requestUpdate(r,i,e,!0,n)}}throw Error(`Unsupported decorator location: `+r)};function V(e){return(t,n)=>typeof n==`object`?De(e,t,n):((e,t,n)=>{let r=t.hasOwnProperty(n);return t.constructor.createProperty(n,e),r?Object.getOwnPropertyDescriptor(t,n):void 0})(e,t,n)}function H(e){return V({...e,state:!0,attribute:!1})}function U(e,t,n,r){var i=arguments.length,a=i<3?t:r===null?r=Object.getOwnPropertyDescriptor(t,n):r,o;if(typeof Reflect==`object`&&typeof Reflect.decorate==`function`)a=Reflect.decorate(e,t,n,r);else for(var s=e.length-1;s>=0;s--)(o=e[s])&&(a=(i<3?o(a):i>3?o(t,n,a):o(t,n))||a);return i>3&&a&&Object.defineProperty(t,n,a),a}var W=class extends z{constructor(...e){super(...e),this.active=``}static{this.styles=o`
     :host {
       display: flex;
       flex-direction: column;
@@ -837,7 +51,7 @@
       color: hsl(var(--primary));
     }
 
-  `}_navigate(e,t){t.preventDefault(),location.hash=e,this.active=e}render(){let e=e=>this.active===e?`active`:``;return k`
+  `}_navigate(e,t){t.preventDefault(),location.hash=e,this.active=e}render(){let e=e=>this.active===e?`active`:``;return A`
       <nav class="nav">
         <div class="nav-section">Getting Started</div>
         <a
@@ -853,6 +67,13 @@
           @click=${e=>this._navigate(`theming`,e)}
         >
           Theming
+        </a>
+        <a
+          class="nav-item ${e(`theme-generator`)}"
+          href="#/theme-generator"
+          @click=${e=>this._navigate(`theme-generator`,e)}
+        >
+          Theme Generator
         </a>
 
         <div class="nav-section">Components</div>
@@ -893,7 +114,7 @@
         </a>
 
       </nav>
-    `}};U([B({type:String})],Y.prototype,`active`,void 0),Y=U([z(`app-sidebar`)],Y);var ke=class extends R{static{this.styles=o`
+    `}};U([V({type:String})],W.prototype,`active`,void 0),W=U([B(`app-sidebar`)],W);var Oe=class extends z{static{this.styles=o`
     :host {
       display: block;
       font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
@@ -999,7 +220,7 @@
       pre { padding: 0.75rem; font-size: 0.75rem; }
       .cards { grid-template-columns: 1fr; }
     }
-  `}_navigateBadge(e){e.preventDefault(),location.hash=`badge`}_navigateButton(e){e.preventDefault(),location.hash=`button`}_navigateInput(e){e.preventDefault(),location.hash=`input`}_navigateCombobox(e){e.preventDefault(),location.hash=`combobox`}render(){return k`
+  `}_navigateBadge(e){e.preventDefault(),location.hash=`badge`}_navigateButton(e){e.preventDefault(),location.hash=`button`}_navigateInput(e){e.preventDefault(),location.hash=`input`}_navigateCombobox(e){e.preventDefault(),location.hash=`combobox`}render(){return A`
       <h1>shadcx</h1>
       <p class="lead">
         shadcn/ui reimagined as Web Components. No framework lock-in, no
@@ -1033,7 +254,7 @@
           <p>Autocomplete input with suggestion list and multi-select support.</p>
         </a>
       </div>
-    `}};ke=U([z(`overview-page`)],ke);var Ae=class extends R{static{this.styles=o`
+    `}};Oe=U([B(`overview-page`)],Oe);var ke=class extends z{static{this.styles=o`
     :host {
       display: block;
       font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
@@ -1144,7 +365,7 @@
       h2 { font-size: 1.125rem; }
       pre { padding: 0.75rem; }
     }
-  `}render(){return k`
+  `}render(){return A`
       <h1>Theming</h1>
       <p class="desc">
         Learn how to customize shadcx with CSS custom properties.
@@ -1326,7 +547,973 @@ background-color: hsl(var(--primary));</code></pre>
           </tbody>
         </table>
       </div>
-    `}};Ae=U([z(`theming-page`)],Ae);var je=class extends R{static{this.styles=o`
+    `}};ke=U([B(`theming-page`)],ke);var Ae=`font-sans.font-mono.radius.background.foreground.card.card-foreground.popover.popover-foreground.primary.primary-foreground.secondary.secondary-foreground.muted.muted-foreground.accent.accent-foreground.destructive.destructive-foreground.border.input.ring.chart-1.chart-2.chart-3.chart-4.chart-5`.split(`.`),je={"font-sans":`'Inter', system-ui, -apple-system, sans-serif`,"font-mono":`'JetBrains Mono', ui-monospace, SFMono-Regular, monospace`,radius:`0.5rem`,background:`0 0% 100%`,foreground:`0 0% 3.9%`,card:`0 0% 100%`,"card-foreground":`0 0% 3.9%`,popover:`0 0% 100%`,"popover-foreground":`0 0% 3.9%`,primary:`0 0% 9%`,"primary-foreground":`0 0% 98%`,secondary:`0 0% 96.1%`,"secondary-foreground":`0 0% 9%`,muted:`0 0% 96.1%`,"muted-foreground":`0 0% 45.1%`,accent:`0 0% 96.1%`,"accent-foreground":`0 0% 9%`,destructive:`0 84.2% 60.2%`,"destructive-foreground":`0 0% 98%`,border:`0 0% 89.8%`,input:`0 0% 89.8%`,ring:`0 0% 3.9%`,"chart-1":`12 76% 61%`,"chart-2":`173 58% 39%`,"chart-3":`197 37% 24%`,"chart-4":`43 74% 66%`,"chart-5":`27 87% 67%`},Me={...je,background:`0 0% 3.9%`,foreground:`0 0% 98%`,card:`0 0% 3.9%`,"card-foreground":`0 0% 98%`,popover:`0 0% 3.9%`,"popover-foreground":`0 0% 98%`,primary:`0 0% 98%`,"primary-foreground":`0 0% 9%`,secondary:`0 0% 14.9%`,"secondary-foreground":`0 0% 98%`,muted:`0 0% 14.9%`,"muted-foreground":`0 0% 63.9%`,accent:`0 0% 14.9%`,"accent-foreground":`0 0% 98%`,destructive:`0 62.8% 30.6%`,"destructive-foreground":`0 0% 98%`,border:`0 0% 14.9%`,input:`0 0% 14.9%`,ring:`0 0% 83.1%`,"chart-1":`220 70% 50%`,"chart-2":`160 60% 45%`,"chart-3":`30 80% 55%`,"chart-4":`280 65% 60%`,"chart-5":`340 75% 55%`},G={Neutral:{},Zinc:{foreground:`240 10% 3.9%`,"card-foreground":`240 10% 3.9%`,"popover-foreground":`240 10% 3.9%`,secondary:`240 4.8% 95.9%`,"secondary-foreground":`240 5.9% 10%`,muted:`240 4.8% 95.9%`,"muted-foreground":`240 3.8% 46.1%`,accent:`240 4.8% 95.9%`,"accent-foreground":`240 5.9% 10%`,border:`240 5.9% 90%`,input:`240 5.9% 90%`},Slate:{foreground:`222.2 84% 4.9%`,"card-foreground":`222.2 84% 4.9%`,"popover-foreground":`222.2 84% 4.9%`,secondary:`210 40% 96.1%`,"secondary-foreground":`222.2 47.4% 11.2%`,muted:`210 40% 96.1%`,"muted-foreground":`215.4 16.3% 46.9%`,accent:`210 40% 96.1%`,"accent-foreground":`222.2 47.4% 11.2%`,border:`214.3 31.8% 91.4%`,input:`214.3 31.8% 91.4%`},Stone:{foreground:`20 14.3% 4.1%`,"card-foreground":`20 14.3% 4.1%`,"popover-foreground":`20 14.3% 4.1%`,secondary:`60 4.8% 95.9%`,"secondary-foreground":`24 9.8% 10%`,muted:`60 4.8% 95.9%`,"muted-foreground":`25 5.3% 44.7%`,accent:`60 4.8% 95.9%`,"accent-foreground":`24 9.8% 10%`,border:`20 5.9% 90%`,input:`20 5.9% 90%`}},K={Default:{},Nova:{primary:`263 70% 50%`,"primary-foreground":`0 0% 98%`,accent:`263 48% 95%`,"accent-foreground":`263 64% 22%`,ring:`263 70% 50%`,radius:`0.75rem`,"chart-1":`263 70% 50%`,"chart-2":`291 64% 42%`},Grove:{primary:`152 56% 36%`,"primary-foreground":`0 0% 98%`,accent:`152 42% 94%`,"accent-foreground":`153 70% 18%`,ring:`152 56% 36%`,radius:`0.625rem`,"chart-1":`152 56% 36%`,"chart-2":`94 50% 42%`},Ember:{primary:`18 88% 46%`,"primary-foreground":`0 0% 98%`,accent:`28 86% 94%`,"accent-foreground":`18 88% 22%`,ring:`18 88% 46%`,radius:`0.375rem`,"chart-1":`18 88% 46%`,"chart-2":`38 92% 50%`}},q=[{label:`Inter`,value:`'Inter', system-ui, -apple-system, sans-serif`},{label:`Geist`,value:`'Geist', 'Inter', system-ui, sans-serif`},{label:`System`,value:`system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif`},{label:`Serif`,value:`ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif`}],Ne=[{label:`Primary`,token:`primary`,hint:`Buttons and selected states`},{label:`Accent`,token:`accent`,hint:`Hover and soft surfaces`},{label:`Destructive`,token:`destructive`,hint:`Invalid and danger states`},{label:`Border`,token:`border`,hint:`Cards and separators`},{label:`Ring`,token:`ring`,hint:`Focus outlines`}],Pe=[{label:`Chart 1`,token:`chart-1`},{label:`Chart 2`,token:`chart-2`},{label:`Chart 3`,token:`chart-3`},{label:`Chart 4`,token:`chart-4`},{label:`Chart 5`,token:`chart-5`}],J=class extends z{constructor(...e){super(...e),this.base=`Neutral`,this.presetStyle=`Default`,this.copied=!1,this.dark=document.documentElement.classList.contains(`dark`),this.theme=this.createTheme()}connectedCallback(){super.connectedCallback(),this.darkObserver=new MutationObserver(()=>this.syncDocumentTheme()),this.darkObserver.observe(document.documentElement,{attributeFilter:[`class`],attributes:!0}),this.syncDocumentTheme()}disconnectedCallback(){this.darkObserver?.disconnect(),super.disconnectedCallback()}static{this.styles=o`
+    :host {
+      display: block;
+      font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
+    }
+
+    .generator {
+      display: grid;
+      grid-template-columns: minmax(17rem, 20rem) minmax(0, 1fr);
+      gap: 1.25rem;
+      min-height: calc(100svh - 7rem);
+      color: hsl(var(--foreground));
+    }
+
+    .controls,
+    .preview {
+      overflow: hidden;
+      border: 1px solid hsl(var(--border));
+      border-radius: calc(var(--radius) + 0.5rem);
+      background-color: hsl(var(--card));
+      color: hsl(var(--card-foreground));
+      box-shadow: 0 18px 50px rgb(0 0 0 / 0.08);
+    }
+
+    .controls {
+      align-self: start;
+      position: sticky;
+      top: 5rem;
+    }
+
+    .controls-header,
+    .preview-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem;
+      border-bottom: 1px solid hsl(var(--border));
+    }
+
+    h1,
+    h2,
+    p {
+      margin: 0;
+    }
+
+    h1 {
+      color: hsl(var(--foreground));
+      font-size: 1.75rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    h2 {
+      color: hsl(var(--foreground));
+      font-size: 1rem;
+      font-weight: 650;
+      line-height: 1.25;
+    }
+
+    p,
+    small,
+    .muted {
+      color: hsl(var(--muted-foreground));
+      font-size: 0.8125rem;
+      line-height: 1.5;
+    }
+
+    .controls-title {
+      display: grid;
+      gap: 0.125rem;
+    }
+
+    .controls-title strong {
+      color: hsl(var(--foreground));
+      font-size: 0.9375rem;
+    }
+
+    .controls-body {
+      display: grid;
+      gap: 0.75rem;
+      padding: 0.875rem;
+    }
+
+    .control-group {
+      display: grid;
+      gap: 0.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid hsl(var(--border));
+    }
+
+    .control-group:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .control-row,
+    .radius-control {
+      display: grid;
+      gap: 0.5rem;
+      padding: 0.625rem 0.75rem;
+      border: 1px solid hsl(var(--border));
+      border-radius: calc(var(--radius) + 0.125rem);
+      background-color: hsl(var(--background));
+    }
+
+    .control-row {
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      min-height: 3.125rem;
+    }
+
+    .control-copy {
+      display: grid;
+      min-width: 0;
+      gap: 0.125rem;
+    }
+
+    .control-copy span,
+    .control-copy label {
+      color: hsl(var(--muted-foreground));
+      font-size: 0.75rem;
+    }
+
+    .control-copy strong,
+    .radius-head strong {
+      overflow: hidden;
+      color: hsl(var(--foreground));
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    select,
+    input[type='range'] {
+      width: 100%;
+      accent-color: hsl(var(--primary));
+      font: inherit;
+    }
+
+    .control-row select {
+      width: 8.5rem;
+      height: 2rem;
+      border: 1px solid hsl(var(--border));
+      border-radius: calc(var(--radius) - 4px);
+      background-color: hsl(var(--background));
+      color: hsl(var(--foreground));
+      font-size: 0.8125rem;
+    }
+
+    .swatch {
+      width: 2rem;
+      height: 2rem;
+      padding: 0;
+      border: 1px solid hsl(var(--border));
+      border-radius: 999px;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .swatch::-webkit-color-swatch-wrapper {
+      padding: 0;
+    }
+
+    .swatch::-webkit-color-swatch,
+    .swatch::-moz-color-swatch {
+      border: 0;
+      border-radius: 999px;
+    }
+
+    .radius-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      color: hsl(var(--muted-foreground));
+      font-size: 0.75rem;
+    }
+
+    .action-stack {
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .action-stack shadcx-button {
+      width: 100%;
+    }
+
+    .preview {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      min-width: 0;
+      background: linear-gradient(180deg, hsl(var(--muted) / 0.7), transparent 18rem), hsl(var(--background));
+    }
+
+    .preview-heading {
+      display: grid;
+      gap: 0.25rem;
+      min-width: 0;
+    }
+
+    .preview-actions,
+    .button-row,
+    .badge-row,
+    .chart-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .preview-body {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(16rem, 0.9fr);
+      gap: 1rem;
+      align-items: start;
+      padding: 1rem;
+    }
+
+    .showcase,
+    .surface {
+      display: grid;
+      gap: 1rem;
+      align-content: start;
+      padding: 1rem;
+      border: 1px solid hsl(var(--border));
+      border-radius: var(--radius);
+      background-color: hsl(var(--card));
+      color: hsl(var(--card-foreground));
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 0.75rem;
+    }
+
+    .field {
+      display: grid;
+      gap: 0.375rem;
+      min-width: 0;
+    }
+
+    .field.wide {
+      grid-column: 1 / -1;
+    }
+
+    .field label,
+    .checkbox-line {
+      color: hsl(var(--foreground));
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .checkbox-line {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .chart-row {
+      align-items: end;
+      min-height: 8rem;
+      padding: 0.75rem;
+      border: 1px solid hsl(var(--border));
+      border-radius: calc(var(--radius) - 2px);
+      background-color: hsl(var(--muted) / 0.45);
+    }
+
+    .bar {
+      flex: 1;
+      min-width: 2rem;
+      border-radius: calc(var(--radius) - 3px) calc(var(--radius) - 3px) 0 0;
+    }
+
+    .bar:nth-child(1) { height: 3.8rem; background-color: hsl(var(--chart-1)); }
+    .bar:nth-child(2) { height: 6.25rem; background-color: hsl(var(--chart-2)); }
+    .bar:nth-child(3) { height: 4.9rem; background-color: hsl(var(--chart-3)); }
+    .bar:nth-child(4) { height: 7rem; background-color: hsl(var(--chart-4)); }
+    .bar:nth-child(5) { height: 5.4rem; background-color: hsl(var(--chart-5)); }
+
+    .token-strip {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 0.5rem;
+    }
+
+    .token {
+      overflow: hidden;
+      min-height: 3rem;
+      border: 1px solid hsl(var(--border));
+      border-radius: calc(var(--radius) - 2px);
+      background: hsl(var(--muted));
+    }
+
+    .token span {
+      display: block;
+      height: 1rem;
+    }
+
+    .token:nth-child(1) span { background-color: hsl(var(--primary)); }
+    .token:nth-child(2) span { background-color: hsl(var(--secondary)); }
+    .token:nth-child(3) span { background-color: hsl(var(--accent)); }
+    .token:nth-child(4) span { background-color: hsl(var(--destructive)); }
+    .token:nth-child(5) span { background-color: hsl(var(--ring)); }
+
+    .token strong {
+      display: block;
+      padding: 0.5rem;
+      color: hsl(var(--muted-foreground));
+      font-size: 0.6875rem;
+      font-weight: 600;
+    }
+
+    @media (max-width: 1060px) {
+      .generator {
+        grid-template-columns: 1fr;
+      }
+
+      .controls {
+        position: static;
+      }
+    }
+
+    @media (max-width: 780px) {
+      .preview-body,
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .preview-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  `}get themeStyle(){return Ae.map(e=>`--${e}: ${this.theme[e]}`).join(`; `)}get radiusValue(){return Number.parseFloat(this.theme.radius.replace(`rem`,``))}get fontLabel(){return q.find(e=>e.value===this.theme[`font-sans`])?.label??`Custom`}createTheme(){return{...this.dark?Me:je,...G[this.base],...K[this.presetStyle]}}syncDocumentTheme(){let e=document.documentElement.classList.contains(`dark`);if(e===this.dark)return;let t=this.theme[`font-sans`];this.dark=e,this.theme={...this.createTheme(),"font-sans":t}}setToken(e,t){let n={...this.theme,[e]:t};e===`primary`&&(n[`primary-foreground`]=this.foregroundFor(t)),e===`accent`&&(n[`accent-foreground`]=this.foregroundFor(t)),e===`destructive`&&(n[`destructive-foreground`]=this.foregroundFor(t)),this.theme=n}setColor(e,t){let n=t.currentTarget;this.setToken(e,this.hexToHsl(n.value))}setRadius(e){let t=e.currentTarget;this.theme={...this.theme,radius:`${t.value}rem`}}setFont(e){this.theme={...this.theme,"font-sans":e}}applyBase(e){let t=e.currentTarget;this.base=t.value,this.theme=this.createTheme()}applyStyle(e){let t=e.currentTarget;this.presetStyle=t.value,this.theme=this.createTheme()}shuffle(){let e=Object.keys(G),t=Object.keys(K),n=e[Math.floor(Math.random()*e.length)],r=t[Math.floor(Math.random()*t.length)],i=Math.floor(Math.random()*360),a=(i+96)%360,o=`${i} 72% ${this.dark?62:44}%`,s=`${a} 62% ${this.dark?18:94}%`,c=[.25,.375,.5,.625,.75,1][Math.floor(Math.random()*6)];this.base=n,this.presetStyle=r,this.theme={...this.createTheme(),primary:o,"primary-foreground":this.foregroundFor(o),accent:s,"accent-foreground":this.foregroundFor(s),ring:o,radius:`${c}rem`,"chart-1":`${i} 76% 56%`,"chart-2":`${(i+58)%360} 62% 44%`,"chart-3":`${(i+123)%360} 48% 42%`,"chart-4":`${(i+188)%360} 78% 62%`,"chart-5":`${(i+247)%360} 70% 58%`}}async copyCss(){await navigator.clipboard.writeText(this.buildCss()),this.copied=!0,window.setTimeout(()=>{this.copied=!1},1800)}buildCss(){let e=Ae.map(e=>`  --${e}: ${this.theme[e]};`).join(`
+`);return`${this.dark?`.dark`:`:root`} {\n${e}\n}\n`}hslToHex(e){let t=e.match(/([\d.]+)\s+([\d.]+)%\s+([\d.]+)%/);if(!t)return`#000000`;let n=Number.parseFloat(t[1])/360,r=Number.parseFloat(t[2])/100,i=Number.parseFloat(t[3])/100;if(r===0){let e=Math.round(i*255);return this.toHex(e,e,e)}let a=(e,t,n)=>{let r=n;return r<0&&(r+=1),r>1&&--r,r<1/6?e+(t-e)*6*r:r<1/2?t:r<2/3?e+(t-e)*(2/3-r)*6:e},o=i<.5?i*(1+r):i+r-i*r,s=2*i-o;return this.toHex(Math.round(a(s,o,n+1/3)*255),Math.round(a(s,o,n)*255),Math.round(a(s,o,n-1/3)*255))}hexToHsl(e){let t=Number.parseInt(e.slice(1,3),16)/255,n=Number.parseInt(e.slice(3,5),16)/255,r=Number.parseInt(e.slice(5,7),16)/255,i=Math.max(t,n,r),a=Math.min(t,n,r),o=0,s=0,c=(i+a)/2;if(i!==a){let e=i-a;s=c>.5?e/(2-i-a):e/(i+a),o=i===t?(n-r)/e+(n<r?6:0):i===n?(r-t)/e+2:(t-n)/e+4,o/=6}return`${Math.round(o*360)} ${Math.round(s*100)}% ${Math.round(c*100)}%`}toHex(e,t,n){return`#${[e,t,n].map(e=>e.toString(16).padStart(2,`0`)).join(``)}`}foregroundFor(e){let t=e.match(/[\d.]+\s+[\d.]+%\s+([\d.]+)%/);return(t?Number.parseFloat(t[1]):50)>62?`0 0% 9%`:`0 0% 98%`}renderSelectControl(e,t,n,r){return A`
+      <div class="control-row">
+        <span class="control-copy">
+          <span>${e}</span>
+          <strong>${t}</strong>
+        </span>
+        <select aria-label=${e} @change=${r}>
+          ${n.map(e=>A`<option value=${e} ?selected=${e===t}>${e}</option>`)}
+        </select>
+      </div>
+    `}renderColorControl(e,t,n){return A`
+      <div class="control-row">
+        <span class="control-copy">
+          <label for=${t}>${e}</label>
+          <strong>${n}</strong>
+        </span>
+        <input
+          id=${t}
+          class="swatch"
+          type="color"
+          .value=${this.hslToHex(this.theme[t])}
+          @input=${e=>this.setColor(t,e)}
+          aria-label=${`${e} color`}
+        >
+      </div>
+    `}render(){return A`
+      <div class="generator" style=${this.themeStyle} data-testid="theme-generator">
+        <aside class="controls" aria-label="Theme controls">
+          <div class="controls-header">
+            <span class="controls-title">
+              <strong>Theme Generator</strong>
+              <span class="muted">shadcn variables</span>
+            </span>
+            <shadcx-button size="icon-sm" variant="outline" aria-label="Shuffle theme" @click=${this.shuffle}>↻</shadcx-button>
+          </div>
+
+          <div class="controls-body">
+            <div class="control-group">
+              ${this.renderSelectControl(`Style`,this.presetStyle,Object.keys(K),e=>this.applyStyle(e))}
+              ${this.renderSelectControl(`Base Color`,this.base,Object.keys(G),e=>this.applyBase(e))}
+              ${this.renderSelectControl(`Font`,this.fontLabel,q.map(e=>e.label),e=>{let t=e.currentTarget,n=q.find(e=>e.label===t.value);n&&this.setFont(n.value)})}
+            </div>
+
+            <div class="control-group">
+              ${Ne.map(e=>this.renderColorControl(e.label,e.token,e.hint))}
+            </div>
+
+            <div class="control-group">
+              <div class="radius-control">
+                <div class="radius-head">
+                  <span>Radius</span>
+                  <strong>${this.theme.radius}</strong>
+                </div>
+                <input type="range" min="0" max="1" step="0.125" .value=${String(this.radiusValue)} @input=${this.setRadius} aria-label="Border radius">
+              </div>
+              ${Pe.map(e=>this.renderColorControl(e.label,e.token,`Chart token`))}
+            </div>
+
+            <div class="action-stack">
+              <shadcx-button variant="outline" @click=${this.shuffle}>Shuffle</shadcx-button>
+              <shadcx-button @click=${this.copyCss}>${this.copied?`Copied CSS`:`Export CSS`}</shadcx-button>
+            </div>
+          </div>
+        </aside>
+
+        <section class="preview" aria-label="Component preview">
+          <div class="preview-header">
+            <div class="preview-heading">
+              <h1>Theme Preview</h1>
+              <p>Live shadcx components using the current variable set.</p>
+            </div>
+            <div class="preview-actions">
+              <shadcx-button>Deploy</shadcx-button>
+              <shadcx-button variant="outline">Preview</shadcx-button>
+            </div>
+          </div>
+
+          <div class="preview-body">
+            <div class="showcase">
+              <div class="section-title">
+                <h2>Components</h2>
+                <span class="muted">${this.base} / ${this.presetStyle}</span>
+              </div>
+
+              <div class="button-row">
+                <shadcx-button>Primary</shadcx-button>
+                <shadcx-button variant="secondary">Secondary</shadcx-button>
+                <shadcx-button variant="outline">Outline</shadcx-button>
+                <shadcx-button variant="ghost">Ghost</shadcx-button>
+                <shadcx-button variant="destructive">Delete</shadcx-button>
+              </div>
+
+              <div class="badge-row">
+                <shadcx-badge>Default</shadcx-badge>
+                <shadcx-badge variant="secondary">Secondary</shadcx-badge>
+                <shadcx-badge variant="outline">Outline</shadcx-badge>
+                <shadcx-badge variant="destructive">Invalid</shadcx-badge>
+              </div>
+
+              <div class="form-grid">
+                <div class="field">
+                  <label>Email</label>
+                  <shadcx-input value="hello@shadcx.dev" placeholder="Email"></shadcx-input>
+                  <small>Border, input, text, and focus ring tokens.</small>
+                </div>
+                <div class="field">
+                  <label>Invalid state</label>
+                  <shadcx-input placeholder="Missing value" aria-invalid="true"></shadcx-input>
+                  <small>Uses aria-invalid and destructive tokens.</small>
+                </div>
+                <div class="field wide">
+                  <label>Framework</label>
+                  <shadcx-combobox .items=${[`Native HTML`,`React`,`Vue`,`Svelte`]} value="Native HTML"></shadcx-combobox>
+                </div>
+                <label class="checkbox-line">
+                  <shadcx-checkbox checked></shadcx-checkbox>
+                  Receive release notes
+                </label>
+              </div>
+            </div>
+
+            <div class="surface">
+              <div>
+                <h2>Color Tokens</h2>
+                <p>Every swatch below is composed from the exported CSS variables.</p>
+              </div>
+
+              <div class="token-strip" aria-hidden="true">
+                <div class="token"><span></span><strong>primary</strong></div>
+                <div class="token"><span></span><strong>secondary</strong></div>
+                <div class="token"><span></span><strong>accent</strong></div>
+                <div class="token"><span></span><strong>destructive</strong></div>
+                <div class="token"><span></span><strong>ring</strong></div>
+              </div>
+
+              <div class="chart-row" aria-hidden="true">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+              </div>
+
+              <shadcx-button variant="outline" @click=${this.copyCss}>${this.copied?`Copied CSS to clipboard`:`Copy current variables`}</shadcx-button>
+            </div>
+          </div>
+        </section>
+      </div>
+    `}};U([H()],J.prototype,`base`,void 0),U([H()],J.prototype,`presetStyle`,void 0),U([H()],J.prototype,`copied`,void 0),U([H()],J.prototype,`dark`,void 0),U([H()],J.prototype,`theme`,void 0),J=U([B(`theme-generator-page`)],J);var Y=class extends z{constructor(...e){super(...e),this.source=``,this.jsSource=``,this.filename=`component.ts`,this.expanded=!1,this.copied=!1,this.language=`js`}static{this.styles=o`
+    :host {
+      display: block;
+      margin-bottom: 1.5rem;
+    }
+
+    .frame {
+      overflow: hidden;
+      border: 1px solid hsl(var(--border));
+      border-radius: calc(var(--radius) - 2px);
+      background-color: hsl(var(--muted));
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      border-bottom: 1px solid hsl(var(--border));
+      padding: 0.625rem 0.75rem;
+      background-color: hsl(var(--background));
+    }
+
+    .filename {
+      min-width: 0;
+      overflow: hidden;
+      color: hsl(var(--foreground));
+      font-family: var(--font-mono, ui-monospace, SFMono-Regular, monospace);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .actions {
+      display: inline-flex;
+      flex-shrink: 0;
+      gap: 0.375rem;
+    }
+
+    .switcher {
+      display: inline-flex;
+      overflow: hidden;
+      border: 1px solid hsl(var(--border));
+      border-radius: calc(var(--radius) - 4px);
+    }
+
+    button {
+      border: 1px solid hsl(var(--border));
+      border-radius: calc(var(--radius) - 4px);
+      background-color: hsl(var(--background));
+      color: hsl(var(--foreground));
+      cursor: pointer;
+      font: inherit;
+      font-size: 0.75rem;
+      font-weight: 500;
+      height: 1.75rem;
+      padding: 0 0.625rem;
+    }
+
+    .switcher button {
+      border: 0;
+      border-radius: 0;
+    }
+
+    .switcher button[aria-pressed='true'] {
+      background-color: hsl(var(--primary));
+      color: hsl(var(--primary-foreground));
+    }
+
+    button:hover {
+      background-color: hsl(var(--accent));
+      color: hsl(var(--accent-foreground));
+    }
+
+    pre {
+      max-height: calc(1.6em * 7 + 2rem);
+      margin: 0;
+      overflow: auto;
+      color: hsl(var(--foreground));
+      font-size: 0.8125rem;
+      line-height: 1.6;
+    }
+
+    :host([expanded]) pre {
+      max-height: none;
+    }
+
+    code {
+      display: block;
+      font-family: var(--font-mono, ui-monospace, SFMono-Regular, monospace);
+    }
+
+    .line {
+      display: grid;
+      grid-template-columns: 3.25rem max-content;
+      min-width: max-content;
+    }
+
+    .line:first-child {
+      padding-top: 1rem;
+    }
+
+    .line:last-child {
+      padding-bottom: 1rem;
+    }
+
+    .line-number {
+      position: sticky;
+      left: 0;
+      padding: 0 0.75rem 0 1rem;
+      border-right: 1px solid hsl(var(--border));
+      background-color: hsl(var(--muted));
+      color: hsl(var(--muted-foreground));
+      text-align: right;
+      user-select: none;
+    }
+
+    .line-code {
+      padding: 0 1rem;
+      white-space: pre;
+    }
+  `}updated(){this.toggleAttribute(`expanded`,this.expanded)}toggleExpanded(){this.expanded=!this.expanded}setLanguage(e){this.language=e}async copySource(){await navigator.clipboard.writeText(this.currentSource),this.copied=!0,window.setTimeout(()=>{this.copied=!1},1500)}get currentSource(){return this.language===`js`&&this.jsSource||this.source}get currentFilename(){return this.language===`js`?this.filename.replace(/\.ts$/,`.js`):this.filename}get lines(){return this.currentSource.split(`
+`)}render(){return A`
+      <div class="frame">
+        <div class="header">
+          <span class="filename">${this.currentFilename}</span>
+          <span class="actions">
+            <span class="switcher" aria-label="Source language">
+              <button type="button" aria-pressed=${String(this.language===`ts`)} @click=${()=>this.setLanguage(`ts`)}>TS</button>
+              <button type="button" aria-pressed=${String(this.language===`js`)} @click=${()=>this.setLanguage(`js`)}>JS</button>
+            </span>
+            <button type="button" @click=${this.copySource}>${this.copied?`Copied`:`Copy`}</button>
+            <button type="button" @click=${this.toggleExpanded}>${this.expanded?`Collapse`:`Expand`}</button>
+          </span>
+        </div>
+        <pre><code>${this.lines.map((e,t)=>A`<span class="line"><span class="line-number">${t+1}</span><span class="line-code">${e}</span></span>`)}</code></pre>
+      </div>
+    `}};U([V({type:String})],Y.prototype,`source`,void 0),U([V({type:String,attribute:`js-source`})],Y.prototype,`jsSource`,void 0),U([V({type:String})],Y.prototype,`filename`,void 0),U([H()],Y.prototype,`expanded`,void 0),U([H()],Y.prototype,`copied`,void 0),U([H()],Y.prototype,`language`,void 0),Y=U([B(`source-code-block`)],Y);var Fe=`export type ButtonVariant =
+  | 'default'
+  | 'destructive'
+  | 'outline'
+  | 'secondary'
+  | 'ghost'
+  | 'link'
+
+export type ButtonSize =
+  | 'default'
+  | 'xs'
+  | 'sm'
+  | 'lg'
+  | 'icon'
+  | 'icon-xs'
+  | 'icon-sm'
+  | 'icon-lg'
+
+const styles = \`
+  *, *::before, *::after { box-sizing: border-box; }
+  * { margin: 0; }
+  img, svg, video, canvas, audio, iframe, embed, object { display: block; vertical-align: middle; }
+  img, video { max-width: 100%; height: auto; }
+  h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
+  blockquote, dl, dd, hr, figure, p, pre { margin: 0; }
+  ol, ul { list-style: none; margin: 0; padding: 0; }
+  a { color: inherit; text-decoration: inherit; }
+  button, input, optgroup, select, textarea {
+    font-family: inherit;
+    font-feature-settings: inherit;
+    font-variation-settings: inherit;
+    font-size: 100%;
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    margin: 0;
+    padding: 0;
+  }
+  button, select { text-transform: none; }
+  button, [type='button'], [type='reset'], [type='submit'] {
+    appearance: button;
+    background-color: transparent;
+    background-image: none;
+  }
+  :-moz-focusring { outline: auto; }
+  :-moz-ui-invalid { box-shadow: none; }
+  progress { vertical-align: baseline; }
+  ::-webkit-inner-spin-button, ::-webkit-outer-spin-button { height: auto; }
+  [type='search'] { appearance: textfield; outline-offset: -2px; }
+  ::-webkit-search-decoration { -webkit-appearance: none; }
+  ::-webkit-file-upload-button { font: inherit; appearance: button; }
+  textarea { resize: vertical; }
+  fieldset { margin: 0; padding: 0; min-width: 0; }
+  legend { padding: 0; }
+  ::placeholder { color: hsl(var(--muted-foreground)); opacity: 1; }
+  [hidden] { display: none !important; }
+
+  :host { display: inline-flex; }
+  :host([disabled]) { pointer-events: none; }
+
+  .root {
+    text-transform: none;
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+    border-radius: calc(var(--radius) - 2px);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid transparent;
+    outline: none;
+    transition: color 0.15s, background-color 0.15s, border-color 0.15s, box-shadow 0.15s;
+  }
+
+  .root:disabled { opacity: 0.5; pointer-events: none; }
+  .root:focus-visible { box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--ring)); }
+  .root ::slotted(svg) { pointer-events: none; width: 1rem; height: 1rem; flex-shrink: 0; }
+
+  [data-size='default'] { height: 2.25rem; padding-inline: 1rem; }
+  [data-size='xs'] { height: 1.75rem; padding-inline: 0.5rem; font-size: 0.8125rem; }
+  [data-size='sm'] { height: 2rem; padding-inline: 0.75rem; font-size: 0.8125rem; }
+  [data-size='lg'] { height: 2.5rem; padding-inline: 1.5rem; }
+  [data-size='icon'] { height: 2.25rem; width: 2.25rem; padding: 0; }
+  [data-size='icon-xs'] { height: 1.75rem; width: 1.75rem; padding: 0; }
+  [data-size='icon-sm'] { height: 2rem; width: 2rem; padding: 0; }
+  [data-size='icon-lg'] { height: 2.5rem; width: 2.5rem; padding: 0; }
+
+  [data-variant='default'] {
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  }
+  [data-variant='default']:hover { background-color: hsl(var(--primary) / 0.9); }
+
+  [data-variant='destructive'] {
+    background-color: hsl(var(--destructive));
+    color: hsl(var(--destructive-foreground));
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  }
+  [data-variant='destructive']:hover { background-color: hsl(var(--destructive) / 0.9); }
+
+  [data-variant='outline'] {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    border-color: hsl(var(--input));
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  }
+  [data-variant='outline']:hover { background-color: hsl(var(--accent)); color: hsl(var(--accent-foreground)); }
+
+  [data-variant='secondary'] {
+    background-color: hsl(var(--secondary));
+    color: hsl(var(--secondary-foreground));
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  }
+  [data-variant='secondary']:hover { background-color: hsl(var(--secondary) / 0.8); }
+
+  [data-variant='ghost'] { background-color: transparent; color: hsl(var(--foreground)); }
+  [data-variant='ghost']:hover { background-color: hsl(var(--accent)); color: hsl(var(--accent-foreground)); }
+
+  [data-variant='link'] { background-color: transparent; color: hsl(var(--primary)); text-underline-offset: 4px; }
+  [data-variant='link']:hover { text-decoration: underline; }
+
+  [aria-invalid='true'] { border-color: hsl(var(--destructive)); box-shadow: 0 0 0 1px hsl(var(--destructive) / 0.2); }
+\`
+
+export class Button extends HTMLElement {
+  static observedAttributes = ['variant', 'size', 'disabled']
+
+  get variant(): ButtonVariant {
+    return (this.getAttribute('variant') as ButtonVariant | null) ?? 'default'
+  }
+
+  set variant(value: ButtonVariant) {
+    this.setAttribute('variant', value)
+  }
+
+  get size(): ButtonSize {
+    return (this.getAttribute('size') as ButtonSize | null) ?? 'default'
+  }
+
+  set size(value: ButtonSize) {
+    this.setAttribute('size', value)
+  }
+
+  get disabled() {
+    return this.hasAttribute('disabled')
+  }
+
+  set disabled(value: boolean) {
+    this.toggleAttribute('disabled', value)
+  }
+
+  connectedCallback() {
+    if (!this.shadowRoot) this.attachShadow({ mode: 'open' })
+    this.render()
+  }
+
+  attributeChangedCallback() {
+    this.render()
+  }
+
+  private render() {
+    if (!this.shadowRoot) return
+    this.shadowRoot.innerHTML = \`
+      <style>\${styles}</style>
+      <button part="root" class="root" data-variant="\${this.variant}" data-size="\${this.size}" \${this.disabled ? 'disabled' : ''}>
+        <slot></slot>
+      </button>
+    \`
+  }
+}
+
+if (!customElements.get('shadcx-button')) {
+  customElements.define('shadcx-button', Button)
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'shadcx-button': Button
+  }
+}
+`,Ie=`const styles = \`
+  *, *::before, *::after { box-sizing: border-box; }
+  * { margin: 0; }
+  img, svg, video, canvas, audio, iframe, embed, object { display: block; vertical-align: middle; }
+  img, video { max-width: 100%; height: auto; }
+  h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
+  blockquote, dl, dd, hr, figure, p, pre { margin: 0; }
+  ol, ul { list-style: none; margin: 0; padding: 0; }
+  a { color: inherit; text-decoration: inherit; }
+  button, input, optgroup, select, textarea {
+    font-family: inherit;
+    font-feature-settings: inherit;
+    font-variation-settings: inherit;
+    font-size: 100%;
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    margin: 0;
+    padding: 0;
+  }
+  button, select { text-transform: none; }
+  button, [type='button'], [type='reset'], [type='submit'] {
+    appearance: button;
+    background-color: transparent;
+    background-image: none;
+  }
+  :-moz-focusring { outline: auto; }
+  :-moz-ui-invalid { box-shadow: none; }
+  progress { vertical-align: baseline; }
+  ::-webkit-inner-spin-button, ::-webkit-outer-spin-button { height: auto; }
+  [type='search'] { appearance: textfield; outline-offset: -2px; }
+  ::-webkit-search-decoration { -webkit-appearance: none; }
+  ::-webkit-file-upload-button { font: inherit; appearance: button; }
+  textarea { resize: vertical; }
+  fieldset { margin: 0; padding: 0; min-width: 0; }
+  legend { padding: 0; }
+  ::placeholder { color: hsl(var(--muted-foreground)); opacity: 1; }
+  [hidden] { display: none !important; }
+
+  :host { display: inline-flex; }
+  :host([disabled]) { pointer-events: none; }
+
+  .root {
+    text-transform: none;
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+    border-radius: calc(var(--radius) - 2px);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid transparent;
+    outline: none;
+    transition: color 0.15s, background-color 0.15s, border-color 0.15s, box-shadow 0.15s;
+  }
+
+  .root:disabled { opacity: 0.5; pointer-events: none; }
+  .root:focus-visible { box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--ring)); }
+  .root ::slotted(svg) { pointer-events: none; width: 1rem; height: 1rem; flex-shrink: 0; }
+
+  [data-size='default'] { height: 2.25rem; padding-inline: 1rem; }
+  [data-size='xs'] { height: 1.75rem; padding-inline: 0.5rem; font-size: 0.8125rem; }
+  [data-size='sm'] { height: 2rem; padding-inline: 0.75rem; font-size: 0.8125rem; }
+  [data-size='lg'] { height: 2.5rem; padding-inline: 1.5rem; }
+  [data-size='icon'] { height: 2.25rem; width: 2.25rem; padding: 0; }
+  [data-size='icon-xs'] { height: 1.75rem; width: 1.75rem; padding: 0; }
+  [data-size='icon-sm'] { height: 2rem; width: 2rem; padding: 0; }
+  [data-size='icon-lg'] { height: 2.5rem; width: 2.5rem; padding: 0; }
+
+  [data-variant='default'] {
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  }
+  [data-variant='default']:hover { background-color: hsl(var(--primary) / 0.9); }
+
+  [data-variant='destructive'] {
+    background-color: hsl(var(--destructive));
+    color: hsl(var(--destructive-foreground));
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  }
+  [data-variant='destructive']:hover { background-color: hsl(var(--destructive) / 0.9); }
+
+  [data-variant='outline'] {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    border-color: hsl(var(--input));
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  }
+  [data-variant='outline']:hover { background-color: hsl(var(--accent)); color: hsl(var(--accent-foreground)); }
+
+  [data-variant='secondary'] {
+    background-color: hsl(var(--secondary));
+    color: hsl(var(--secondary-foreground));
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  }
+  [data-variant='secondary']:hover { background-color: hsl(var(--secondary) / 0.8); }
+
+  [data-variant='ghost'] { background-color: transparent; color: hsl(var(--foreground)); }
+  [data-variant='ghost']:hover { background-color: hsl(var(--accent)); color: hsl(var(--accent-foreground)); }
+
+  [data-variant='link'] { background-color: transparent; color: hsl(var(--primary)); text-underline-offset: 4px; }
+  [data-variant='link']:hover { text-decoration: underline; }
+
+  [aria-invalid='true'] { border-color: hsl(var(--destructive)); box-shadow: 0 0 0 1px hsl(var(--destructive) / 0.2); }
+\`;
+export class Button extends HTMLElement {
+    static observedAttributes = ['variant', 'size', 'disabled'];
+    get variant() {
+        return this.getAttribute('variant') ?? 'default';
+    }
+    set variant(value) {
+        this.setAttribute('variant', value);
+    }
+    get size() {
+        return this.getAttribute('size') ?? 'default';
+    }
+    set size(value) {
+        this.setAttribute('size', value);
+    }
+    get disabled() {
+        return this.hasAttribute('disabled');
+    }
+    set disabled(value) {
+        this.toggleAttribute('disabled', value);
+    }
+    connectedCallback() {
+        if (!this.shadowRoot)
+            this.attachShadow({ mode: 'open' });
+        this.render();
+    }
+    attributeChangedCallback() {
+        this.render();
+    }
+    render() {
+        if (!this.shadowRoot)
+            return;
+        this.shadowRoot.innerHTML = \`
+      <style>\${styles}</style>
+      <button part="root" class="root" data-variant="\${this.variant}" data-size="\${this.size}" \${this.disabled ? 'disabled' : ''}>
+        <slot></slot>
+      </button>
+    \`;
+    }
+}
+if (!customElements.get('shadcx-button')) {
+    customElements.define('shadcx-button', Button);
+}`,Le=class extends z{static{this.styles=o`
     :host {
       display: block;
       font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
@@ -1463,15 +1650,18 @@ background-color: hsl(var(--primary));</code></pre>
         font-size: 0.75rem;
       }
     }
-  `}render(){return k`
+  `}render(){return A`
       <h1>Button</h1>
       <p class="desc">
         Displays a button or a component that looks like a button.
       </p>
 
       <h2>Installation</h2>
-      <pre><code>&lt;link rel="stylesheet" href=".../assets/index.css"&gt;
-&lt;script type="module" src=".../assets/index.js"&gt;&lt;/script&gt;</code></pre>
+      <pre><code>&lt;link rel="stylesheet" href="https://dobrinyonkov.github.io/shadcx/assets/theme.css"&gt;
+&lt;script type="module" src="https://dobrinyonkov.github.io/shadcx/assets/button.js"&gt;&lt;/script&gt;</code></pre>
+
+      <h2>Copy Paste Source</h2>
+      <source-code-block filename="button.ts" .source=${Fe} .jsSource=${Ie}></source-code-block>
 
       <h2>Usage</h2>
       <pre><code>&lt;shadcx-button variant="outline"&gt;Button&lt;/shadcx-button&gt;</code></pre>
@@ -1597,7 +1787,320 @@ background-color: hsl(var(--primary));</code></pre>
           </tbody>
         </table>
       </div>
-    `}};je=U([z(`button-page`)],je);var Me=class extends R{static{this.styles=o`
+    `}};Le=U([B(`button-page`)],Le);var Re=`export type BadgeVariant =
+  | 'default'
+  | 'secondary'
+  | 'destructive'
+  | 'outline'
+  | 'ghost'
+  | 'link'
+
+const styles = \`
+  *, *::before, *::after { box-sizing: border-box; }
+  * { margin: 0; }
+  img, svg, video, canvas, audio, iframe, embed, object { display: block; vertical-align: middle; }
+  img, video { max-width: 100%; height: auto; }
+  h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
+  blockquote, dl, dd, hr, figure, p, pre { margin: 0; }
+  ol, ul { list-style: none; margin: 0; padding: 0; }
+  a { color: inherit; text-decoration: inherit; }
+  button, input, optgroup, select, textarea {
+    font-family: inherit;
+    font-feature-settings: inherit;
+    font-variation-settings: inherit;
+    font-size: 100%;
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    margin: 0;
+    padding: 0;
+  }
+  button, select { text-transform: none; }
+  button, [type='button'], [type='reset'], [type='submit'] {
+    appearance: button;
+    background-color: transparent;
+    background-image: none;
+  }
+  :-moz-focusring { outline: auto; }
+  :-moz-ui-invalid { box-shadow: none; }
+  progress { vertical-align: baseline; }
+  ::-webkit-inner-spin-button, ::-webkit-outer-spin-button { height: auto; }
+  [type='search'] { appearance: textfield; outline-offset: -2px; }
+  ::-webkit-search-decoration { -webkit-appearance: none; }
+  ::-webkit-file-upload-button { font: inherit; appearance: button; }
+  textarea { resize: vertical; }
+  fieldset { margin: 0; padding: 0; min-width: 0; }
+  legend { padding: 0; }
+  ::placeholder { color: hsl(var(--muted-foreground)); opacity: 1; }
+  [hidden] { display: none !important; }
+
+  :host { display: inline-flex; }
+
+  .root {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    white-space: nowrap;
+    border-radius: var(--radius);
+    border: 1px solid transparent;
+    padding-inline: 0.625rem;
+    height: 1.375rem;
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 500;
+    transition: color 0.15s, background-color 0.15s, border-color 0.15s, box-shadow 0.15s;
+  }
+
+  .root:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--ring));
+  }
+
+  .root ::slotted(svg),
+  .root ::slotted([data-icon]) {
+    width: 0.75rem;
+    height: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  .root ::slotted([data-icon='inline-start']) { margin-inline-end: 0.125rem; }
+  .root ::slotted([data-icon='inline-end']) { margin-inline-start: 0.125rem; }
+
+  [data-variant='default'] {
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+  }
+  [data-variant='default']:hover { background-color: hsl(var(--primary) / 0.9); }
+
+  [data-variant='secondary'] {
+    background-color: hsl(var(--secondary));
+    color: hsl(var(--secondary-foreground));
+  }
+  [data-variant='secondary']:hover { background-color: hsl(var(--secondary) / 0.8); }
+
+  [data-variant='destructive'] {
+    background-color: hsl(var(--destructive));
+    color: hsl(var(--destructive-foreground));
+  }
+  [data-variant='destructive']:hover { background-color: hsl(var(--destructive) / 0.9); }
+
+  [data-variant='outline'] {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    border-color: hsl(var(--border));
+  }
+  [data-variant='outline']:hover {
+    background-color: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+  }
+
+  [data-variant='ghost'] {
+    background-color: transparent;
+    color: hsl(var(--foreground));
+  }
+  [data-variant='ghost']:hover {
+    background-color: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+  }
+
+  [data-variant='link'] {
+    background-color: transparent;
+    border-color: transparent;
+    color: hsl(var(--primary));
+    text-underline-offset: 4px;
+  }
+  [data-variant='link']:hover { text-decoration: underline; }
+\`
+
+export class Badge extends HTMLElement {
+  static observedAttributes = ['variant']
+
+  get variant(): BadgeVariant {
+    return (this.getAttribute('variant') as BadgeVariant | null) ?? 'default'
+  }
+
+  set variant(value: BadgeVariant) {
+    this.setAttribute('variant', value)
+  }
+
+  connectedCallback() {
+    if (!this.shadowRoot) {
+      this.attachShadow({ mode: 'open' })
+    }
+    this.render()
+  }
+
+  attributeChangedCallback() {
+    this.render()
+  }
+
+  private render() {
+    if (!this.shadowRoot) return
+    this.shadowRoot.innerHTML = \`
+      <style>\${styles}</style>
+      <span part="root" class="root" data-variant="\${this.variant}" tabindex="0"><slot></slot></span>
+    \`
+  }
+}
+
+if (!customElements.get('shadcx-badge')) {
+  customElements.define('shadcx-badge', Badge)
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'shadcx-badge': Badge
+  }
+}
+`,ze=`const styles = \`
+  *, *::before, *::after { box-sizing: border-box; }
+  * { margin: 0; }
+  img, svg, video, canvas, audio, iframe, embed, object { display: block; vertical-align: middle; }
+  img, video { max-width: 100%; height: auto; }
+  h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
+  blockquote, dl, dd, hr, figure, p, pre { margin: 0; }
+  ol, ul { list-style: none; margin: 0; padding: 0; }
+  a { color: inherit; text-decoration: inherit; }
+  button, input, optgroup, select, textarea {
+    font-family: inherit;
+    font-feature-settings: inherit;
+    font-variation-settings: inherit;
+    font-size: 100%;
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    margin: 0;
+    padding: 0;
+  }
+  button, select { text-transform: none; }
+  button, [type='button'], [type='reset'], [type='submit'] {
+    appearance: button;
+    background-color: transparent;
+    background-image: none;
+  }
+  :-moz-focusring { outline: auto; }
+  :-moz-ui-invalid { box-shadow: none; }
+  progress { vertical-align: baseline; }
+  ::-webkit-inner-spin-button, ::-webkit-outer-spin-button { height: auto; }
+  [type='search'] { appearance: textfield; outline-offset: -2px; }
+  ::-webkit-search-decoration { -webkit-appearance: none; }
+  ::-webkit-file-upload-button { font: inherit; appearance: button; }
+  textarea { resize: vertical; }
+  fieldset { margin: 0; padding: 0; min-width: 0; }
+  legend { padding: 0; }
+  ::placeholder { color: hsl(var(--muted-foreground)); opacity: 1; }
+  [hidden] { display: none !important; }
+
+  :host { display: inline-flex; }
+
+  .root {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    white-space: nowrap;
+    border-radius: var(--radius);
+    border: 1px solid transparent;
+    padding-inline: 0.625rem;
+    height: 1.375rem;
+    font-size: 0.75rem;
+    line-height: 1;
+    font-weight: 500;
+    transition: color 0.15s, background-color 0.15s, border-color 0.15s, box-shadow 0.15s;
+  }
+
+  .root:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--ring));
+  }
+
+  .root ::slotted(svg),
+  .root ::slotted([data-icon]) {
+    width: 0.75rem;
+    height: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  .root ::slotted([data-icon='inline-start']) { margin-inline-end: 0.125rem; }
+  .root ::slotted([data-icon='inline-end']) { margin-inline-start: 0.125rem; }
+
+  [data-variant='default'] {
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+  }
+  [data-variant='default']:hover { background-color: hsl(var(--primary) / 0.9); }
+
+  [data-variant='secondary'] {
+    background-color: hsl(var(--secondary));
+    color: hsl(var(--secondary-foreground));
+  }
+  [data-variant='secondary']:hover { background-color: hsl(var(--secondary) / 0.8); }
+
+  [data-variant='destructive'] {
+    background-color: hsl(var(--destructive));
+    color: hsl(var(--destructive-foreground));
+  }
+  [data-variant='destructive']:hover { background-color: hsl(var(--destructive) / 0.9); }
+
+  [data-variant='outline'] {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    border-color: hsl(var(--border));
+  }
+  [data-variant='outline']:hover {
+    background-color: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+  }
+
+  [data-variant='ghost'] {
+    background-color: transparent;
+    color: hsl(var(--foreground));
+  }
+  [data-variant='ghost']:hover {
+    background-color: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+  }
+
+  [data-variant='link'] {
+    background-color: transparent;
+    border-color: transparent;
+    color: hsl(var(--primary));
+    text-underline-offset: 4px;
+  }
+  [data-variant='link']:hover { text-decoration: underline; }
+\`;
+export class Badge extends HTMLElement {
+    static observedAttributes = ['variant'];
+    get variant() {
+        return this.getAttribute('variant') ?? 'default';
+    }
+    set variant(value) {
+        this.setAttribute('variant', value);
+    }
+    connectedCallback() {
+        if (!this.shadowRoot) {
+            this.attachShadow({ mode: 'open' });
+        }
+        this.render();
+    }
+    attributeChangedCallback() {
+        this.render();
+    }
+    render() {
+        if (!this.shadowRoot)
+            return;
+        this.shadowRoot.innerHTML = \`
+      <style>\${styles}</style>
+      <span part="root" class="root" data-variant="\${this.variant}" tabindex="0"><slot></slot></span>
+    \`;
+    }
+}
+if (!customElements.get('shadcx-badge')) {
+    customElements.define('shadcx-badge', Badge);
+}`,Be=class extends z{static{this.styles=o`
     :host {
       display: block;
       font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
@@ -1765,13 +2268,16 @@ background-color: hsl(var(--primary));</code></pre>
         font-size: 0.75rem;
       }
     }
-  `}render(){return k`
+  `}render(){return A`
       <h1>Badge</h1>
       <p class="desc">Displays a badge or a component that looks like a badge.</p>
 
       <h2>Installation</h2>
-      <pre><code>&lt;link rel="stylesheet" href=".../assets/index.css"&gt;
-&lt;script type="module" src=".../assets/index.js"&gt;&lt;/script&gt;</code></pre>
+      <pre><code>&lt;link rel="stylesheet" href="https://dobrinyonkov.github.io/shadcx/assets/theme.css"&gt;
+&lt;script type="module" src="https://dobrinyonkov.github.io/shadcx/assets/badge.js"&gt;&lt;/script&gt;</code></pre>
+
+      <h2>Copy Paste Source</h2>
+      <source-code-block filename="badge.ts" .source=${Re} .jsSource=${ze}></source-code-block>
 
       <h2>Usage</h2>
       <pre><code>&lt;shadcx-badge variant="default"&gt;Badge&lt;/shadcx-badge&gt;</code></pre>
@@ -1879,7 +2385,315 @@ background-color: hsl(var(--primary));</code></pre>
           </tbody>
         </table>
       </div>
-    `}};Me=U([z(`badge-page`)],Me);var Ne=class extends R{static{this.styles=o`
+    `}};Be=U([B(`badge-page`)],Be);var Ve=`const styles = \`
+  *, *::before, *::after { box-sizing: border-box; }
+  * { margin: 0; }
+  img, svg, video, canvas, audio, iframe, embed, object { display: block; vertical-align: middle; }
+  img, video { max-width: 100%; height: auto; }
+  h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
+  blockquote, dl, dd, hr, figure, p, pre { margin: 0; }
+  ol, ul { list-style: none; margin: 0; padding: 0; }
+  a { color: inherit; text-decoration: inherit; }
+  button, input, optgroup, select, textarea {
+    font-family: inherit;
+    font-feature-settings: inherit;
+    font-variation-settings: inherit;
+    font-size: 100%;
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    margin: 0;
+    padding: 0;
+  }
+  button, select { text-transform: none; }
+  button, [type='button'], [type='reset'], [type='submit'] {
+    appearance: button;
+    background-color: transparent;
+    background-image: none;
+  }
+  :-moz-focusring { outline: auto; }
+  :-moz-ui-invalid { box-shadow: none; }
+  progress { vertical-align: baseline; }
+  ::-webkit-inner-spin-button, ::-webkit-outer-spin-button { height: auto; }
+  [type='search'] { appearance: textfield; outline-offset: -2px; }
+  ::-webkit-search-decoration { -webkit-appearance: none; }
+  ::-webkit-file-upload-button { font: inherit; appearance: button; }
+  textarea { resize: vertical; }
+  fieldset { margin: 0; padding: 0; min-width: 0; }
+  legend { padding: 0; }
+  ::placeholder { color: hsl(var(--muted-foreground)); opacity: 1; }
+  [hidden] { display: none !important; }
+
+  :host { display: flex; }
+
+  .root {
+    display: flex;
+    width: 100%;
+    height: 2.25rem;
+    border-radius: calc(var(--radius) - 2px);
+    border: 1px solid hsl(var(--input));
+    background-color: hsl(var(--background));
+    padding-inline: 0.75rem;
+    padding-block: 0.25rem;
+    font-size: 1rem;
+    color: hsl(var(--foreground));
+    transition: color 0.15s, border-color 0.15s, box-shadow 0.15s;
+  }
+
+  .root::placeholder { color: hsl(var(--muted-foreground)); }
+  .root:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--ring));
+  }
+  .root:disabled { cursor: not-allowed; opacity: 0.5; }
+  .root::file-selector-button {
+    border: 0;
+    background-color: transparent;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: hsl(var(--foreground));
+  }
+  .root[aria-invalid] { border-color: hsl(var(--destructive)); }
+
+  @media (min-width: 768px) {
+    .root { font-size: 0.875rem; }
+  }
+\`
+
+export class Input extends HTMLElement {
+  static observedAttributes = ['type', 'placeholder', 'disabled', 'required', 'readonly', 'aria-invalid']
+
+  get type() {
+    return this.getAttribute('type') ?? 'text'
+  }
+
+  set type(value: string) {
+    this.setAttribute('type', value)
+  }
+
+  get placeholder() {
+    return this.getAttribute('placeholder') ?? ''
+  }
+
+  set placeholder(value: string) {
+    this.setAttribute('placeholder', value)
+  }
+
+  get disabled() {
+    return this.hasAttribute('disabled')
+  }
+
+  set disabled(value: boolean) {
+    this.toggleAttribute('disabled', value)
+  }
+
+  get required() {
+    return this.hasAttribute('required')
+  }
+
+  set required(value: boolean) {
+    this.toggleAttribute('required', value)
+  }
+
+  get readonly() {
+    return this.hasAttribute('readonly')
+  }
+
+  set readonly(value: boolean) {
+    this.toggleAttribute('readonly', value)
+  }
+
+  get ariaInvalid() {
+    return this.getAttribute('aria-invalid')
+  }
+
+  set ariaInvalid(value: string | null) {
+    if (value === null) this.removeAttribute('aria-invalid')
+    else this.setAttribute('aria-invalid', value)
+  }
+
+  connectedCallback() {
+    if (!this.shadowRoot) this.attachShadow({ mode: 'open' })
+    this.render()
+  }
+
+  attributeChangedCallback() {
+    this.render()
+  }
+
+  private render() {
+    if (!this.shadowRoot) return
+    this.shadowRoot.innerHTML = \`
+      <style>\${styles}</style>
+      <input
+        part="root"
+        class="root"
+        type="\${this.type}"
+        placeholder="\${this.placeholder}"
+        \${this.disabled ? 'disabled' : ''}
+        \${this.required ? 'required' : ''}
+        \${this.readonly ? 'readonly' : ''}
+        \${this.ariaInvalid ? \`aria-invalid="\${this.ariaInvalid}"\` : ''}
+      >
+    \`
+  }
+}
+
+if (!customElements.get('shadcx-input')) {
+  customElements.define('shadcx-input', Input)
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'shadcx-input': Input
+  }
+}
+`,He=`const styles = \`
+  *, *::before, *::after { box-sizing: border-box; }
+  * { margin: 0; }
+  img, svg, video, canvas, audio, iframe, embed, object { display: block; vertical-align: middle; }
+  img, video { max-width: 100%; height: auto; }
+  h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
+  blockquote, dl, dd, hr, figure, p, pre { margin: 0; }
+  ol, ul { list-style: none; margin: 0; padding: 0; }
+  a { color: inherit; text-decoration: inherit; }
+  button, input, optgroup, select, textarea {
+    font-family: inherit;
+    font-feature-settings: inherit;
+    font-variation-settings: inherit;
+    font-size: 100%;
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    margin: 0;
+    padding: 0;
+  }
+  button, select { text-transform: none; }
+  button, [type='button'], [type='reset'], [type='submit'] {
+    appearance: button;
+    background-color: transparent;
+    background-image: none;
+  }
+  :-moz-focusring { outline: auto; }
+  :-moz-ui-invalid { box-shadow: none; }
+  progress { vertical-align: baseline; }
+  ::-webkit-inner-spin-button, ::-webkit-outer-spin-button { height: auto; }
+  [type='search'] { appearance: textfield; outline-offset: -2px; }
+  ::-webkit-search-decoration { -webkit-appearance: none; }
+  ::-webkit-file-upload-button { font: inherit; appearance: button; }
+  textarea { resize: vertical; }
+  fieldset { margin: 0; padding: 0; min-width: 0; }
+  legend { padding: 0; }
+  ::placeholder { color: hsl(var(--muted-foreground)); opacity: 1; }
+  [hidden] { display: none !important; }
+
+  :host { display: flex; }
+
+  .root {
+    display: flex;
+    width: 100%;
+    height: 2.25rem;
+    border-radius: calc(var(--radius) - 2px);
+    border: 1px solid hsl(var(--input));
+    background-color: hsl(var(--background));
+    padding-inline: 0.75rem;
+    padding-block: 0.25rem;
+    font-size: 1rem;
+    color: hsl(var(--foreground));
+    transition: color 0.15s, border-color 0.15s, box-shadow 0.15s;
+  }
+
+  .root::placeholder { color: hsl(var(--muted-foreground)); }
+  .root:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--ring));
+  }
+  .root:disabled { cursor: not-allowed; opacity: 0.5; }
+  .root::file-selector-button {
+    border: 0;
+    background-color: transparent;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: hsl(var(--foreground));
+  }
+  .root[aria-invalid] { border-color: hsl(var(--destructive)); }
+
+  @media (min-width: 768px) {
+    .root { font-size: 0.875rem; }
+  }
+\`;
+export class Input extends HTMLElement {
+    static observedAttributes = ['type', 'placeholder', 'disabled', 'required', 'readonly', 'aria-invalid'];
+    get type() {
+        return this.getAttribute('type') ?? 'text';
+    }
+    set type(value) {
+        this.setAttribute('type', value);
+    }
+    get placeholder() {
+        return this.getAttribute('placeholder') ?? '';
+    }
+    set placeholder(value) {
+        this.setAttribute('placeholder', value);
+    }
+    get disabled() {
+        return this.hasAttribute('disabled');
+    }
+    set disabled(value) {
+        this.toggleAttribute('disabled', value);
+    }
+    get required() {
+        return this.hasAttribute('required');
+    }
+    set required(value) {
+        this.toggleAttribute('required', value);
+    }
+    get readonly() {
+        return this.hasAttribute('readonly');
+    }
+    set readonly(value) {
+        this.toggleAttribute('readonly', value);
+    }
+    get ariaInvalid() {
+        return this.getAttribute('aria-invalid');
+    }
+    set ariaInvalid(value) {
+        if (value === null)
+            this.removeAttribute('aria-invalid');
+        else
+            this.setAttribute('aria-invalid', value);
+    }
+    connectedCallback() {
+        if (!this.shadowRoot)
+            this.attachShadow({ mode: 'open' });
+        this.render();
+    }
+    attributeChangedCallback() {
+        this.render();
+    }
+    render() {
+        if (!this.shadowRoot)
+            return;
+        this.shadowRoot.innerHTML = \`
+      <style>\${styles}</style>
+      <input
+        part="root"
+        class="root"
+        type="\${this.type}"
+        placeholder="\${this.placeholder}"
+        \${this.disabled ? 'disabled' : ''}
+        \${this.required ? 'required' : ''}
+        \${this.readonly ? 'readonly' : ''}
+        \${this.ariaInvalid ? \`aria-invalid="\${this.ariaInvalid}"\` : ''}
+      >
+    \`;
+    }
+}
+if (!customElements.get('shadcx-input')) {
+    customElements.define('shadcx-input', Input);
+}`,Ue=class extends z{static{this.styles=o`
     :host {
       display: block;
       font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
@@ -2023,7 +2837,7 @@ background-color: hsl(var(--primary));</code></pre>
         font-size: 0.75rem;
       }
     }
-  `}render(){return k`
+  `}render(){return A`
       <h1>Input</h1>
       <p class="desc">
         A text input component for forms and user data entry with built-in
@@ -2031,8 +2845,11 @@ background-color: hsl(var(--primary));</code></pre>
       </p>
 
       <h2>Installation</h2>
-      <pre><code>&lt;link rel="stylesheet" href=".../assets/index.css"&gt;
-&lt;script type="module" src=".../assets/index.js"&gt;&lt;/script&gt;</code></pre>
+      <pre><code>&lt;link rel="stylesheet" href="https://dobrinyonkov.github.io/shadcx/assets/theme.css"&gt;
+&lt;script type="module" src="https://dobrinyonkov.github.io/shadcx/assets/input.js"&gt;&lt;/script&gt;</code></pre>
+
+      <h2>Copy Paste Source</h2>
+      <source-code-block filename="input.ts" .source=${Ve} .jsSource=${He}></source-code-block>
 
       <h2>Usage</h2>
       <pre><code>&lt;shadcx-input placeholder="Enter text"&gt;&lt;/shadcx-input&gt;</code></pre>
@@ -2155,7 +2972,409 @@ background-color: hsl(var(--primary));</code></pre>
           </tbody>
         </table>
       </div>
-    `}};Ne=U([z(`input-page`)],Ne);var X=class extends R{constructor(...e){super(...e),this._checked=!1}static{this.styles=o`
+    `}};Ue=U([B(`input-page`)],Ue);var We=`export type CheckboxState = 'unchecked' | 'checked' | 'indeterminate'
+
+const styles = \`
+  *, *::before, *::after { box-sizing: border-box; }
+  * { margin: 0; }
+  img, svg, video, canvas, audio, iframe, embed, object { display: block; vertical-align: middle; }
+  img, video { max-width: 100%; height: auto; }
+  h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
+  blockquote, dl, dd, hr, figure, p, pre { margin: 0; }
+  ol, ul { list-style: none; margin: 0; padding: 0; }
+  a { color: inherit; text-decoration: inherit; }
+  button, input, optgroup, select, textarea {
+    font-family: inherit;
+    font-feature-settings: inherit;
+    font-variation-settings: inherit;
+    font-size: 100%;
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    margin: 0;
+    padding: 0;
+  }
+  button, select { text-transform: none; }
+  button, [type='button'], [type='reset'], [type='submit'] {
+    appearance: button;
+    background-color: transparent;
+    background-image: none;
+  }
+  :-moz-focusring { outline: auto; }
+  :-moz-ui-invalid { box-shadow: none; }
+  progress { vertical-align: baseline; }
+  ::-webkit-inner-spin-button, ::-webkit-outer-spin-button { height: auto; }
+  [type='search'] { appearance: textfield; outline-offset: -2px; }
+  ::-webkit-search-decoration { -webkit-appearance: none; }
+  ::-webkit-file-upload-button { font: inherit; appearance: button; }
+  textarea { resize: vertical; }
+  fieldset { margin: 0; padding: 0; min-width: 0; }
+  legend { padding: 0; }
+  ::placeholder { color: hsl(var(--muted-foreground)); opacity: 1; }
+  [hidden] { display: none !important; }
+
+  :host { display: inline-flex; vertical-align: middle; }
+  :host([disabled]) { pointer-events: none; }
+
+  .root {
+    appearance: none;
+    border: 1px solid hsl(var(--primary));
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    outline: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    border-radius: calc(var(--radius) - 4px);
+    background-color: hsl(var(--background));
+    color: transparent;
+    cursor: pointer;
+    transition: background-color 0.15s, border-color 0.15s, box-shadow 0.15s, color 0.15s;
+  }
+
+  .root:focus-visible { box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--ring)); }
+  .root:disabled { opacity: 0.5; cursor: not-allowed; }
+  .root[data-state='checked'], .root[data-state='indeterminate'] {
+    border-color: hsl(var(--primary));
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+  }
+  .root[aria-invalid='true'] {
+    border-color: hsl(var(--destructive));
+    box-shadow: 0 0 0 1px hsl(var(--destructive) / 0.2);
+  }
+  .indicator {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  .icon {
+    width: 0.875rem;
+    height: 0.875rem;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2.25;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+\`
+
+export class Checkbox extends HTMLElement {
+  static observedAttributes = ['checked', 'indeterminate', 'disabled', 'aria-invalid']
+
+  get checked() {
+    return this.hasAttribute('checked')
+  }
+
+  set checked(value: boolean) {
+    this.toggleAttribute('checked', value)
+  }
+
+  get indeterminate() {
+    return this.hasAttribute('indeterminate')
+  }
+
+  set indeterminate(value: boolean) {
+    this.toggleAttribute('indeterminate', value)
+  }
+
+  get disabled() {
+    return this.hasAttribute('disabled')
+  }
+
+  set disabled(value: boolean) {
+    this.toggleAttribute('disabled', value)
+  }
+
+  get ariaInvalid() {
+    return this.getAttribute('aria-invalid')
+  }
+
+  set ariaInvalid(value: string | null) {
+    if (value === null) this.removeAttribute('aria-invalid')
+    else this.setAttribute('aria-invalid', value)
+  }
+
+  private get state(): CheckboxState {
+    if (this.indeterminate) return 'indeterminate'
+    return this.checked ? 'checked' : 'unchecked'
+  }
+
+  connectedCallback() {
+    if (!this.shadowRoot) this.attachShadow({ mode: 'open' })
+    this.render()
+  }
+
+  attributeChangedCallback() {
+    this.render()
+  }
+
+  private toggle = () => {
+    if (this.disabled) return
+
+    if (this.indeterminate) {
+      this.indeterminate = false
+      this.checked = true
+    } else {
+      this.checked = !this.checked
+    }
+
+    this.dispatchEvent(new Event('input', { bubbles: true, composed: true }))
+    this.dispatchEvent(new Event('change', { bubbles: true, composed: true }))
+    this.dispatchEvent(
+      new CustomEvent('checked-change', {
+        detail: {
+          checked: this.checked,
+          indeterminate: this.indeterminate,
+          state: this.state,
+        },
+        bubbles: true,
+        composed: true,
+      }),
+    )
+  }
+
+  private onKeyDown = (event: KeyboardEvent) => {
+    if (event.key !== 'Enter') return
+    event.preventDefault()
+    this.toggle()
+  }
+
+  private render() {
+    if (!this.shadowRoot) return
+    const icon = this.state === 'checked'
+      ? '<svg class="icon" viewBox="0 0 16 16"><polyline points="3.5 8.5 6.8 11.8 12.5 5.5" /></svg>'
+      : this.state === 'indeterminate'
+        ? '<svg class="icon" viewBox="0 0 16 16"><line x1="3.5" y1="8" x2="12.5" y2="8" /></svg>'
+        : ''
+
+    this.shadowRoot.innerHTML = \`
+      <style>\${styles}</style>
+      <button
+        part="root"
+        class="root"
+        type="button"
+        role="checkbox"
+        data-state="\${this.state}"
+        aria-checked="\${this.indeterminate ? 'mixed' : String(this.checked)}"
+        \${this.ariaInvalid ? \`aria-invalid="\${this.ariaInvalid}"\` : ''}
+        \${this.disabled ? 'disabled' : ''}
+      >
+        <span part="indicator" class="indicator" aria-hidden="true">\${icon}</span>
+      </button>
+    \`
+    const button = this.shadowRoot.querySelector('button')
+    button?.addEventListener('click', this.toggle)
+    button?.addEventListener('keydown', this.onKeyDown)
+  }
+}
+
+if (!customElements.get('shadcx-checkbox')) {
+  customElements.define('shadcx-checkbox', Checkbox)
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'shadcx-checkbox': Checkbox
+  }
+}
+`,Ge=`const styles = \`
+  *, *::before, *::after { box-sizing: border-box; }
+  * { margin: 0; }
+  img, svg, video, canvas, audio, iframe, embed, object { display: block; vertical-align: middle; }
+  img, video { max-width: 100%; height: auto; }
+  h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
+  blockquote, dl, dd, hr, figure, p, pre { margin: 0; }
+  ol, ul { list-style: none; margin: 0; padding: 0; }
+  a { color: inherit; text-decoration: inherit; }
+  button, input, optgroup, select, textarea {
+    font-family: inherit;
+    font-feature-settings: inherit;
+    font-variation-settings: inherit;
+    font-size: 100%;
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    margin: 0;
+    padding: 0;
+  }
+  button, select { text-transform: none; }
+  button, [type='button'], [type='reset'], [type='submit'] {
+    appearance: button;
+    background-color: transparent;
+    background-image: none;
+  }
+  :-moz-focusring { outline: auto; }
+  :-moz-ui-invalid { box-shadow: none; }
+  progress { vertical-align: baseline; }
+  ::-webkit-inner-spin-button, ::-webkit-outer-spin-button { height: auto; }
+  [type='search'] { appearance: textfield; outline-offset: -2px; }
+  ::-webkit-search-decoration { -webkit-appearance: none; }
+  ::-webkit-file-upload-button { font: inherit; appearance: button; }
+  textarea { resize: vertical; }
+  fieldset { margin: 0; padding: 0; min-width: 0; }
+  legend { padding: 0; }
+  ::placeholder { color: hsl(var(--muted-foreground)); opacity: 1; }
+  [hidden] { display: none !important; }
+
+  :host { display: inline-flex; vertical-align: middle; }
+  :host([disabled]) { pointer-events: none; }
+
+  .root {
+    appearance: none;
+    border: 1px solid hsl(var(--primary));
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    outline: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    border-radius: calc(var(--radius) - 4px);
+    background-color: hsl(var(--background));
+    color: transparent;
+    cursor: pointer;
+    transition: background-color 0.15s, border-color 0.15s, box-shadow 0.15s, color 0.15s;
+  }
+
+  .root:focus-visible { box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--ring)); }
+  .root:disabled { opacity: 0.5; cursor: not-allowed; }
+  .root[data-state='checked'], .root[data-state='indeterminate'] {
+    border-color: hsl(var(--primary));
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+  }
+  .root[aria-invalid='true'] {
+    border-color: hsl(var(--destructive));
+    box-shadow: 0 0 0 1px hsl(var(--destructive) / 0.2);
+  }
+  .indicator {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  .icon {
+    width: 0.875rem;
+    height: 0.875rem;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2.25;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+\`;
+export class Checkbox extends HTMLElement {
+    static observedAttributes = ['checked', 'indeterminate', 'disabled', 'aria-invalid'];
+    get checked() {
+        return this.hasAttribute('checked');
+    }
+    set checked(value) {
+        this.toggleAttribute('checked', value);
+    }
+    get indeterminate() {
+        return this.hasAttribute('indeterminate');
+    }
+    set indeterminate(value) {
+        this.toggleAttribute('indeterminate', value);
+    }
+    get disabled() {
+        return this.hasAttribute('disabled');
+    }
+    set disabled(value) {
+        this.toggleAttribute('disabled', value);
+    }
+    get ariaInvalid() {
+        return this.getAttribute('aria-invalid');
+    }
+    set ariaInvalid(value) {
+        if (value === null)
+            this.removeAttribute('aria-invalid');
+        else
+            this.setAttribute('aria-invalid', value);
+    }
+    get state() {
+        if (this.indeterminate)
+            return 'indeterminate';
+        return this.checked ? 'checked' : 'unchecked';
+    }
+    connectedCallback() {
+        if (!this.shadowRoot)
+            this.attachShadow({ mode: 'open' });
+        this.render();
+    }
+    attributeChangedCallback() {
+        this.render();
+    }
+    toggle = () => {
+        if (this.disabled)
+            return;
+        if (this.indeterminate) {
+            this.indeterminate = false;
+            this.checked = true;
+        }
+        else {
+            this.checked = !this.checked;
+        }
+        this.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+        this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+        this.dispatchEvent(new CustomEvent('checked-change', {
+            detail: {
+                checked: this.checked,
+                indeterminate: this.indeterminate,
+                state: this.state,
+            },
+            bubbles: true,
+            composed: true,
+        }));
+    };
+    onKeyDown = (event) => {
+        if (event.key !== 'Enter')
+            return;
+        event.preventDefault();
+        this.toggle();
+    };
+    render() {
+        if (!this.shadowRoot)
+            return;
+        const icon = this.state === 'checked'
+            ? '<svg class="icon" viewBox="0 0 16 16"><polyline points="3.5 8.5 6.8 11.8 12.5 5.5" /></svg>'
+            : this.state === 'indeterminate'
+                ? '<svg class="icon" viewBox="0 0 16 16"><line x1="3.5" y1="8" x2="12.5" y2="8" /></svg>'
+                : '';
+        this.shadowRoot.innerHTML = \`
+      <style>\${styles}</style>
+      <button
+        part="root"
+        class="root"
+        type="button"
+        role="checkbox"
+        data-state="\${this.state}"
+        aria-checked="\${this.indeterminate ? 'mixed' : String(this.checked)}"
+        \${this.ariaInvalid ? \`aria-invalid="\${this.ariaInvalid}"\` : ''}
+        \${this.disabled ? 'disabled' : ''}
+      >
+        <span part="indicator" class="indicator" aria-hidden="true">\${icon}</span>
+      </button>
+    \`;
+        const button = this.shadowRoot.querySelector('button');
+        button?.addEventListener('click', this.toggle);
+        button?.addEventListener('keydown', this.onKeyDown);
+    }
+}
+if (!customElements.get('shadcx-checkbox')) {
+    customElements.define('shadcx-checkbox', Checkbox);
+}`,X=class extends z{constructor(...e){super(...e),this._checked=!1}static{this.styles=o`
     :host {
       display: block;
       font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
@@ -2302,7 +3521,7 @@ background-color: hsl(var(--primary));</code></pre>
         font-size: 0.75rem;
       }
     }
-  `}_onCheckedChange(e){let t=e.currentTarget;this._checked=!!t.checked}render(){return k`
+  `}_onCheckedChange(e){let t=e.currentTarget;this._checked=!!t.checked}render(){return A`
       <h1>Checkbox</h1>
       <p class="desc">
         A control that allows the user to toggle between checked and unchecked
@@ -2310,8 +3529,11 @@ background-color: hsl(var(--primary));</code></pre>
       </p>
 
       <h2>Installation</h2>
-      <pre><code>&lt;link rel="stylesheet" href=".../assets/index.css"&gt;
-&lt;script type="module" src=".../assets/index.js"&gt;&lt;/script&gt;</code></pre>
+      <pre><code>&lt;link rel="stylesheet" href="https://dobrinyonkov.github.io/shadcx/assets/theme.css"&gt;
+&lt;script type="module" src="https://dobrinyonkov.github.io/shadcx/assets/checkbox.js"&gt;&lt;/script&gt;</code></pre>
+
+      <h2>Copy Paste Source</h2>
+      <source-code-block filename="checkbox.ts" .source=${We} .jsSource=${Ge}></source-code-block>
 
       <h2>Usage</h2>
       <pre><code>&lt;shadcx-checkbox&gt;&lt;/shadcx-checkbox&gt;</code></pre>
@@ -2404,7 +3626,950 @@ background-color: hsl(var(--primary));</code></pre>
           </tbody>
         </table>
       </div>
-    `}};U([V()],X.prototype,`_checked`,void 0),X=U([z(`checkbox-page`)],X);var Z=[`Next.js`,`SvelteKit`,`Nuxt.js`,`Remix`,`Astro`],Q=class extends R{constructor(...e){super(...e),this._singleValue=``,this._multipleValues=[]}static{this.styles=o`
+    `}};U([H()],X.prototype,`_checked`,void 0),X=U([B(`checkbox-page`)],X);var Ke=`const styles = \`
+  *, *::before, *::after { box-sizing: border-box; }
+  * { margin: 0; }
+  img, svg, video, canvas, audio, iframe, embed, object { display: block; vertical-align: middle; }
+  img, video { max-width: 100%; height: auto; }
+  h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
+  blockquote, dl, dd, hr, figure, p, pre { margin: 0; }
+  ol, ul { list-style: none; margin: 0; padding: 0; }
+  a { color: inherit; text-decoration: inherit; }
+  button, input, optgroup, select, textarea {
+    font-family: inherit;
+    font-feature-settings: inherit;
+    font-variation-settings: inherit;
+    font-size: 100%;
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    margin: 0;
+    padding: 0;
+  }
+  button, select { text-transform: none; }
+  button, [type='button'], [type='reset'], [type='submit'] {
+    appearance: button;
+    background-color: transparent;
+    background-image: none;
+  }
+  :-moz-focusring { outline: auto; }
+  :-moz-ui-invalid { box-shadow: none; }
+  progress { vertical-align: baseline; }
+  ::-webkit-inner-spin-button, ::-webkit-outer-spin-button { height: auto; }
+  [type='search'] { appearance: textfield; outline-offset: -2px; }
+  ::-webkit-search-decoration { -webkit-appearance: none; }
+  ::-webkit-file-upload-button { font: inherit; appearance: button; }
+  textarea { resize: vertical; }
+  fieldset { margin: 0; padding: 0; min-width: 0; }
+  legend { padding: 0; }
+  ::placeholder { color: hsl(var(--muted-foreground)); opacity: 1; }
+  [hidden] { display: none !important; }
+
+  :host {
+    display: block;
+    width: 100%;
+    max-width: 24rem;
+    position: relative;
+    font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
+  }
+
+  .control { position: relative; width: 100%; }
+
+  .input {
+    width: 100%;
+    height: 2.25rem;
+    border-radius: calc(var(--radius) - 2px);
+    border: 1px solid hsl(var(--input));
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-size: 0.875rem;
+    padding: 0 2rem 0 0.75rem;
+    outline: none;
+  }
+
+  .input:focus-visible { box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--ring)); }
+  .input[aria-invalid] { border-color: hsl(var(--destructive)); }
+  .input:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .icon-btn {
+    position: absolute;
+    top: 50%;
+    right: 0.35rem;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    color: hsl(var(--muted-foreground));
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: calc(var(--radius) - 4px);
+    cursor: pointer;
+  }
+
+  .icon-btn:hover { background-color: hsl(var(--accent)); color: hsl(var(--accent-foreground)); }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+    min-height: 2.25rem;
+    border-radius: calc(var(--radius) - 2px);
+    border: 1px solid hsl(var(--input));
+    background-color: hsl(var(--background));
+    padding: 0.25rem 0.35rem;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    height: 1.5rem;
+    border-radius: 999px;
+    background-color: hsl(var(--secondary));
+    color: hsl(var(--secondary-foreground));
+    padding: 0 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .chip-remove {
+    border: none;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  .chips-input {
+    border: none;
+    background: transparent;
+    color: hsl(var(--foreground));
+    outline: none;
+    font-size: 0.875rem;
+    min-width: 8rem;
+    flex: 1;
+  }
+
+  .content {
+    position: absolute;
+    z-index: 30;
+    margin-top: 0.25rem;
+    width: 100%;
+    border: 1px solid hsl(var(--border));
+    border-radius: calc(var(--radius) - 2px);
+    background-color: hsl(var(--popover));
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.18);
+    overflow: hidden;
+  }
+
+  .empty { padding: 0.75rem; font-size: 0.8125rem; color: hsl(var(--muted-foreground)); }
+  .list { max-height: 15rem; overflow-y: auto; padding: 0.25rem; }
+
+  .item {
+    width: 100%;
+    border: none;
+    background: transparent;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    border-radius: calc(var(--radius) - 4px);
+    padding: 0.5rem;
+    color: hsl(var(--popover-foreground));
+    font-size: 0.875rem;
+    cursor: pointer;
+  }
+
+  .item:hover, .item[data-highlighted='true'] {
+    background-color: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+  }
+
+  .check { color: hsl(var(--primary)); font-size: 0.75rem; }
+\`
+
+function escapeHtml(value: string) {
+  return value
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;')
+}
+
+export class Combobox extends HTMLElement {
+  static observedAttributes = ['placeholder', 'disabled', 'multiple', 'show-clear', 'auto-highlight', 'aria-invalid', 'value']
+
+  private _items: string[] = []
+  private _values: string[] = []
+  private _query = ''
+  private _open = false
+  private _highlightedIndex = -1
+
+  get items() {
+    return this._items
+  }
+
+  set items(value: string[]) {
+    this._items = Array.isArray(value) ? value : []
+    this.render()
+  }
+
+  get placeholder() {
+    return this.getAttribute('placeholder') ?? 'Select an option'
+  }
+
+  set placeholder(value: string) {
+    this.setAttribute('placeholder', value)
+  }
+
+  get disabled() {
+    return this.hasAttribute('disabled')
+  }
+
+  set disabled(value: boolean) {
+    this.toggleAttribute('disabled', value)
+  }
+
+  get multiple() {
+    return this.hasAttribute('multiple')
+  }
+
+  set multiple(value: boolean) {
+    this.toggleAttribute('multiple', value)
+  }
+
+  get showClear() {
+    return this.hasAttribute('show-clear')
+  }
+
+  set showClear(value: boolean) {
+    this.toggleAttribute('show-clear', value)
+  }
+
+  get autoHighlight() {
+    return this.hasAttribute('auto-highlight')
+  }
+
+  set autoHighlight(value: boolean) {
+    this.toggleAttribute('auto-highlight', value)
+  }
+
+  get ariaInvalid() {
+    return this.getAttribute('aria-invalid')
+  }
+
+  set ariaInvalid(value: string | null) {
+    if (value === null) this.removeAttribute('aria-invalid')
+    else this.setAttribute('aria-invalid', value)
+  }
+
+  get value() {
+    return this.getAttribute('value') ?? ''
+  }
+
+  set value(value: string) {
+    if (value) this.setAttribute('value', value)
+    else this.removeAttribute('value')
+  }
+
+  get values() {
+    return this._values
+  }
+
+  set values(value: string[]) {
+    this._values = Array.isArray(value) ? value : []
+    this.render()
+  }
+
+  connectedCallback() {
+    if (!this.shadowRoot) this.attachShadow({ mode: 'open' })
+    window.addEventListener('pointerdown', this.onWindowPointerDown)
+    this.render()
+  }
+
+  disconnectedCallback() {
+    window.removeEventListener('pointerdown', this.onWindowPointerDown)
+  }
+
+  attributeChangedCallback() {
+    if (!this.multiple && !this._query && this.value) {
+      this._query = this.value
+    }
+    this.render()
+  }
+
+  private get filteredItems() {
+    const query = this._query.trim().toLowerCase()
+    if (!query) return this.items
+    return this.items.filter((item) => item.toLowerCase().includes(query))
+  }
+
+  private onWindowPointerDown = (event: PointerEvent) => {
+    if (!event.composedPath().includes(this)) {
+      this._open = false
+      this.render()
+    }
+  }
+
+  private toggleOpen() {
+    if (this.disabled) return
+    this._open = !this._open
+    if (this._open && this.autoHighlight && this.filteredItems.length > 0) {
+      this._highlightedIndex = 0
+    }
+    this.render()
+  }
+
+  private onInput = (event: Event) => {
+    const input = event.currentTarget as HTMLInputElement
+    this._query = input.value
+    this._open = true
+    this._highlightedIndex = this.autoHighlight && this.filteredItems.length > 0 ? 0 : -1
+    this.render(true)
+  }
+
+  private onKeyDown = (event: KeyboardEvent) => {
+    if (!this._open && event.key === 'ArrowDown') {
+      event.preventDefault()
+      this._open = true
+      this._highlightedIndex = 0
+      this.render(true)
+      return
+    }
+
+    if (!this._open) return
+
+    if (event.key === 'ArrowDown') {
+      event.preventDefault()
+      this._highlightedIndex = Math.min(this._highlightedIndex + 1, this.filteredItems.length - 1)
+      this.render(true)
+      return
+    }
+
+    if (event.key === 'ArrowUp') {
+      event.preventDefault()
+      this._highlightedIndex = Math.max(this._highlightedIndex - 1, 0)
+      this.render(true)
+      return
+    }
+
+    if (event.key === 'Enter' && this._highlightedIndex >= 0) {
+      event.preventDefault()
+      this.selectItem(this.filteredItems[this._highlightedIndex])
+      return
+    }
+
+    if (event.key === 'Escape') {
+      this._open = false
+      this._highlightedIndex = -1
+      this.render(true)
+    }
+  }
+
+  private selectItem(item: string) {
+    if (this.multiple) {
+      if (this.values.includes(item)) {
+        this._values = this.values.filter((value) => value !== item)
+      } else {
+        this._values = [...this.values, item]
+      }
+      this._query = ''
+      this.dispatchValueChange(this.values)
+      this.render(true)
+      return
+    }
+
+    this.value = item
+    this._query = item
+    this._open = false
+    this.dispatchValueChange(this.value)
+    this.render()
+  }
+
+  private clear() {
+    this.value = ''
+    this._values = []
+    this._query = ''
+    this.dispatchValueChange(this.multiple ? this.values : this.value)
+    this.render(true)
+  }
+
+  private onActionButtonClick = () => {
+    const hasValue = this.multiple ? this.values.length > 0 : Boolean(this.value)
+    if (this.showClear && hasValue) {
+      this.clear()
+      return
+    }
+    this.toggleOpen()
+  }
+
+  private removeValue(item: string) {
+    this._values = this.values.filter((value) => value !== item)
+    this.dispatchValueChange(this.values)
+    this.render(true)
+  }
+
+  private dispatchValueChange(value: string | string[]) {
+    this.dispatchEvent(new CustomEvent('value-change', { detail: { value }, bubbles: true, composed: true }))
+  }
+
+  private render(focusInput = false) {
+    if (!this.shadowRoot) return
+    if (!this.multiple && !this._query && this.value) {
+      this._query = this.value
+    }
+
+    const inputAttrs = \`
+      value="\${escapeHtml(this._query)}"
+      placeholder="\${escapeHtml(this.placeholder)}"
+      \${this.disabled ? 'disabled' : ''}
+      \${this.ariaInvalid ? \`aria-invalid="\${escapeHtml(this.ariaInvalid)}"\` : ''}
+    \`
+    const hasValue = this.multiple ? this.values.length > 0 : Boolean(this.value)
+    const actionLabel = this.showClear && hasValue ? 'Clear selection' : 'Open options'
+    const actionText = this.showClear && hasValue ? 'x' : '▾'
+
+    this.shadowRoot.innerHTML = \`
+      <style>\${styles}</style>
+      <div class="control">
+        \${this.multiple ? this.renderMultipleInput(inputAttrs) : this.renderSingleInput(inputAttrs)}
+        <button class="icon-btn" type="button" aria-label="\${actionLabel}">\${actionText}</button>
+      </div>
+      \${this._open ? this.renderContent() : ''}
+    \`
+
+    const input = this.shadowRoot.querySelector('input')
+    input?.addEventListener('focus', () => {
+      this._open = true
+      this.render(true)
+    })
+    input?.addEventListener('input', this.onInput)
+    input?.addEventListener('keydown', this.onKeyDown)
+    this.shadowRoot.querySelector('.icon-btn')?.addEventListener('click', this.onActionButtonClick)
+    this.shadowRoot.querySelectorAll<HTMLButtonElement>('[data-item-index]').forEach((button) => {
+      button.addEventListener('mouseenter', () => {
+        this._highlightedIndex = Number(button.dataset.itemIndex)
+        this.render(focusInput)
+      })
+      button.addEventListener('click', () => this.selectItem(this.filteredItems[Number(button.dataset.itemIndex)]))
+    })
+    this.shadowRoot.querySelectorAll<HTMLButtonElement>('[data-remove-value]').forEach((button) => {
+      button.addEventListener('click', () => this.removeValue(button.dataset.removeValue ?? ''))
+    })
+
+    if (focusInput) {
+      const nextInput = this.shadowRoot.querySelector<HTMLInputElement>('input')
+      nextInput?.focus()
+      nextInput?.setSelectionRange(nextInput.value.length, nextInput.value.length)
+    }
+  }
+
+  private renderSingleInput(inputAttrs: string) {
+    return \`<input class="input" part="input" \${inputAttrs}>\`
+  }
+
+  private renderMultipleInput(inputAttrs: string) {
+    return \`
+      <div class="chips" part="chips">
+        \${this.values.map((item) => \`
+          <span class="chip" part="chip">
+            \${escapeHtml(item)}
+            <button class="chip-remove" type="button" data-remove-value="\${escapeHtml(item)}" aria-label="Remove \${escapeHtml(item)}">x</button>
+          </span>
+        \`).join('')}
+        <input class="chips-input" part="input" \${inputAttrs}>
+      </div>
+    \`
+  }
+
+  private renderContent() {
+    const filtered = this.filteredItems
+    return \`
+      <div class="content" part="content">
+        \${filtered.length === 0
+          ? '<div class="empty" part="empty">No items found.</div>'
+          : \`<div class="list" part="list">
+              \${filtered.map((item, index) => this.renderItem(item, index)).join('')}
+            </div>\`}
+      </div>
+    \`
+  }
+
+  private renderItem(item: string, index: number) {
+    const selected = this.multiple ? this.values.includes(item) : this.value === item
+    return \`
+      <button
+        class="item"
+        part="item"
+        type="button"
+        data-item-index="\${index}"
+        data-highlighted="\${String(index === this._highlightedIndex)}"
+      >
+        <span>\${escapeHtml(item)}</span>
+        \${selected ? '<span class="check">✓</span>' : ''}
+      </button>
+    \`
+  }
+}
+
+if (!customElements.get('shadcx-combobox')) {
+  customElements.define('shadcx-combobox', Combobox)
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'shadcx-combobox': Combobox
+  }
+}
+`,qe=`const styles = \`
+  *, *::before, *::after { box-sizing: border-box; }
+  * { margin: 0; }
+  img, svg, video, canvas, audio, iframe, embed, object { display: block; vertical-align: middle; }
+  img, video { max-width: 100%; height: auto; }
+  h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
+  blockquote, dl, dd, hr, figure, p, pre { margin: 0; }
+  ol, ul { list-style: none; margin: 0; padding: 0; }
+  a { color: inherit; text-decoration: inherit; }
+  button, input, optgroup, select, textarea {
+    font-family: inherit;
+    font-feature-settings: inherit;
+    font-variation-settings: inherit;
+    font-size: 100%;
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    margin: 0;
+    padding: 0;
+  }
+  button, select { text-transform: none; }
+  button, [type='button'], [type='reset'], [type='submit'] {
+    appearance: button;
+    background-color: transparent;
+    background-image: none;
+  }
+  :-moz-focusring { outline: auto; }
+  :-moz-ui-invalid { box-shadow: none; }
+  progress { vertical-align: baseline; }
+  ::-webkit-inner-spin-button, ::-webkit-outer-spin-button { height: auto; }
+  [type='search'] { appearance: textfield; outline-offset: -2px; }
+  ::-webkit-search-decoration { -webkit-appearance: none; }
+  ::-webkit-file-upload-button { font: inherit; appearance: button; }
+  textarea { resize: vertical; }
+  fieldset { margin: 0; padding: 0; min-width: 0; }
+  legend { padding: 0; }
+  ::placeholder { color: hsl(var(--muted-foreground)); opacity: 1; }
+  [hidden] { display: none !important; }
+
+  :host {
+    display: block;
+    width: 100%;
+    max-width: 24rem;
+    position: relative;
+    font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
+  }
+
+  .control { position: relative; width: 100%; }
+
+  .input {
+    width: 100%;
+    height: 2.25rem;
+    border-radius: calc(var(--radius) - 2px);
+    border: 1px solid hsl(var(--input));
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-size: 0.875rem;
+    padding: 0 2rem 0 0.75rem;
+    outline: none;
+  }
+
+  .input:focus-visible { box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--ring)); }
+  .input[aria-invalid] { border-color: hsl(var(--destructive)); }
+  .input:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .icon-btn {
+    position: absolute;
+    top: 50%;
+    right: 0.35rem;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    color: hsl(var(--muted-foreground));
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: calc(var(--radius) - 4px);
+    cursor: pointer;
+  }
+
+  .icon-btn:hover { background-color: hsl(var(--accent)); color: hsl(var(--accent-foreground)); }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+    min-height: 2.25rem;
+    border-radius: calc(var(--radius) - 2px);
+    border: 1px solid hsl(var(--input));
+    background-color: hsl(var(--background));
+    padding: 0.25rem 0.35rem;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    height: 1.5rem;
+    border-radius: 999px;
+    background-color: hsl(var(--secondary));
+    color: hsl(var(--secondary-foreground));
+    padding: 0 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .chip-remove {
+    border: none;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  .chips-input {
+    border: none;
+    background: transparent;
+    color: hsl(var(--foreground));
+    outline: none;
+    font-size: 0.875rem;
+    min-width: 8rem;
+    flex: 1;
+  }
+
+  .content {
+    position: absolute;
+    z-index: 30;
+    margin-top: 0.25rem;
+    width: 100%;
+    border: 1px solid hsl(var(--border));
+    border-radius: calc(var(--radius) - 2px);
+    background-color: hsl(var(--popover));
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.18);
+    overflow: hidden;
+  }
+
+  .empty { padding: 0.75rem; font-size: 0.8125rem; color: hsl(var(--muted-foreground)); }
+  .list { max-height: 15rem; overflow-y: auto; padding: 0.25rem; }
+
+  .item {
+    width: 100%;
+    border: none;
+    background: transparent;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    border-radius: calc(var(--radius) - 4px);
+    padding: 0.5rem;
+    color: hsl(var(--popover-foreground));
+    font-size: 0.875rem;
+    cursor: pointer;
+  }
+
+  .item:hover, .item[data-highlighted='true'] {
+    background-color: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+  }
+
+  .check { color: hsl(var(--primary)); font-size: 0.75rem; }
+\`;
+function escapeHtml(value) {
+    return value
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
+}
+export class Combobox extends HTMLElement {
+    static observedAttributes = ['placeholder', 'disabled', 'multiple', 'show-clear', 'auto-highlight', 'aria-invalid', 'value'];
+    _items = [];
+    _values = [];
+    _query = '';
+    _open = false;
+    _highlightedIndex = -1;
+    get items() {
+        return this._items;
+    }
+    set items(value) {
+        this._items = Array.isArray(value) ? value : [];
+        this.render();
+    }
+    get placeholder() {
+        return this.getAttribute('placeholder') ?? 'Select an option';
+    }
+    set placeholder(value) {
+        this.setAttribute('placeholder', value);
+    }
+    get disabled() {
+        return this.hasAttribute('disabled');
+    }
+    set disabled(value) {
+        this.toggleAttribute('disabled', value);
+    }
+    get multiple() {
+        return this.hasAttribute('multiple');
+    }
+    set multiple(value) {
+        this.toggleAttribute('multiple', value);
+    }
+    get showClear() {
+        return this.hasAttribute('show-clear');
+    }
+    set showClear(value) {
+        this.toggleAttribute('show-clear', value);
+    }
+    get autoHighlight() {
+        return this.hasAttribute('auto-highlight');
+    }
+    set autoHighlight(value) {
+        this.toggleAttribute('auto-highlight', value);
+    }
+    get ariaInvalid() {
+        return this.getAttribute('aria-invalid');
+    }
+    set ariaInvalid(value) {
+        if (value === null)
+            this.removeAttribute('aria-invalid');
+        else
+            this.setAttribute('aria-invalid', value);
+    }
+    get value() {
+        return this.getAttribute('value') ?? '';
+    }
+    set value(value) {
+        if (value)
+            this.setAttribute('value', value);
+        else
+            this.removeAttribute('value');
+    }
+    get values() {
+        return this._values;
+    }
+    set values(value) {
+        this._values = Array.isArray(value) ? value : [];
+        this.render();
+    }
+    connectedCallback() {
+        if (!this.shadowRoot)
+            this.attachShadow({ mode: 'open' });
+        window.addEventListener('pointerdown', this.onWindowPointerDown);
+        this.render();
+    }
+    disconnectedCallback() {
+        window.removeEventListener('pointerdown', this.onWindowPointerDown);
+    }
+    attributeChangedCallback() {
+        if (!this.multiple && !this._query && this.value) {
+            this._query = this.value;
+        }
+        this.render();
+    }
+    get filteredItems() {
+        const query = this._query.trim().toLowerCase();
+        if (!query)
+            return this.items;
+        return this.items.filter((item) => item.toLowerCase().includes(query));
+    }
+    onWindowPointerDown = (event) => {
+        if (!event.composedPath().includes(this)) {
+            this._open = false;
+            this.render();
+        }
+    };
+    toggleOpen() {
+        if (this.disabled)
+            return;
+        this._open = !this._open;
+        if (this._open && this.autoHighlight && this.filteredItems.length > 0) {
+            this._highlightedIndex = 0;
+        }
+        this.render();
+    }
+    onInput = (event) => {
+        const input = event.currentTarget;
+        this._query = input.value;
+        this._open = true;
+        this._highlightedIndex = this.autoHighlight && this.filteredItems.length > 0 ? 0 : -1;
+        this.render(true);
+    };
+    onKeyDown = (event) => {
+        if (!this._open && event.key === 'ArrowDown') {
+            event.preventDefault();
+            this._open = true;
+            this._highlightedIndex = 0;
+            this.render(true);
+            return;
+        }
+        if (!this._open)
+            return;
+        if (event.key === 'ArrowDown') {
+            event.preventDefault();
+            this._highlightedIndex = Math.min(this._highlightedIndex + 1, this.filteredItems.length - 1);
+            this.render(true);
+            return;
+        }
+        if (event.key === 'ArrowUp') {
+            event.preventDefault();
+            this._highlightedIndex = Math.max(this._highlightedIndex - 1, 0);
+            this.render(true);
+            return;
+        }
+        if (event.key === 'Enter' && this._highlightedIndex >= 0) {
+            event.preventDefault();
+            this.selectItem(this.filteredItems[this._highlightedIndex]);
+            return;
+        }
+        if (event.key === 'Escape') {
+            this._open = false;
+            this._highlightedIndex = -1;
+            this.render(true);
+        }
+    };
+    selectItem(item) {
+        if (this.multiple) {
+            if (this.values.includes(item)) {
+                this._values = this.values.filter((value) => value !== item);
+            }
+            else {
+                this._values = [...this.values, item];
+            }
+            this._query = '';
+            this.dispatchValueChange(this.values);
+            this.render(true);
+            return;
+        }
+        this.value = item;
+        this._query = item;
+        this._open = false;
+        this.dispatchValueChange(this.value);
+        this.render();
+    }
+    clear() {
+        this.value = '';
+        this._values = [];
+        this._query = '';
+        this.dispatchValueChange(this.multiple ? this.values : this.value);
+        this.render(true);
+    }
+    onActionButtonClick = () => {
+        const hasValue = this.multiple ? this.values.length > 0 : Boolean(this.value);
+        if (this.showClear && hasValue) {
+            this.clear();
+            return;
+        }
+        this.toggleOpen();
+    };
+    removeValue(item) {
+        this._values = this.values.filter((value) => value !== item);
+        this.dispatchValueChange(this.values);
+        this.render(true);
+    }
+    dispatchValueChange(value) {
+        this.dispatchEvent(new CustomEvent('value-change', { detail: { value }, bubbles: true, composed: true }));
+    }
+    render(focusInput = false) {
+        if (!this.shadowRoot)
+            return;
+        if (!this.multiple && !this._query && this.value) {
+            this._query = this.value;
+        }
+        const inputAttrs = \`
+      value="\${escapeHtml(this._query)}"
+      placeholder="\${escapeHtml(this.placeholder)}"
+      \${this.disabled ? 'disabled' : ''}
+      \${this.ariaInvalid ? \`aria-invalid="\${escapeHtml(this.ariaInvalid)}"\` : ''}
+    \`;
+        const hasValue = this.multiple ? this.values.length > 0 : Boolean(this.value);
+        const actionLabel = this.showClear && hasValue ? 'Clear selection' : 'Open options';
+        const actionText = this.showClear && hasValue ? 'x' : '▾';
+        this.shadowRoot.innerHTML = \`
+      <style>\${styles}</style>
+      <div class="control">
+        \${this.multiple ? this.renderMultipleInput(inputAttrs) : this.renderSingleInput(inputAttrs)}
+        <button class="icon-btn" type="button" aria-label="\${actionLabel}">\${actionText}</button>
+      </div>
+      \${this._open ? this.renderContent() : ''}
+    \`;
+        const input = this.shadowRoot.querySelector('input');
+        input?.addEventListener('focus', () => {
+            this._open = true;
+            this.render(true);
+        });
+        input?.addEventListener('input', this.onInput);
+        input?.addEventListener('keydown', this.onKeyDown);
+        this.shadowRoot.querySelector('.icon-btn')?.addEventListener('click', this.onActionButtonClick);
+        this.shadowRoot.querySelectorAll('[data-item-index]').forEach((button) => {
+            button.addEventListener('mouseenter', () => {
+                this._highlightedIndex = Number(button.dataset.itemIndex);
+                this.render(focusInput);
+            });
+            button.addEventListener('click', () => this.selectItem(this.filteredItems[Number(button.dataset.itemIndex)]));
+        });
+        this.shadowRoot.querySelectorAll('[data-remove-value]').forEach((button) => {
+            button.addEventListener('click', () => this.removeValue(button.dataset.removeValue ?? ''));
+        });
+        if (focusInput) {
+            const nextInput = this.shadowRoot.querySelector('input');
+            nextInput?.focus();
+            nextInput?.setSelectionRange(nextInput.value.length, nextInput.value.length);
+        }
+    }
+    renderSingleInput(inputAttrs) {
+        return \`<input class="input" part="input" \${inputAttrs}>\`;
+    }
+    renderMultipleInput(inputAttrs) {
+        return \`
+      <div class="chips" part="chips">
+        \${this.values.map((item) => \`
+          <span class="chip" part="chip">
+            \${escapeHtml(item)}
+            <button class="chip-remove" type="button" data-remove-value="\${escapeHtml(item)}" aria-label="Remove \${escapeHtml(item)}">x</button>
+          </span>
+        \`).join('')}
+        <input class="chips-input" part="input" \${inputAttrs}>
+      </div>
+    \`;
+    }
+    renderContent() {
+        const filtered = this.filteredItems;
+        return \`
+      <div class="content" part="content">
+        \${filtered.length === 0
+            ? '<div class="empty" part="empty">No items found.</div>'
+            : \`<div class="list" part="list">
+              \${filtered.map((item, index) => this.renderItem(item, index)).join('')}
+            </div>\`}
+      </div>
+    \`;
+    }
+    renderItem(item, index) {
+        const selected = this.multiple ? this.values.includes(item) : this.value === item;
+        return \`
+      <button
+        class="item"
+        part="item"
+        type="button"
+        data-item-index="\${index}"
+        data-highlighted="\${String(index === this._highlightedIndex)}"
+      >
+        <span>\${escapeHtml(item)}</span>
+        \${selected ? '<span class="check">✓</span>' : ''}
+      </button>
+    \`;
+    }
+}
+if (!customElements.get('shadcx-combobox')) {
+    customElements.define('shadcx-combobox', Combobox);
+}`,Z=[`Next.js`,`SvelteKit`,`Nuxt.js`,`Remix`,`Astro`],Q=class extends z{constructor(...e){super(...e),this._singleValue=``,this._multipleValues=[]}static{this.styles=o`
     :host {
       display: block;
       font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
@@ -2515,7 +4680,7 @@ background-color: hsl(var(--primary));</code></pre>
       color: hsl(var(--foreground));
       font-weight: 500;
     }
-  `}_onSingleValueChange(e){let t=e;this._singleValue=t.detail.value}_onMultipleValueChange(e){let t=e;this._multipleValues=t.detail.value}render(){return k`
+  `}_onSingleValueChange(e){let t=e;this._singleValue=t.detail.value}_onMultipleValueChange(e){let t=e;this._multipleValues=t.detail.value}render(){return A`
       <h1>Combobox</h1>
       <p class="desc">
         Autocomplete input with suggestion filtering, keyboard navigation, clear
@@ -2523,8 +4688,11 @@ background-color: hsl(var(--primary));</code></pre>
       </p>
 
       <h2>Installation</h2>
-      <pre><code>&lt;link rel="stylesheet" href=".../assets/index.css"&gt;
-&lt;script type="module" src=".../assets/index.js"&gt;&lt;/script&gt;</code></pre>
+      <pre><code>&lt;link rel="stylesheet" href="https://dobrinyonkov.github.io/shadcx/assets/theme.css"&gt;
+&lt;script type="module" src="https://dobrinyonkov.github.io/shadcx/assets/combobox.js"&gt;&lt;/script&gt;</code></pre>
+
+      <h2>Copy Paste Source</h2>
+      <source-code-block filename="combobox.ts" .source=${Ke} .jsSource=${qe}></source-code-block>
 
       <h2>Usage</h2>
       <p>
@@ -2631,7 +4799,7 @@ background-color: hsl(var(--primary));</code></pre>
           </tbody>
         </table>
       </div>
-    `}};U([V()],Q.prototype,`_singleValue`,void 0),U([V()],Q.prototype,`_multipleValues`,void 0),Q=U([z(`combobox-page`)],Q);var $=class extends R{constructor(){super(),this._page=`/`,this._sidebarOpen=!1,this._dark=!1,this._dark=window.matchMedia(`(prefers-color-scheme: dark)`).matches,this._applyTheme(),this._updatePage(),window.addEventListener(`hashchange`,()=>this._updatePage()),window.matchMedia(`(prefers-color-scheme: dark)`).addEventListener(`change`,e=>{this._dark=e.matches,this._applyTheme()})}_updatePage(){let e=location.hash.slice(1)||`/`;this._page=e,this._sidebarOpen=!1}_applyTheme(){document.documentElement.classList.toggle(`dark`,this._dark),document.documentElement.style.colorScheme=this._dark?`dark`:`light`}_toggleTheme(){this._dark=!this._dark,this._applyTheme()}static{this.styles=o`
+    `}};U([H()],Q.prototype,`_singleValue`,void 0),U([H()],Q.prototype,`_multipleValues`,void 0),Q=U([B(`combobox-page`)],Q);var $=class extends z{constructor(){super(),this._page=`/`,this._sidebarOpen=!1,this._dark=!1,this._dark=window.matchMedia(`(prefers-color-scheme: dark)`).matches,this._applyTheme(),this._updatePage(),window.addEventListener(`hashchange`,()=>this._updatePage()),window.matchMedia(`(prefers-color-scheme: dark)`).addEventListener(`change`,e=>{this._dark=e.matches,this._applyTheme()})}_updatePage(){let e=location.hash.slice(1)||`/`;this._page=e,this._sidebarOpen=!1}_applyTheme(){document.documentElement.classList.toggle(`dark`,this._dark),document.documentElement.style.colorScheme=this._dark?`dark`:`light`}_toggleTheme(){this._dark=!this._dark,this._applyTheme()}static{this.styles=o`
     :host {
       display: flex;
       flex-direction: column;
@@ -2742,6 +4910,10 @@ background-color: hsl(var(--primary));</code></pre>
       background-color: hsl(var(--background));
     }
 
+    .content.wide {
+      max-width: none;
+    }
+
     @media (min-width: 768px) {
       .topbar {
         padding-left: 1.5rem;
@@ -2767,7 +4939,7 @@ background-color: hsl(var(--primary));</code></pre>
         display: none !important;
       }
     }
-  `}render(){let e=this._sidebarOpen?`sidebar open`:`sidebar`,t=this._sidebarOpen?`overlay open`:`overlay`,n=this._dark?`☀`:`☽`;return k`
+  `}render(){let e=this._sidebarOpen?`sidebar open`:`sidebar`,t=this._sidebarOpen?`overlay open`:`overlay`,n=this._dark?`☀`:`☽`,r=this._page===`theme-generator`?`content wide`:`content`;return A`
       <!-- topbar (mobile only) -->
       <header class="topbar">
         <button
@@ -2797,6 +4969,6 @@ background-color: hsl(var(--primary));</code></pre>
           <app-sidebar active=${this._page}></app-sidebar>
         </aside>
 
-        <main class="content">${this._renderPage()}</main>
+        <main class=${r}>${this._renderPage()}</main>
       </div>
-    `}_renderPage(){switch(this._page){case`badge`:return k`<badge-page></badge-page>`;case`button`:return k`<button-page></button-page>`;case`input`:return k`<input-page></input-page>`;case`checkbox`:return k`<checkbox-page></checkbox-page>`;case`combobox`:return k`<combobox-page></combobox-page>`;case`theming`:return k`<theming-page></theming-page>`;default:return k`<overview-page></overview-page>`}}};U([V()],$.prototype,`_page`,void 0),U([V()],$.prototype,`_sidebarOpen`,void 0),U([V()],$.prototype,`_dark`,void 0),$=U([z(`app-layout`)],$);
+    `}_renderPage(){switch(this._page){case`badge`:return A`<badge-page></badge-page>`;case`button`:return A`<button-page></button-page>`;case`input`:return A`<input-page></input-page>`;case`checkbox`:return A`<checkbox-page></checkbox-page>`;case`combobox`:return A`<combobox-page></combobox-page>`;case`theming`:return A`<theming-page></theming-page>`;case`theme-generator`:return A`<theme-generator-page></theme-generator-page>`;default:return A`<overview-page></overview-page>`}}};U([H()],$.prototype,`_page`,void 0),U([H()],$.prototype,`_sidebarOpen`,void 0),U([H()],$.prototype,`_dark`,void 0),$=U([B(`app-layout`)],$);
