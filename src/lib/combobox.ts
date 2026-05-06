@@ -334,7 +334,7 @@ export class Combobox extends HTMLElement {
     if (event.key === 'Escape') {
       this._open = false
       this._highlightedIndex = -1
-      this.render(true)
+      this.render()
     }
   }
 
@@ -412,6 +412,7 @@ export class Combobox extends HTMLElement {
 
     const input = this.shadowRoot.querySelector('input')
     input?.addEventListener('focus', () => {
+      if (this._open) return
       this._open = true
       this.render(true)
     })
