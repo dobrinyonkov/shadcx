@@ -13,6 +13,7 @@ shadcx components are:
 - **Framework-agnostic**: Vanilla `HTMLElement` custom elements. Works in React, Vue, Svelte, or plain HTML.
 - **Theme-driven**: All styling comes from CSS custom properties in `theme.css`. Change variables, change the look.
 - **CDN-ready**: Use with `<script type="module">` — no bundler needed.
+- **Test-gated**: `pnpm build` runs Vitest coverage and fails below 80% global component coverage.
 
 ## Quick Start
 
@@ -30,8 +31,8 @@ Load the theme and any components you need:
 ## Components
 
 ### Button
-- **Variants**: `default` | `secondary` | `destructive` | `outline` | `ghost`
-- **Sizes**: `default` | `sm` | `lg` | `icon-sm`
+- **Variants**: `default` | `secondary` | `destructive` | `outline` | `ghost` | `link`
+- **Sizes**: `default` | `xs` | `sm` | `lg` | `icon` | `icon-xs` | `icon-sm` | `icon-lg`
 - **Attributes**: `variant`, `size`, `disabled`
 - **CSS Part**: `::part(root)` for custom overrides
 
@@ -68,7 +69,8 @@ Load the theme and any components you need:
 ```
 
 ### Combobox
-- **Properties**: `.items` (array of strings), `.value` (string), `.open` (boolean)
+- **Properties**: `.items` (array of strings), `.value` (string), `.values` (array of strings)
+- **Attributes**: `multiple`, `show-clear`, `auto-highlight`, `disabled`, `aria-invalid`
 - **Keyboard**: Arrow keys to navigate, Enter to select, Escape to close
 - **Clear button**: Appears when a value is selected
 
@@ -109,6 +111,8 @@ Load the theme and any components you need:
 - **Composition**: `shadcx-dropdown-menu`, `shadcx-dropdown-menu-trigger`, `shadcx-dropdown-menu-content`, `shadcx-dropdown-menu-item`, labels, groups, separators, checkbox/radio items, shortcuts, and submenus
 - **Attributes**: root `open`, content `align="start" | "end"`, item `variant="default" | "destructive"`, item `disabled`
 - **Events**: `checked-change` on checkbox items, `value-change` on radio groups
+- **Keyboard**: trigger opens with Enter, Space, ArrowDown, or ArrowUp; menu items support ArrowUp, ArrowDown, Home, End, and Escape dismissal
+- **Placement**: main menus flip top/bottom and submenus flip left/right based on available viewport space
 
 ```html
 <shadcx-dropdown-menu>
@@ -149,6 +153,10 @@ Override variables to retheme:
   }
 </style>
 ```
+
+### Theme Generator
+
+The docs app includes a Theme Generator at `/#/theme-generator`. It previews real shadcx components in a horizontally scrollable card grid and exports CSS variables. In dark mode, base color palettes do not override dark foreground, border, muted, input, and background tokens, so shuffled themes stay readable.
 
 ## Layout Patterns
 
@@ -214,9 +222,19 @@ The `theme.css` file provides `.dark` overrides for all variables.
 
 Download `theme.css` and individual `.js` files from the GitHub releases or build from source. No npm install needed for consumers.
 
+### Testing and Coverage
+
+```bash
+pnpm test
+pnpm build
+```
+
+`pnpm build` runs `tsc && vitest run --coverage && vite build`. Coverage includes `src/lib/*.ts`, excludes `src/lib/*.test.ts`, and enforces 80% thresholds for statements, branches, functions, and lines.
+
 ## Rules
 
 - Always load `theme.css` before component scripts.
 - Components self-register on import. Do not manually call `customElements.define`.
 - Use `shadcx-*` tag names as shown — custom element names are fixed.
+- Prefer real shadcx components over inline HTML/CSS when a component exists.
 - For missing primitives (Select, Dialog, Tabs, Table, Alert, Separator), compose with HTML + CSS using the theme variables, or inline a custom element. Mark with a comment `<!-- replace with shadcx X -->` for future migration.
