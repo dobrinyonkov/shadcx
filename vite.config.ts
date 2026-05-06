@@ -35,7 +35,7 @@ function discoverComponentEntries() {
   const entries: Record<string, string> = {}
 
   for (const file of files) {
-    if (!file.endsWith('.ts') || file === 'index.ts') continue
+    if (!file.endsWith('.ts') || file.endsWith('.test.ts') || file === 'index.ts') continue
     const name = file.replace('.ts', '')
     entries[name] = `src/lib/${file}`
   }
@@ -47,12 +47,15 @@ function generateBarrel() {
   const libDir = path.resolve(__dirname, 'src/lib')
   const files = fs
     .readdirSync(libDir)
-    .filter((f) => f.endsWith('.ts') && f !== 'index.ts')
+    .filter((f) => f.endsWith('.ts') && !f.endsWith('.test.ts') && f !== 'index.ts')
     .sort()
 
   const exports = files.map((file) => {
     const name = file.replace('.ts', '')
-    const className = name[0].toUpperCase() + name.slice(1)
+    const className = name
+      .split('-')
+      .map((part) => part[0].toUpperCase() + part.slice(1))
+      .join('')
     return `export { ${className} } from './${file}'`
   })
 
