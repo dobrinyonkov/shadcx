@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>here.now — Dashboard</title>
+    <link rel="stylesheet" href="../lib/theme.css" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; }
+      html { font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif); }
+      body {
+        background: #fff;
+        color: hsl(var(--foreground));
+        min-height: 100svh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Header */
+      .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 3.5rem;
+        padding: 0 1.5rem;
+        border-bottom: 1px solid hsl(var(--border));
+      }
+      .header-logo { font-size: 1.125rem; font-weight: 700; letter-spacing: -0.02em; }
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      .header-link {
+        color: hsl(var(--muted-foreground));
+        font-size: 0.875rem;
+        text-decoration: none;
+      }
+      .header-link:hover { color: hsl(var(--foreground)); }
+
+      /* User dropdown (inline component — replace with shadcn DropdownMenu) */
+      .user-dropdown { position: relative; }
+      .user-dropdown-toggle {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        background: none;
+        border: none;
+        font: inherit;
+        color: hsl(var(--foreground));
+        font-size: 0.875rem;
+        cursor: pointer;
+        padding: 0.25rem;
+      }
+      .user-dropdown-menu {
+        position: absolute;
+        top: calc(100% + 0.25rem);
+        right: 0;
+        min-width: 12rem;
+        border: 1px solid hsl(var(--border));
+        border-radius: calc(var(--radius) - 2px);
+        background: hsl(var(--background));
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        padding: 0.375rem;
+        display: none;
+        z-index: 50;
+      }
+      .user-dropdown-menu.open { display: block; }
+      .user-dropdown-item {
+        display: block;
+        width: 100%;
+        padding: 0.5rem 0.625rem;
+        border-radius: calc(var(--radius) - 4px);
+        font-size: 0.875rem;
+        color: hsl(var(--foreground));
+        text-decoration: none;
+        cursor: pointer;
+        background: none;
+        border: none;
+        text-align: left;
+      }
+      .user-dropdown-item:hover { background: hsl(var(--accent)); }
+
+      /* Layout */
+      .layout {
+        display: grid;
+        grid-template-columns: 12rem 1fr;
+        gap: 2rem;
+        max-width: 56rem;
+        margin: 0 auto;
+        padding: 2rem 1.5rem;
+        flex: 1;
+        width: 100%;
+      }
+      @media (max-width: 640px) {
+        .layout { grid-template-columns: 1fr; padding: 1rem; }
+      }
+
+      /* Sidebar */
+      .sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 0.125rem;
+      }
+      .sidebar-item {
+        display: flex;
+        align-items: center;
+        padding: 0.5rem 0.75rem;
+        border-radius: calc(var(--radius) - 2px);
+        font-size: 0.875rem;
+        color: hsl(var(--muted-foreground));
+        text-decoration: none;
+        cursor: pointer;
+        background: none;
+        border: none;
+        width: 100%;
+        text-align: left;
+        font: inherit;
+      }
+      .sidebar-item:hover { background: hsl(var(--accent)); color: hsl(var(--accent-foreground)); }
+      .sidebar-item.active { background: hsl(var(--muted)); color: hsl(var(--foreground)); font-weight: 500; }
+
+      /* Main */
+      .main h2 {
+        font-size: 1.125rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+      .main p.desc {
+        font-size: 0.875rem;
+        color: hsl(var(--muted-foreground));
+        margin-bottom: 1rem;
+        line-height: 1.5;
+      }
+      .main p.muted {
+        font-size: 0.875rem;
+        color: hsl(var(--muted-foreground));
+        margin-bottom: 0.75rem;
+      }
+
+      /* Inline Card component — replace with shadcn Card */
+      .card {
+        border: 1px solid hsl(var(--border));
+        border-radius: calc(var(--radius) - 2px);
+        padding: 1rem;
+        background: hsl(var(--background));
+      }
+      .card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 0.5rem;
+      }
+      .card-title { font-size: 0.875rem; font-weight: 600; }
+      .card-meta { font-size: 0.8125rem; color: hsl(var(--muted-foreground)); }
+
+      /* Inline Textarea component — replace with shadcn Textarea */
+      .textarea {
+        width: 100%;
+        min-height: 8rem;
+        padding: 0.625rem 0.875rem;
+        border: 1px solid hsl(var(--border));
+        border-radius: calc(var(--radius) - 2px);
+        background: hsl(var(--background));
+        color: hsl(var(--foreground));
+        font: inherit;
+        font-size: 0.875rem;
+        line-height: 1.5;
+        resize: vertical;
+      }
+      .textarea::placeholder { color: hsl(var(--muted-foreground)); }
+      .textarea:focus { outline: none; box-shadow: 0 0 0 2px hsl(var(--ring) / 0.3); }
+
+      /* Form field */
+      .field { display: grid; gap: 0.375rem; margin-bottom: 1rem; }
+      .field label { font-size: 0.875rem; font-weight: 500; color: hsl(var(--foreground)); }
+
+      /* Inline Select component — replace with shadcn Select */
+      .select {
+        width: 100%;
+        height: 2.25rem;
+        padding: 0 0.75rem;
+        border: 1px solid hsl(var(--border));
+        border-radius: calc(var(--radius) - 2px);
+        background: hsl(var(--background));
+        color: hsl(var(--foreground));
+        font: inherit;
+        font-size: 0.875rem;
+        cursor: pointer;
+      }
+
+      /* Pricing grid */
+      .pricing-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+      }
+      @media (max-width: 640px) { .pricing-grid { grid-template-columns: 1fr; } }
+
+      .pricing-card {
+        border: 1px solid hsl(var(--border));
+        border-radius: calc(var(--radius) - 2px);
+        padding: 1.25rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+      .pricing-card.current { border-color: hsl(var(--foreground)); }
+      .pricing-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .pricing-name { font-size: 0.875rem; font-weight: 600; }
+      .pricing-current {
+        font-size: 0.6875rem;
+        padding: 0.125rem 0.5rem;
+        background: hsl(var(--foreground));
+        color: hsl(var(--background));
+        border-radius: calc(var(--radius) - 4px);
+      }
+      .pricing-price { font-size: 1.25rem; font-weight: 700; }
+      .pricing-features {
+        list-style: disc;
+        padding-left: 1.25rem;
+        font-size: 0.875rem;
+        color: hsl(var(--muted-foreground));
+        display: grid;
+        gap: 0.375rem;
+        flex: 1;
+      }
+      .pricing-features li::marker { color: hsl(var(--muted-foreground)); }
+
+      /* API key display */
+      .api-key-box {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.625rem 0.875rem;
+        border: 1px solid hsl(var(--border));
+        border-radius: calc(var(--radius) - 2px);
+        background: hsl(var(--muted) / 0.4);
+        font-family: var(--font-mono);
+        font-size: 0.875rem;
+        width: fit-content;
+        margin-bottom: 0.75rem;
+      }
+      .api-key-actions { display: flex; gap: 0.5rem; }
+
+      /* Footer */
+      .footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 1.5rem;
+        border-top: 1px solid hsl(var(--border));
+        font-size: 0.8125rem;
+        color: hsl(var(--muted-foreground));
+      }
+      .footer-links { display: flex; gap: 1rem; align-items: center; }
+      .footer-links a {
+        color: hsl(var(--muted-foreground));
+        text-decoration: none;
+      }
+      .footer-links a:hover { color: hsl(var(--foreground)); }
+
+      /* Tab content */
+      .tab-content { display: none; }
+      .tab-content.active { display: block; }
+
+      /* Inline Alert component — replace with shadcn Alert */
+      .alert {
+        padding: 0.875rem 1rem;
+        border: 1px solid hsl(var(--border));
+        border-radius: calc(var(--radius) - 2px);
+        background: hsl(var(--muted) / 0.4);
+        font-size: 0.875rem;
+        color: hsl(var(--foreground));
+        margin-bottom: 1rem;
+      }
+
+      /* Inline Separator — replace with shadcn Separator */
+      .separator {
+        height: 1px;
+        background: hsl(var(--border));
+        margin: 1rem 0;
+      }
+
+      /* Handle input suffix */
+      .handle-row {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .handle-suffix {
+        font-size: 0.875rem;
+        color: hsl(var(--muted-foreground));
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <span class="header-logo">here.now</span>
+      <div class="header-right">
+        <a class="header-link" href="#">Docs</a>
+        <shadcx-button size="sm">Dashboard</shadcx-button>
+        <div class="user-dropdown" id="userDropdown">
+          <button class="user-dropdown-toggle" id="userDropdownToggle">
+            dobch013@gmail.com
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="user-dropdown-menu" id="userDropdownMenu">
+            <button class="user-dropdown-item">Profile</button>
+            <button class="user-dropdown-item">Settings</button>
+            <div class="separator" style="margin:0.25rem 0"></div>
+            <button class="user-dropdown-item">Sign out</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="layout">
+      <nav class="sidebar" id="sidebar"></nav>
+
+      <main class="main" id="main">
+        <!-- Sites -->
+        <section class="tab-content active" data-tab="sites">
+          <h2>Sites</h2>
+          <p class="desc">The sites you publish to here.now will show here</p>
+          <shadcx-button>
+            <svg data-icon="inline-start" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copy setup instructions for my agent
+          </shadcx-button>
+        </section>
+
+        <!-- Drive -->
+        <section class="tab-content" data-tab="drive">
+          <h2>Drive</h2>
+          <p class="desc">Private cloud storage for your agents</p>
+          <div class="alert">Ask your agent to update to the latest <strong>here.now</strong> skill to use your Drives</div>
+          <div class="card" style="max-width:28rem">
+            <div class="card-header">
+              <div>
+                <span class="card-title">My Drive</span>
+                <shadcx-badge variant="outline" style="margin-left:0.5rem">default</shadcx-badge>
+              </div>
+              <span class="card-meta">8d</span>
+            </div>
+            <div class="card-meta">0 files</div>
+            <div style="display:flex;justify-content:flex-end;margin-top:0.5rem">
+              <shadcx-button size="sm">Open</shadcx-button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Handle -->
+        <section class="tab-content" data-tab="handle">
+          <h2>Handle</h2>
+          <div class="field">
+            <label>Your handle</label>
+            <div class="handle-row">
+              <shadcx-input placeholder="handle" style="max-width:10rem"></shadcx-input>
+              <span class="handle-suffix">.here.now</span>
+            </div>
+          </div>
+          <p class="desc">Claim a handle so you can serve your sites from it. Available on paid plans.</p>
+          <shadcx-button>View plans</shadcx-button>
+        </section>
+
+        <!-- Domains -->
+        <section class="tab-content" data-tab="domains">
+          <h2>Domains</h2>
+          <div class="field" style="display:flex;gap:0.5rem;align-items:flex-end;flex-wrap:wrap">
+            <shadcx-input placeholder="example.com" style="min-width:16rem"></shadcx-input>
+            <shadcx-button>Add domain</shadcx-button>
+          </div>
+          <p class="desc">Add a domain you own so you can serve sites from it.</p>
+        </section>
+
+        <!-- Services -->
+        <section class="tab-content" data-tab="services">
+          <h2>Service variables</h2>
+          <p class="desc">Store API keys and secrets here. Your sites can use them to connect to services like OpenRouter, Supabase, or Stripe without exposing them to visitors.</p>
+          <p class="muted">No variables set. Add one to get started with proxy routes.</p>
+          <shadcx-button>Add variable</shadcx-button>
+        </section>
+
+        <!-- Wallet -->
+        <section class="tab-content" data-tab="wallet">
+          <h2>Wallet</h2>
+          <div class="field">
+            <label>Your wallet</label>
+            <p class="desc">Add a <a href="#" style="color:hsl(var(--primary));text-decoration:none">Tempo wallet</a> address to receive payments on any sites you require payment for.</p>
+            <div style="display:flex;gap:0.5rem;align-items:flex-start;flex-wrap:wrap">
+              <shadcx-input placeholder="0x..." style="min-width:20rem;flex:1"></shadcx-input>
+              <shadcx-button>Save</shadcx-button>
+            </div>
+          </div>
+        </section>
+
+        <!-- API key -->
+        <section class="tab-content" data-tab="api-key">
+          <h2>API key</h2>
+          <div class="api-key-box" id="apiKeyBox">
+            <span id="apiKeyValue">f184••••••••••••••••8627</span>
+            <button id="toggleKey" style="background:none;border:none;cursor:pointer;color:hsl(var(--muted-foreground));padding:0;display:flex;align-items:center">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+            <button id="copyKey" style="background:none;border:none;cursor:pointer;color:hsl(var(--muted-foreground));padding:0;display:flex;align-items:center">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            </button>
+          </div>
+          <div class="api-key-actions">
+            <shadcx-button id="copyKeyBtn">Copy</shadcx-button>
+            <shadcx-button variant="outline">Regenerate</shadcx-button>
+          </div>
+        </section>
+
+        <!-- Plan -->
+        <section class="tab-content" data-tab="plan">
+          <h2>Plan</h2>
+          <div class="pricing-grid">
+            <div class="pricing-card current">
+              <div class="pricing-header">
+                <span class="pricing-name">Free</span>
+                <span class="pricing-current">Current</span>
+              </div>
+              <div class="pricing-price">Free</div>
+              <ul class="pricing-features">
+                <li>500 sites</li>
+                <li>10 GB total storage</li>
+                <li>1 Drive</li>
+                <li>1 custom domain</li>
+              </ul>
+            </div>
+            <div class="pricing-card">
+              <div class="pricing-header">
+                <span class="pricing-name">Hobby</span>
+              </div>
+              <div class="pricing-price">$4/mo</div>
+              <ul class="pricing-features">
+                <li>1,000 sites</li>
+                <li>500 GB total storage</li>
+                <li>5 Drives</li>
+                <li>5 custom domains</li>
+                <li>1 handle</li>
+              </ul>
+              <shadcx-button style="width:100%">Subscribe</shadcx-button>
+            </div>
+            <div class="pricing-card">
+              <div class="pricing-header">
+                <span class="pricing-name">Developer</span>
+              </div>
+              <div class="pricing-price">$20/mo</div>
+              <ul class="pricing-features">
+                <li>Unlimited sites</li>
+                <li>2 TB total storage</li>
+                <li>10 Drives</li>
+                <li>20 custom domains</li>
+                <li>1 handle</li>
+              </ul>
+              <shadcx-button style="width:100%">Subscribe</shadcx-button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Support -->
+        <section class="tab-content" data-tab="support">
+          <h2>Support</h2>
+          <div class="field">
+            <label>Subject</label>
+            <shadcx-input placeholder="What do you need help with?"></shadcx-input>
+          </div>
+          <div class="field">
+            <label>Message</label>
+            <textarea class="textarea" placeholder="Tell us more..."></textarea>
+          </div>
+          <shadcx-button>Send</shadcx-button>
+        </section>
+      </main>
+    </div>
+
+    <footer class="footer">
+      <span>&copy; 2026 here.now</span>
+      <div class="footer-links">
+        <a href="#">llms.txt</a>
+        <a href="#">Docs</a>
+        <a href="#">Terms</a>
+        <a href="#">Privacy</a>
+        <a href="#">DPA</a>
+        <a href="#">Status</a>
+        <a href="#" aria-label="X"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        <a href="#" aria-label="Email"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></a>
+      </div>
+    </footer>
+
+    <script type="module">
+      import '../lib/button.ts'
+      import '../lib/input.ts'
+      import '../lib/badge.ts'
+
+      const tabs = [
+        { id: 'sites', label: 'Sites' },
+        { id: 'drive', label: 'Drive' },
+        { id: 'handle', label: 'Handle' },
+        { id: 'domains', label: 'Domains' },
+        { id: 'services', label: 'Services' },
+        { id: 'wallet', label: 'Wallet' },
+        { id: 'api-key', label: 'API key' },
+        { id: 'plan', label: 'Plan' },
+        { id: 'support', label: 'Support' },
+      ]
+
+      let activeTab = 'sites'
+
+      function renderSidebar() {
+        const sidebar = document.getElementById('sidebar')
+        if (!sidebar) return
+        sidebar.innerHTML = tabs.map(t => `
+          <button class="sidebar-item ${t.id === activeTab ? 'active' : ''}" data-tab="${t.id}">
+            ${t.label}
+          </button>
+        `).join('')
+
+        sidebar.querySelectorAll('.sidebar-item').forEach(btn => {
+          btn.addEventListener('click', () => {
+            activeTab = btn.dataset.tab
+            renderSidebar()
+            renderContent()
+          })
+        })
+      }
+
+      function renderContent() {
+        document.querySelectorAll('.tab-content').forEach(el => {
+          el.classList.toggle('active', el.dataset.tab === activeTab)
+        })
+      }
+
+      // Dropdown
+      const toggle = document.getElementById('userDropdownToggle')
+      const menu = document.getElementById('userDropdownMenu')
+      toggle?.addEventListener('click', (e) => {
+        e.stopPropagation()
+        menu?.classList.toggle('open')
+      })
+      document.addEventListener('click', () => menu?.classList.remove('open'))
+
+      // API key toggle
+      const apiKeyValue = document.getElementById('apiKeyValue')
+      const toggleKey = document.getElementById('toggleKey')
+      const copyKey = document.getElementById('copyKey')
+      const copyKeyBtn = document.getElementById('copyKeyBtn')
+      let keyVisible = false
+      const masked = 'f184••••••••••••••••8627'
+      const full = 'f184a7b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f28627'
+
+      toggleKey?.addEventListener('click', () => {
+        keyVisible = !keyVisible
+        if (apiKeyValue) apiKeyValue.textContent = keyVisible ? full : masked
+      })
+
+      async function doCopy() {
+        await navigator.clipboard.writeText(full)
+        const original = copyKeyBtn?.textContent
+        if (copyKeyBtn) copyKeyBtn.textContent = 'Copied'
+        setTimeout(() => { if (copyKeyBtn) copyKeyBtn.textContent = original }, 1500)
+      }
+
+      copyKey?.addEventListener('click', doCopy)
+      copyKeyBtn?.addEventListener('click', doCopy)
+
+      renderSidebar()
+      renderContent()
+    </script>
+  </body>
+</html>
