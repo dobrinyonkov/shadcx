@@ -1,5 +1,5 @@
-import"./modulepreload-polyfill.js";/* empty css     */import"./button.js";import"./badge.js";import"./input.js";import"./checkbox.js";import"./combobox.js";var e=Object.defineProperty,t=(t,n)=>{let r={};for(var i in t)e(r,i,{get:t[i],enumerable:!0});return n||e(r,Symbol.toStringTag,{value:`Module`}),r},n=globalThis,r=n.ShadowRoot&&(n.ShadyCSS===void 0||n.ShadyCSS.nativeShadow)&&`adoptedStyleSheets`in Document.prototype&&`replace`in CSSStyleSheet.prototype,i=Symbol(),a=new WeakMap,o=class{constructor(e,t,n){if(this._$cssResult$=!0,n!==i)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=e,this.t=t}get styleSheet(){let e=this.o,t=this.t;if(r&&e===void 0){let n=t!==void 0&&t.length===1;n&&(e=a.get(t)),e===void 0&&((this.o=e=new CSSStyleSheet).replaceSync(this.cssText),n&&a.set(t,e))}return e}toString(){return this.cssText}},s=e=>new o(typeof e==`string`?e:e+``,void 0,i),c=(e,...t)=>new o(e.length===1?e[0]:t.reduce((t,n,r)=>t+(e=>{if(!0===e._$cssResult$)return e.cssText;if(typeof e==`number`)return e;throw Error(`Value passed to 'css' function must be a 'css' function result: `+e+`. Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.`)})(n)+e[r+1],e[0]),e,i),l=(e,t)=>{if(r)e.adoptedStyleSheets=t.map(e=>e instanceof CSSStyleSheet?e:e.styleSheet);else for(let r of t){let t=document.createElement(`style`),i=n.litNonce;i!==void 0&&t.setAttribute(`nonce`,i),t.textContent=r.cssText,e.appendChild(t)}},u=r?e=>e:e=>e instanceof CSSStyleSheet?(e=>{let t=``;for(let n of e.cssRules)t+=n.cssText;return s(t)})(e):e,{is:d,defineProperty:ee,getOwnPropertyDescriptor:te,getOwnPropertyNames:ne,getOwnPropertySymbols:re,getPrototypeOf:ie}=Object,f=globalThis,ae=f.trustedTypes,oe=ae?ae.emptyScript:``,se=f.reactiveElementPolyfillSupport,p=(e,t)=>e,m={toAttribute(e,t){switch(t){case Boolean:e=e?oe:null;break;case Object:case Array:e=e==null?e:JSON.stringify(e)}return e},fromAttribute(e,t){let n=e;switch(t){case Boolean:n=e!==null;break;case Number:n=e===null?null:Number(e);break;case Object:case Array:try{n=JSON.parse(e)}catch{n=null}}return n}},h=(e,t)=>!d(e,t),ce={attribute:!0,type:String,converter:m,reflect:!1,useDefault:!1,hasChanged:h};Symbol.metadata??=Symbol(`metadata`),f.litPropertyMetadata??=new WeakMap;var g=class extends HTMLElement{static addInitializer(e){this._$Ei(),(this.l??=[]).push(e)}static get observedAttributes(){return this.finalize(),this._$Eh&&[...this._$Eh.keys()]}static createProperty(e,t=ce){if(t.state&&(t.attribute=!1),this._$Ei(),this.prototype.hasOwnProperty(e)&&((t=Object.create(t)).wrapped=!0),this.elementProperties.set(e,t),!t.noAccessor){let n=Symbol(),r=this.getPropertyDescriptor(e,n,t);r!==void 0&&ee(this.prototype,e,r)}}static getPropertyDescriptor(e,t,n){let{get:r,set:i}=te(this.prototype,e)??{get(){return this[t]},set(e){this[t]=e}};return{get:r,set(t){let a=r?.call(this);i?.call(this,t),this.requestUpdate(e,a,n)},configurable:!0,enumerable:!0}}static getPropertyOptions(e){return this.elementProperties.get(e)??ce}static _$Ei(){if(this.hasOwnProperty(p(`elementProperties`)))return;let e=ie(this);e.finalize(),e.l!==void 0&&(this.l=[...e.l]),this.elementProperties=new Map(e.elementProperties)}static finalize(){if(this.hasOwnProperty(p(`finalized`)))return;if(this.finalized=!0,this._$Ei(),this.hasOwnProperty(p(`properties`))){let e=this.properties,t=[...ne(e),...re(e)];for(let n of t)this.createProperty(n,e[n])}let e=this[Symbol.metadata];if(e!==null){let t=litPropertyMetadata.get(e);if(t!==void 0)for(let[e,n]of t)this.elementProperties.set(e,n)}this._$Eh=new Map;for(let[e,t]of this.elementProperties){let n=this._$Eu(e,t);n!==void 0&&this._$Eh.set(n,e)}this.elementStyles=this.finalizeStyles(this.styles)}static finalizeStyles(e){let t=[];if(Array.isArray(e)){let n=new Set(e.flat(1/0).reverse());for(let e of n)t.unshift(u(e))}else e!==void 0&&t.push(u(e));return t}static _$Eu(e,t){let n=t.attribute;return!1===n?void 0:typeof n==`string`?n:typeof e==`string`?e.toLowerCase():void 0}constructor(){super(),this._$Ep=void 0,this.isUpdatePending=!1,this.hasUpdated=!1,this._$Em=null,this._$Ev()}_$Ev(){this._$ES=new Promise(e=>this.enableUpdating=e),this._$AL=new Map,this._$E_(),this.requestUpdate(),this.constructor.l?.forEach(e=>e(this))}addController(e){(this._$EO??=new Set).add(e),this.renderRoot!==void 0&&this.isConnected&&e.hostConnected?.()}removeController(e){this._$EO?.delete(e)}_$E_(){let e=new Map,t=this.constructor.elementProperties;for(let n of t.keys())this.hasOwnProperty(n)&&(e.set(n,this[n]),delete this[n]);e.size>0&&(this._$Ep=e)}createRenderRoot(){let e=this.shadowRoot??this.attachShadow(this.constructor.shadowRootOptions);return l(e,this.constructor.elementStyles),e}connectedCallback(){this.renderRoot??=this.createRenderRoot(),this.enableUpdating(!0),this._$EO?.forEach(e=>e.hostConnected?.())}enableUpdating(e){}disconnectedCallback(){this._$EO?.forEach(e=>e.hostDisconnected?.())}attributeChangedCallback(e,t,n){this._$AK(e,n)}_$ET(e,t){let n=this.constructor.elementProperties.get(e),r=this.constructor._$Eu(e,n);if(r!==void 0&&!0===n.reflect){let i=(n.converter?.toAttribute===void 0?m:n.converter).toAttribute(t,n.type);this._$Em=e,i==null?this.removeAttribute(r):this.setAttribute(r,i),this._$Em=null}}_$AK(e,t){let n=this.constructor,r=n._$Eh.get(e);if(r!==void 0&&this._$Em!==r){let e=n.getPropertyOptions(r),i=typeof e.converter==`function`?{fromAttribute:e.converter}:e.converter?.fromAttribute===void 0?m:e.converter;this._$Em=r;let a=i.fromAttribute(t,e.type);this[r]=a??this._$Ej?.get(r)??a,this._$Em=null}}requestUpdate(e,t,n,r=!1,i){if(e!==void 0){let a=this.constructor;if(!1===r&&(i=this[e]),n??=a.getPropertyOptions(e),!((n.hasChanged??h)(i,t)||n.useDefault&&n.reflect&&i===this._$Ej?.get(e)&&!this.hasAttribute(a._$Eu(e,n))))return;this.C(e,t,n)}!1===this.isUpdatePending&&(this._$ES=this._$EP())}C(e,t,{useDefault:n,reflect:r,wrapped:i},a){n&&!(this._$Ej??=new Map).has(e)&&(this._$Ej.set(e,a??t??this[e]),!0!==i||a!==void 0)||(this._$AL.has(e)||(this.hasUpdated||n||(t=void 0),this._$AL.set(e,t)),!0===r&&this._$Em!==e&&(this._$Eq??=new Set).add(e))}async _$EP(){this.isUpdatePending=!0;try{await this._$ES}catch(e){Promise.reject(e)}let e=this.scheduleUpdate();return e!=null&&await e,!this.isUpdatePending}scheduleUpdate(){return this.performUpdate()}performUpdate(){if(!this.isUpdatePending)return;if(!this.hasUpdated){if(this.renderRoot??=this.createRenderRoot(),this._$Ep){for(let[e,t]of this._$Ep)this[e]=t;this._$Ep=void 0}let e=this.constructor.elementProperties;if(e.size>0)for(let[t,n]of e){let{wrapped:e}=n,r=this[t];!0!==e||this._$AL.has(t)||r===void 0||this.C(t,void 0,n,r)}}let e=!1,t=this._$AL;try{e=this.shouldUpdate(t),e?(this.willUpdate(t),this._$EO?.forEach(e=>e.hostUpdate?.()),this.update(t)):this._$EM()}catch(t){throw e=!1,this._$EM(),t}e&&this._$AE(t)}willUpdate(e){}_$AE(e){this._$EO?.forEach(e=>e.hostUpdated?.()),this.hasUpdated||(this.hasUpdated=!0,this.firstUpdated(e)),this.updated(e)}_$EM(){this._$AL=new Map,this.isUpdatePending=!1}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this._$ES}shouldUpdate(e){return!0}update(e){this._$Eq&&=this._$Eq.forEach(e=>this._$ET(e,this[e])),this._$EM()}updated(e){}firstUpdated(e){}};g.elementStyles=[],g.shadowRootOptions={mode:`open`},g[p(`elementProperties`)]=new Map,g[p(`finalized`)]=new Map,se?.({ReactiveElement:g}),(f.reactiveElementVersions??=[]).push(`2.1.2`);var _=globalThis,le=e=>e,v=_.trustedTypes,ue=v?v.createPolicy(`lit-html`,{createHTML:e=>e}):void 0,de=`$lit$`,y=`lit$${Math.random().toFixed(9).slice(2)}$`,fe=`?`+y,pe=`<${fe}>`,b=document,x=()=>b.createComment(``),S=e=>e===null||typeof e!=`object`&&typeof e!=`function`,me=Array.isArray,he=e=>me(e)||typeof e?.[Symbol.iterator]==`function`,ge=`[ 	
-\f\r]`,C=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,_e=/-->/g,ve=/>/g,w=RegExp(`>|${ge}(?:([^\\s"'>=/]+)(${ge}*=${ge}*(?:[^ \t\n\f\r"'\`<>=]|("|')|))|$)`,`g`),ye=/'/g,be=/"/g,xe=/^(?:script|style|textarea|title)$/i,T=(e=>(t,...n)=>({_$litType$:e,strings:t,values:n}))(1),E=Symbol.for(`lit-noChange`),D=Symbol.for(`lit-nothing`),Se=new WeakMap,O=b.createTreeWalker(b,129);function Ce(e,t){if(!me(e)||!e.hasOwnProperty(`raw`))throw Error(`invalid template strings array`);return ue===void 0?t:ue.createHTML(t)}var we=(e,t)=>{let n=e.length-1,r=[],i,a=t===2?`<svg>`:t===3?`<math>`:``,o=C;for(let t=0;t<n;t++){let n=e[t],s,c,l=-1,u=0;for(;u<n.length&&(o.lastIndex=u,c=o.exec(n),c!==null);)u=o.lastIndex,o===C?c[1]===`!--`?o=_e:c[1]===void 0?c[2]===void 0?c[3]!==void 0&&(o=w):(xe.test(c[2])&&(i=RegExp(`</`+c[2],`g`)),o=w):o=ve:o===w?c[0]===`>`?(o=i??C,l=-1):c[1]===void 0?l=-2:(l=o.lastIndex-c[2].length,s=c[1],o=c[3]===void 0?w:c[3]===`"`?be:ye):o===be||o===ye?o=w:o===_e||o===ve?o=C:(o=w,i=void 0);let d=o===w&&e[t+1].startsWith(`/>`)?` `:``;a+=o===C?n+pe:l>=0?(r.push(s),n.slice(0,l)+de+n.slice(l)+y+d):n+y+(l===-2?t:d)}return[Ce(e,a+(e[n]||`<?>`)+(t===2?`</svg>`:t===3?`</math>`:``)),r]},k=class e{constructor({strings:t,_$litType$:n},r){let i;this.parts=[];let a=0,o=0,s=t.length-1,c=this.parts,[l,u]=we(t,n);if(this.el=e.createElement(l,r),O.currentNode=this.el.content,n===2||n===3){let e=this.el.content.firstChild;e.replaceWith(...e.childNodes)}for(;(i=O.nextNode())!==null&&c.length<s;){if(i.nodeType===1){if(i.hasAttributes())for(let e of i.getAttributeNames())if(e.endsWith(de)){let t=u[o++],n=i.getAttribute(e).split(y),r=/([.?@])?(.*)/.exec(t);c.push({type:1,index:a,name:r[2],strings:n,ctor:r[1]===`.`?Ee:r[1]===`?`?De:r[1]===`@`?Oe:M}),i.removeAttribute(e)}else e.startsWith(y)&&(c.push({type:6,index:a}),i.removeAttribute(e));if(xe.test(i.tagName)){let e=i.textContent.split(y),t=e.length-1;if(t>0){i.textContent=v?v.emptyScript:``;for(let n=0;n<t;n++)i.append(e[n],x()),O.nextNode(),c.push({type:2,index:++a});i.append(e[t],x())}}}else if(i.nodeType===8)if(i.data===fe)c.push({type:2,index:a});else{let e=-1;for(;(e=i.data.indexOf(y,e+1))!==-1;)c.push({type:7,index:a}),e+=y.length-1}a++}}static createElement(e,t){let n=b.createElement(`template`);return n.innerHTML=e,n}};function A(e,t,n=e,r){if(t===E)return t;let i=r===void 0?n._$Cl:n._$Co?.[r],a=S(t)?void 0:t._$litDirective$;return i?.constructor!==a&&(i?._$AO?.(!1),a===void 0?i=void 0:(i=new a(e),i._$AT(e,n,r)),r===void 0?n._$Cl=i:(n._$Co??=[])[r]=i),i!==void 0&&(t=A(e,i._$AS(e,t.values),i,r)),t}var Te=class{constructor(e,t){this._$AV=[],this._$AN=void 0,this._$AD=e,this._$AM=t}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(e){let{el:{content:t},parts:n}=this._$AD,r=(e?.creationScope??b).importNode(t,!0);O.currentNode=r;let i=O.nextNode(),a=0,o=0,s=n[0];for(;s!==void 0;){if(a===s.index){let t;s.type===2?t=new j(i,i.nextSibling,this,e):s.type===1?t=new s.ctor(i,s.name,s.strings,this,e):s.type===6&&(t=new ke(i,this,e)),this._$AV.push(t),s=n[++o]}a!==s?.index&&(i=O.nextNode(),a++)}return O.currentNode=b,r}p(e){let t=0;for(let n of this._$AV)n!==void 0&&(n.strings===void 0?n._$AI(e[t]):(n._$AI(e,n,t),t+=n.strings.length-2)),t++}},j=class e{get _$AU(){return this._$AM?._$AU??this._$Cv}constructor(e,t,n,r){this.type=2,this._$AH=D,this._$AN=void 0,this._$AA=e,this._$AB=t,this._$AM=n,this.options=r,this._$Cv=r?.isConnected??!0}get parentNode(){let e=this._$AA.parentNode,t=this._$AM;return t!==void 0&&e?.nodeType===11&&(e=t.parentNode),e}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(e,t=this){e=A(this,e,t),S(e)?e===D||e==null||e===``?(this._$AH!==D&&this._$AR(),this._$AH=D):e!==this._$AH&&e!==E&&this._(e):e._$litType$===void 0?e.nodeType===void 0?he(e)?this.k(e):this._(e):this.T(e):this.$(e)}O(e){return this._$AA.parentNode.insertBefore(e,this._$AB)}T(e){this._$AH!==e&&(this._$AR(),this._$AH=this.O(e))}_(e){this._$AH!==D&&S(this._$AH)?this._$AA.nextSibling.data=e:this.T(b.createTextNode(e)),this._$AH=e}$(e){let{values:t,_$litType$:n}=e,r=typeof n==`number`?this._$AC(e):(n.el===void 0&&(n.el=k.createElement(Ce(n.h,n.h[0]),this.options)),n);if(this._$AH?._$AD===r)this._$AH.p(t);else{let e=new Te(r,this),n=e.u(this.options);e.p(t),this.T(n),this._$AH=e}}_$AC(e){let t=Se.get(e.strings);return t===void 0&&Se.set(e.strings,t=new k(e)),t}k(t){me(this._$AH)||(this._$AH=[],this._$AR());let n=this._$AH,r,i=0;for(let a of t)i===n.length?n.push(r=new e(this.O(x()),this.O(x()),this,this.options)):r=n[i],r._$AI(a),i++;i<n.length&&(this._$AR(r&&r._$AB.nextSibling,i),n.length=i)}_$AR(e=this._$AA.nextSibling,t){for(this._$AP?.(!1,!0,t);e!==this._$AB;){let t=le(e).nextSibling;le(e).remove(),e=t}}setConnected(e){this._$AM===void 0&&(this._$Cv=e,this._$AP?.(e))}},M=class{get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}constructor(e,t,n,r,i){this.type=1,this._$AH=D,this._$AN=void 0,this.element=e,this.name=t,this._$AM=r,this.options=i,n.length>2||n[0]!==``||n[1]!==``?(this._$AH=Array(n.length-1).fill(new String),this.strings=n):this._$AH=D}_$AI(e,t=this,n,r){let i=this.strings,a=!1;if(i===void 0)e=A(this,e,t,0),a=!S(e)||e!==this._$AH&&e!==E,a&&(this._$AH=e);else{let r=e,o,s;for(e=i[0],o=0;o<i.length-1;o++)s=A(this,r[n+o],t,o),s===E&&(s=this._$AH[o]),a||=!S(s)||s!==this._$AH[o],s===D?e=D:e!==D&&(e+=(s??``)+i[o+1]),this._$AH[o]=s}a&&!r&&this.j(e)}j(e){e===D?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,e??``)}},Ee=class extends M{constructor(){super(...arguments),this.type=3}j(e){this.element[this.name]=e===D?void 0:e}},De=class extends M{constructor(){super(...arguments),this.type=4}j(e){this.element.toggleAttribute(this.name,!!e&&e!==D)}},Oe=class extends M{constructor(e,t,n,r,i){super(e,t,n,r,i),this.type=5}_$AI(e,t=this){if((e=A(this,e,t,0)??D)===E)return;let n=this._$AH,r=e===D&&n!==D||e.capture!==n.capture||e.once!==n.once||e.passive!==n.passive,i=e!==D&&(n===D||r);r&&this.element.removeEventListener(this.name,this,n),i&&this.element.addEventListener(this.name,this,e),this._$AH=e}handleEvent(e){typeof this._$AH==`function`?this._$AH.call(this.options?.host??this.element,e):this._$AH.handleEvent(e)}},ke=class{constructor(e,t,n){this.element=e,this.type=6,this._$AN=void 0,this._$AM=t,this.options=n}get _$AU(){return this._$AM._$AU}_$AI(e){A(this,e)}},Ae=_.litHtmlPolyfillSupport;Ae?.(k,j),(_.litHtmlVersions??=[]).push(`3.3.2`);var je=(e,t,n)=>{let r=n?.renderBefore??t,i=r._$litPart$;if(i===void 0){let e=n?.renderBefore??null;r._$litPart$=i=new j(t.insertBefore(x(),e),e,void 0,n??{})}return i._$AI(e),i},N=globalThis,P=class extends g{constructor(){super(...arguments),this.renderOptions={host:this},this._$Do=void 0}createRenderRoot(){let e=super.createRenderRoot();return this.renderOptions.renderBefore??=e.firstChild,e}update(e){let t=this.render();this.hasUpdated||(this.renderOptions.isConnected=this.isConnected),super.update(e),this._$Do=je(t,this.renderRoot,this.renderOptions)}connectedCallback(){super.connectedCallback(),this._$Do?.setConnected(!0)}disconnectedCallback(){super.disconnectedCallback(),this._$Do?.setConnected(!1)}render(){return E}};P._$litElement$=!0,P.finalized=!0,N.litElementHydrateSupport?.({LitElement:P});var Me=N.litElementPolyfillSupport;Me?.({LitElement:P}),(N.litElementVersions??=[]).push(`4.2.2`);var F=e=>(t,n)=>{n===void 0?customElements.define(e,t):n.addInitializer(()=>{customElements.define(e,t)})},Ne={attribute:!0,type:String,converter:m,reflect:!1,hasChanged:h},Pe=(e=Ne,t,n)=>{let{kind:r,metadata:i}=n,a=globalThis.litPropertyMetadata.get(i);if(a===void 0&&globalThis.litPropertyMetadata.set(i,a=new Map),r===`setter`&&((e=Object.create(e)).wrapped=!0),a.set(n.name,e),r===`accessor`){let{name:r}=n;return{set(n){let i=t.get.call(this);t.set.call(this,n),this.requestUpdate(r,i,e,!0,n)},init(t){return t!==void 0&&this.C(r,void 0,e,t),t}}}if(r===`setter`){let{name:r}=n;return function(n){let i=this[r];t.call(this,n),this.requestUpdate(r,i,e,!0,n)}}throw Error(`Unsupported decorator location: `+r)};function I(e){return(t,n)=>typeof n==`object`?Pe(e,t,n):((e,t,n)=>{let r=t.hasOwnProperty(n);return t.constructor.createProperty(n,e),r?Object.getOwnPropertyDescriptor(t,n):void 0})(e,t,n)}function L(e){return I({...e,state:!0,attribute:!1})}function R(e,t,n,r){var i=arguments.length,a=i<3?t:r===null?r=Object.getOwnPropertyDescriptor(t,n):r,o;if(typeof Reflect==`object`&&typeof Reflect.decorate==`function`)a=Reflect.decorate(e,t,n,r);else for(var s=e.length-1;s>=0;s--)(o=e[s])&&(a=(i<3?o(a):i>3?o(t,n,a):o(t,n))||a);return i>3&&a&&Object.defineProperty(t,n,a),a}var z=class extends P{constructor(...e){super(...e),this.source=``,this.jsSource=``,this.filename=`component.ts`,this.expanded=!1,this.copied=!1,this.language=`js`}static{this.styles=c`
+import"./modulepreload-polyfill.js";/* empty css     */import"./button.js";import"./badge.js";import"./input.js";import"./textarea.js";import"./checkbox.js";import"./combobox.js";import"./card.js";import"./dropdown-menu.js";var e=Object.defineProperty,t=(t,n)=>{let r={};for(var i in t)e(r,i,{get:t[i],enumerable:!0});return n||e(r,Symbol.toStringTag,{value:`Module`}),r},n=globalThis,r=n.ShadowRoot&&(n.ShadyCSS===void 0||n.ShadyCSS.nativeShadow)&&`adoptedStyleSheets`in Document.prototype&&`replace`in CSSStyleSheet.prototype,i=Symbol(),a=new WeakMap,o=class{constructor(e,t,n){if(this._$cssResult$=!0,n!==i)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=e,this.t=t}get styleSheet(){let e=this.o,t=this.t;if(r&&e===void 0){let n=t!==void 0&&t.length===1;n&&(e=a.get(t)),e===void 0&&((this.o=e=new CSSStyleSheet).replaceSync(this.cssText),n&&a.set(t,e))}return e}toString(){return this.cssText}},s=e=>new o(typeof e==`string`?e:e+``,void 0,i),c=(e,...t)=>new o(e.length===1?e[0]:t.reduce((t,n,r)=>t+(e=>{if(!0===e._$cssResult$)return e.cssText;if(typeof e==`number`)return e;throw Error(`Value passed to 'css' function must be a 'css' function result: `+e+`. Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.`)})(n)+e[r+1],e[0]),e,i),l=(e,t)=>{if(r)e.adoptedStyleSheets=t.map(e=>e instanceof CSSStyleSheet?e:e.styleSheet);else for(let r of t){let t=document.createElement(`style`),i=n.litNonce;i!==void 0&&t.setAttribute(`nonce`,i),t.textContent=r.cssText,e.appendChild(t)}},u=r?e=>e:e=>e instanceof CSSStyleSheet?(e=>{let t=``;for(let n of e.cssRules)t+=n.cssText;return s(t)})(e):e,{is:ee,defineProperty:te,getOwnPropertyDescriptor:ne,getOwnPropertyNames:re,getOwnPropertySymbols:ie,getPrototypeOf:ae}=Object,d=globalThis,oe=d.trustedTypes,se=oe?oe.emptyScript:``,ce=d.reactiveElementPolyfillSupport,f=(e,t)=>e,p={toAttribute(e,t){switch(t){case Boolean:e=e?se:null;break;case Object:case Array:e=e==null?e:JSON.stringify(e)}return e},fromAttribute(e,t){let n=e;switch(t){case Boolean:n=e!==null;break;case Number:n=e===null?null:Number(e);break;case Object:case Array:try{n=JSON.parse(e)}catch{n=null}}return n}},le=(e,t)=>!ee(e,t),ue={attribute:!0,type:String,converter:p,reflect:!1,useDefault:!1,hasChanged:le};Symbol.metadata??=Symbol(`metadata`),d.litPropertyMetadata??=new WeakMap;var m=class extends HTMLElement{static addInitializer(e){this._$Ei(),(this.l??=[]).push(e)}static get observedAttributes(){return this.finalize(),this._$Eh&&[...this._$Eh.keys()]}static createProperty(e,t=ue){if(t.state&&(t.attribute=!1),this._$Ei(),this.prototype.hasOwnProperty(e)&&((t=Object.create(t)).wrapped=!0),this.elementProperties.set(e,t),!t.noAccessor){let n=Symbol(),r=this.getPropertyDescriptor(e,n,t);r!==void 0&&te(this.prototype,e,r)}}static getPropertyDescriptor(e,t,n){let{get:r,set:i}=ne(this.prototype,e)??{get(){return this[t]},set(e){this[t]=e}};return{get:r,set(t){let a=r?.call(this);i?.call(this,t),this.requestUpdate(e,a,n)},configurable:!0,enumerable:!0}}static getPropertyOptions(e){return this.elementProperties.get(e)??ue}static _$Ei(){if(this.hasOwnProperty(f(`elementProperties`)))return;let e=ae(this);e.finalize(),e.l!==void 0&&(this.l=[...e.l]),this.elementProperties=new Map(e.elementProperties)}static finalize(){if(this.hasOwnProperty(f(`finalized`)))return;if(this.finalized=!0,this._$Ei(),this.hasOwnProperty(f(`properties`))){let e=this.properties,t=[...re(e),...ie(e)];for(let n of t)this.createProperty(n,e[n])}let e=this[Symbol.metadata];if(e!==null){let t=litPropertyMetadata.get(e);if(t!==void 0)for(let[e,n]of t)this.elementProperties.set(e,n)}this._$Eh=new Map;for(let[e,t]of this.elementProperties){let n=this._$Eu(e,t);n!==void 0&&this._$Eh.set(n,e)}this.elementStyles=this.finalizeStyles(this.styles)}static finalizeStyles(e){let t=[];if(Array.isArray(e)){let n=new Set(e.flat(1/0).reverse());for(let e of n)t.unshift(u(e))}else e!==void 0&&t.push(u(e));return t}static _$Eu(e,t){let n=t.attribute;return!1===n?void 0:typeof n==`string`?n:typeof e==`string`?e.toLowerCase():void 0}constructor(){super(),this._$Ep=void 0,this.isUpdatePending=!1,this.hasUpdated=!1,this._$Em=null,this._$Ev()}_$Ev(){this._$ES=new Promise(e=>this.enableUpdating=e),this._$AL=new Map,this._$E_(),this.requestUpdate(),this.constructor.l?.forEach(e=>e(this))}addController(e){(this._$EO??=new Set).add(e),this.renderRoot!==void 0&&this.isConnected&&e.hostConnected?.()}removeController(e){this._$EO?.delete(e)}_$E_(){let e=new Map,t=this.constructor.elementProperties;for(let n of t.keys())this.hasOwnProperty(n)&&(e.set(n,this[n]),delete this[n]);e.size>0&&(this._$Ep=e)}createRenderRoot(){let e=this.shadowRoot??this.attachShadow(this.constructor.shadowRootOptions);return l(e,this.constructor.elementStyles),e}connectedCallback(){this.renderRoot??=this.createRenderRoot(),this.enableUpdating(!0),this._$EO?.forEach(e=>e.hostConnected?.())}enableUpdating(e){}disconnectedCallback(){this._$EO?.forEach(e=>e.hostDisconnected?.())}attributeChangedCallback(e,t,n){this._$AK(e,n)}_$ET(e,t){let n=this.constructor.elementProperties.get(e),r=this.constructor._$Eu(e,n);if(r!==void 0&&!0===n.reflect){let i=(n.converter?.toAttribute===void 0?p:n.converter).toAttribute(t,n.type);this._$Em=e,i==null?this.removeAttribute(r):this.setAttribute(r,i),this._$Em=null}}_$AK(e,t){let n=this.constructor,r=n._$Eh.get(e);if(r!==void 0&&this._$Em!==r){let e=n.getPropertyOptions(r),i=typeof e.converter==`function`?{fromAttribute:e.converter}:e.converter?.fromAttribute===void 0?p:e.converter;this._$Em=r;let a=i.fromAttribute(t,e.type);this[r]=a??this._$Ej?.get(r)??a,this._$Em=null}}requestUpdate(e,t,n,r=!1,i){if(e!==void 0){let a=this.constructor;if(!1===r&&(i=this[e]),n??=a.getPropertyOptions(e),!((n.hasChanged??le)(i,t)||n.useDefault&&n.reflect&&i===this._$Ej?.get(e)&&!this.hasAttribute(a._$Eu(e,n))))return;this.C(e,t,n)}!1===this.isUpdatePending&&(this._$ES=this._$EP())}C(e,t,{useDefault:n,reflect:r,wrapped:i},a){n&&!(this._$Ej??=new Map).has(e)&&(this._$Ej.set(e,a??t??this[e]),!0!==i||a!==void 0)||(this._$AL.has(e)||(this.hasUpdated||n||(t=void 0),this._$AL.set(e,t)),!0===r&&this._$Em!==e&&(this._$Eq??=new Set).add(e))}async _$EP(){this.isUpdatePending=!0;try{await this._$ES}catch(e){Promise.reject(e)}let e=this.scheduleUpdate();return e!=null&&await e,!this.isUpdatePending}scheduleUpdate(){return this.performUpdate()}performUpdate(){if(!this.isUpdatePending)return;if(!this.hasUpdated){if(this.renderRoot??=this.createRenderRoot(),this._$Ep){for(let[e,t]of this._$Ep)this[e]=t;this._$Ep=void 0}let e=this.constructor.elementProperties;if(e.size>0)for(let[t,n]of e){let{wrapped:e}=n,r=this[t];!0!==e||this._$AL.has(t)||r===void 0||this.C(t,void 0,n,r)}}let e=!1,t=this._$AL;try{e=this.shouldUpdate(t),e?(this.willUpdate(t),this._$EO?.forEach(e=>e.hostUpdate?.()),this.update(t)):this._$EM()}catch(t){throw e=!1,this._$EM(),t}e&&this._$AE(t)}willUpdate(e){}_$AE(e){this._$EO?.forEach(e=>e.hostUpdated?.()),this.hasUpdated||(this.hasUpdated=!0,this.firstUpdated(e)),this.updated(e)}_$EM(){this._$AL=new Map,this.isUpdatePending=!1}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this._$ES}shouldUpdate(e){return!0}update(e){this._$Eq&&=this._$Eq.forEach(e=>this._$ET(e,this[e])),this._$EM()}updated(e){}firstUpdated(e){}};m.elementStyles=[],m.shadowRootOptions={mode:`open`},m[f(`elementProperties`)]=new Map,m[f(`finalized`)]=new Map,ce?.({ReactiveElement:m}),(d.reactiveElementVersions??=[]).push(`2.1.2`);var h=globalThis,de=e=>e,g=h.trustedTypes,fe=g?g.createPolicy(`lit-html`,{createHTML:e=>e}):void 0,pe=`$lit$`,_=`lit$${Math.random().toFixed(9).slice(2)}$`,me=`?`+_,he=`<${me}>`,v=document,y=()=>v.createComment(``),b=e=>e===null||typeof e!=`object`&&typeof e!=`function`,x=Array.isArray,ge=e=>x(e)||typeof e?.[Symbol.iterator]==`function`,S=`[ 	
+\f\r]`,C=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,_e=/-->/g,ve=/>/g,w=RegExp(`>|${S}(?:([^\\s"'>=/]+)(${S}*=${S}*(?:[^ \t\n\f\r"'\`<>=]|("|')|))|$)`,`g`),ye=/'/g,be=/"/g,xe=/^(?:script|style|textarea|title)$/i,T=(e=>(t,...n)=>({_$litType$:e,strings:t,values:n}))(1),E=Symbol.for(`lit-noChange`),D=Symbol.for(`lit-nothing`),Se=new WeakMap,O=v.createTreeWalker(v,129);function Ce(e,t){if(!x(e)||!e.hasOwnProperty(`raw`))throw Error(`invalid template strings array`);return fe===void 0?t:fe.createHTML(t)}var we=(e,t)=>{let n=e.length-1,r=[],i,a=t===2?`<svg>`:t===3?`<math>`:``,o=C;for(let t=0;t<n;t++){let n=e[t],s,c,l=-1,u=0;for(;u<n.length&&(o.lastIndex=u,c=o.exec(n),c!==null);)u=o.lastIndex,o===C?c[1]===`!--`?o=_e:c[1]===void 0?c[2]===void 0?c[3]!==void 0&&(o=w):(xe.test(c[2])&&(i=RegExp(`</`+c[2],`g`)),o=w):o=ve:o===w?c[0]===`>`?(o=i??C,l=-1):c[1]===void 0?l=-2:(l=o.lastIndex-c[2].length,s=c[1],o=c[3]===void 0?w:c[3]===`"`?be:ye):o===be||o===ye?o=w:o===_e||o===ve?o=C:(o=w,i=void 0);let ee=o===w&&e[t+1].startsWith(`/>`)?` `:``;a+=o===C?n+he:l>=0?(r.push(s),n.slice(0,l)+pe+n.slice(l)+_+ee):n+_+(l===-2?t:ee)}return[Ce(e,a+(e[n]||`<?>`)+(t===2?`</svg>`:t===3?`</math>`:``)),r]},k=class e{constructor({strings:t,_$litType$:n},r){let i;this.parts=[];let a=0,o=0,s=t.length-1,c=this.parts,[l,u]=we(t,n);if(this.el=e.createElement(l,r),O.currentNode=this.el.content,n===2||n===3){let e=this.el.content.firstChild;e.replaceWith(...e.childNodes)}for(;(i=O.nextNode())!==null&&c.length<s;){if(i.nodeType===1){if(i.hasAttributes())for(let e of i.getAttributeNames())if(e.endsWith(pe)){let t=u[o++],n=i.getAttribute(e).split(_),r=/([.?@])?(.*)/.exec(t);c.push({type:1,index:a,name:r[2],strings:n,ctor:r[1]===`.`?Ee:r[1]===`?`?De:r[1]===`@`?Oe:M}),i.removeAttribute(e)}else e.startsWith(_)&&(c.push({type:6,index:a}),i.removeAttribute(e));if(xe.test(i.tagName)){let e=i.textContent.split(_),t=e.length-1;if(t>0){i.textContent=g?g.emptyScript:``;for(let n=0;n<t;n++)i.append(e[n],y()),O.nextNode(),c.push({type:2,index:++a});i.append(e[t],y())}}}else if(i.nodeType===8)if(i.data===me)c.push({type:2,index:a});else{let e=-1;for(;(e=i.data.indexOf(_,e+1))!==-1;)c.push({type:7,index:a}),e+=_.length-1}a++}}static createElement(e,t){let n=v.createElement(`template`);return n.innerHTML=e,n}};function A(e,t,n=e,r){if(t===E)return t;let i=r===void 0?n._$Cl:n._$Co?.[r],a=b(t)?void 0:t._$litDirective$;return i?.constructor!==a&&(i?._$AO?.(!1),a===void 0?i=void 0:(i=new a(e),i._$AT(e,n,r)),r===void 0?n._$Cl=i:(n._$Co??=[])[r]=i),i!==void 0&&(t=A(e,i._$AS(e,t.values),i,r)),t}var Te=class{constructor(e,t){this._$AV=[],this._$AN=void 0,this._$AD=e,this._$AM=t}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(e){let{el:{content:t},parts:n}=this._$AD,r=(e?.creationScope??v).importNode(t,!0);O.currentNode=r;let i=O.nextNode(),a=0,o=0,s=n[0];for(;s!==void 0;){if(a===s.index){let t;s.type===2?t=new j(i,i.nextSibling,this,e):s.type===1?t=new s.ctor(i,s.name,s.strings,this,e):s.type===6&&(t=new ke(i,this,e)),this._$AV.push(t),s=n[++o]}a!==s?.index&&(i=O.nextNode(),a++)}return O.currentNode=v,r}p(e){let t=0;for(let n of this._$AV)n!==void 0&&(n.strings===void 0?n._$AI(e[t]):(n._$AI(e,n,t),t+=n.strings.length-2)),t++}},j=class e{get _$AU(){return this._$AM?._$AU??this._$Cv}constructor(e,t,n,r){this.type=2,this._$AH=D,this._$AN=void 0,this._$AA=e,this._$AB=t,this._$AM=n,this.options=r,this._$Cv=r?.isConnected??!0}get parentNode(){let e=this._$AA.parentNode,t=this._$AM;return t!==void 0&&e?.nodeType===11&&(e=t.parentNode),e}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(e,t=this){e=A(this,e,t),b(e)?e===D||e==null||e===``?(this._$AH!==D&&this._$AR(),this._$AH=D):e!==this._$AH&&e!==E&&this._(e):e._$litType$===void 0?e.nodeType===void 0?ge(e)?this.k(e):this._(e):this.T(e):this.$(e)}O(e){return this._$AA.parentNode.insertBefore(e,this._$AB)}T(e){this._$AH!==e&&(this._$AR(),this._$AH=this.O(e))}_(e){this._$AH!==D&&b(this._$AH)?this._$AA.nextSibling.data=e:this.T(v.createTextNode(e)),this._$AH=e}$(e){let{values:t,_$litType$:n}=e,r=typeof n==`number`?this._$AC(e):(n.el===void 0&&(n.el=k.createElement(Ce(n.h,n.h[0]),this.options)),n);if(this._$AH?._$AD===r)this._$AH.p(t);else{let e=new Te(r,this),n=e.u(this.options);e.p(t),this.T(n),this._$AH=e}}_$AC(e){let t=Se.get(e.strings);return t===void 0&&Se.set(e.strings,t=new k(e)),t}k(t){x(this._$AH)||(this._$AH=[],this._$AR());let n=this._$AH,r,i=0;for(let a of t)i===n.length?n.push(r=new e(this.O(y()),this.O(y()),this,this.options)):r=n[i],r._$AI(a),i++;i<n.length&&(this._$AR(r&&r._$AB.nextSibling,i),n.length=i)}_$AR(e=this._$AA.nextSibling,t){for(this._$AP?.(!1,!0,t);e!==this._$AB;){let t=de(e).nextSibling;de(e).remove(),e=t}}setConnected(e){this._$AM===void 0&&(this._$Cv=e,this._$AP?.(e))}},M=class{get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}constructor(e,t,n,r,i){this.type=1,this._$AH=D,this._$AN=void 0,this.element=e,this.name=t,this._$AM=r,this.options=i,n.length>2||n[0]!==``||n[1]!==``?(this._$AH=Array(n.length-1).fill(new String),this.strings=n):this._$AH=D}_$AI(e,t=this,n,r){let i=this.strings,a=!1;if(i===void 0)e=A(this,e,t,0),a=!b(e)||e!==this._$AH&&e!==E,a&&(this._$AH=e);else{let r=e,o,s;for(e=i[0],o=0;o<i.length-1;o++)s=A(this,r[n+o],t,o),s===E&&(s=this._$AH[o]),a||=!b(s)||s!==this._$AH[o],s===D?e=D:e!==D&&(e+=(s??``)+i[o+1]),this._$AH[o]=s}a&&!r&&this.j(e)}j(e){e===D?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,e??``)}},Ee=class extends M{constructor(){super(...arguments),this.type=3}j(e){this.element[this.name]=e===D?void 0:e}},De=class extends M{constructor(){super(...arguments),this.type=4}j(e){this.element.toggleAttribute(this.name,!!e&&e!==D)}},Oe=class extends M{constructor(e,t,n,r,i){super(e,t,n,r,i),this.type=5}_$AI(e,t=this){if((e=A(this,e,t,0)??D)===E)return;let n=this._$AH,r=e===D&&n!==D||e.capture!==n.capture||e.once!==n.once||e.passive!==n.passive,i=e!==D&&(n===D||r);r&&this.element.removeEventListener(this.name,this,n),i&&this.element.addEventListener(this.name,this,e),this._$AH=e}handleEvent(e){typeof this._$AH==`function`?this._$AH.call(this.options?.host??this.element,e):this._$AH.handleEvent(e)}},ke=class{constructor(e,t,n){this.element=e,this.type=6,this._$AN=void 0,this._$AM=t,this.options=n}get _$AU(){return this._$AM._$AU}_$AI(e){A(this,e)}},Ae=h.litHtmlPolyfillSupport;Ae?.(k,j),(h.litHtmlVersions??=[]).push(`3.3.2`);var je=(e,t,n)=>{let r=n?.renderBefore??t,i=r._$litPart$;if(i===void 0){let e=n?.renderBefore??null;r._$litPart$=i=new j(t.insertBefore(y(),e),e,void 0,n??{})}return i._$AI(e),i},N=globalThis,P=class extends m{constructor(){super(...arguments),this.renderOptions={host:this},this._$Do=void 0}createRenderRoot(){let e=super.createRenderRoot();return this.renderOptions.renderBefore??=e.firstChild,e}update(e){let t=this.render();this.hasUpdated||(this.renderOptions.isConnected=this.isConnected),super.update(e),this._$Do=je(t,this.renderRoot,this.renderOptions)}connectedCallback(){super.connectedCallback(),this._$Do?.setConnected(!0)}disconnectedCallback(){super.disconnectedCallback(),this._$Do?.setConnected(!1)}render(){return E}};P._$litElement$=!0,P.finalized=!0,N.litElementHydrateSupport?.({LitElement:P});var Me=N.litElementPolyfillSupport;Me?.({LitElement:P}),(N.litElementVersions??=[]).push(`4.2.2`);var F=e=>(t,n)=>{n===void 0?customElements.define(e,t):n.addInitializer(()=>{customElements.define(e,t)})},Ne={attribute:!0,type:String,converter:p,reflect:!1,hasChanged:le},Pe=(e=Ne,t,n)=>{let{kind:r,metadata:i}=n,a=globalThis.litPropertyMetadata.get(i);if(a===void 0&&globalThis.litPropertyMetadata.set(i,a=new Map),r===`setter`&&((e=Object.create(e)).wrapped=!0),a.set(n.name,e),r===`accessor`){let{name:r}=n;return{set(n){let i=t.get.call(this);t.set.call(this,n),this.requestUpdate(r,i,e,!0,n)},init(t){return t!==void 0&&this.C(r,void 0,e,t),t}}}if(r===`setter`){let{name:r}=n;return function(n){let i=this[r];t.call(this,n),this.requestUpdate(r,i,e,!0,n)}}throw Error(`Unsupported decorator location: `+r)};function I(e){return(t,n)=>typeof n==`object`?Pe(e,t,n):((e,t,n)=>{let r=t.hasOwnProperty(n);return t.constructor.createProperty(n,e),r?Object.getOwnPropertyDescriptor(t,n):void 0})(e,t,n)}function L(e){return I({...e,state:!0,attribute:!1})}function R(e,t,n,r){var i=arguments.length,a=i<3?t:r===null?r=Object.getOwnPropertyDescriptor(t,n):r,o;if(typeof Reflect==`object`&&typeof Reflect.decorate==`function`)a=Reflect.decorate(e,t,n,r);else for(var s=e.length-1;s>=0;s--)(o=e[s])&&(a=(i<3?o(a):i>3?o(t,n,a):o(t,n))||a);return i>3&&a&&Object.defineProperty(t,n,a),a}var z=class extends P{constructor(...e){super(...e),this.source=``,this.jsSource=``,this.filename=`component.ts`,this.expanded=!1,this.copied=!1,this.language=`js`}static{this.styles=c`
     :host {
       display: block;
       margin-bottom: 1.5rem;
@@ -450,7 +450,7 @@ export class Badge extends HTMLElement {
 }
 if (!customElements.get('shadcx-badge')) {
     customElements.define('shadcx-badge', Badge);
-}`,Le=t({BadgePage:()=>B,description:()=>Re}),Re=`Displays a badge or a component that looks like a badge.`,B=class extends P{static{this.styles=c`
+}`,Le=t({BadgePage:()=>ze,description:()=>Re}),Re=`Displays a badge or a component that looks like a badge.`,ze=class extends P{static{this.styles=c`
     :host {
       display: block;
       font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
@@ -735,7 +735,7 @@ if (!customElements.get('shadcx-badge')) {
           </tbody>
         </table>
       </div>
-    `}};B=R([F(`badge-page`)],B);var ze=`export type ButtonVariant =
+    `}};ze=R([F(`badge-page`)],ze);var Be=`export type ButtonVariant =
   | 'default'
   | 'destructive'
   | 'outline'
@@ -920,7 +920,7 @@ declare global {
     'shadcx-button': Button
   }
 }
-`,Be=`const styles = \`
+`,Ve=`const styles = \`
   *, *::before, *::after { box-sizing: border-box; }
   * { margin: 0; }
   img, svg, video, canvas, audio, iframe, embed, object { display: block; vertical-align: middle; }
@@ -1071,7 +1071,7 @@ export class Button extends HTMLElement {
 }
 if (!customElements.get('shadcx-button')) {
     customElements.define('shadcx-button', Button);
-}`,Ve=t({ButtonPage:()=>V,description:()=>He}),He=`Displays a button or a component that looks like a button.`,V=class extends P{static{this.styles=c`
+}`,He=t({ButtonPage:()=>B,description:()=>Ue}),Ue=`Displays a button or a component that looks like a button.`,B=class extends P{static{this.styles=c`
     :host {
       display: block;
       font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
@@ -1219,7 +1219,7 @@ if (!customElements.get('shadcx-button')) {
 &lt;script type="module" src="https://dobrinyonkov.github.io/shadcx/assets/button.js"&gt;&lt;/script&gt;</code></pre>
 
       <h2>Copy Paste Source</h2>
-      <source-code-block filename="button.ts" .source=${ze} .jsSource=${Be}></source-code-block>
+      <source-code-block filename="button.ts" .source=${Be} .jsSource=${Ve}></source-code-block>
 
       <h2>Usage</h2>
       <pre><code>&lt;shadcx-button variant="outline"&gt;Button&lt;/shadcx-button&gt;</code></pre>
@@ -1345,7 +1345,598 @@ if (!customElements.get('shadcx-button')) {
           </tbody>
         </table>
       </div>
-    `}};V=R([F(`button-page`)],V);var Ue=`export type CheckboxState = 'unchecked' | 'checked' | 'indeterminate'
+    `}};B=R([F(`button-page`)],B);var We=`export type CardSize = 'default' | 'sm'
+
+const preflight = \`
+  *, *::before, *::after { box-sizing: border-box; }
+  * { margin: 0; }
+  img, svg, video, canvas, audio, iframe, embed, object { display: block; vertical-align: middle; }
+  img, video { max-width: 100%; height: auto; }
+  h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
+  blockquote, dl, dd, hr, figure, p, pre { margin: 0; }
+  ol, ul { list-style: none; margin: 0; padding: 0; }
+  a { color: inherit; text-decoration: inherit; }
+  [hidden] { display: none !important; }
+\`
+
+const cardStyles = \`
+  \${preflight}
+
+  :host {
+    --shadcx-card-padding: 1.5rem;
+    --shadcx-card-gap: 1.5rem;
+    display: block;
+  }
+
+  :host([size='sm']) {
+    --shadcx-card-padding: 1rem;
+    --shadcx-card-gap: 1rem;
+  }
+
+  .root {
+    display: flex;
+    flex-direction: column;
+    gap: var(--shadcx-card-gap);
+    border-radius: calc(var(--radius) + 2px);
+    border: 1px solid hsl(var(--border));
+    background-color: hsl(var(--card));
+    color: hsl(var(--card-foreground));
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+  }
+
+  .root ::slotted(img),
+  .root ::slotted([data-card-image]) {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+\`
+
+const headerStyles = \`
+  \${preflight}
+
+  :host { display: block; }
+
+  .root {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 0.375rem 1rem;
+    padding: var(--shadcx-card-padding) var(--shadcx-card-padding) 0;
+  }
+
+  .root ::slotted(shadcx-card-title),
+  .root ::slotted(shadcx-card-description) {
+    grid-column: 1;
+  }
+
+  .root ::slotted(shadcx-card-action) {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    justify-self: end;
+    align-self: start;
+  }
+\`
+
+const titleStyles = \`
+  \${preflight}
+
+  :host { display: block; }
+
+  .root {
+    color: hsl(var(--card-foreground));
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+\`
+
+const descriptionStyles = \`
+  \${preflight}
+
+  :host { display: block; }
+
+  .root {
+    color: hsl(var(--muted-foreground));
+    font-size: 0.875rem;
+    line-height: 1.45;
+  }
+\`
+
+const actionStyles = \`
+  \${preflight}
+
+  :host { display: block; }
+
+  .root {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+\`
+
+const contentStyles = \`
+  \${preflight}
+
+  :host { display: block; }
+
+  .root {
+    padding-inline: var(--shadcx-card-padding);
+    color: hsl(var(--card-foreground));
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+\`
+
+const footerStyles = \`
+  \${preflight}
+
+  :host { display: block; }
+
+  .root {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0 var(--shadcx-card-padding) var(--shadcx-card-padding);
+    color: hsl(var(--card-foreground));
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+\`
+
+abstract class CardElement extends HTMLElement {
+  protected abstract styles: string
+  protected partName = 'root'
+  protected rootClassName = 'root'
+
+  connectedCallback() {
+    if (!this.shadowRoot) this.attachShadow({ mode: 'open' })
+    this.render()
+  }
+
+  protected render() {
+    if (!this.shadowRoot) return
+    this.shadowRoot.innerHTML = \`
+      <style>\${this.styles}</style>
+      <div part="\${this.partName}" class="\${this.rootClassName}"><slot></slot></div>
+    \`
+  }
+}
+
+export class Card extends HTMLElement {
+  static observedAttributes = ['size']
+
+  get size(): CardSize {
+    return (this.getAttribute('size') as CardSize | null) ?? 'default'
+  }
+
+  set size(value: CardSize) {
+    this.setAttribute('size', value)
+  }
+
+  connectedCallback() {
+    if (!this.shadowRoot) this.attachShadow({ mode: 'open' })
+    this.render()
+  }
+
+  attributeChangedCallback() {
+    this.render()
+  }
+
+  private render() {
+    if (!this.shadowRoot) return
+    this.shadowRoot.innerHTML = \`
+      <style>\${cardStyles}</style>
+      <div part="root" class="root" data-size="\${this.size}"><slot></slot></div>
+    \`
+  }
+}
+
+export class CardHeader extends CardElement {
+  protected styles = headerStyles
+}
+
+export class CardTitle extends CardElement {
+  protected styles = titleStyles
+}
+
+export class CardDescription extends CardElement {
+  protected styles = descriptionStyles
+}
+
+export class CardAction extends CardElement {
+  protected styles = actionStyles
+}
+
+export class CardContent extends CardElement {
+  protected styles = contentStyles
+}
+
+export class CardFooter extends CardElement {
+  protected styles = footerStyles
+}
+
+const definitions: [string, CustomElementConstructor][] = [
+  ['shadcx-card', Card],
+  ['shadcx-card-header', CardHeader],
+  ['shadcx-card-title', CardTitle],
+  ['shadcx-card-description', CardDescription],
+  ['shadcx-card-action', CardAction],
+  ['shadcx-card-content', CardContent],
+  ['shadcx-card-footer', CardFooter],
+]
+
+for (const [tag, element] of definitions) {
+  if (!customElements.get(tag)) {
+    customElements.define(tag, element)
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'shadcx-card': Card
+    'shadcx-card-header': CardHeader
+    'shadcx-card-title': CardTitle
+    'shadcx-card-description': CardDescription
+    'shadcx-card-action': CardAction
+    'shadcx-card-content': CardContent
+    'shadcx-card-footer': CardFooter
+  }
+}
+`,Ge=`const preflight = \`
+  *, *::before, *::after { box-sizing: border-box; }
+  * { margin: 0; }
+  img, svg, video, canvas, audio, iframe, embed, object { display: block; vertical-align: middle; }
+  img, video { max-width: 100%; height: auto; }
+  h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
+  blockquote, dl, dd, hr, figure, p, pre { margin: 0; }
+  ol, ul { list-style: none; margin: 0; padding: 0; }
+  a { color: inherit; text-decoration: inherit; }
+  [hidden] { display: none !important; }
+\`;
+const cardStyles = \`
+  \${preflight}
+
+  :host {
+    --shadcx-card-padding: 1.5rem;
+    --shadcx-card-gap: 1.5rem;
+    display: block;
+  }
+
+  :host([size='sm']) {
+    --shadcx-card-padding: 1rem;
+    --shadcx-card-gap: 1rem;
+  }
+
+  .root {
+    display: flex;
+    flex-direction: column;
+    gap: var(--shadcx-card-gap);
+    border-radius: calc(var(--radius) + 2px);
+    border: 1px solid hsl(var(--border));
+    background-color: hsl(var(--card));
+    color: hsl(var(--card-foreground));
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+  }
+
+  .root ::slotted(img),
+  .root ::slotted([data-card-image]) {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+\`;
+const headerStyles = \`
+  \${preflight}
+
+  :host { display: block; }
+
+  .root {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 0.375rem 1rem;
+    padding: var(--shadcx-card-padding) var(--shadcx-card-padding) 0;
+  }
+
+  .root ::slotted(shadcx-card-title),
+  .root ::slotted(shadcx-card-description) {
+    grid-column: 1;
+  }
+
+  .root ::slotted(shadcx-card-action) {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    justify-self: end;
+    align-self: start;
+  }
+\`;
+const titleStyles = \`
+  \${preflight}
+
+  :host { display: block; }
+
+  .root {
+    color: hsl(var(--card-foreground));
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+\`;
+const descriptionStyles = \`
+  \${preflight}
+
+  :host { display: block; }
+
+  .root {
+    color: hsl(var(--muted-foreground));
+    font-size: 0.875rem;
+    line-height: 1.45;
+  }
+\`;
+const actionStyles = \`
+  \${preflight}
+
+  :host { display: block; }
+
+  .root {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+\`;
+const contentStyles = \`
+  \${preflight}
+
+  :host { display: block; }
+
+  .root {
+    padding-inline: var(--shadcx-card-padding);
+    color: hsl(var(--card-foreground));
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+\`;
+const footerStyles = \`
+  \${preflight}
+
+  :host { display: block; }
+
+  .root {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0 var(--shadcx-card-padding) var(--shadcx-card-padding);
+    color: hsl(var(--card-foreground));
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+\`;
+class CardElement extends HTMLElement {
+    partName = 'root';
+    rootClassName = 'root';
+    connectedCallback() {
+        if (!this.shadowRoot)
+            this.attachShadow({ mode: 'open' });
+        this.render();
+    }
+    render() {
+        if (!this.shadowRoot)
+            return;
+        this.shadowRoot.innerHTML = \`
+      <style>\${this.styles}</style>
+      <div part="\${this.partName}" class="\${this.rootClassName}"><slot></slot></div>
+    \`;
+    }
+}
+export class Card extends HTMLElement {
+    static observedAttributes = ['size'];
+    get size() {
+        return this.getAttribute('size') ?? 'default';
+    }
+    set size(value) {
+        this.setAttribute('size', value);
+    }
+    connectedCallback() {
+        if (!this.shadowRoot)
+            this.attachShadow({ mode: 'open' });
+        this.render();
+    }
+    attributeChangedCallback() {
+        this.render();
+    }
+    render() {
+        if (!this.shadowRoot)
+            return;
+        this.shadowRoot.innerHTML = \`
+      <style>\${cardStyles}</style>
+      <div part="root" class="root" data-size="\${this.size}"><slot></slot></div>
+    \`;
+    }
+}
+export class CardHeader extends CardElement {
+    styles = headerStyles;
+}
+export class CardTitle extends CardElement {
+    styles = titleStyles;
+}
+export class CardDescription extends CardElement {
+    styles = descriptionStyles;
+}
+export class CardAction extends CardElement {
+    styles = actionStyles;
+}
+export class CardContent extends CardElement {
+    styles = contentStyles;
+}
+export class CardFooter extends CardElement {
+    styles = footerStyles;
+}
+const definitions = [
+    ['shadcx-card', Card],
+    ['shadcx-card-header', CardHeader],
+    ['shadcx-card-title', CardTitle],
+    ['shadcx-card-description', CardDescription],
+    ['shadcx-card-action', CardAction],
+    ['shadcx-card-content', CardContent],
+    ['shadcx-card-footer', CardFooter],
+];
+for (const [tag, element] of definitions) {
+    if (!customElements.get(tag)) {
+        customElements.define(tag, element);
+    }
+}`,Ke=t({CardPage:()=>V,description:()=>qe}),qe=`Displays a card with header, content, and footer.`,V=class extends P{static{this.styles=c`
+    :host {
+      display: block;
+      font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
+    }
+
+    h1 { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.025em; margin: 0 0 0.5rem; color: hsl(var(--foreground)); }
+    h2 { font-size: 1.25rem; font-weight: 600; margin: 2.25rem 0 0.75rem; color: hsl(var(--foreground)); }
+    h3 { font-size: 1rem; font-weight: 600; margin: 1.5rem 0 0.5rem; color: hsl(var(--foreground)); }
+    p { font-size: 0.9375rem; line-height: 1.65; color: hsl(var(--foreground)); margin: 0 0 0.75rem; }
+    .desc { color: hsl(var(--muted-foreground)); margin-bottom: 1.5rem; }
+
+    .preview {
+      border: 1px solid hsl(var(--border));
+      border-radius: calc(var(--radius) - 2px);
+      padding: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .preview + pre { margin-top: 0; border-top-left-radius: 0; border-top-right-radius: 0; border-top: none; }
+    pre { background-color: hsl(var(--muted)); border: 1px solid hsl(var(--border)); border-radius: calc(var(--radius) - 2px); padding: 1rem; overflow-x: auto; font-size: 0.8125rem; line-height: 1.6; margin: 0 0 1.5rem; }
+    code { font-family: var(--font-mono, ui-monospace, SFMono-Regular, monospace); font-size: 0.8125rem; }
+    :not(pre) > code { background-color: hsl(var(--muted)); padding: 0.15rem 0.4rem; border-radius: calc(var(--radius) - 4px); }
+    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 1.5rem; }
+    table { width: 100%; min-width: 24rem; font-size: 0.875rem; border-collapse: collapse; }
+    th, td { text-align: left; padding: 0.5rem 0.75rem; border-bottom: 1px solid hsl(var(--border)); }
+    th { font-weight: 600; color: hsl(var(--foreground)); font-size: 0.8125rem; }
+    td { color: hsl(var(--muted-foreground)); font-size: 0.8125rem; }
+    td:first-child { color: hsl(var(--foreground)); font-weight: 500; }
+
+    shadcx-card { width: min(100%, 24rem); }
+    shadcx-card.demo-image { width: min(100%, 28rem); }
+    .card-copy { color: hsl(var(--muted-foreground)); margin: 0; }
+    .footer-between { justify-content: space-between; }
+    .demo-image img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+
+    @media (max-width: 640px) {
+      h1 { font-size: 1.375rem; }
+      h2 { font-size: 1.125rem; }
+      .preview { padding: 1rem; }
+      pre { padding: 0.75rem; font-size: 0.75rem; }
+      shadcx-card { width: 100%; }
+    }
+  `}render(){return T`
+      <h1>Card</h1>
+      <p class="desc">Displays a card with header, content, and footer.</p>
+
+      <h2>Installation</h2>
+      <pre><code>&lt;link rel="stylesheet" href="https://dobrinyonkov.github.io/shadcx/assets/theme.css"&gt;
+&lt;script type="module" src="https://dobrinyonkov.github.io/shadcx/assets/card.js"&gt;&lt;/script&gt;</code></pre>
+
+      <h2>Copy Paste Source</h2>
+      <source-code-block filename="card.ts" .source=${We} .jsSource=${Ge}></source-code-block>
+
+      <h2>Usage</h2>
+      <pre><code>&lt;shadcx-card&gt;
+  &lt;shadcx-card-header&gt;
+    &lt;shadcx-card-title&gt;Card Title&lt;/shadcx-card-title&gt;
+    &lt;shadcx-card-description&gt;Card Description&lt;/shadcx-card-description&gt;
+    &lt;shadcx-card-action&gt;Card Action&lt;/shadcx-card-action&gt;
+  &lt;/shadcx-card-header&gt;
+  &lt;shadcx-card-content&gt;Card Content&lt;/shadcx-card-content&gt;
+  &lt;shadcx-card-footer&gt;Card Footer&lt;/shadcx-card-footer&gt;
+&lt;/shadcx-card&gt;</code></pre>
+
+      <h2>Examples</h2>
+
+      <h3>Basic</h3>
+      <div class="preview">
+        <shadcx-card>
+          <shadcx-card-header>
+            <shadcx-card-title>Team Seats</shadcx-card-title>
+            <shadcx-card-description>Manage seats for your workspace.</shadcx-card-description>
+            <shadcx-card-action><shadcx-badge variant="secondary">Pro</shadcx-badge></shadcx-card-action>
+          </shadcx-card-header>
+          <shadcx-card-content>
+            <p class="card-copy">Invite teammates, assign roles, and review billing impact before changes are applied.</p>
+          </shadcx-card-content>
+          <shadcx-card-footer class="footer-between">
+            <span>12 of 20 seats used</span>
+            <shadcx-button size="sm">Manage</shadcx-button>
+          </shadcx-card-footer>
+        </shadcx-card>
+      </div>
+      <pre><code>&lt;shadcx-card&gt;
+  &lt;shadcx-card-header&gt;
+    &lt;shadcx-card-title&gt;Team Seats&lt;/shadcx-card-title&gt;
+    &lt;shadcx-card-description&gt;Manage seats for your workspace.&lt;/shadcx-card-description&gt;
+    &lt;shadcx-card-action&gt;&lt;shadcx-badge variant="secondary"&gt;Pro&lt;/shadcx-badge&gt;&lt;/shadcx-card-action&gt;
+  &lt;/shadcx-card-header&gt;
+  &lt;shadcx-card-content&gt;...&lt;/shadcx-card-content&gt;
+  &lt;shadcx-card-footer&gt;...&lt;/shadcx-card-footer&gt;
+&lt;/shadcx-card&gt;</code></pre>
+
+      <h3>Small</h3>
+      <div class="preview">
+        <shadcx-card size="sm">
+          <shadcx-card-header>
+            <shadcx-card-title>Storage</shadcx-card-title>
+            <shadcx-card-description>Small cards use tighter spacing.</shadcx-card-description>
+          </shadcx-card-header>
+          <shadcx-card-content>42 GB used this month.</shadcx-card-content>
+        </shadcx-card>
+      </div>
+      <pre><code>&lt;shadcx-card size="sm"&gt;...&lt;/shadcx-card&gt;</code></pre>
+
+      <h3>Image</h3>
+      <div class="preview">
+        <shadcx-card class="demo-image">
+          <img data-card-image src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Laptop showing source code" />
+          <shadcx-card-header>
+            <shadcx-card-title>Release Notes</shadcx-card-title>
+            <shadcx-card-description>Ship a polished update summary with media.</shadcx-card-description>
+          </shadcx-card-header>
+          <shadcx-card-content>Use a standard image before the header for media cards.</shadcx-card-content>
+        </shadcx-card>
+      </div>
+      <pre><code>&lt;shadcx-card&gt;
+  &lt;img data-card-image src="..." alt="..." /&gt;
+  &lt;shadcx-card-header&gt;...&lt;/shadcx-card-header&gt;
+&lt;/shadcx-card&gt;</code></pre>
+
+      <h2>API Reference</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Prop</th><th>Type</th><th>Default</th></tr></thead>
+          <tbody>
+            <tr><td><code>size</code></td><td><code>"default" | "sm"</code></td><td><code>"default"</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>CSS Parts</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Part</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>root</code></td><td>The internal wrapper on each card element.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    `}};V=R([F(`card-page`)],V);var Je=`export type CheckboxState = 'unchecked' | 'checked' | 'indeterminate'
 
 const styles = \`
   *, *::before, *::after { box-sizing: border-box; }
@@ -1557,7 +2148,7 @@ declare global {
     'shadcx-checkbox': Checkbox
   }
 }
-`,We=`const styles = \`
+`,Ye=`const styles = \`
   *, *::before, *::after { box-sizing: border-box; }
   * { margin: 0; }
   img, svg, video, canvas, audio, iframe, embed, object { display: block; vertical-align: middle; }
@@ -1747,7 +2338,7 @@ export class Checkbox extends HTMLElement {
 }
 if (!customElements.get('shadcx-checkbox')) {
     customElements.define('shadcx-checkbox', Checkbox);
-}`,Ge=t({CheckboxPage:()=>H,description:()=>Ke}),Ke=`A control that allows the user to toggle between checked and unchecked states, with support for indeterminate and invalid states.`,H=class extends P{constructor(...e){super(...e),this._checked=!1}static{this.styles=c`
+}`,Xe=t({CheckboxPage:()=>H,description:()=>Ze}),Ze=`A control that allows the user to toggle between checked and unchecked states, with support for indeterminate and invalid states.`,H=class extends P{constructor(...e){super(...e),this._checked=!1}static{this.styles=c`
     :host {
       display: block;
       font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
@@ -1906,7 +2497,7 @@ if (!customElements.get('shadcx-checkbox')) {
 &lt;script type="module" src="https://dobrinyonkov.github.io/shadcx/assets/checkbox.js"&gt;&lt;/script&gt;</code></pre>
 
       <h2>Copy Paste Source</h2>
-      <source-code-block filename="checkbox.ts" .source=${Ue} .jsSource=${We}></source-code-block>
+      <source-code-block filename="checkbox.ts" .source=${Je} .jsSource=${Ye}></source-code-block>
 
       <h2>Usage</h2>
       <pre><code>&lt;shadcx-checkbox&gt;&lt;/shadcx-checkbox&gt;</code></pre>
@@ -1999,7 +2590,7 @@ if (!customElements.get('shadcx-checkbox')) {
           </tbody>
         </table>
       </div>
-    `}};R([L()],H.prototype,`_checked`,void 0),H=R([F(`checkbox-page`)],H);var qe=`const styles = \`
+    `}};R([L()],H.prototype,`_checked`,void 0),H=R([F(`checkbox-page`)],H);var Qe=`const styles = \`
   *, *::before, *::after { box-sizing: border-box; }
   * { margin: 0; }
   img, svg, video, canvas, audio, iframe, embed, object { display: block; vertical-align: middle; }
@@ -2335,7 +2926,7 @@ export class Combobox extends HTMLElement {
     if (event.key === 'Escape') {
       this._open = false
       this._highlightedIndex = -1
-      this.render(true)
+      this.render()
     }
   }
 
@@ -2413,6 +3004,7 @@ export class Combobox extends HTMLElement {
 
     const input = this.shadowRoot.querySelector('input')
     input?.addEventListener('focus', () => {
+      if (this._open) return
       this._open = true
       this.render(true)
     })
@@ -2494,7 +3086,7 @@ declare global {
     'shadcx-combobox': Combobox
   }
 }
-`,Je=`const styles = \`
+`,$e=`const styles = \`
   *, *::before, *::after { box-sizing: border-box; }
   * { margin: 0; }
   img, svg, video, canvas, audio, iframe, embed, object { display: block; vertical-align: middle; }
@@ -2804,7 +3396,7 @@ export class Combobox extends HTMLElement {
         if (event.key === 'Escape') {
             this._open = false;
             this._highlightedIndex = -1;
-            this.render(true);
+            this.render();
         }
     };
     selectItem(item) {
@@ -2874,6 +3466,8 @@ export class Combobox extends HTMLElement {
     \`;
         const input = this.shadowRoot.querySelector('input');
         input?.addEventListener('focus', () => {
+            if (this._open)
+                return;
             this._open = true;
             this.render(true);
         });
@@ -2942,7 +3536,7 @@ export class Combobox extends HTMLElement {
 }
 if (!customElements.get('shadcx-combobox')) {
     customElements.define('shadcx-combobox', Combobox);
-}`,Ye=t({ComboboxPage:()=>W,description:()=>Xe}),Xe=`Autocomplete input with suggestion filtering, keyboard navigation, clear behavior, and optional multi-select chips.`,U=[`Next.js`,`SvelteKit`,`Nuxt.js`,`Remix`,`Astro`],W=class extends P{constructor(...e){super(...e),this._singleValue=``,this._multipleValues=[]}static{this.styles=c`
+}`,et=t({ComboboxPage:()=>W,description:()=>tt}),tt=`Autocomplete input with suggestion filtering, keyboard navigation, clear behavior, and optional multi-select chips.`,U=[`Next.js`,`SvelteKit`,`Nuxt.js`,`Remix`,`Astro`],W=class extends P{constructor(...e){super(...e),this._singleValue=``,this._multipleValues=[]}static{this.styles=c`
     :host {
       display: block;
       font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
@@ -3065,7 +3659,7 @@ if (!customElements.get('shadcx-combobox')) {
 &lt;script type="module" src="https://dobrinyonkov.github.io/shadcx/assets/combobox.js"&gt;&lt;/script&gt;</code></pre>
 
       <h2>Copy Paste Source</h2>
-      <source-code-block filename="combobox.ts" .source=${qe} .jsSource=${Je}></source-code-block>
+      <source-code-block filename="combobox.ts" .source=${Qe} .jsSource=${$e}></source-code-block>
 
       <h2>Usage</h2>
       <p>
@@ -3172,7 +3766,1348 @@ if (!customElements.get('shadcx-combobox')) {
           </tbody>
         </table>
       </div>
-    `}};R([L()],W.prototype,`_singleValue`,void 0),R([L()],W.prototype,`_multipleValues`,void 0),W=R([F(`combobox-page`)],W);var Ze=`const styles = \`
+    `}};R([L()],W.prototype,`_singleValue`,void 0),R([L()],W.prototype,`_multipleValues`,void 0),W=R([F(`combobox-page`)],W);var nt=`export type DropdownMenuItemVariant = 'default' | 'destructive'
+
+const preflight = \`
+  *, *::before, *::after { box-sizing: border-box; }
+  * { margin: 0; }
+  img, svg, video, canvas, audio, iframe, embed, object { display: block; vertical-align: middle; }
+  img, video { max-width: 100%; height: auto; }
+  h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
+  blockquote, dl, dd, hr, figure, p, pre { margin: 0; }
+  ol, ul { list-style: none; margin: 0; padding: 0; }
+  a { color: inherit; text-decoration: inherit; }
+  button, input, optgroup, select, textarea {
+    font-family: inherit;
+    font-feature-settings: inherit;
+    font-variation-settings: inherit;
+    font-size: 100%;
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    margin: 0;
+    padding: 0;
+  }
+  button { appearance: none; background: transparent; background-image: none; }
+  [hidden] { display: none !important; }
+\`
+
+const rootStyles = \`
+  \${preflight}
+  :host {
+    display: inline-block;
+    position: relative;
+    font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
+  }
+\`
+
+const triggerStyles = \`
+  \${preflight}
+  :host { display: inline-flex; }
+  .root { display: inline-flex; cursor: pointer; }
+\`
+
+const contentStyles = \`
+  \${preflight}
+  :host {
+    display: none;
+    position: absolute;
+    inset-block-start: calc(100% + 0.25rem);
+    inset-inline-start: 0;
+    z-index: 50;
+    min-width: var(--shadcx-dropdown-menu-width, 12rem);
+  }
+  :host([align='end']) { inset-inline-start: auto; inset-inline-end: 0; }
+  :host([data-side='top']) { inset-block-start: auto; inset-block-end: calc(100% + 0.25rem); }
+  :host([data-align='end']) { inset-inline-start: auto; inset-inline-end: 0; }
+  :host([data-open]) { display: block; }
+  .root {
+    min-width: inherit;
+    overflow: visible;
+    border: 1px solid hsl(var(--border));
+    border-radius: calc(var(--radius) - 2px);
+    background-color: hsl(var(--popover));
+    color: hsl(var(--popover-foreground));
+    padding: 0.25rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  :host([data-constrain]) .root {
+    max-height: min(24rem, calc(100svh - 1rem));
+    overflow: auto;
+  }
+\`
+
+const groupStyles = \`
+  \${preflight}
+  :host { display: block; }
+  .root { display: grid; gap: 0.125rem; }
+\`
+
+const labelStyles = \`
+  \${preflight}
+  :host { display: block; }
+  .root { padding: 0.375rem 0.5rem; font-size: 0.8125rem; font-weight: 600; color: hsl(var(--foreground)); }
+\`
+
+const separatorStyles = \`
+  \${preflight}
+  :host { display: block; }
+  .root { height: 1px; margin: 0.25rem -0.25rem; background-color: hsl(var(--border)); }
+\`
+
+const itemStyles = \`
+  \${preflight}
+  :host { display: block; }
+  :host([disabled]) { pointer-events: none; opacity: 0.5; }
+  .root {
+    width: 100%;
+    min-height: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 0;
+    border-radius: calc(var(--radius) - 4px);
+    background-color: transparent;
+    color: hsl(var(--popover-foreground));
+    cursor: pointer;
+    font-size: 0.875rem;
+    line-height: 1.25;
+    outline: none;
+    padding: 0.375rem 0.5rem;
+    text-align: start;
+    user-select: none;
+  }
+  .root:hover, .root:focus-visible {
+    background-color: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+  }
+  [data-variant='destructive'] { color: hsl(var(--destructive)); }
+  [data-variant='destructive']:hover, [data-variant='destructive']:focus-visible {
+    background-color: hsl(var(--destructive) / 0.1);
+    color: hsl(var(--destructive));
+  }
+  .indicator { width: 1rem; flex: 0 0 1rem; color: hsl(var(--primary)); text-align: center; }
+  .content { display: inline-flex; min-width: 0; flex: 1; align-items: center; gap: 0.5rem; }
+  .root ::slotted(svg), .root ::slotted([data-icon]) { width: 1rem; height: 1rem; flex-shrink: 0; }
+\`
+
+const shortcutStyles = \`
+  \${preflight}
+  :host { margin-inline-start: auto; }
+  .root { color: hsl(var(--muted-foreground)); font-size: 0.75rem; letter-spacing: 0.08em; }
+\`
+
+const subStyles = \`
+  \${preflight}
+  :host {
+    display: block;
+    position: relative;
+  }
+  :host(:hover) ::slotted(shadcx-dropdown-menu-sub-content),
+  :host(:focus-within) ::slotted(shadcx-dropdown-menu-sub-content),
+  :host([open]) ::slotted(shadcx-dropdown-menu-sub-content) { display: block; }
+\`
+
+const subTriggerStyles = \`
+  \${itemStyles}
+  .chevron { margin-inline-start: auto; color: hsl(var(--muted-foreground)); }
+\`
+
+const subContentStyles = \`
+  \${contentStyles}
+  :host {
+    display: none;
+    inset-block-start: -0.25rem;
+    inset-inline-start: calc(100% + 0.25rem);
+  }
+  :host([data-side='left']) { inset-inline-start: auto; inset-inline-end: calc(100% + 0.25rem); }
+\`
+
+function defineElement(tag: string, element: CustomElementConstructor) {
+  if (!customElements.get(tag)) customElements.define(tag, element)
+}
+
+abstract class SlotElement extends HTMLElement {
+  protected abstract styles: string
+  protected partName = 'root'
+  protected rootClassName = 'root'
+
+  connectedCallback() {
+    if (!this.shadowRoot) this.attachShadow({ mode: 'open' })
+    this.render()
+  }
+
+  protected render() {
+    if (!this.shadowRoot) return
+    this.shadowRoot.innerHTML = \`<style>\${this.styles}</style><div part="\${this.partName}" class="\${this.rootClassName}"><slot></slot></div>\`
+  }
+}
+
+export class DropdownMenu extends HTMLElement {
+  static observedAttributes = ['open']
+
+  get open() {
+    return this.hasAttribute('open')
+  }
+
+  set open(value: boolean) {
+    this.toggleAttribute('open', value)
+  }
+
+  connectedCallback() {
+    if (!this.shadowRoot) this.attachShadow({ mode: 'open' })
+    window.addEventListener('pointerdown', this.onWindowPointerDown)
+    window.addEventListener('keydown', this.onWindowKeyDown)
+    this.addEventListener('click', this.onClick)
+    this.addEventListener('keydown', this.onKeyDown)
+    this.render()
+    this.syncContent()
+  }
+
+  disconnectedCallback() {
+    window.removeEventListener('pointerdown', this.onWindowPointerDown)
+    window.removeEventListener('keydown', this.onWindowKeyDown)
+    this.removeEventListener('click', this.onClick)
+    this.removeEventListener('keydown', this.onKeyDown)
+  }
+
+  attributeChangedCallback() {
+    this.syncContent()
+  }
+
+  private onWindowPointerDown = (event: PointerEvent) => {
+    if (!event.composedPath().includes(this)) this.open = false
+  }
+
+  private onWindowKeyDown = (event: KeyboardEvent) => {
+    if (event.key === 'Escape') this.open = false
+  }
+
+  private onClick = (event: Event) => {
+    const path = event.composedPath()
+    if (path.some((node) => node instanceof DropdownMenuTrigger)) {
+      this.open = !this.open
+      return
+    }
+
+    const item = path.find((node) => node instanceof DropdownMenuItem) as DropdownMenuItem | undefined
+    if (item && !item.disabled) this.open = false
+  }
+
+  private onKeyDown = (event: KeyboardEvent) => {
+    const path = event.composedPath()
+    const fromTrigger = path.some((node) => node instanceof DropdownMenuTrigger)
+
+    if (fromTrigger && ['Enter', ' ', 'ArrowDown', 'ArrowUp'].includes(event.key)) {
+      event.preventDefault()
+      this.open = true
+      this.focusMenuItem(event.key === 'ArrowUp' ? 'last' : 'first')
+      return
+    }
+
+    if (!this.open) return
+
+    if (event.key === 'ArrowDown') {
+      event.preventDefault()
+      this.focusMenuItem('next')
+      return
+    }
+
+    if (event.key === 'ArrowUp') {
+      event.preventDefault()
+      this.focusMenuItem('previous')
+      return
+    }
+
+    if (event.key === 'Home') {
+      event.preventDefault()
+      this.focusMenuItem('first')
+      return
+    }
+
+    if (event.key === 'End') {
+      event.preventDefault()
+      this.focusMenuItem('last')
+    }
+  }
+
+  private getMenuItems() {
+    const selector = [
+      'shadcx-dropdown-menu-item',
+      'shadcx-dropdown-menu-checkbox-item',
+      'shadcx-dropdown-menu-radio-item',
+      'shadcx-dropdown-menu-sub-trigger',
+    ].join(',')
+
+    return Array.from(this.querySelectorAll(selector)).filter((item) => {
+      if (item instanceof DropdownMenuItem && item.disabled) return false
+      return item instanceof HTMLElement
+    }) as HTMLElement[]
+  }
+
+  private getItemButton(item: HTMLElement) {
+    return item.shadowRoot?.querySelector<HTMLButtonElement>('button') ?? null
+  }
+
+  private focusMenuItem(position: 'first' | 'last' | 'next' | 'previous') {
+    const items = this.getMenuItems()
+    if (items.length === 0) return
+
+    const activeIndex = items.findIndex((item) => item.shadowRoot?.activeElement === this.getItemButton(item))
+    let nextIndex = 0
+
+    if (position === 'last') nextIndex = items.length - 1
+    if (position === 'next') nextIndex = activeIndex >= 0 ? (activeIndex + 1) % items.length : 0
+    if (position === 'previous') nextIndex = activeIndex >= 0 ? (activeIndex - 1 + items.length) % items.length : items.length - 1
+
+    requestAnimationFrame(() => this.getItemButton(items[nextIndex])?.focus())
+  }
+
+  private syncContent() {
+    this.querySelectorAll('shadcx-dropdown-menu-content').forEach((content) => {
+      content.toggleAttribute('data-open', this.open)
+      content.setAttribute('data-align', content.getAttribute('align') ?? 'start')
+    })
+
+    if (this.open) requestAnimationFrame(() => this.updatePlacement())
+  }
+
+  private updatePlacement() {
+    const trigger = this.querySelector('shadcx-dropdown-menu-trigger')
+    const content = this.querySelector('shadcx-dropdown-menu-content')
+    if (!(trigger instanceof HTMLElement) || !(content instanceof HTMLElement)) return
+
+    const triggerRect = trigger.getBoundingClientRect()
+    const contentRect = content.getBoundingClientRect()
+    const gap = 4
+    const spaceBelow = window.innerHeight - triggerRect.bottom - gap
+    const spaceAbove = triggerRect.top - gap
+    const shouldOpenTop = contentRect.height > spaceBelow && spaceAbove > spaceBelow
+
+    content.setAttribute('data-side', shouldOpenTop ? 'top' : 'bottom')
+    content.toggleAttribute('data-constrain', Math.max(spaceBelow, spaceAbove) < contentRect.height)
+
+    this.querySelectorAll('shadcx-dropdown-menu-sub').forEach((sub) => {
+      if (sub instanceof DropdownMenuSub) sub.updatePlacement()
+    })
+  }
+
+  private render() {
+    if (!this.shadowRoot) return
+    this.shadowRoot.innerHTML = \`<style>\${rootStyles}</style><slot></slot>\`
+  }
+}
+
+export class DropdownMenuTrigger extends HTMLElement {
+  connectedCallback() {
+    if (!this.shadowRoot) this.attachShadow({ mode: 'open' })
+    this.render()
+  }
+
+  private render() {
+    if (!this.shadowRoot) return
+    this.shadowRoot.innerHTML = \`<style>\${triggerStyles}</style><span part="root" class="root"><slot></slot></span>\`
+  }
+}
+
+export class DropdownMenuContent extends SlotElement {
+  static observedAttributes = ['align', 'data-open']
+  protected styles = contentStyles
+}
+
+export class DropdownMenuGroup extends SlotElement {
+  protected styles = groupStyles
+}
+
+export class DropdownMenuLabel extends SlotElement {
+  protected styles = labelStyles
+}
+
+export class DropdownMenuSeparator extends HTMLElement {
+  connectedCallback() {
+    if (!this.shadowRoot) this.attachShadow({ mode: 'open' })
+    if (!this.shadowRoot) return
+    this.shadowRoot.innerHTML = \`<style>\${separatorStyles}</style><div part="root" class="root" role="separator"></div>\`
+  }
+}
+
+export class DropdownMenuItem extends HTMLElement {
+  static observedAttributes = ['variant', 'disabled']
+
+  get variant(): DropdownMenuItemVariant {
+    return (this.getAttribute('variant') as DropdownMenuItemVariant | null) ?? 'default'
+  }
+
+  set variant(value: DropdownMenuItemVariant) {
+    this.setAttribute('variant', value)
+  }
+
+  get disabled() {
+    return this.hasAttribute('disabled')
+  }
+
+  set disabled(value: boolean) {
+    this.toggleAttribute('disabled', value)
+  }
+
+  connectedCallback() {
+    if (!this.shadowRoot) this.attachShadow({ mode: 'open' })
+    this.render()
+  }
+
+  attributeChangedCallback() {
+    this.render()
+  }
+
+  protected get indicator() {
+    return ''
+  }
+
+  protected get itemRole() {
+    return 'menuitem'
+  }
+
+  protected render() {
+    if (!this.shadowRoot) return
+    this.shadowRoot.innerHTML = \`
+      <style>\${itemStyles}</style>
+      <button part="root" class="root" type="button" role="\${this.itemRole}" data-variant="\${this.variant}" \${this.disabled ? 'disabled' : ''}>
+        \${this.indicator ? \`<span class="indicator">\${this.indicator}</span>\` : ''}
+        <span class="content"><slot></slot></span>
+      </button>
+    \`
+  }
+}
+
+export class DropdownMenuCheckboxItem extends DropdownMenuItem {
+  static observedAttributes = ['variant', 'disabled', 'checked']
+
+  get checked() {
+    return this.hasAttribute('checked')
+  }
+
+  set checked(value: boolean) {
+    this.toggleAttribute('checked', value)
+  }
+
+  connectedCallback() {
+    super.connectedCallback()
+    this.addEventListener('click', this.onClick)
+  }
+
+  disconnectedCallback() {
+    this.removeEventListener('click', this.onClick)
+  }
+
+  protected get indicator() {
+    return this.checked ? '✓' : ''
+  }
+
+  protected get itemRole() {
+    return 'menuitemcheckbox'
+  }
+
+  protected render() {
+    super.render()
+    this.shadowRoot?.querySelector('button')?.setAttribute('aria-checked', String(this.checked))
+  }
+
+  private onClick = () => {
+    if (this.disabled) return
+    this.checked = !this.checked
+    this.dispatchEvent(new CustomEvent('checked-change', { detail: { checked: this.checked }, bubbles: true, composed: true }))
+  }
+}
+
+export class DropdownMenuRadioGroup extends HTMLElement {
+  static observedAttributes = ['value']
+
+  get value() {
+    return this.getAttribute('value') ?? ''
+  }
+
+  set value(value: string) {
+    if (value) this.setAttribute('value', value)
+    else this.removeAttribute('value')
+  }
+
+  connectedCallback() {
+    if (!this.shadowRoot) this.attachShadow({ mode: 'open' })
+    this.addEventListener('click', this.onClick)
+    this.render()
+    this.syncItems()
+  }
+
+  disconnectedCallback() {
+    this.removeEventListener('click', this.onClick)
+  }
+
+  attributeChangedCallback() {
+    this.syncItems()
+  }
+
+  private onClick = (event: Event) => {
+    const item = event.composedPath().find((node) => node instanceof DropdownMenuRadioItem) as DropdownMenuRadioItem | undefined
+    if (!item || item.disabled) return
+    this.value = item.value
+    this.dispatchEvent(new CustomEvent('value-change', { detail: { value: this.value }, bubbles: true, composed: true }))
+  }
+
+  private syncItems() {
+    this.querySelectorAll('shadcx-dropdown-menu-radio-item').forEach((item) => {
+      if (!(item instanceof DropdownMenuRadioItem)) return
+      item.checked = item.value === this.value
+    })
+  }
+
+  private render() {
+    if (!this.shadowRoot) return
+    this.shadowRoot.innerHTML = \`<style>\${groupStyles}</style><div part="root" class="root" role="group"><slot></slot></div>\`
+  }
+}
+
+export class DropdownMenuRadioItem extends DropdownMenuItem {
+  static observedAttributes = ['variant', 'disabled', 'checked', 'value']
+
+  get value() {
+    return this.getAttribute('value') ?? ''
+  }
+
+  set value(value: string) {
+    this.setAttribute('value', value)
+  }
+
+  get checked() {
+    return this.hasAttribute('checked')
+  }
+
+  set checked(value: boolean) {
+    this.toggleAttribute('checked', value)
+  }
+
+  protected get indicator() {
+    return this.checked ? '•' : ''
+  }
+
+  protected get itemRole() {
+    return 'menuitemradio'
+  }
+
+  protected render() {
+    super.render()
+    this.shadowRoot?.querySelector('button')?.setAttribute('aria-checked', String(this.checked))
+  }
+}
+
+export class DropdownMenuShortcut extends SlotElement {
+  protected styles = shortcutStyles
+}
+
+export class DropdownMenuSub extends SlotElement {
+  protected styles = subStyles
+
+  connectedCallback() {
+    super.connectedCallback()
+    this.addEventListener('pointerenter', this.openSubmenu)
+    this.addEventListener('focusin', this.openSubmenu)
+  }
+
+  disconnectedCallback() {
+    this.removeEventListener('pointerenter', this.openSubmenu)
+    this.removeEventListener('focusin', this.openSubmenu)
+  }
+
+  private openSubmenu = () => {
+    this.setAttribute('open', '')
+    requestAnimationFrame(() => this.updatePlacement())
+  }
+
+  updatePlacement() {
+    const trigger = this.querySelector('shadcx-dropdown-menu-sub-trigger')
+    const content = this.querySelector('shadcx-dropdown-menu-sub-content')
+    if (!(trigger instanceof HTMLElement) || !(content instanceof HTMLElement)) return
+
+    const triggerRect = trigger.getBoundingClientRect()
+    const contentRect = content.getBoundingClientRect()
+    const gap = 4
+    const spaceRight = window.innerWidth - triggerRect.right - gap
+    const spaceLeft = triggerRect.left - gap
+    const shouldOpenLeft = contentRect.width > spaceRight && spaceLeft > spaceRight
+
+    content.setAttribute('data-side', shouldOpenLeft ? 'left' : 'right')
+  }
+}
+
+export class DropdownMenuSubTrigger extends HTMLElement {
+  connectedCallback() {
+    if (!this.shadowRoot) this.attachShadow({ mode: 'open' })
+    if (!this.shadowRoot) return
+    this.shadowRoot.innerHTML = \`
+      <style>\${subTriggerStyles}</style>
+      <button part="root" class="root" type="button" role="menuitem" aria-haspopup="menu">
+        <span class="content"><slot></slot></span><span class="chevron">›</span>
+      </button>
+    \`
+  }
+}
+
+export class DropdownMenuSubContent extends SlotElement {
+  protected styles = subContentStyles
+}
+
+defineElement('shadcx-dropdown-menu', DropdownMenu)
+defineElement('shadcx-dropdown-menu-trigger', DropdownMenuTrigger)
+defineElement('shadcx-dropdown-menu-content', DropdownMenuContent)
+defineElement('shadcx-dropdown-menu-group', DropdownMenuGroup)
+defineElement('shadcx-dropdown-menu-label', DropdownMenuLabel)
+defineElement('shadcx-dropdown-menu-separator', DropdownMenuSeparator)
+defineElement('shadcx-dropdown-menu-item', DropdownMenuItem)
+defineElement('shadcx-dropdown-menu-checkbox-item', DropdownMenuCheckboxItem)
+defineElement('shadcx-dropdown-menu-radio-group', DropdownMenuRadioGroup)
+defineElement('shadcx-dropdown-menu-radio-item', DropdownMenuRadioItem)
+defineElement('shadcx-dropdown-menu-shortcut', DropdownMenuShortcut)
+defineElement('shadcx-dropdown-menu-sub', DropdownMenuSub)
+defineElement('shadcx-dropdown-menu-sub-trigger', DropdownMenuSubTrigger)
+defineElement('shadcx-dropdown-menu-sub-content', DropdownMenuSubContent)
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'shadcx-dropdown-menu': DropdownMenu
+    'shadcx-dropdown-menu-trigger': DropdownMenuTrigger
+    'shadcx-dropdown-menu-content': DropdownMenuContent
+    'shadcx-dropdown-menu-group': DropdownMenuGroup
+    'shadcx-dropdown-menu-label': DropdownMenuLabel
+    'shadcx-dropdown-menu-separator': DropdownMenuSeparator
+    'shadcx-dropdown-menu-item': DropdownMenuItem
+    'shadcx-dropdown-menu-checkbox-item': DropdownMenuCheckboxItem
+    'shadcx-dropdown-menu-radio-group': DropdownMenuRadioGroup
+    'shadcx-dropdown-menu-radio-item': DropdownMenuRadioItem
+    'shadcx-dropdown-menu-shortcut': DropdownMenuShortcut
+    'shadcx-dropdown-menu-sub': DropdownMenuSub
+    'shadcx-dropdown-menu-sub-trigger': DropdownMenuSubTrigger
+    'shadcx-dropdown-menu-sub-content': DropdownMenuSubContent
+  }
+}
+`,rt=`const preflight = \`
+  *, *::before, *::after { box-sizing: border-box; }
+  * { margin: 0; }
+  img, svg, video, canvas, audio, iframe, embed, object { display: block; vertical-align: middle; }
+  img, video { max-width: 100%; height: auto; }
+  h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
+  blockquote, dl, dd, hr, figure, p, pre { margin: 0; }
+  ol, ul { list-style: none; margin: 0; padding: 0; }
+  a { color: inherit; text-decoration: inherit; }
+  button, input, optgroup, select, textarea {
+    font-family: inherit;
+    font-feature-settings: inherit;
+    font-variation-settings: inherit;
+    font-size: 100%;
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    margin: 0;
+    padding: 0;
+  }
+  button { appearance: none; background: transparent; background-image: none; }
+  [hidden] { display: none !important; }
+\`;
+const rootStyles = \`
+  \${preflight}
+  :host {
+    display: inline-block;
+    position: relative;
+    font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
+  }
+\`;
+const triggerStyles = \`
+  \${preflight}
+  :host { display: inline-flex; }
+  .root { display: inline-flex; cursor: pointer; }
+\`;
+const contentStyles = \`
+  \${preflight}
+  :host {
+    display: none;
+    position: absolute;
+    inset-block-start: calc(100% + 0.25rem);
+    inset-inline-start: 0;
+    z-index: 50;
+    min-width: var(--shadcx-dropdown-menu-width, 12rem);
+  }
+  :host([align='end']) { inset-inline-start: auto; inset-inline-end: 0; }
+  :host([data-side='top']) { inset-block-start: auto; inset-block-end: calc(100% + 0.25rem); }
+  :host([data-align='end']) { inset-inline-start: auto; inset-inline-end: 0; }
+  :host([data-open]) { display: block; }
+  .root {
+    min-width: inherit;
+    overflow: visible;
+    border: 1px solid hsl(var(--border));
+    border-radius: calc(var(--radius) - 2px);
+    background-color: hsl(var(--popover));
+    color: hsl(var(--popover-foreground));
+    padding: 0.25rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  :host([data-constrain]) .root {
+    max-height: min(24rem, calc(100svh - 1rem));
+    overflow: auto;
+  }
+\`;
+const groupStyles = \`
+  \${preflight}
+  :host { display: block; }
+  .root { display: grid; gap: 0.125rem; }
+\`;
+const labelStyles = \`
+  \${preflight}
+  :host { display: block; }
+  .root { padding: 0.375rem 0.5rem; font-size: 0.8125rem; font-weight: 600; color: hsl(var(--foreground)); }
+\`;
+const separatorStyles = \`
+  \${preflight}
+  :host { display: block; }
+  .root { height: 1px; margin: 0.25rem -0.25rem; background-color: hsl(var(--border)); }
+\`;
+const itemStyles = \`
+  \${preflight}
+  :host { display: block; }
+  :host([disabled]) { pointer-events: none; opacity: 0.5; }
+  .root {
+    width: 100%;
+    min-height: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 0;
+    border-radius: calc(var(--radius) - 4px);
+    background-color: transparent;
+    color: hsl(var(--popover-foreground));
+    cursor: pointer;
+    font-size: 0.875rem;
+    line-height: 1.25;
+    outline: none;
+    padding: 0.375rem 0.5rem;
+    text-align: start;
+    user-select: none;
+  }
+  .root:hover, .root:focus-visible {
+    background-color: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+  }
+  [data-variant='destructive'] { color: hsl(var(--destructive)); }
+  [data-variant='destructive']:hover, [data-variant='destructive']:focus-visible {
+    background-color: hsl(var(--destructive) / 0.1);
+    color: hsl(var(--destructive));
+  }
+  .indicator { width: 1rem; flex: 0 0 1rem; color: hsl(var(--primary)); text-align: center; }
+  .content { display: inline-flex; min-width: 0; flex: 1; align-items: center; gap: 0.5rem; }
+  .root ::slotted(svg), .root ::slotted([data-icon]) { width: 1rem; height: 1rem; flex-shrink: 0; }
+\`;
+const shortcutStyles = \`
+  \${preflight}
+  :host { margin-inline-start: auto; }
+  .root { color: hsl(var(--muted-foreground)); font-size: 0.75rem; letter-spacing: 0.08em; }
+\`;
+const subStyles = \`
+  \${preflight}
+  :host {
+    display: block;
+    position: relative;
+  }
+  :host(:hover) ::slotted(shadcx-dropdown-menu-sub-content),
+  :host(:focus-within) ::slotted(shadcx-dropdown-menu-sub-content),
+  :host([open]) ::slotted(shadcx-dropdown-menu-sub-content) { display: block; }
+\`;
+const subTriggerStyles = \`
+  \${itemStyles}
+  .chevron { margin-inline-start: auto; color: hsl(var(--muted-foreground)); }
+\`;
+const subContentStyles = \`
+  \${contentStyles}
+  :host {
+    display: none;
+    inset-block-start: -0.25rem;
+    inset-inline-start: calc(100% + 0.25rem);
+  }
+  :host([data-side='left']) { inset-inline-start: auto; inset-inline-end: calc(100% + 0.25rem); }
+\`;
+function defineElement(tag, element) {
+    if (!customElements.get(tag))
+        customElements.define(tag, element);
+}
+class SlotElement extends HTMLElement {
+    partName = 'root';
+    rootClassName = 'root';
+    connectedCallback() {
+        if (!this.shadowRoot)
+            this.attachShadow({ mode: 'open' });
+        this.render();
+    }
+    render() {
+        if (!this.shadowRoot)
+            return;
+        this.shadowRoot.innerHTML = \`<style>\${this.styles}</style><div part="\${this.partName}" class="\${this.rootClassName}"><slot></slot></div>\`;
+    }
+}
+export class DropdownMenu extends HTMLElement {
+    static observedAttributes = ['open'];
+    get open() {
+        return this.hasAttribute('open');
+    }
+    set open(value) {
+        this.toggleAttribute('open', value);
+    }
+    connectedCallback() {
+        if (!this.shadowRoot)
+            this.attachShadow({ mode: 'open' });
+        window.addEventListener('pointerdown', this.onWindowPointerDown);
+        window.addEventListener('keydown', this.onWindowKeyDown);
+        this.addEventListener('click', this.onClick);
+        this.addEventListener('keydown', this.onKeyDown);
+        this.render();
+        this.syncContent();
+    }
+    disconnectedCallback() {
+        window.removeEventListener('pointerdown', this.onWindowPointerDown);
+        window.removeEventListener('keydown', this.onWindowKeyDown);
+        this.removeEventListener('click', this.onClick);
+        this.removeEventListener('keydown', this.onKeyDown);
+    }
+    attributeChangedCallback() {
+        this.syncContent();
+    }
+    onWindowPointerDown = (event) => {
+        if (!event.composedPath().includes(this))
+            this.open = false;
+    };
+    onWindowKeyDown = (event) => {
+        if (event.key === 'Escape')
+            this.open = false;
+    };
+    onClick = (event) => {
+        const path = event.composedPath();
+        if (path.some((node) => node instanceof DropdownMenuTrigger)) {
+            this.open = !this.open;
+            return;
+        }
+        const item = path.find((node) => node instanceof DropdownMenuItem);
+        if (item && !item.disabled)
+            this.open = false;
+    };
+    onKeyDown = (event) => {
+        const path = event.composedPath();
+        const fromTrigger = path.some((node) => node instanceof DropdownMenuTrigger);
+        if (fromTrigger && ['Enter', ' ', 'ArrowDown', 'ArrowUp'].includes(event.key)) {
+            event.preventDefault();
+            this.open = true;
+            this.focusMenuItem(event.key === 'ArrowUp' ? 'last' : 'first');
+            return;
+        }
+        if (!this.open)
+            return;
+        if (event.key === 'ArrowDown') {
+            event.preventDefault();
+            this.focusMenuItem('next');
+            return;
+        }
+        if (event.key === 'ArrowUp') {
+            event.preventDefault();
+            this.focusMenuItem('previous');
+            return;
+        }
+        if (event.key === 'Home') {
+            event.preventDefault();
+            this.focusMenuItem('first');
+            return;
+        }
+        if (event.key === 'End') {
+            event.preventDefault();
+            this.focusMenuItem('last');
+        }
+    };
+    getMenuItems() {
+        const selector = [
+            'shadcx-dropdown-menu-item',
+            'shadcx-dropdown-menu-checkbox-item',
+            'shadcx-dropdown-menu-radio-item',
+            'shadcx-dropdown-menu-sub-trigger',
+        ].join(',');
+        return Array.from(this.querySelectorAll(selector)).filter((item) => {
+            if (item instanceof DropdownMenuItem && item.disabled)
+                return false;
+            return item instanceof HTMLElement;
+        });
+    }
+    getItemButton(item) {
+        return item.shadowRoot?.querySelector('button') ?? null;
+    }
+    focusMenuItem(position) {
+        const items = this.getMenuItems();
+        if (items.length === 0)
+            return;
+        const activeIndex = items.findIndex((item) => item.shadowRoot?.activeElement === this.getItemButton(item));
+        let nextIndex = 0;
+        if (position === 'last')
+            nextIndex = items.length - 1;
+        if (position === 'next')
+            nextIndex = activeIndex >= 0 ? (activeIndex + 1) % items.length : 0;
+        if (position === 'previous')
+            nextIndex = activeIndex >= 0 ? (activeIndex - 1 + items.length) % items.length : items.length - 1;
+        requestAnimationFrame(() => this.getItemButton(items[nextIndex])?.focus());
+    }
+    syncContent() {
+        this.querySelectorAll('shadcx-dropdown-menu-content').forEach((content) => {
+            content.toggleAttribute('data-open', this.open);
+            content.setAttribute('data-align', content.getAttribute('align') ?? 'start');
+        });
+        if (this.open)
+            requestAnimationFrame(() => this.updatePlacement());
+    }
+    updatePlacement() {
+        const trigger = this.querySelector('shadcx-dropdown-menu-trigger');
+        const content = this.querySelector('shadcx-dropdown-menu-content');
+        if (!(trigger instanceof HTMLElement) || !(content instanceof HTMLElement))
+            return;
+        const triggerRect = trigger.getBoundingClientRect();
+        const contentRect = content.getBoundingClientRect();
+        const gap = 4;
+        const spaceBelow = window.innerHeight - triggerRect.bottom - gap;
+        const spaceAbove = triggerRect.top - gap;
+        const shouldOpenTop = contentRect.height > spaceBelow && spaceAbove > spaceBelow;
+        content.setAttribute('data-side', shouldOpenTop ? 'top' : 'bottom');
+        content.toggleAttribute('data-constrain', Math.max(spaceBelow, spaceAbove) < contentRect.height);
+        this.querySelectorAll('shadcx-dropdown-menu-sub').forEach((sub) => {
+            if (sub instanceof DropdownMenuSub)
+                sub.updatePlacement();
+        });
+    }
+    render() {
+        if (!this.shadowRoot)
+            return;
+        this.shadowRoot.innerHTML = \`<style>\${rootStyles}</style><slot></slot>\`;
+    }
+}
+export class DropdownMenuTrigger extends HTMLElement {
+    connectedCallback() {
+        if (!this.shadowRoot)
+            this.attachShadow({ mode: 'open' });
+        this.render();
+    }
+    render() {
+        if (!this.shadowRoot)
+            return;
+        this.shadowRoot.innerHTML = \`<style>\${triggerStyles}</style><span part="root" class="root"><slot></slot></span>\`;
+    }
+}
+export class DropdownMenuContent extends SlotElement {
+    static observedAttributes = ['align', 'data-open'];
+    styles = contentStyles;
+}
+export class DropdownMenuGroup extends SlotElement {
+    styles = groupStyles;
+}
+export class DropdownMenuLabel extends SlotElement {
+    styles = labelStyles;
+}
+export class DropdownMenuSeparator extends HTMLElement {
+    connectedCallback() {
+        if (!this.shadowRoot)
+            this.attachShadow({ mode: 'open' });
+        if (!this.shadowRoot)
+            return;
+        this.shadowRoot.innerHTML = \`<style>\${separatorStyles}</style><div part="root" class="root" role="separator"></div>\`;
+    }
+}
+export class DropdownMenuItem extends HTMLElement {
+    static observedAttributes = ['variant', 'disabled'];
+    get variant() {
+        return this.getAttribute('variant') ?? 'default';
+    }
+    set variant(value) {
+        this.setAttribute('variant', value);
+    }
+    get disabled() {
+        return this.hasAttribute('disabled');
+    }
+    set disabled(value) {
+        this.toggleAttribute('disabled', value);
+    }
+    connectedCallback() {
+        if (!this.shadowRoot)
+            this.attachShadow({ mode: 'open' });
+        this.render();
+    }
+    attributeChangedCallback() {
+        this.render();
+    }
+    get indicator() {
+        return '';
+    }
+    get itemRole() {
+        return 'menuitem';
+    }
+    render() {
+        if (!this.shadowRoot)
+            return;
+        this.shadowRoot.innerHTML = \`
+      <style>\${itemStyles}</style>
+      <button part="root" class="root" type="button" role="\${this.itemRole}" data-variant="\${this.variant}" \${this.disabled ? 'disabled' : ''}>
+        \${this.indicator ? \`<span class="indicator">\${this.indicator}</span>\` : ''}
+        <span class="content"><slot></slot></span>
+      </button>
+    \`;
+    }
+}
+export class DropdownMenuCheckboxItem extends DropdownMenuItem {
+    static observedAttributes = ['variant', 'disabled', 'checked'];
+    get checked() {
+        return this.hasAttribute('checked');
+    }
+    set checked(value) {
+        this.toggleAttribute('checked', value);
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        this.addEventListener('click', this.onClick);
+    }
+    disconnectedCallback() {
+        this.removeEventListener('click', this.onClick);
+    }
+    get indicator() {
+        return this.checked ? '✓' : '';
+    }
+    get itemRole() {
+        return 'menuitemcheckbox';
+    }
+    render() {
+        super.render();
+        this.shadowRoot?.querySelector('button')?.setAttribute('aria-checked', String(this.checked));
+    }
+    onClick = () => {
+        if (this.disabled)
+            return;
+        this.checked = !this.checked;
+        this.dispatchEvent(new CustomEvent('checked-change', { detail: { checked: this.checked }, bubbles: true, composed: true }));
+    };
+}
+export class DropdownMenuRadioGroup extends HTMLElement {
+    static observedAttributes = ['value'];
+    get value() {
+        return this.getAttribute('value') ?? '';
+    }
+    set value(value) {
+        if (value)
+            this.setAttribute('value', value);
+        else
+            this.removeAttribute('value');
+    }
+    connectedCallback() {
+        if (!this.shadowRoot)
+            this.attachShadow({ mode: 'open' });
+        this.addEventListener('click', this.onClick);
+        this.render();
+        this.syncItems();
+    }
+    disconnectedCallback() {
+        this.removeEventListener('click', this.onClick);
+    }
+    attributeChangedCallback() {
+        this.syncItems();
+    }
+    onClick = (event) => {
+        const item = event.composedPath().find((node) => node instanceof DropdownMenuRadioItem);
+        if (!item || item.disabled)
+            return;
+        this.value = item.value;
+        this.dispatchEvent(new CustomEvent('value-change', { detail: { value: this.value }, bubbles: true, composed: true }));
+    };
+    syncItems() {
+        this.querySelectorAll('shadcx-dropdown-menu-radio-item').forEach((item) => {
+            if (!(item instanceof DropdownMenuRadioItem))
+                return;
+            item.checked = item.value === this.value;
+        });
+    }
+    render() {
+        if (!this.shadowRoot)
+            return;
+        this.shadowRoot.innerHTML = \`<style>\${groupStyles}</style><div part="root" class="root" role="group"><slot></slot></div>\`;
+    }
+}
+export class DropdownMenuRadioItem extends DropdownMenuItem {
+    static observedAttributes = ['variant', 'disabled', 'checked', 'value'];
+    get value() {
+        return this.getAttribute('value') ?? '';
+    }
+    set value(value) {
+        this.setAttribute('value', value);
+    }
+    get checked() {
+        return this.hasAttribute('checked');
+    }
+    set checked(value) {
+        this.toggleAttribute('checked', value);
+    }
+    get indicator() {
+        return this.checked ? '•' : '';
+    }
+    get itemRole() {
+        return 'menuitemradio';
+    }
+    render() {
+        super.render();
+        this.shadowRoot?.querySelector('button')?.setAttribute('aria-checked', String(this.checked));
+    }
+}
+export class DropdownMenuShortcut extends SlotElement {
+    styles = shortcutStyles;
+}
+export class DropdownMenuSub extends SlotElement {
+    styles = subStyles;
+    connectedCallback() {
+        super.connectedCallback();
+        this.addEventListener('pointerenter', this.openSubmenu);
+        this.addEventListener('focusin', this.openSubmenu);
+    }
+    disconnectedCallback() {
+        this.removeEventListener('pointerenter', this.openSubmenu);
+        this.removeEventListener('focusin', this.openSubmenu);
+    }
+    openSubmenu = () => {
+        this.setAttribute('open', '');
+        requestAnimationFrame(() => this.updatePlacement());
+    };
+    updatePlacement() {
+        const trigger = this.querySelector('shadcx-dropdown-menu-sub-trigger');
+        const content = this.querySelector('shadcx-dropdown-menu-sub-content');
+        if (!(trigger instanceof HTMLElement) || !(content instanceof HTMLElement))
+            return;
+        const triggerRect = trigger.getBoundingClientRect();
+        const contentRect = content.getBoundingClientRect();
+        const gap = 4;
+        const spaceRight = window.innerWidth - triggerRect.right - gap;
+        const spaceLeft = triggerRect.left - gap;
+        const shouldOpenLeft = contentRect.width > spaceRight && spaceLeft > spaceRight;
+        content.setAttribute('data-side', shouldOpenLeft ? 'left' : 'right');
+    }
+}
+export class DropdownMenuSubTrigger extends HTMLElement {
+    connectedCallback() {
+        if (!this.shadowRoot)
+            this.attachShadow({ mode: 'open' });
+        if (!this.shadowRoot)
+            return;
+        this.shadowRoot.innerHTML = \`
+      <style>\${subTriggerStyles}</style>
+      <button part="root" class="root" type="button" role="menuitem" aria-haspopup="menu">
+        <span class="content"><slot></slot></span><span class="chevron">›</span>
+      </button>
+    \`;
+    }
+}
+export class DropdownMenuSubContent extends SlotElement {
+    styles = subContentStyles;
+}
+defineElement('shadcx-dropdown-menu', DropdownMenu);
+defineElement('shadcx-dropdown-menu-trigger', DropdownMenuTrigger);
+defineElement('shadcx-dropdown-menu-content', DropdownMenuContent);
+defineElement('shadcx-dropdown-menu-group', DropdownMenuGroup);
+defineElement('shadcx-dropdown-menu-label', DropdownMenuLabel);
+defineElement('shadcx-dropdown-menu-separator', DropdownMenuSeparator);
+defineElement('shadcx-dropdown-menu-item', DropdownMenuItem);
+defineElement('shadcx-dropdown-menu-checkbox-item', DropdownMenuCheckboxItem);
+defineElement('shadcx-dropdown-menu-radio-group', DropdownMenuRadioGroup);
+defineElement('shadcx-dropdown-menu-radio-item', DropdownMenuRadioItem);
+defineElement('shadcx-dropdown-menu-shortcut', DropdownMenuShortcut);
+defineElement('shadcx-dropdown-menu-sub', DropdownMenuSub);
+defineElement('shadcx-dropdown-menu-sub-trigger', DropdownMenuSubTrigger);
+defineElement('shadcx-dropdown-menu-sub-content', DropdownMenuSubContent);`,it=t({DropdownMenuPage:()=>G,description:()=>at}),at=`Displays a menu of actions or functions triggered by a button.`,G=class extends P{constructor(...e){super(...e),this._density=`comfortable`}static{this.styles=c`
+    :host { display: block; font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif); }
+    h1 { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.025em; margin: 0 0 0.5rem; color: hsl(var(--foreground)); }
+    h2 { font-size: 1.25rem; font-weight: 600; margin: 2.25rem 0 0.75rem; color: hsl(var(--foreground)); }
+    h3 { font-size: 1rem; font-weight: 600; margin: 1.5rem 0 0.5rem; color: hsl(var(--foreground)); }
+    p { font-size: 0.9375rem; line-height: 1.65; color: hsl(var(--foreground)); margin: 0 0 0.75rem; }
+    .desc, .note { color: hsl(var(--muted-foreground)); }
+    .desc { margin-bottom: 1.5rem; }
+    .note { font-size: 0.875rem; }
+    .preview { border: 1px solid hsl(var(--border)); border-radius: calc(var(--radius) - 2px); padding: 1.5rem; display: flex; flex-wrap: wrap; align-items: flex-start; gap: 1rem; margin-bottom: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0; min-height: 12rem; }
+    .preview + pre { margin-top: 0; border-top-left-radius: 0; border-top-right-radius: 0; border-top: none; }
+    pre { background-color: hsl(var(--muted)); border: 1px solid hsl(var(--border)); border-radius: calc(var(--radius) - 2px); padding: 1rem; overflow-x: auto; font-size: 0.8125rem; line-height: 1.6; margin: 0 0 1.5rem; }
+    code { font-family: var(--font-mono, ui-monospace, SFMono-Regular, monospace); font-size: 0.8125rem; }
+    :not(pre) > code { background-color: hsl(var(--muted)); padding: 0.15rem 0.4rem; border-radius: calc(var(--radius) - 4px); }
+    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 1.5rem; }
+    table { width: 100%; min-width: 34rem; font-size: 0.875rem; border-collapse: collapse; }
+    th, td { text-align: left; padding: 0.5rem 0.75rem; border-bottom: 1px solid hsl(var(--border)); vertical-align: top; }
+    th { font-weight: 600; color: hsl(var(--foreground)); font-size: 0.8125rem; }
+    td { color: hsl(var(--muted-foreground)); font-size: 0.8125rem; }
+    td:first-child { color: hsl(var(--foreground)); font-weight: 500; }
+    td code { font-size: 0.75rem; }
+    shadcx-dropdown-menu-content.wide { --shadcx-dropdown-menu-width: 14rem; }
+    .avatar { width: 2.25rem; height: 2.25rem; border-radius: 999px; border: 1px solid hsl(var(--border)); background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--muted-foreground))); color: hsl(var(--primary-foreground)); display: inline-grid; place-items: center; font-weight: 700; cursor: pointer; }
+    @media (max-width: 640px) { h1 { font-size: 1.375rem; } h2 { font-size: 1.125rem; } .preview { padding: 1rem; } pre { padding: 0.75rem; font-size: 0.75rem; } }
+  `}_onDensityChange(e){let t=e;this._density=t.detail.value}render(){return T`
+      <h1>Dropdown Menu</h1>
+      <p class="desc">Displays a menu of actions or functions triggered by a button.</p>
+
+      <h2>Installation</h2>
+      <pre><code>&lt;link rel="stylesheet" href="https://dobrinyonkov.github.io/shadcx/assets/theme.css"&gt;
+&lt;script type="module" src="https://dobrinyonkov.github.io/shadcx/assets/dropdown-menu.js"&gt;&lt;/script&gt;</code></pre>
+
+      <h2>Copy Paste Source</h2>
+      <source-code-block filename="dropdown-menu.ts" .source=${nt} .jsSource=${rt}></source-code-block>
+
+      <h2>Usage</h2>
+      <pre><code>&lt;shadcx-dropdown-menu&gt;
+  &lt;shadcx-dropdown-menu-trigger&gt;
+    &lt;shadcx-button variant="outline"&gt;Open&lt;/shadcx-button&gt;
+  &lt;/shadcx-dropdown-menu-trigger&gt;
+  &lt;shadcx-dropdown-menu-content&gt;
+    &lt;shadcx-dropdown-menu-label&gt;My Account&lt;/shadcx-dropdown-menu-label&gt;
+    &lt;shadcx-dropdown-menu-item&gt;Profile&lt;/shadcx-dropdown-menu-item&gt;
+    &lt;shadcx-dropdown-menu-item&gt;Billing&lt;/shadcx-dropdown-menu-item&gt;
+  &lt;/shadcx-dropdown-menu-content&gt;
+&lt;/shadcx-dropdown-menu&gt;</code></pre>
+
+      <h2>Examples</h2>
+
+      <h3>Basic</h3>
+      <div class="preview">
+        <shadcx-dropdown-menu>
+          <shadcx-dropdown-menu-trigger><shadcx-button variant="outline">Open</shadcx-button></shadcx-dropdown-menu-trigger>
+          <shadcx-dropdown-menu-content>
+            <shadcx-dropdown-menu-label>My Account</shadcx-dropdown-menu-label>
+            <shadcx-dropdown-menu-item>Profile</shadcx-dropdown-menu-item>
+            <shadcx-dropdown-menu-item>Billing</shadcx-dropdown-menu-item>
+            <shadcx-dropdown-menu-separator></shadcx-dropdown-menu-separator>
+            <shadcx-dropdown-menu-item>Team</shadcx-dropdown-menu-item>
+            <shadcx-dropdown-menu-item>Subscription</shadcx-dropdown-menu-item>
+          </shadcx-dropdown-menu-content>
+        </shadcx-dropdown-menu>
+      </div>
+      <pre><code>&lt;shadcx-dropdown-menu&gt;...&lt;/shadcx-dropdown-menu&gt;</code></pre>
+
+      <h3>Shortcuts and Icons</h3>
+      <div class="preview">
+        <shadcx-dropdown-menu>
+          <shadcx-dropdown-menu-trigger><shadcx-button variant="outline">Actions</shadcx-button></shadcx-dropdown-menu-trigger>
+          <shadcx-dropdown-menu-content class="wide">
+            <shadcx-dropdown-menu-item>
+              <svg data-icon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+              New File
+              <shadcx-dropdown-menu-shortcut>N</shadcx-dropdown-menu-shortcut>
+            </shadcx-dropdown-menu-item>
+            <shadcx-dropdown-menu-item>
+              <svg data-icon viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/></svg>
+              Save
+              <shadcx-dropdown-menu-shortcut>S</shadcx-dropdown-menu-shortcut>
+            </shadcx-dropdown-menu-item>
+            <shadcx-dropdown-menu-item variant="destructive">Delete</shadcx-dropdown-menu-item>
+          </shadcx-dropdown-menu-content>
+        </shadcx-dropdown-menu>
+      </div>
+      <pre><code>&lt;shadcx-dropdown-menu-item&gt;
+  &lt;svg data-icon&gt;...&lt;/svg&gt;
+  New File
+  &lt;shadcx-dropdown-menu-shortcut&gt;N&lt;/shadcx-dropdown-menu-shortcut&gt;
+&lt;/shadcx-dropdown-menu-item&gt;</code></pre>
+
+      <h3>Checkboxes</h3>
+      <div class="preview">
+        <shadcx-dropdown-menu>
+          <shadcx-dropdown-menu-trigger><shadcx-button variant="outline">View</shadcx-button></shadcx-dropdown-menu-trigger>
+          <shadcx-dropdown-menu-content>
+            <shadcx-dropdown-menu-checkbox-item checked>Show Toolbar</shadcx-dropdown-menu-checkbox-item>
+            <shadcx-dropdown-menu-checkbox-item>Show Sidebar</shadcx-dropdown-menu-checkbox-item>
+            <shadcx-dropdown-menu-checkbox-item checked>Show Status Bar</shadcx-dropdown-menu-checkbox-item>
+          </shadcx-dropdown-menu-content>
+        </shadcx-dropdown-menu>
+      </div>
+      <pre><code>&lt;shadcx-dropdown-menu-checkbox-item checked&gt;Show Toolbar&lt;/shadcx-dropdown-menu-checkbox-item&gt;</code></pre>
+
+      <h3>Radio Group</h3>
+      <div class="preview">
+        <shadcx-dropdown-menu>
+          <shadcx-dropdown-menu-trigger><shadcx-button variant="outline">Density: ${this._density}</shadcx-button></shadcx-dropdown-menu-trigger>
+          <shadcx-dropdown-menu-content>
+            <shadcx-dropdown-menu-radio-group value=${this._density} @value-change=${this._onDensityChange}>
+              <shadcx-dropdown-menu-radio-item value="compact">Compact</shadcx-dropdown-menu-radio-item>
+              <shadcx-dropdown-menu-radio-item value="comfortable">Comfortable</shadcx-dropdown-menu-radio-item>
+              <shadcx-dropdown-menu-radio-item value="spacious">Spacious</shadcx-dropdown-menu-radio-item>
+            </shadcx-dropdown-menu-radio-group>
+          </shadcx-dropdown-menu-content>
+        </shadcx-dropdown-menu>
+      </div>
+      <pre><code>&lt;shadcx-dropdown-menu-radio-group value="comfortable"&gt;
+  &lt;shadcx-dropdown-menu-radio-item value="compact"&gt;Compact&lt;/shadcx-dropdown-menu-radio-item&gt;
+&lt;/shadcx-dropdown-menu-radio-group&gt;</code></pre>
+
+      <h3>Submenu and Avatar</h3>
+      <div class="preview">
+        <shadcx-dropdown-menu>
+          <shadcx-dropdown-menu-trigger><button class="avatar" type="button">DY</button></shadcx-dropdown-menu-trigger>
+          <shadcx-dropdown-menu-content align="end" class="wide">
+            <shadcx-dropdown-menu-label>dobrinyonkov</shadcx-dropdown-menu-label>
+            <shadcx-dropdown-menu-item>Account</shadcx-dropdown-menu-item>
+            <shadcx-dropdown-menu-sub>
+              <shadcx-dropdown-menu-sub-trigger>Switch workspace</shadcx-dropdown-menu-sub-trigger>
+              <shadcx-dropdown-menu-sub-content>
+                <shadcx-dropdown-menu-item>Design</shadcx-dropdown-menu-item>
+                <shadcx-dropdown-menu-item>Engineering</shadcx-dropdown-menu-item>
+              </shadcx-dropdown-menu-sub-content>
+            </shadcx-dropdown-menu-sub>
+            <shadcx-dropdown-menu-separator></shadcx-dropdown-menu-separator>
+            <shadcx-dropdown-menu-item variant="destructive">Sign out</shadcx-dropdown-menu-item>
+          </shadcx-dropdown-menu-content>
+        </shadcx-dropdown-menu>
+      </div>
+      <pre><code>&lt;shadcx-dropdown-menu-sub&gt;
+  &lt;shadcx-dropdown-menu-sub-trigger&gt;Switch workspace&lt;/shadcx-dropdown-menu-sub-trigger&gt;
+  &lt;shadcx-dropdown-menu-sub-content&gt;...&lt;/shadcx-dropdown-menu-sub-content&gt;
+&lt;/shadcx-dropdown-menu-sub&gt;</code></pre>
+
+      <p class="note">Current shadcx scope: uncontrolled/open attribute, labels, groups, separators, items, destructive items, checkbox items, radio groups, shortcuts, basic submenus, outside click, and Escape dismissal. Radix-only features such as portals, collision handling, modal focus trapping, full roving tabindex, and typeahead are not implemented in this first vanilla port.</p>
+
+      <h2>API Reference</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Element</th><th>Prop</th><th>Type / Default</th></tr></thead>
+          <tbody>
+            <tr><td><code>shadcx-dropdown-menu</code></td><td><code>open</code></td><td><code>boolean</code> / <code>false</code></td></tr>
+            <tr><td><code>shadcx-dropdown-menu-content</code></td><td><code>align</code></td><td><code>"start" | "end"</code> / <code>"start"</code></td></tr>
+            <tr><td><code>shadcx-dropdown-menu-item</code></td><td><code>variant</code></td><td><code>"default" | "destructive"</code> / <code>"default"</code></td></tr>
+            <tr><td><code>shadcx-dropdown-menu-item</code></td><td><code>disabled</code></td><td><code>boolean</code> / <code>false</code></td></tr>
+            <tr><td><code>shadcx-dropdown-menu-checkbox-item</code></td><td><code>checked</code></td><td><code>boolean</code> / <code>false</code></td></tr>
+            <tr><td><code>shadcx-dropdown-menu-radio-group</code></td><td><code>value</code></td><td><code>string</code> / <code>""</code></td></tr>
+            <tr><td><code>shadcx-dropdown-menu-radio-item</code></td><td><code>value</code></td><td><code>string</code> / <code>""</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Events</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Event</th><th>Element</th><th>Detail</th></tr></thead>
+          <tbody>
+            <tr><td><code>checked-change</code></td><td><code>shadcx-dropdown-menu-checkbox-item</code></td><td><code>{ checked: boolean }</code></td></tr>
+            <tr><td><code>value-change</code></td><td><code>shadcx-dropdown-menu-radio-group</code></td><td><code>{ value: string }</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>CSS Parts</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Part</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>root</code></td><td>The internal wrapper/control for each dropdown menu element.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    `}};R([L()],G.prototype,`_density`,void 0),G=R([F(`dropdown-menu-page`)],G);var ot=`const styles = \`
   *, *::before, *::after { box-sizing: border-box; }
   * { margin: 0; }
   img, svg, video, canvas, audio, iframe, embed, object { display: block; vertical-align: middle; }
@@ -3336,7 +5271,7 @@ declare global {
     'shadcx-input': Input
   }
 }
-`,Qe=`const styles = \`
+`,st=`const styles = \`
   *, *::before, *::after { box-sizing: border-box; }
   * { margin: 0; }
   img, svg, video, canvas, audio, iframe, embed, object { display: block; vertical-align: middle; }
@@ -3480,7 +5415,7 @@ export class Input extends HTMLElement {
 }
 if (!customElements.get('shadcx-input')) {
     customElements.define('shadcx-input', Input);
-}`,$e=t({InputPage:()=>G,description:()=>et}),et=`A text input component for forms and user data entry with built-in styling and accessibility features.`,G=class extends P{static{this.styles=c`
+}`,ct=t({InputPage:()=>K,description:()=>lt}),lt=`A text input component for forms and user data entry with built-in styling and accessibility features.`,K=class extends P{static{this.styles=c`
     :host {
       display: block;
       font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
@@ -3636,7 +5571,7 @@ if (!customElements.get('shadcx-input')) {
 &lt;script type="module" src="https://dobrinyonkov.github.io/shadcx/assets/input.js"&gt;&lt;/script&gt;</code></pre>
 
       <h2>Copy Paste Source</h2>
-      <source-code-block filename="input.ts" .source=${Ze} .jsSource=${Qe}></source-code-block>
+      <source-code-block filename="input.ts" .source=${ot} .jsSource=${st}></source-code-block>
 
       <h2>Usage</h2>
       <pre><code>&lt;shadcx-input placeholder="Enter text"&gt;&lt;/shadcx-input&gt;</code></pre>
@@ -3759,7 +5694,7 @@ if (!customElements.get('shadcx-input')) {
           </tbody>
         </table>
       </div>
-    `}};G=R([F(`input-page`)],G);var tt=t({OverviewPage:()=>K}),K=class extends P{static{this.styles=c`
+    `}};K=R([F(`input-page`)],K);var ut=t({OverviewPage:()=>q}),q=class extends P{static{this.styles=c`
     :host {
       display: block;
       font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
@@ -3893,7 +5828,7 @@ if (!customElements.get('shadcx-input')) {
 
       <h2>Components</h2>
       <div class="cards">
-        ${mt.map(e=>T`
+        ${Ot.map(e=>T`
             <a
               class="card"
               href="#/${e.hash}"
@@ -3904,7 +5839,537 @@ if (!customElements.get('shadcx-input')) {
             </a>
           `)}
       </div>
-    `}};K=R([F(`overview-page`)],K);var nt=t({ThemeGeneratorPage:()=>X}),rt=`font-sans.font-mono.radius.background.foreground.card.card-foreground.popover.popover-foreground.primary.primary-foreground.secondary.secondary-foreground.muted.muted-foreground.accent.accent-foreground.destructive.destructive-foreground.border.input.ring.chart-1.chart-2.chart-3.chart-4.chart-5`.split(`.`),it={"font-sans":`'Inter', system-ui, -apple-system, sans-serif`,"font-mono":`'JetBrains Mono', ui-monospace, SFMono-Regular, monospace`,radius:`0.5rem`,background:`0 0% 100%`,foreground:`0 0% 3.9%`,card:`0 0% 100%`,"card-foreground":`0 0% 3.9%`,popover:`0 0% 100%`,"popover-foreground":`0 0% 3.9%`,primary:`0 0% 9%`,"primary-foreground":`0 0% 98%`,secondary:`0 0% 96.1%`,"secondary-foreground":`0 0% 9%`,muted:`0 0% 96.1%`,"muted-foreground":`0 0% 45.1%`,accent:`0 0% 96.1%`,"accent-foreground":`0 0% 9%`,destructive:`0 84.2% 60.2%`,"destructive-foreground":`0 0% 98%`,border:`0 0% 89.8%`,input:`0 0% 89.8%`,ring:`0 0% 3.9%`,"chart-1":`12 76% 61%`,"chart-2":`173 58% 39%`,"chart-3":`197 37% 24%`,"chart-4":`43 74% 66%`,"chart-5":`27 87% 67%`},at={...it,background:`0 0% 3.9%`,foreground:`0 0% 98%`,card:`0 0% 3.9%`,"card-foreground":`0 0% 98%`,popover:`0 0% 3.9%`,"popover-foreground":`0 0% 98%`,primary:`0 0% 98%`,"primary-foreground":`0 0% 9%`,secondary:`0 0% 14.9%`,"secondary-foreground":`0 0% 98%`,muted:`0 0% 14.9%`,"muted-foreground":`0 0% 63.9%`,accent:`0 0% 14.9%`,"accent-foreground":`0 0% 98%`,destructive:`0 62.8% 30.6%`,"destructive-foreground":`0 0% 98%`,border:`0 0% 14.9%`,input:`0 0% 14.9%`,ring:`0 0% 83.1%`,"chart-1":`220 70% 50%`,"chart-2":`160 60% 45%`,"chart-3":`30 80% 55%`,"chart-4":`280 65% 60%`,"chart-5":`340 75% 55%`},q={Neutral:{},Zinc:{foreground:`240 10% 3.9%`,"card-foreground":`240 10% 3.9%`,"popover-foreground":`240 10% 3.9%`,secondary:`240 4.8% 95.9%`,"secondary-foreground":`240 5.9% 10%`,muted:`240 4.8% 95.9%`,"muted-foreground":`240 3.8% 46.1%`,accent:`240 4.8% 95.9%`,"accent-foreground":`240 5.9% 10%`,border:`240 5.9% 90%`,input:`240 5.9% 90%`},Slate:{foreground:`222.2 84% 4.9%`,"card-foreground":`222.2 84% 4.9%`,"popover-foreground":`222.2 84% 4.9%`,secondary:`210 40% 96.1%`,"secondary-foreground":`222.2 47.4% 11.2%`,muted:`210 40% 96.1%`,"muted-foreground":`215.4 16.3% 46.9%`,accent:`210 40% 96.1%`,"accent-foreground":`222.2 47.4% 11.2%`,border:`214.3 31.8% 91.4%`,input:`214.3 31.8% 91.4%`},Stone:{foreground:`20 14.3% 4.1%`,"card-foreground":`20 14.3% 4.1%`,"popover-foreground":`20 14.3% 4.1%`,secondary:`60 4.8% 95.9%`,"secondary-foreground":`24 9.8% 10%`,muted:`60 4.8% 95.9%`,"muted-foreground":`25 5.3% 44.7%`,accent:`60 4.8% 95.9%`,"accent-foreground":`24 9.8% 10%`,border:`20 5.9% 90%`,input:`20 5.9% 90%`}},J={Default:{},Nova:{primary:`263 70% 50%`,"primary-foreground":`0 0% 98%`,accent:`263 48% 95%`,"accent-foreground":`263 64% 22%`,ring:`263 70% 50%`,radius:`0.75rem`,"chart-1":`263 70% 50%`,"chart-2":`291 64% 42%`},Grove:{primary:`152 56% 36%`,"primary-foreground":`0 0% 98%`,accent:`152 42% 94%`,"accent-foreground":`153 70% 18%`,ring:`152 56% 36%`,radius:`0.625rem`,"chart-1":`152 56% 36%`,"chart-2":`94 50% 42%`},Ember:{primary:`18 88% 46%`,"primary-foreground":`0 0% 98%`,accent:`28 86% 94%`,"accent-foreground":`18 88% 22%`,ring:`18 88% 46%`,radius:`0.375rem`,"chart-1":`18 88% 46%`,"chart-2":`38 92% 50%`}},Y=[{label:`Inter`,value:`'Inter', system-ui, -apple-system, sans-serif`},{label:`Geist`,value:`'Geist', 'Inter', system-ui, sans-serif`},{label:`System`,value:`system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif`},{label:`Serif`,value:`ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif`}],ot=[{label:`Primary`,token:`primary`,hint:`Buttons and selected states`},{label:`Accent`,token:`accent`,hint:`Hover and soft surfaces`},{label:`Destructive`,token:`destructive`,hint:`Invalid and danger states`},{label:`Border`,token:`border`,hint:`Cards and separators`},{label:`Ring`,token:`ring`,hint:`Focus outlines`}],st=[{label:`Chart 1`,token:`chart-1`},{label:`Chart 2`,token:`chart-2`},{label:`Chart 3`,token:`chart-3`},{label:`Chart 4`,token:`chart-4`},{label:`Chart 5`,token:`chart-5`}],X=class extends P{constructor(...e){super(...e),this.base=`Neutral`,this.presetStyle=`Default`,this.copied=!1,this.dark=document.documentElement.classList.contains(`dark`),this.theme=this.createTheme()}connectedCallback(){super.connectedCallback(),this.darkObserver=new MutationObserver(()=>this.syncDocumentTheme()),this.darkObserver.observe(document.documentElement,{attributeFilter:[`class`],attributes:!0}),this.syncDocumentTheme()}disconnectedCallback(){this.darkObserver?.disconnect(),super.disconnectedCallback()}static{this.styles=c`
+    `}};q=R([F(`overview-page`)],q);var dt=`const styles = \`
+  *, *::before, *::after { box-sizing: border-box; }
+  * { margin: 0; }
+  img, svg, video, canvas, audio, iframe, embed, object { display: block; vertical-align: middle; }
+  img, video { max-width: 100%; height: auto; }
+  h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
+  blockquote, dl, dd, hr, figure, p, pre { margin: 0; }
+  ol, ul { list-style: none; margin: 0; padding: 0; }
+  a { color: inherit; text-decoration: inherit; }
+  button, input, optgroup, select, textarea {
+    font-family: inherit;
+    font-feature-settings: inherit;
+    font-variation-settings: inherit;
+    font-size: 100%;
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    margin: 0;
+    padding: 0;
+  }
+  button, select { text-transform: none; }
+  button, [type='button'], [type='reset'], [type='submit'] {
+    appearance: button;
+    background-color: transparent;
+    background-image: none;
+  }
+  :-moz-focusring { outline: auto; }
+  :-moz-ui-invalid { box-shadow: none; }
+  progress { vertical-align: baseline; }
+  ::-webkit-inner-spin-button, ::-webkit-outer-spin-button { height: auto; }
+  [type='search'] { appearance: textfield; outline-offset: -2px; }
+  ::-webkit-search-decoration { -webkit-appearance: none; }
+  ::-webkit-file-upload-button { font: inherit; appearance: button; }
+  textarea { resize: vertical; }
+  fieldset { margin: 0; padding: 0; min-width: 0; }
+  legend { padding: 0; }
+  ::placeholder { color: hsl(var(--muted-foreground)); opacity: 1; }
+  [hidden] { display: none !important; }
+
+  :host { display: flex; }
+
+  .root {
+    display: flex;
+    min-height: 4rem;
+    width: 100%;
+    border-radius: calc(var(--radius) - 2px);
+    border: 1px solid hsl(var(--input));
+    background-color: hsl(var(--background));
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: hsl(var(--foreground));
+    resize: vertical;
+    transition: color 0.15s, border-color 0.15s, box-shadow 0.15s;
+  }
+
+  .root::placeholder { color: hsl(var(--muted-foreground)); }
+  .root:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--ring));
+  }
+  .root:disabled { cursor: not-allowed; opacity: 0.5; }
+  .root[aria-invalid] { border-color: hsl(var(--destructive)); }
+
+  @media (min-width: 768px) {
+    .root { font-size: 0.875rem; }
+  }
+\`
+
+export class Textarea extends HTMLElement {
+  static observedAttributes = [
+    'placeholder',
+    'value',
+    'rows',
+    'disabled',
+    'required',
+    'readonly',
+    'aria-invalid',
+  ]
+
+  private _textarea: HTMLTextAreaElement | null = null
+
+  get placeholder() {
+    return this.getAttribute('placeholder') ?? ''
+  }
+
+  set placeholder(value: string) {
+    this.setAttribute('placeholder', value)
+  }
+
+  get value() {
+    return this._textarea?.value ?? this.getAttribute('value') ?? ''
+  }
+
+  set value(value: string) {
+    this.setAttribute('value', value)
+    if (this._textarea) this._textarea.value = value
+  }
+
+  get rows() {
+    return this.getAttribute('rows') ?? '3'
+  }
+
+  set rows(value: string) {
+    this.setAttribute('rows', value)
+  }
+
+  get disabled() {
+    return this.hasAttribute('disabled')
+  }
+
+  set disabled(value: boolean) {
+    this.toggleAttribute('disabled', value)
+  }
+
+  get required() {
+    return this.hasAttribute('required')
+  }
+
+  set required(value: boolean) {
+    this.toggleAttribute('required', value)
+  }
+
+  get readonly() {
+    return this.hasAttribute('readonly')
+  }
+
+  set readonly(value: boolean) {
+    this.toggleAttribute('readonly', value)
+  }
+
+  get ariaInvalid() {
+    return this.getAttribute('aria-invalid')
+  }
+
+  set ariaInvalid(value: string | null) {
+    if (value === null) this.removeAttribute('aria-invalid')
+    else this.setAttribute('aria-invalid', value)
+  }
+
+  connectedCallback() {
+    if (!this.shadowRoot) this.attachShadow({ mode: 'open' })
+    this.render()
+  }
+
+  attributeChangedCallback() {
+    this.render()
+  }
+
+  private render() {
+    if (!this.shadowRoot) return
+    const value = this.value
+    this.shadowRoot.innerHTML = \`
+      <style>\${styles}</style>
+      <textarea
+        part="root"
+        class="root"
+        placeholder="\${this.placeholder}"
+        rows="\${this.rows}"
+        \${this.disabled ? 'disabled' : ''}
+        \${this.required ? 'required' : ''}
+        \${this.readonly ? 'readonly' : ''}
+        \${this.ariaInvalid ? \`aria-invalid="\${this.ariaInvalid}"\` : ''}
+      ></textarea>
+    \`
+    this._textarea = this.shadowRoot.querySelector('textarea')
+    if (!this._textarea) return
+    this._textarea.value = value
+  }
+}
+
+if (!customElements.get('shadcx-textarea')) {
+  customElements.define('shadcx-textarea', Textarea)
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'shadcx-textarea': Textarea
+  }
+}
+`,ft=`const styles = \`
+  *, *::before, *::after { box-sizing: border-box; }
+  * { margin: 0; }
+  img, svg, video, canvas, audio, iframe, embed, object { display: block; vertical-align: middle; }
+  img, video { max-width: 100%; height: auto; }
+  h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
+  blockquote, dl, dd, hr, figure, p, pre { margin: 0; }
+  ol, ul { list-style: none; margin: 0; padding: 0; }
+  a { color: inherit; text-decoration: inherit; }
+  button, input, optgroup, select, textarea {
+    font-family: inherit;
+    font-feature-settings: inherit;
+    font-variation-settings: inherit;
+    font-size: 100%;
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    margin: 0;
+    padding: 0;
+  }
+  button, select { text-transform: none; }
+  button, [type='button'], [type='reset'], [type='submit'] {
+    appearance: button;
+    background-color: transparent;
+    background-image: none;
+  }
+  :-moz-focusring { outline: auto; }
+  :-moz-ui-invalid { box-shadow: none; }
+  progress { vertical-align: baseline; }
+  ::-webkit-inner-spin-button, ::-webkit-outer-spin-button { height: auto; }
+  [type='search'] { appearance: textfield; outline-offset: -2px; }
+  ::-webkit-search-decoration { -webkit-appearance: none; }
+  ::-webkit-file-upload-button { font: inherit; appearance: button; }
+  textarea { resize: vertical; }
+  fieldset { margin: 0; padding: 0; min-width: 0; }
+  legend { padding: 0; }
+  ::placeholder { color: hsl(var(--muted-foreground)); opacity: 1; }
+  [hidden] { display: none !important; }
+
+  :host { display: flex; }
+
+  .root {
+    display: flex;
+    min-height: 4rem;
+    width: 100%;
+    border-radius: calc(var(--radius) - 2px);
+    border: 1px solid hsl(var(--input));
+    background-color: hsl(var(--background));
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: hsl(var(--foreground));
+    resize: vertical;
+    transition: color 0.15s, border-color 0.15s, box-shadow 0.15s;
+  }
+
+  .root::placeholder { color: hsl(var(--muted-foreground)); }
+  .root:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--ring));
+  }
+  .root:disabled { cursor: not-allowed; opacity: 0.5; }
+  .root[aria-invalid] { border-color: hsl(var(--destructive)); }
+
+  @media (min-width: 768px) {
+    .root { font-size: 0.875rem; }
+  }
+\`;
+export class Textarea extends HTMLElement {
+    static observedAttributes = [
+        'placeholder',
+        'value',
+        'rows',
+        'disabled',
+        'required',
+        'readonly',
+        'aria-invalid',
+    ];
+    _textarea = null;
+    get placeholder() {
+        return this.getAttribute('placeholder') ?? '';
+    }
+    set placeholder(value) {
+        this.setAttribute('placeholder', value);
+    }
+    get value() {
+        return this._textarea?.value ?? this.getAttribute('value') ?? '';
+    }
+    set value(value) {
+        this.setAttribute('value', value);
+        if (this._textarea)
+            this._textarea.value = value;
+    }
+    get rows() {
+        return this.getAttribute('rows') ?? '3';
+    }
+    set rows(value) {
+        this.setAttribute('rows', value);
+    }
+    get disabled() {
+        return this.hasAttribute('disabled');
+    }
+    set disabled(value) {
+        this.toggleAttribute('disabled', value);
+    }
+    get required() {
+        return this.hasAttribute('required');
+    }
+    set required(value) {
+        this.toggleAttribute('required', value);
+    }
+    get readonly() {
+        return this.hasAttribute('readonly');
+    }
+    set readonly(value) {
+        this.toggleAttribute('readonly', value);
+    }
+    get ariaInvalid() {
+        return this.getAttribute('aria-invalid');
+    }
+    set ariaInvalid(value) {
+        if (value === null)
+            this.removeAttribute('aria-invalid');
+        else
+            this.setAttribute('aria-invalid', value);
+    }
+    connectedCallback() {
+        if (!this.shadowRoot)
+            this.attachShadow({ mode: 'open' });
+        this.render();
+    }
+    attributeChangedCallback() {
+        this.render();
+    }
+    render() {
+        if (!this.shadowRoot)
+            return;
+        const value = this.value;
+        this.shadowRoot.innerHTML = \`
+      <style>\${styles}</style>
+      <textarea
+        part="root"
+        class="root"
+        placeholder="\${this.placeholder}"
+        rows="\${this.rows}"
+        \${this.disabled ? 'disabled' : ''}
+        \${this.required ? 'required' : ''}
+        \${this.readonly ? 'readonly' : ''}
+        \${this.ariaInvalid ? \`aria-invalid="\${this.ariaInvalid}"\` : ''}
+      ></textarea>
+    \`;
+        this._textarea = this.shadowRoot.querySelector('textarea');
+        if (!this._textarea)
+            return;
+        this._textarea.value = value;
+    }
+}
+if (!customElements.get('shadcx-textarea')) {
+    customElements.define('shadcx-textarea', Textarea);
+}`,pt=t({TextareaPage:()=>J,description:()=>mt}),mt=`Displays a form textarea or a component that looks like a textarea.`,J=class extends P{static{this.styles=c`
+    :host {
+      display: block;
+      font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
+    }
+
+    h1 { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.025em; margin: 0 0 0.5rem; color: hsl(var(--foreground)); }
+    h2 { font-size: 1.25rem; font-weight: 600; margin: 2.25rem 0 0.75rem; color: hsl(var(--foreground)); }
+    h3 { font-size: 1rem; font-weight: 600; margin: 1.5rem 0 0.5rem; color: hsl(var(--foreground)); }
+    p { font-size: 0.9375rem; line-height: 1.65; color: hsl(var(--foreground)); margin: 0 0 0.75rem; }
+    .desc { color: hsl(var(--muted-foreground)); margin-bottom: 1.5rem; }
+
+    .preview {
+      border: 1px solid hsl(var(--border));
+      border-radius: calc(var(--radius) - 2px);
+      padding: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .preview + pre { margin-top: 0; border-top-left-radius: 0; border-top-right-radius: 0; border-top: none; }
+    pre { background-color: hsl(var(--muted)); border: 1px solid hsl(var(--border)); border-radius: calc(var(--radius) - 2px); padding: 1rem; overflow-x: auto; font-size: 0.8125rem; line-height: 1.6; margin: 0 0 1.5rem; }
+    code { font-family: var(--font-mono, ui-monospace, SFMono-Regular, monospace); font-size: 0.8125rem; }
+    :not(pre) > code { background-color: hsl(var(--muted)); padding: 0.15rem 0.4rem; border-radius: calc(var(--radius) - 4px); }
+    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 1.5rem; }
+    table { width: 100%; min-width: 24rem; font-size: 0.875rem; border-collapse: collapse; }
+    th, td { text-align: left; padding: 0.5rem 0.75rem; border-bottom: 1px solid hsl(var(--border)); }
+    th { font-weight: 600; color: hsl(var(--foreground)); font-size: 0.8125rem; }
+    td { color: hsl(var(--muted-foreground)); font-size: 0.8125rem; }
+    td:first-child { color: hsl(var(--foreground)); font-weight: 500; }
+    td code { font-size: 0.75rem; }
+
+    .field {
+      display: grid;
+      gap: 0.375rem;
+      width: min(100%, 20rem);
+    }
+
+    .field label {
+      color: hsl(var(--foreground));
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .field .help {
+      color: hsl(var(--muted-foreground));
+      font-size: 0.8125rem;
+      line-height: 1.45;
+      margin: 0;
+    }
+
+    .field[data-disabled] label,
+    .field[data-disabled] .help {
+      opacity: 0.5;
+    }
+
+    .field[data-invalid] label,
+    .field[data-invalid] .help {
+      color: hsl(var(--destructive));
+    }
+
+    .stack {
+      display: grid;
+      gap: 0.5rem;
+      width: min(100%, 20rem);
+    }
+
+    @media (max-width: 640px) {
+      h1 { font-size: 1.375rem; }
+      h2 { font-size: 1.125rem; }
+      .preview { padding: 1rem; }
+      pre { padding: 0.75rem; font-size: 0.75rem; }
+    }
+  `}render(){return T`
+      <h1>Textarea</h1>
+      <p class="desc">Displays a form textarea or a component that looks like a textarea.</p>
+
+      <h2>Installation</h2>
+      <pre><code>&lt;link rel="stylesheet" href="https://dobrinyonkov.github.io/shadcx/assets/theme.css"&gt;
+&lt;script type="module" src="https://dobrinyonkov.github.io/shadcx/assets/textarea.js"&gt;&lt;/script&gt;</code></pre>
+
+      <h2>Copy Paste Source</h2>
+      <source-code-block filename="textarea.ts" .source=${dt} .jsSource=${ft}></source-code-block>
+
+      <h2>Usage</h2>
+      <pre><code>&lt;shadcx-textarea placeholder="Type your message here."&gt;&lt;/shadcx-textarea&gt;</code></pre>
+
+      <h2>Examples</h2>
+
+      <h3>Basic</h3>
+      <div class="preview">
+        <shadcx-textarea placeholder="Type your message here."></shadcx-textarea>
+      </div>
+      <pre><code>&lt;shadcx-textarea placeholder="Type your message here."&gt;&lt;/shadcx-textarea&gt;</code></pre>
+
+      <h3>Field</h3>
+      <div class="preview">
+        <div class="field">
+          <label for="message">Message</label>
+          <shadcx-textarea id="message" placeholder="Tell us what you need help with."></shadcx-textarea>
+          <p class="help">Your message will be sent to the support team.</p>
+        </div>
+      </div>
+      <pre><code>&lt;div class="field"&gt;
+  &lt;label for="message"&gt;Message&lt;/label&gt;
+  &lt;shadcx-textarea id="message" placeholder="Tell us what you need help with."&gt;&lt;/shadcx-textarea&gt;
+  &lt;p&gt;Your message will be sent to the support team.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+
+      <h3>Disabled</h3>
+      <div class="preview">
+        <div class="field" data-disabled>
+          <label for="disabled-message">Message</label>
+          <shadcx-textarea id="disabled-message" placeholder="Disabled textarea" disabled></shadcx-textarea>
+          <p class="help">This field is currently unavailable.</p>
+        </div>
+      </div>
+      <pre><code>&lt;div class="field" data-disabled&gt;
+  &lt;label for="disabled-message"&gt;Message&lt;/label&gt;
+  &lt;shadcx-textarea id="disabled-message" disabled&gt;&lt;/shadcx-textarea&gt;
+&lt;/div&gt;</code></pre>
+
+      <h3>Invalid</h3>
+      <div class="preview">
+        <div class="field" data-invalid>
+          <label for="invalid-message">Message</label>
+          <shadcx-textarea id="invalid-message" placeholder="Type at least 10 characters." aria-invalid="true"></shadcx-textarea>
+          <p class="help">Message must be at least 10 characters.</p>
+        </div>
+      </div>
+      <pre><code>&lt;div class="field" data-invalid&gt;
+  &lt;label for="invalid-message"&gt;Message&lt;/label&gt;
+  &lt;shadcx-textarea id="invalid-message" aria-invalid="true"&gt;&lt;/shadcx-textarea&gt;
+&lt;/div&gt;</code></pre>
+
+      <h3>With Button</h3>
+      <div class="preview">
+        <div class="stack">
+          <shadcx-textarea placeholder="Write a comment..."></shadcx-textarea>
+          <shadcx-button>Submit</shadcx-button>
+        </div>
+      </div>
+      <pre><code>&lt;div style="display: grid; gap: 0.5rem;"&gt;
+  &lt;shadcx-textarea placeholder="Write a comment..."&gt;&lt;/shadcx-textarea&gt;
+  &lt;shadcx-button&gt;Submit&lt;/shadcx-button&gt;
+&lt;/div&gt;</code></pre>
+
+      <h3>RTL</h3>
+      <div class="preview" dir="rtl">
+        <shadcx-textarea placeholder="اكتب رسالتك هنا"></shadcx-textarea>
+      </div>
+      <pre><code>&lt;div dir="rtl"&gt;
+  &lt;shadcx-textarea placeholder="اكتب رسالتك هنا"&gt;&lt;/shadcx-textarea&gt;
+&lt;/div&gt;</code></pre>
+
+      <h2>API Reference</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Prop</th><th>Type</th><th>Default</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>placeholder</code></td><td><code>string</code></td><td><code>""</code></td></tr>
+            <tr><td><code>value</code></td><td><code>string</code></td><td><code>""</code></td></tr>
+            <tr><td><code>rows</code></td><td><code>string</code></td><td><code>"3"</code></td></tr>
+            <tr><td><code>disabled</code></td><td><code>boolean</code></td><td><code>false</code></td></tr>
+            <tr><td><code>required</code></td><td><code>boolean</code></td><td><code>false</code></td></tr>
+            <tr><td><code>readonly</code></td><td><code>boolean</code></td><td><code>false</code></td></tr>
+            <tr><td><code>aria-invalid</code></td><td><code>string</code></td><td><code>—</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>CSS Parts</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Part</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>root</code></td><td>The <code>&lt;textarea&gt;</code> element</td></tr>
+          </tbody>
+        </table>
+      </div>
+    `}};J=R([F(`textarea-page`)],J);var ht=t({ThemeGeneratorPage:()=>Z}),gt=`font-sans.font-mono.radius.background.foreground.card.card-foreground.popover.popover-foreground.primary.primary-foreground.secondary.secondary-foreground.muted.muted-foreground.accent.accent-foreground.destructive.destructive-foreground.border.input.ring.chart-1.chart-2.chart-3.chart-4.chart-5`.split(`.`),_t={"font-sans":`'Inter', system-ui, -apple-system, sans-serif`,"font-mono":`'JetBrains Mono', ui-monospace, SFMono-Regular, monospace`,radius:`0.5rem`,background:`0 0% 100%`,foreground:`0 0% 3.9%`,card:`0 0% 100%`,"card-foreground":`0 0% 3.9%`,popover:`0 0% 100%`,"popover-foreground":`0 0% 3.9%`,primary:`0 0% 9%`,"primary-foreground":`0 0% 98%`,secondary:`0 0% 96.1%`,"secondary-foreground":`0 0% 9%`,muted:`0 0% 96.1%`,"muted-foreground":`0 0% 45.1%`,accent:`0 0% 96.1%`,"accent-foreground":`0 0% 9%`,destructive:`0 84.2% 60.2%`,"destructive-foreground":`0 0% 98%`,border:`0 0% 89.8%`,input:`0 0% 89.8%`,ring:`0 0% 3.9%`,"chart-1":`12 76% 61%`,"chart-2":`173 58% 39%`,"chart-3":`197 37% 24%`,"chart-4":`43 74% 66%`,"chart-5":`27 87% 67%`},vt={..._t,background:`0 0% 3.9%`,foreground:`0 0% 98%`,card:`0 0% 3.9%`,"card-foreground":`0 0% 98%`,popover:`0 0% 3.9%`,"popover-foreground":`0 0% 98%`,primary:`0 0% 98%`,"primary-foreground":`0 0% 9%`,secondary:`0 0% 14.9%`,"secondary-foreground":`0 0% 98%`,muted:`0 0% 14.9%`,"muted-foreground":`0 0% 63.9%`,accent:`0 0% 14.9%`,"accent-foreground":`0 0% 98%`,destructive:`0 62.8% 30.6%`,"destructive-foreground":`0 0% 98%`,border:`0 0% 14.9%`,input:`0 0% 14.9%`,ring:`0 0% 83.1%`,"chart-1":`220 70% 50%`,"chart-2":`160 60% 45%`,"chart-3":`30 80% 55%`,"chart-4":`280 65% 60%`,"chart-5":`340 75% 55%`},Y={Neutral:{},Zinc:{foreground:`240 10% 3.9%`,"card-foreground":`240 10% 3.9%`,"popover-foreground":`240 10% 3.9%`,secondary:`240 4.8% 95.9%`,"secondary-foreground":`240 5.9% 10%`,muted:`240 4.8% 95.9%`,"muted-foreground":`240 3.8% 46.1%`,accent:`240 4.8% 95.9%`,"accent-foreground":`240 5.9% 10%`,border:`240 5.9% 90%`,input:`240 5.9% 90%`},Slate:{foreground:`222.2 84% 4.9%`,"card-foreground":`222.2 84% 4.9%`,"popover-foreground":`222.2 84% 4.9%`,secondary:`210 40% 96.1%`,"secondary-foreground":`222.2 47.4% 11.2%`,muted:`210 40% 96.1%`,"muted-foreground":`215.4 16.3% 46.9%`,accent:`210 40% 96.1%`,"accent-foreground":`222.2 47.4% 11.2%`,border:`214.3 31.8% 91.4%`,input:`214.3 31.8% 91.4%`},Stone:{foreground:`20 14.3% 4.1%`,"card-foreground":`20 14.3% 4.1%`,"popover-foreground":`20 14.3% 4.1%`,secondary:`60 4.8% 95.9%`,"secondary-foreground":`24 9.8% 10%`,muted:`60 4.8% 95.9%`,"muted-foreground":`25 5.3% 44.7%`,accent:`60 4.8% 95.9%`,"accent-foreground":`24 9.8% 10%`,border:`20 5.9% 90%`,input:`20 5.9% 90%`}},X={Default:{},Nova:{primary:`263 70% 50%`,"primary-foreground":`0 0% 98%`,accent:`263 48% 95%`,"accent-foreground":`263 64% 22%`,ring:`263 70% 50%`,radius:`0.75rem`,"chart-1":`263 70% 50%`,"chart-2":`291 64% 42%`},Grove:{primary:`152 56% 36%`,"primary-foreground":`0 0% 98%`,accent:`152 42% 94%`,"accent-foreground":`153 70% 18%`,ring:`152 56% 36%`,radius:`0.625rem`,"chart-1":`152 56% 36%`,"chart-2":`94 50% 42%`},Ember:{primary:`18 88% 46%`,"primary-foreground":`0 0% 98%`,accent:`28 86% 94%`,"accent-foreground":`18 88% 22%`,ring:`18 88% 46%`,radius:`0.375rem`,"chart-1":`18 88% 46%`,"chart-2":`38 92% 50%`}},yt=[{label:`Inter`,value:`'Inter', system-ui, -apple-system, sans-serif`},{label:`Geist`,value:`'Geist', 'Inter', system-ui, sans-serif`},{label:`System`,value:`system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif`},{label:`Serif`,value:`ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif`}],bt=[{label:`Primary`,token:`primary`,hint:`Buttons and selected states`},{label:`Accent`,token:`accent`,hint:`Hover and soft surfaces`},{label:`Destructive`,token:`destructive`,hint:`Invalid and danger states`},{label:`Border`,token:`border`,hint:`Cards and separators`},{label:`Ring`,token:`ring`,hint:`Focus outlines`}],xt=[{label:`Chart 1`,token:`chart-1`},{label:`Chart 2`,token:`chart-2`},{label:`Chart 3`,token:`chart-3`},{label:`Chart 4`,token:`chart-4`},{label:`Chart 5`,token:`chart-5`}],Z=class extends P{constructor(...e){super(...e),this.base=`Neutral`,this.presetStyle=`Default`,this.copied=!1,this.dark=document.documentElement.classList.contains(`dark`),this.theme=this.createTheme()}connectedCallback(){super.connectedCallback(),this.darkObserver=new MutationObserver(()=>this.syncDocumentTheme()),this.darkObserver.observe(document.documentElement,{attributeFilter:[`class`],attributes:!0}),this.syncDocumentTheme()}disconnectedCallback(){this.darkObserver?.disconnect(),super.disconnectedCallback()}static{this.styles=c`
     :host {
       display: block;
       font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
@@ -4247,7 +6712,7 @@ if (!customElements.get('shadcx-input')) {
         flex-direction: column;
       }
     }
-  `}get themeStyle(){return rt.map(e=>`--${e}: ${this.theme[e]}`).join(`; `)}get radiusValue(){return Number.parseFloat(this.theme.radius.replace(`rem`,``))}get fontLabel(){return Y.find(e=>e.value===this.theme[`font-sans`])?.label??`Custom`}createTheme(){return{...this.dark?at:it,...q[this.base],...J[this.presetStyle]}}syncDocumentTheme(){let e=document.documentElement.classList.contains(`dark`);if(e===this.dark)return;let t=this.theme[`font-sans`];this.dark=e,this.theme={...this.createTheme(),"font-sans":t}}setToken(e,t){let n={...this.theme,[e]:t};e===`primary`&&(n[`primary-foreground`]=this.foregroundFor(t)),e===`accent`&&(n[`accent-foreground`]=this.foregroundFor(t)),e===`destructive`&&(n[`destructive-foreground`]=this.foregroundFor(t)),this.theme=n}setColor(e,t){let n=t.currentTarget;this.setToken(e,this.hexToHsl(n.value))}setRadius(e){let t=e.currentTarget;this.theme={...this.theme,radius:`${t.value}rem`}}setFont(e){this.theme={...this.theme,"font-sans":e}}applyBase(e){let t=e.currentTarget;this.base=t.value,this.theme=this.createTheme()}applyStyle(e){let t=e.currentTarget;this.presetStyle=t.value,this.theme=this.createTheme()}shuffle(){let e=Object.keys(q),t=Object.keys(J),n=e[Math.floor(Math.random()*e.length)],r=t[Math.floor(Math.random()*t.length)],i=Math.floor(Math.random()*360),a=(i+96)%360,o=`${i} 72% ${this.dark?62:44}%`,s=`${a} 62% ${this.dark?18:94}%`,c=[.25,.375,.5,.625,.75,1][Math.floor(Math.random()*6)];this.base=n,this.presetStyle=r,this.theme={...this.createTheme(),primary:o,"primary-foreground":this.foregroundFor(o),accent:s,"accent-foreground":this.foregroundFor(s),ring:o,radius:`${c}rem`,"chart-1":`${i} 76% 56%`,"chart-2":`${(i+58)%360} 62% 44%`,"chart-3":`${(i+123)%360} 48% 42%`,"chart-4":`${(i+188)%360} 78% 62%`,"chart-5":`${(i+247)%360} 70% 58%`}}async copyCss(){await navigator.clipboard.writeText(this.buildCss()),this.copied=!0,window.setTimeout(()=>{this.copied=!1},1800)}buildCss(){let e=rt.map(e=>`  --${e}: ${this.theme[e]};`).join(`
+  `}get themeStyle(){return gt.map(e=>`--${e}: ${this.theme[e]}`).join(`; `)}get radiusValue(){return Number.parseFloat(this.theme.radius.replace(`rem`,``))}get fontLabel(){return yt.find(e=>e.value===this.theme[`font-sans`])?.label??`Custom`}createTheme(){return{...this.dark?vt:_t,...Y[this.base],...X[this.presetStyle]}}syncDocumentTheme(){let e=document.documentElement.classList.contains(`dark`);if(e===this.dark)return;let t=this.theme[`font-sans`];this.dark=e,this.theme={...this.createTheme(),"font-sans":t}}setToken(e,t){let n={...this.theme,[e]:t};e===`primary`&&(n[`primary-foreground`]=this.foregroundFor(t)),e===`accent`&&(n[`accent-foreground`]=this.foregroundFor(t)),e===`destructive`&&(n[`destructive-foreground`]=this.foregroundFor(t)),this.theme=n}setColor(e,t){let n=t.currentTarget;this.setToken(e,this.hexToHsl(n.value))}setRadius(e){let t=e.currentTarget;this.theme={...this.theme,radius:`${t.value}rem`}}setFont(e){this.theme={...this.theme,"font-sans":e}}applyBase(e){let t=e.currentTarget;this.base=t.value,this.theme=this.createTheme()}applyStyle(e){let t=e.currentTarget;this.presetStyle=t.value,this.theme=this.createTheme()}shuffle(){let e=Object.keys(Y),t=Object.keys(X),n=e[Math.floor(Math.random()*e.length)],r=t[Math.floor(Math.random()*t.length)],i=Math.floor(Math.random()*360),a=(i+96)%360,o=`${i} 72% ${this.dark?62:44}%`,s=`${a} 62% ${this.dark?18:94}%`,c=[.25,.375,.5,.625,.75,1][Math.floor(Math.random()*6)];this.base=n,this.presetStyle=r,this.theme={...this.createTheme(),primary:o,"primary-foreground":this.foregroundFor(o),accent:s,"accent-foreground":this.foregroundFor(s),ring:o,radius:`${c}rem`,"chart-1":`${i} 76% 56%`,"chart-2":`${(i+58)%360} 62% 44%`,"chart-3":`${(i+123)%360} 48% 42%`,"chart-4":`${(i+188)%360} 78% 62%`,"chart-5":`${(i+247)%360} 70% 58%`}}async copyCss(){await navigator.clipboard.writeText(this.buildCss()),this.copied=!0,window.setTimeout(()=>{this.copied=!1},1800)}buildCss(){let e=gt.map(e=>`  --${e}: ${this.theme[e]};`).join(`
 `);return`${this.dark?`.dark`:`:root`} {\n${e}\n}\n`}hslToHex(e){let t=e.match(/([\d.]+)\s+([\d.]+)%\s+([\d.]+)%/);if(!t)return`#000000`;let n=Number.parseFloat(t[1])/360,r=Number.parseFloat(t[2])/100,i=Number.parseFloat(t[3])/100;if(r===0){let e=Math.round(i*255);return this.toHex(e,e,e)}let a=(e,t,n)=>{let r=n;return r<0&&(r+=1),r>1&&--r,r<1/6?e+(t-e)*6*r:r<1/2?t:r<2/3?e+(t-e)*(2/3-r)*6:e},o=i<.5?i*(1+r):i+r-i*r,s=2*i-o;return this.toHex(Math.round(a(s,o,n+1/3)*255),Math.round(a(s,o,n)*255),Math.round(a(s,o,n-1/3)*255))}hexToHsl(e){let t=Number.parseInt(e.slice(1,3),16)/255,n=Number.parseInt(e.slice(3,5),16)/255,r=Number.parseInt(e.slice(5,7),16)/255,i=Math.max(t,n,r),a=Math.min(t,n,r),o=0,s=0,c=(i+a)/2;if(i!==a){let e=i-a;s=c>.5?e/(2-i-a):e/(i+a),o=i===t?(n-r)/e+(n<r?6:0):i===n?(r-t)/e+2:(t-n)/e+4,o/=6}return`${Math.round(o*360)} ${Math.round(s*100)}% ${Math.round(c*100)}%`}toHex(e,t,n){return`#${[e,t,n].map(e=>e.toString(16).padStart(2,`0`)).join(``)}`}foregroundFor(e){let t=e.match(/[\d.]+\s+[\d.]+%\s+([\d.]+)%/);return(t?Number.parseFloat(t[1]):50)>62?`0 0% 9%`:`0 0% 98%`}renderSelectControl(e,t,n,r){return T`
       <div class="control-row">
         <span class="control-copy">
@@ -4286,13 +6751,13 @@ if (!customElements.get('shadcx-input')) {
 
           <div class="controls-body">
             <div class="control-group">
-              ${this.renderSelectControl(`Style`,this.presetStyle,Object.keys(J),e=>this.applyStyle(e))}
-              ${this.renderSelectControl(`Base Color`,this.base,Object.keys(q),e=>this.applyBase(e))}
-              ${this.renderSelectControl(`Font`,this.fontLabel,Y.map(e=>e.label),e=>{let t=e.currentTarget,n=Y.find(e=>e.label===t.value);n&&this.setFont(n.value)})}
+              ${this.renderSelectControl(`Style`,this.presetStyle,Object.keys(X),e=>this.applyStyle(e))}
+              ${this.renderSelectControl(`Base Color`,this.base,Object.keys(Y),e=>this.applyBase(e))}
+              ${this.renderSelectControl(`Font`,this.fontLabel,yt.map(e=>e.label),e=>{let t=e.currentTarget,n=yt.find(e=>e.label===t.value);n&&this.setFont(n.value)})}
             </div>
 
             <div class="control-group">
-              ${ot.map(e=>this.renderColorControl(e.label,e.token,e.hint))}
+              ${bt.map(e=>this.renderColorControl(e.label,e.token,e.hint))}
             </div>
 
             <div class="control-group">
@@ -4303,7 +6768,7 @@ if (!customElements.get('shadcx-input')) {
                 </div>
                 <input type="range" min="0" max="1" step="0.125" .value=${String(this.radiusValue)} @input=${this.setRadius} aria-label="Border radius">
               </div>
-              ${st.map(e=>this.renderColorControl(e.label,e.token,`Chart token`))}
+              ${xt.map(e=>this.renderColorControl(e.label,e.token,`Chart token`))}
             </div>
 
             <div class="action-stack">
@@ -4396,7 +6861,7 @@ if (!customElements.get('shadcx-input')) {
           </div>
         </section>
       </div>
-    `}};R([L()],X.prototype,`base`,void 0),R([L()],X.prototype,`presetStyle`,void 0),R([L()],X.prototype,`copied`,void 0),R([L()],X.prototype,`dark`,void 0),R([L()],X.prototype,`theme`,void 0),X=R([F(`theme-generator-page`)],X);var ct=t({ThemingPage:()=>lt}),lt=class extends P{static{this.styles=c`
+    `}};R([L()],Z.prototype,`base`,void 0),R([L()],Z.prototype,`presetStyle`,void 0),R([L()],Z.prototype,`copied`,void 0),R([L()],Z.prototype,`dark`,void 0),R([L()],Z.prototype,`theme`,void 0),Z=R([F(`theme-generator-page`)],Z);var St=t({ThemingPage:()=>Ct}),Ct=class extends P{static{this.styles=c`
     :host {
       display: block;
       font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
@@ -4689,7 +7154,7 @@ background-color: hsl(var(--primary));</code></pre>
           </tbody>
         </table>
       </div>
-    `}};lt=R([F(`theming-page`)],lt);var ut=Object.assign({"./pages/badge-page.ts":Le,"./pages/button-page.ts":Ve,"./pages/checkbox-page.ts":Ge,"./pages/combobox-page.ts":Ye,"./pages/input-page.ts":$e,"./pages/overview-page.ts":tt,"./pages/theme-generator-page.ts":nt,"./pages/theming-page.ts":ct});function dt(){return Object.keys(ut).map(e=>{let t=e.match(/\/([^/]+)-page\.ts$/);if(!t)return null;let n=t[1],r=ut[e],i=n.split(`-`).map(e=>e[0].toUpperCase()+e.slice(1)).join(` `),a=n===`overview`?`/`:n;return{name:n,tag:`${n}-page`,title:i,description:r?.description??``,hash:a}}).filter(Boolean)}var Z=dt(),ft=new Set([`overview`,`theming`,`theme-generator`]),pt=[Z.find(e=>e.name===`overview`),Z.find(e=>e.name===`theming`),Z.find(e=>e.name===`theme-generator`)].filter(Boolean),mt=Z.filter(e=>!ft.has(e.name)).sort((e,t)=>e.name.localeCompare(t.name)),Q=class extends P{constructor(...e){super(...e),this.active=``}static{this.styles=c`
+    `}};Ct=R([F(`theming-page`)],Ct);var wt=Object.assign({"./pages/badge-page.ts":Le,"./pages/button-page.ts":He,"./pages/card-page.ts":Ke,"./pages/checkbox-page.ts":Xe,"./pages/combobox-page.ts":et,"./pages/dropdown-menu-page.ts":it,"./pages/input-page.ts":ct,"./pages/overview-page.ts":ut,"./pages/textarea-page.ts":pt,"./pages/theme-generator-page.ts":ht,"./pages/theming-page.ts":St});function Tt(){return Object.keys(wt).map(e=>{let t=e.match(/\/([^/]+)-page\.ts$/);if(!t)return null;let n=t[1],r=wt[e],i=n.split(`-`).map(e=>e[0].toUpperCase()+e.slice(1)).join(` `),a=n===`overview`?`/`:n;return{name:n,tag:`${n}-page`,title:i,description:r?.description??``,hash:a}}).filter(Boolean)}var Q=Tt(),Et=new Set([`overview`,`theming`,`theme-generator`]),Dt=[Q.find(e=>e.name===`overview`),Q.find(e=>e.name===`theming`),Q.find(e=>e.name===`theme-generator`)].filter(Boolean),Ot=Q.filter(e=>!Et.has(e.name)).sort((e,t)=>e.name.localeCompare(t.name)),kt=class extends P{constructor(...e){super(...e),this.active=``}static{this.styles=c`
     :host {
       display: flex;
       flex-direction: column;
@@ -4743,7 +7208,7 @@ background-color: hsl(var(--primary));</code></pre>
   `}_navigate(e,t){t.preventDefault(),location.hash=e,this.active=e}render(){let e=e=>this.active===e?`active`:``;return T`
       <nav class="nav">
         <div class="nav-section">Getting Started</div>
-        ${pt.map(t=>{let n=t.name===`overview`?`Introduction`:t.title,r=t.hash===`/`?`#/`:`#/${t.hash}`;return T`
+        ${Dt.map(t=>{let n=t.name===`overview`?`Introduction`:t.title,r=t.hash===`/`?`#/`:`#/${t.hash}`;return T`
             <a
               class="nav-item ${e(t.hash)}"
               href=${r}
@@ -4754,7 +7219,7 @@ background-color: hsl(var(--primary));</code></pre>
           `})}
 
         <div class="nav-section">Components</div>
-        ${mt.map(t=>T`
+        ${Ot.map(t=>T`
             <a
               class="nav-item ${e(t.hash)}"
               href="#/${t.hash}"
@@ -4764,7 +7229,7 @@ background-color: hsl(var(--primary));</code></pre>
             </a>
           `)}
       </nav>
-    `}};R([I({type:String})],Q.prototype,`active`,void 0),Q=R([F(`app-sidebar`)],Q);var $=class extends P{constructor(){super(),this._page=`/`,this._sidebarOpen=!1,this._dark=!1,this._dark=window.matchMedia(`(prefers-color-scheme: dark)`).matches,this._applyTheme(),this._updatePage(),window.addEventListener(`hashchange`,()=>this._updatePage()),window.matchMedia(`(prefers-color-scheme: dark)`).addEventListener(`change`,e=>{this._dark=e.matches,this._applyTheme()})}_updatePage(){let e=location.hash.slice(1)||`/`;this._page=e,this._sidebarOpen=!1}_applyTheme(){document.documentElement.classList.toggle(`dark`,this._dark),document.documentElement.style.colorScheme=this._dark?`dark`:`light`}_toggleTheme(){this._dark=!this._dark,this._applyTheme()}static{this.styles=c`
+    `}};R([I({type:String})],kt.prototype,`active`,void 0),kt=R([F(`app-sidebar`)],kt);var $=class extends P{constructor(){super(),this._page=`/`,this._sidebarOpen=!1,this._dark=!1,this._dark=window.matchMedia(`(prefers-color-scheme: dark)`).matches,this._applyTheme(),this._updatePage(),window.addEventListener(`hashchange`,()=>this._updatePage()),window.matchMedia(`(prefers-color-scheme: dark)`).addEventListener(`change`,e=>{this._dark=e.matches,this._applyTheme()})}_updatePage(){let e=location.hash.slice(1)||`/`;this._page=e,this._sidebarOpen=!1}_applyTheme(){document.documentElement.classList.toggle(`dark`,this._dark),document.documentElement.style.colorScheme=this._dark?`dark`:`light`}_toggleTheme(){this._dark=!this._dark,this._applyTheme()}static{this.styles=c`
     :host {
       display: flex;
       flex-direction: column;
@@ -4936,4 +7401,4 @@ background-color: hsl(var(--primary));</code></pre>
 
         <main class=${r}>${this._renderPage()}</main>
       </div>
-    `}_renderPage(){if(this._page===`/`||!this._page)return T`${document.createElement(`overview-page`)}`;let e=Z.find(e=>e.name===this._page);return e?T`${document.createElement(e.tag)}`:T`${document.createElement(`overview-page`)}`}};R([L()],$.prototype,`_page`,void 0),R([L()],$.prototype,`_sidebarOpen`,void 0),R([L()],$.prototype,`_dark`,void 0),$=R([F(`app-layout`)],$);
+    `}_renderPage(){if(this._page===`/`||!this._page)return T`${document.createElement(`overview-page`)}`;let e=Q.find(e=>e.name===this._page);return e?T`${document.createElement(e.tag)}`:T`${document.createElement(`overview-page`)}`}};R([L()],$.prototype,`_page`,void 0),R([L()],$.prototype,`_sidebarOpen`,void 0),R([L()],$.prototype,`_dark`,void 0),$=R([F(`app-layout`)],$);
