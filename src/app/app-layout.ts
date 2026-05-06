@@ -3,6 +3,7 @@ import { customElement, state } from 'lit/decorators.js'
 import './app-sidebar.ts'
 import './pages/overview-page.ts'
 import './pages/theming-page.ts'
+import './pages/theme-generator-page.ts'
 import './pages/button-page.ts'
 import './pages/badge-page.ts'
 import './pages/input-page.ts'
@@ -154,6 +155,10 @@ export class AppLayout extends LitElement {
       background-color: hsl(var(--background));
     }
 
+    .content.wide {
+      max-width: none;
+    }
+
     @media (min-width: 768px) {
       .topbar {
         padding-left: 1.5rem;
@@ -185,6 +190,7 @@ export class AppLayout extends LitElement {
     const sidebarClasses = this._sidebarOpen ? 'sidebar open' : 'sidebar'
     const overlayClasses = this._sidebarOpen ? 'overlay open' : 'overlay'
     const themeIcon = this._dark ? '\u2600' : '\u263D'
+    const contentClasses = this._page === 'theme-generator' ? 'content wide' : 'content'
 
     return html`
       <!-- topbar (mobile only) -->
@@ -216,7 +222,7 @@ export class AppLayout extends LitElement {
           <app-sidebar active=${this._page}></app-sidebar>
         </aside>
 
-        <main class="content">${this._renderPage()}</main>
+        <main class=${contentClasses}>${this._renderPage()}</main>
       </div>
     `
   }
@@ -235,6 +241,8 @@ export class AppLayout extends LitElement {
         return html`<combobox-page></combobox-page>`
       case 'theming':
         return html`<theming-page></theming-page>`
+      case 'theme-generator':
+        return html`<theme-generator-page></theme-generator-page>`
       default:
         return html`<overview-page></overview-page>`
     }
