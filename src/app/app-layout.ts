@@ -1,14 +1,8 @@
 import { LitElement, css, html } from 'lit'
 import { customElement, state } from 'lit/decorators.js'
 import './app-sidebar.ts'
-import './pages/overview-page.ts'
-import './pages/theming-page.ts'
-import './pages/theme-generator-page.ts'
-import './pages/button-page.ts'
-import './pages/badge-page.ts'
-import './pages/input-page.ts'
-import './pages/checkbox-page.ts'
-import './pages/combobox-page.ts'
+import './page-registry.ts'
+import { allPages } from './page-registry.ts'
 
 @customElement('app-layout')
 export class AppLayout extends LitElement {
@@ -228,24 +222,14 @@ export class AppLayout extends LitElement {
   }
 
   private _renderPage() {
-    switch (this._page) {
-      case 'badge':
-        return html`<badge-page></badge-page>`
-      case 'button':
-        return html`<button-page></button-page>`
-      case 'input':
-        return html`<input-page></input-page>`
-      case 'checkbox':
-        return html`<checkbox-page></checkbox-page>`
-      case 'combobox':
-        return html`<combobox-page></combobox-page>`
-      case 'theming':
-        return html`<theming-page></theming-page>`
-      case 'theme-generator':
-        return html`<theme-generator-page></theme-generator-page>`
-      default:
-        return html`<overview-page></overview-page>`
+    if (this._page === '/' || !this._page) {
+      return html`${document.createElement('overview-page')}`
     }
+    const page = allPages.find((p) => p.name === this._page)
+    if (page) {
+      return html`${document.createElement(page.tag)}`
+    }
+    return html`${document.createElement('overview-page')}`
   }
 }
 

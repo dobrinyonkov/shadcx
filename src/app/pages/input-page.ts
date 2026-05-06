@@ -6,6 +6,8 @@ import '../source-code-block.ts'
 import inputSource from '../../lib/input.ts?raw'
 import inputJavaScriptSource from '../../lib/input.ts?source-js'
 
+export const description = 'A text input component for forms and user data entry with built-in styling and accessibility features.'
+
 @customElement('input-page')
 export class InputPage extends LitElement {
   static styles = css`

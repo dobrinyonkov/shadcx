@@ -5,6 +5,8 @@ import '../source-code-block.ts'
 import badgeSource from '../../lib/badge.ts?raw'
 import badgeJavaScriptSource from '../../lib/badge.ts?source-js'
 
+export const description = 'Displays a badge or a component that looks like a badge.'
+
 @customElement('badge-page')
 export class BadgePage extends LitElement {
   static styles = css`

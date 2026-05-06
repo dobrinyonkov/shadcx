@@ -1,5 +1,6 @@
 import { LitElement, css, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
+import { componentPages } from '../page-registry.ts'
 
 @customElement('overview-page')
 export class OverviewPage extends LitElement {
@@ -103,33 +104,24 @@ export class OverviewPage extends LitElement {
     }
 
     @media (max-width: 640px) {
-      h1 { font-size: 1.375rem; }
-      h2 { font-size: 1.125rem; }
-      .lead { font-size: 1rem; }
-      pre { padding: 0.75rem; font-size: 0.75rem; }
-      .cards { grid-template-columns: 1fr; }
+      h1 {
+        font-size: 1.375rem;
+      }
+      h2 {
+        font-size: 1.125rem;
+      }
+      .lead {
+        font-size: 1rem;
+      }
+      pre {
+        padding: 0.75rem;
+        font-size: 0.75rem;
+      }
+      .cards {
+        grid-template-columns: 1fr;
+      }
     }
   `
-
-  private _navigateBadge(e: Event) {
-    e.preventDefault()
-    location.hash = 'badge'
-  }
-
-  private _navigateButton(e: Event) {
-    e.preventDefault()
-    location.hash = 'button'
-  }
-
-  private _navigateInput(e: Event) {
-    e.preventDefault()
-    location.hash = 'input'
-  }
-
-  private _navigateCombobox(e: Event) {
-    e.preventDefault()
-    location.hash = 'combobox'
-  }
 
   render() {
     return html`
@@ -149,26 +141,24 @@ export class OverviewPage extends LitElement {
 
       <h2>Components</h2>
       <div class="cards">
-        <a class="card" href="#/badge" @click=${this._navigateBadge}>
-          <h3>Badge</h3>
-          <p>Displays a badge or a component that looks like a badge.</p>
-        </a>
-        <a class="card" href="#/button" @click=${this._navigateButton}>
-          <h3>Button</h3>
-          <p>Displays a button or a component that looks like a button.</p>
-        </a>
-        <a class="card" href="#/input" @click=${this._navigateInput}>
-          <h3>Input</h3>
-          <p>A text input component for forms and user data entry.</p>
-        </a>
-        <a class="card" href="#/combobox" @click=${this._navigateCombobox}>
-          <h3>Combobox</h3>
-          <p>Autocomplete input with suggestion list and multi-select support.</p>
-        </a>
+        ${componentPages.map(
+          (page) => html`
+            <a
+              class="card"
+              href="#/${page.hash}"
+              @click=${(e: Event) => {
+                e.preventDefault()
+                location.hash = page.hash
+              }}
+            >
+              <h3>${page.title}</h3>
+              <p>${page.description}</p>
+            </a>
+          `,
+        )}
       </div>
     `
   }
-
 }
 
 declare global {

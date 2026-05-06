@@ -1,5 +1,6 @@
 import { LitElement, css, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
+import { componentPages, gettingStartedPages } from './page-registry.ts'
 
 @customElement('app-sidebar')
 export class AppSidebar extends LitElement {
@@ -56,7 +57,6 @@ export class AppSidebar extends LitElement {
       background-color: hsl(var(--primary) / 0.1);
       color: hsl(var(--primary));
     }
-
   `
 
   private _navigate(hash: string, e: Event) {
@@ -66,71 +66,37 @@ export class AppSidebar extends LitElement {
   }
 
   render() {
-    const isActive = (hash: string) =>
-      this.active === hash ? 'active' : ''
+    const isActive = (hash: string) => (this.active === hash ? 'active' : '')
 
     return html`
       <nav class="nav">
         <div class="nav-section">Getting Started</div>
-        <a
-          class="nav-item ${isActive('/')}"
-          href="#/"
-          @click=${(e: Event) => this._navigate('/', e)}
-        >
-          Introduction
-        </a>
-        <a
-          class="nav-item ${isActive('theming')}"
-          href="#/theming"
-          @click=${(e: Event) => this._navigate('theming', e)}
-        >
-          Theming
-        </a>
-        <a
-          class="nav-item ${isActive('theme-generator')}"
-          href="#/theme-generator"
-          @click=${(e: Event) => this._navigate('theme-generator', e)}
-        >
-          Theme Generator
-        </a>
+        ${gettingStartedPages.map((page) => {
+          const label = page.name === 'overview' ? 'Introduction' : page.title
+          const href = page.hash === '/' ? '#/' : `#/${page.hash}`
+          return html`
+            <a
+              class="nav-item ${isActive(page.hash)}"
+              href=${href}
+              @click=${(e: Event) => this._navigate(page.hash, e)}
+            >
+              ${label}
+            </a>
+          `
+        })}
 
         <div class="nav-section">Components</div>
-        <a
-          class="nav-item ${isActive('badge')}"
-          href="#/badge"
-          @click=${(e: Event) => this._navigate('badge', e)}
-        >
-          Badge
-        </a>
-        <a
-          class="nav-item ${isActive('button')}"
-          href="#/button"
-          @click=${(e: Event) => this._navigate('button', e)}
-        >
-          Button
-        </a>
-        <a
-          class="nav-item ${isActive('input')}"
-          href="#/input"
-          @click=${(e: Event) => this._navigate('input', e)}
-        >
-          Input
-        </a>
-        <a
-          class="nav-item ${isActive('checkbox')}"
-          href="#/checkbox"
-          @click=${(e: Event) => this._navigate('checkbox', e)}
-        >
-          Checkbox
-        </a>
-        <a
-          class="nav-item ${isActive('combobox')}"
-          href="#/combobox"
-          @click=${(e: Event) => this._navigate('combobox', e)}
-        >
-          Combobox
-        </a>
-
+        ${componentPages.map(
+          (page) => html`
+            <a
+              class="nav-item ${isActive(page.hash)}"
+              href="#/${page.hash}"
+              @click=${(e: Event) => this._navigate(page.hash, e)}
+            >
+              ${page.title}
+            </a>
+          `,
+        )}
       </nav>
     `
   }

@@ -1,5 +1,9 @@
 import { defineConfig } from 'vite'
+import fs from 'node:fs'
+import path from 'node:path'
 import ts from 'typescript'
+
+const __dirname = path.dirname(new URL(import.meta.url).pathname)
 
 const sourceJsPlugin = {
   name: 'source-js',
@@ -10,32 +14,73 @@ const sourceJsPlugin = {
     }
 
     const file = id.slice(0, -'?source-js'.length)
-    const source = await import('node:fs/promises').then((fs) => fs.readFile(file, 'utf8'))
-    const output = ts.transpileModule(source, {
-      compilerOptions: {
-        module: ts.ModuleKind.ESNext,
-        target: ts.ScriptTarget.ES2022,
-        useDefineForClassFields: true,
-      },
-    }).outputText.trim()
+    const source = await import('node:fs/promises').then((f) => f.readFile(file, 'utf8'))
+    const output = ts
+      .transpileModule(source, {
+        compilerOptions: {
+          module: ts.ModuleKind.ESNext,
+          target: ts.ScriptTarget.ES2022,
+          useDefineForClassFields: true,
+        },
+      })
+      .outputText.trim()
 
     return `export default ${JSON.stringify(output)}`
   },
 }
 
+function discoverComponentEntries() {
+  const libDir = path.resolve(__dirname, 'src/lib')
+  const files = fs.readdirSync(libDir)
+  const entries: Record<string, string> = {}
+
+  for (const file of files) {
+    if (!file.endsWith('.ts') || file === 'index.ts') continue
+    const name = file.replace('.ts', '')
+    entries[name] = `src/lib/${file}`
+  }
+
+  return entries
+}
+
+function generateBarrel() {
+  const libDir = path.resolve(__dirname, 'src/lib')
+  const files = fs
+    .readdirSync(libDir)
+    .filter((f) => f.endsWith('.ts') && f !== 'index.ts')
+    .sort()
+
+  const exports = files.map((file) => {
+    const name = file.replace('.ts', '')
+    const className = name[0].toUpperCase() + name.slice(1)
+    return `export { ${className} } from './${file}'`
+  })
+
+  const content = `// Auto-generated barrel file — do not edit manually\n${exports.join('\n')}\n`
+  const indexPath = path.join(libDir, 'index.ts')
+  const existing = fs.existsSync(indexPath) ? fs.readFileSync(indexPath, 'utf8') : ''
+  if (existing !== content) {
+    fs.writeFileSync(indexPath, content)
+  }
+}
+
+const autoBarrelPlugin = {
+  name: 'auto-barrel',
+  enforce: 'pre' as const,
+  buildStart() {
+    generateBarrel()
+  },
+}
+
 export default defineConfig({
   base: process.env.BASE_PATH || '/shadcx/',
-  plugins: [sourceJsPlugin],
+  plugins: [sourceJsPlugin, autoBarrelPlugin],
   build: {
     rollupOptions: {
       input: {
         index: 'index.html',
         theme: 'src/lib/theme.css',
-        badge: 'src/lib/badge.ts',
-        button: 'src/lib/button.ts',
-        checkbox: 'src/lib/checkbox.ts',
-        combobox: 'src/lib/combobox.ts',
-        input: 'src/lib/input.ts',
+        ...discoverComponentEntries(),
       },
       output: {
         entryFileNames: 'assets/[name].js',

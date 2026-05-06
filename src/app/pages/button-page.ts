@@ -5,6 +5,8 @@ import '../source-code-block.ts'
 import buttonSource from '../../lib/button.ts?raw'
 import buttonJavaScriptSource from '../../lib/button.ts?source-js'
 
+export const description = 'Displays a button or a component that looks like a button.'
+
 @customElement('button-page')
 export class ButtonPage extends LitElement {
   static styles = css`

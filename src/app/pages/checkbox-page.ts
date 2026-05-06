@@ -5,6 +5,8 @@ import '../source-code-block.ts'
 import checkboxSource from '../../lib/checkbox.ts?raw'
 import checkboxJavaScriptSource from '../../lib/checkbox.ts?source-js'
 
+export const description = 'A control that allows the user to toggle between checked and unchecked states, with support for indeterminate and invalid states.'
+
 @customElement('checkbox-page')
 export class CheckboxPage extends LitElement {
   @state() private _checked = false

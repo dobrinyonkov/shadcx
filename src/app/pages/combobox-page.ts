@@ -5,6 +5,8 @@ import '../source-code-block.ts'
 import comboboxSource from '../../lib/combobox.ts?raw'
 import comboboxJavaScriptSource from '../../lib/combobox.ts?source-js'
 
+export const description = 'Autocomplete input with suggestion filtering, keyboard navigation, clear behavior, and optional multi-select chips.'
+
 const frameworks = ['Next.js', 'SvelteKit', 'Nuxt.js', 'Remix', 'Astro']
 
 @customElement('combobox-page')
