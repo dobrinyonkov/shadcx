@@ -6761,7 +6761,7 @@ if (!customElements.get('shadcx-textarea')) {
         flex-direction: column;
       }
     }
-  `}get themeStyle(){return gt.map(e=>`--${e}: ${this.theme[e]}`).join(`; `)}get radiusValue(){return Number.parseFloat(this.theme.radius.replace(`rem`,``))}get fontLabel(){return yt.find(e=>e.value===this.theme[`font-sans`])?.label??`Custom`}createTheme(){return{...this.dark?vt:_t,...Y[this.base],...X[this.presetStyle]}}syncDocumentTheme(){let e=document.documentElement.classList.contains(`dark`);if(e===this.dark)return;let t=this.theme[`font-sans`];this.dark=e,this.theme={...this.createTheme(),"font-sans":t}}setToken(e,t){let n={...this.theme,[e]:t};e===`primary`&&(n[`primary-foreground`]=this.foregroundFor(t)),e===`accent`&&(n[`accent-foreground`]=this.foregroundFor(t)),e===`destructive`&&(n[`destructive-foreground`]=this.foregroundFor(t)),this.theme=n}setColor(e,t){let n=t.currentTarget;this.setToken(e,this.hexToHsl(n.value))}setRadius(e){let t=e.currentTarget;this.theme={...this.theme,radius:`${t.value}rem`}}setFont(e){this.theme={...this.theme,"font-sans":e}}applyBase(e){let t=e.currentTarget;this.base=t.value,this.theme=this.createTheme()}applyStyle(e){let t=e.currentTarget;this.presetStyle=t.value,this.theme=this.createTheme()}shuffle(){let e=Object.keys(Y),t=Object.keys(X),n=e[Math.floor(Math.random()*e.length)],r=t[Math.floor(Math.random()*t.length)],i=Math.floor(Math.random()*360),a=(i+96)%360,o=`${i} 72% ${this.dark?62:44}%`,s=`${a} 62% ${this.dark?18:94}%`,c=[.25,.375,.5,.625,.75,1][Math.floor(Math.random()*6)];this.base=n,this.presetStyle=r,this.theme={...this.createTheme(),primary:o,"primary-foreground":this.foregroundFor(o),accent:s,"accent-foreground":this.foregroundFor(s),ring:o,radius:`${c}rem`,"chart-1":`${i} 76% 56%`,"chart-2":`${(i+58)%360} 62% 44%`,"chart-3":`${(i+123)%360} 48% 42%`,"chart-4":`${(i+188)%360} 78% 62%`,"chart-5":`${(i+247)%360} 70% 58%`}}async copyCss(){await navigator.clipboard.writeText(this.buildCss()),this.copied=!0,window.setTimeout(()=>{this.copied=!1},1800)}buildCss(){let e=gt.map(e=>`  --${e}: ${this.theme[e]};`).join(`
+  `}get themeStyle(){return gt.map(e=>`--${e}: ${this.theme[e]}`).join(`; `)}get radiusValue(){return Number.parseFloat(this.theme.radius.replace(`rem`,``))}get fontLabel(){return yt.find(e=>e.value===this.theme[`font-sans`])?.label??`Custom`}createTheme(){return{...this.dark?vt:_t,...this.dark?{}:Y[this.base],...X[this.presetStyle]}}syncDocumentTheme(){let e=document.documentElement.classList.contains(`dark`);if(e===this.dark)return;let t=this.theme[`font-sans`];this.dark=e,this.theme={...this.createTheme(),"font-sans":t}}setToken(e,t){let n={...this.theme,[e]:t};e===`primary`&&(n[`primary-foreground`]=this.foregroundFor(t)),e===`accent`&&(n[`accent-foreground`]=this.foregroundFor(t)),e===`destructive`&&(n[`destructive-foreground`]=this.foregroundFor(t)),this.theme=n}setColor(e,t){let n=t.currentTarget;this.setToken(e,this.hexToHsl(n.value))}setRadius(e){let t=e.currentTarget;this.theme={...this.theme,radius:`${t.value}rem`}}setFont(e){this.theme={...this.theme,"font-sans":e}}applyBase(e){let t=e.currentTarget;this.base=t.value,this.theme=this.createTheme()}applyStyle(e){let t=e.currentTarget;this.presetStyle=t.value,this.theme=this.createTheme()}shuffle(){let e=Object.keys(Y),t=Object.keys(X),n=e[Math.floor(Math.random()*e.length)],r=t[Math.floor(Math.random()*t.length)],i=Math.floor(Math.random()*360),a=(i+96)%360,o=`${i} 72% ${this.dark?62:44}%`,s=`${a} 62% ${this.dark?18:94}%`,c=[.25,.375,.5,.625,.75,1][Math.floor(Math.random()*6)];this.base=n,this.presetStyle=r,this.theme={...this.createTheme(),primary:o,"primary-foreground":this.foregroundFor(o),accent:s,"accent-foreground":this.foregroundFor(s),ring:o,radius:`${c}rem`,"chart-1":`${i} 76% 56%`,"chart-2":`${(i+58)%360} 62% 44%`,"chart-3":`${(i+123)%360} 48% 42%`,"chart-4":`${(i+188)%360} 78% 62%`,"chart-5":`${(i+247)%360} 70% 58%`}}async copyCss(){await navigator.clipboard.writeText(this.buildCss()),this.copied=!0,window.setTimeout(()=>{this.copied=!1},1800)}buildCss(){let e=gt.map(e=>`  --${e}: ${this.theme[e]};`).join(`
 `);return`${this.dark?`.dark`:`:root`} {\n${e}\n}\n`}hslToHex(e){let t=e.match(/([\d.]+)\s+([\d.]+)%\s+([\d.]+)%/);if(!t)return`#000000`;let n=Number.parseFloat(t[1])/360,r=Number.parseFloat(t[2])/100,i=Number.parseFloat(t[3])/100;if(r===0){let e=Math.round(i*255);return this.toHex(e,e,e)}let a=(e,t,n)=>{let r=n;return r<0&&(r+=1),r>1&&--r,r<1/6?e+(t-e)*6*r:r<1/2?t:r<2/3?e+(t-e)*(2/3-r)*6:e},o=i<.5?i*(1+r):i+r-i*r,s=2*i-o;return this.toHex(Math.round(a(s,o,n+1/3)*255),Math.round(a(s,o,n)*255),Math.round(a(s,o,n-1/3)*255))}hexToHsl(e){let t=Number.parseInt(e.slice(1,3),16)/255,n=Number.parseInt(e.slice(3,5),16)/255,r=Number.parseInt(e.slice(5,7),16)/255,i=Math.max(t,n,r),a=Math.min(t,n,r),o=0,s=0,c=(i+a)/2;if(i!==a){let e=i-a;s=c>.5?e/(2-i-a):e/(i+a),o=i===t?(n-r)/e+(n<r?6:0):i===n?(r-t)/e+2:(t-n)/e+4,o/=6}return`${Math.round(o*360)} ${Math.round(s*100)}% ${Math.round(c*100)}%`}toHex(e,t,n){return`#${[e,t,n].map(e=>e.toString(16).padStart(2,`0`)).join(``)}`}foregroundFor(e){let t=e.match(/[\d.]+\s+[\d.]+%\s+([\d.]+)%/);return(t?Number.parseFloat(t[1]):50)>62?`0 0% 9%`:`0 0% 98%`}renderSelectControl(e,t,n,r){return T`
       <div class="control-row">
         <span class="control-copy">
@@ -7357,6 +7357,8 @@ background-color: hsl(var(--primary));</code></pre>
 
     /* --- topbar --- */
     .topbar {
+      position: sticky;
+      top: 0;
       display: flex;
       align-items: center;
       gap: 0.75rem;
@@ -7406,6 +7408,31 @@ background-color: hsl(var(--primary));</code></pre>
       font-family: inherit;
       flex-shrink: 0;
       transition: background-color 0.15s, color 0.15s;
+    }
+
+    .github-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 2rem;
+      width: 2rem;
+      border: 1px solid hsl(var(--border));
+      border-radius: calc(var(--radius) - 2px);
+      background-color: hsl(var(--background));
+      color: hsl(var(--foreground));
+      flex-shrink: 0;
+      transition: background-color 0.15s, color 0.15s;
+    }
+
+    .github-link:hover {
+      background-color: hsl(var(--accent));
+      color: hsl(var(--accent-foreground));
+    }
+
+    .github-link svg {
+      width: 1rem;
+      height: 1rem;
+      fill: currentColor;
     }
 
     .theme-btn:hover {
@@ -7496,6 +7523,17 @@ background-color: hsl(var(--primary));</code></pre>
           &#9776;
         </button>
         <span class="topbar-brand">shadcx</span>
+        <a
+          class="github-link"
+          href="https://github.com/dobrinyonkov/shadcx"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Open GitHub repository"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2C6.48 2 2 6.58 2 12.22c0 4.51 2.87 8.34 6.84 9.69.5.1.68-.22.68-.49 0-.24-.01-.88-.01-1.73-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.36-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.27 2.75 1.05A9.35 9.35 0 0 1 12 6.62c.85 0 1.71.12 2.51.35 1.91-1.32 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.8-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.59.69.49A10.08 10.08 0 0 0 22 12.22C22 6.58 17.52 2 12 2Z" />
+          </svg>
+        </a>
         <button
           class="theme-btn"
           @click=${this._toggleTheme}
