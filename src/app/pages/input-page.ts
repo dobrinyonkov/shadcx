@@ -2,6 +2,9 @@ import { LitElement, css, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
 import '../../lib/input.ts'
 import '../../lib/button.ts'
+import '../source-code-block.ts'
+import inputSource from '../../lib/input.ts?raw'
+import inputJavaScriptSource from '../../lib/input.ts?source-js'
 
 @customElement('input-page')
 export class InputPage extends LitElement {
@@ -160,8 +163,11 @@ export class InputPage extends LitElement {
       </p>
 
       <h2>Installation</h2>
-      <pre><code>&lt;link rel="stylesheet" href=".../assets/index.css"&gt;
-&lt;script type="module" src=".../assets/index.js"&gt;&lt;/script&gt;</code></pre>
+      <pre><code>&lt;link rel="stylesheet" href="https://dobrinyonkov.github.io/shadcx/assets/theme.css"&gt;
+&lt;script type="module" src="https://dobrinyonkov.github.io/shadcx/assets/input.js"&gt;&lt;/script&gt;</code></pre>
+
+      <h2>Copy Paste Source</h2>
+      <source-code-block filename="input.ts" .source=${inputSource} .jsSource=${inputJavaScriptSource}></source-code-block>
 
       <h2>Usage</h2>
       <pre><code>&lt;shadcx-input placeholder="Enter text"&gt;&lt;/shadcx-input&gt;</code></pre>

@@ -1,6 +1,9 @@
 import { LitElement, css, html } from 'lit'
 import { customElement, state } from 'lit/decorators.js'
 import '../../lib/combobox.ts'
+import '../source-code-block.ts'
+import comboboxSource from '../../lib/combobox.ts?raw'
+import comboboxJavaScriptSource from '../../lib/combobox.ts?source-js'
 
 const frameworks = ['Next.js', 'SvelteKit', 'Nuxt.js', 'Remix', 'Astro']
 
@@ -141,8 +144,11 @@ export class ComboboxPage extends LitElement {
       </p>
 
       <h2>Installation</h2>
-      <pre><code>&lt;link rel="stylesheet" href=".../assets/index.css"&gt;
-&lt;script type="module" src=".../assets/index.js"&gt;&lt;/script&gt;</code></pre>
+      <pre><code>&lt;link rel="stylesheet" href="https://dobrinyonkov.github.io/shadcx/assets/theme.css"&gt;
+&lt;script type="module" src="https://dobrinyonkov.github.io/shadcx/assets/combobox.js"&gt;&lt;/script&gt;</code></pre>
+
+      <h2>Copy Paste Source</h2>
+      <source-code-block filename="combobox.ts" .source=${comboboxSource} .jsSource=${comboboxJavaScriptSource}></source-code-block>
 
       <h2>Usage</h2>
       <p>

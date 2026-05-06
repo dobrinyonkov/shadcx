@@ -1,6 +1,9 @@
 import { LitElement, css, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
 import '../../lib/button.ts'
+import '../source-code-block.ts'
+import buttonSource from '../../lib/button.ts?raw'
+import buttonJavaScriptSource from '../../lib/button.ts?source-js'
 
 @customElement('button-page')
 export class ButtonPage extends LitElement {
@@ -151,8 +154,11 @@ export class ButtonPage extends LitElement {
       </p>
 
       <h2>Installation</h2>
-      <pre><code>&lt;link rel="stylesheet" href=".../assets/index.css"&gt;
-&lt;script type="module" src=".../assets/index.js"&gt;&lt;/script&gt;</code></pre>
+      <pre><code>&lt;link rel="stylesheet" href="https://dobrinyonkov.github.io/shadcx/assets/theme.css"&gt;
+&lt;script type="module" src="https://dobrinyonkov.github.io/shadcx/assets/button.js"&gt;&lt;/script&gt;</code></pre>
+
+      <h2>Copy Paste Source</h2>
+      <source-code-block filename="button.ts" .source=${buttonSource} .jsSource=${buttonJavaScriptSource}></source-code-block>
 
       <h2>Usage</h2>
       <pre><code>&lt;shadcx-button variant="outline"&gt;Button&lt;/shadcx-button&gt;</code></pre>

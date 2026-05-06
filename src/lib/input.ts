@@ -1,90 +1,160 @@
-import { LitElement, css, html, nothing } from 'lit'
-import { customElement, property } from 'lit/decorators.js'
-import { preflight } from './preflight.ts'
+const styles = `
+  *, *::before, *::after { box-sizing: border-box; }
+  * { margin: 0; }
+  img, svg, video, canvas, audio, iframe, embed, object { display: block; vertical-align: middle; }
+  img, video { max-width: 100%; height: auto; }
+  h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
+  blockquote, dl, dd, hr, figure, p, pre { margin: 0; }
+  ol, ul { list-style: none; margin: 0; padding: 0; }
+  a { color: inherit; text-decoration: inherit; }
+  button, input, optgroup, select, textarea {
+    font-family: inherit;
+    font-feature-settings: inherit;
+    font-variation-settings: inherit;
+    font-size: 100%;
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    margin: 0;
+    padding: 0;
+  }
+  button, select { text-transform: none; }
+  button, [type='button'], [type='reset'], [type='submit'] {
+    appearance: button;
+    background-color: transparent;
+    background-image: none;
+  }
+  :-moz-focusring { outline: auto; }
+  :-moz-ui-invalid { box-shadow: none; }
+  progress { vertical-align: baseline; }
+  ::-webkit-inner-spin-button, ::-webkit-outer-spin-button { height: auto; }
+  [type='search'] { appearance: textfield; outline-offset: -2px; }
+  ::-webkit-search-decoration { -webkit-appearance: none; }
+  ::-webkit-file-upload-button { font: inherit; appearance: button; }
+  textarea { resize: vertical; }
+  fieldset { margin: 0; padding: 0; min-width: 0; }
+  legend { padding: 0; }
+  ::placeholder { color: hsl(var(--muted-foreground)); opacity: 1; }
+  [hidden] { display: none !important; }
 
-@customElement('shadcx-input')
-export class Input extends LitElement {
-  @property({ type: String }) type = 'text'
-  @property({ type: String }) placeholder = ''
-  @property({ type: Boolean, reflect: true }) disabled = false
-  @property({ type: Boolean, reflect: true }) required = false
-  @property({ type: Boolean, reflect: true }) readonly = false
-  @property({ type: String, attribute: 'aria-invalid' }) ariaInvalid: string | null = null
+  :host { display: flex; }
 
-  static styles = [
-    preflight,
-    css`
-    :host {
-      display: flex;
-    }
+  .root {
+    display: flex;
+    width: 100%;
+    height: 2.25rem;
+    border-radius: calc(var(--radius) - 2px);
+    border: 1px solid hsl(var(--input));
+    background-color: hsl(var(--background));
+    padding-inline: 0.75rem;
+    padding-block: 0.25rem;
+    font-size: 1rem;
+    color: hsl(var(--foreground));
+    transition: color 0.15s, border-color 0.15s, box-shadow 0.15s;
+  }
 
-    .root {
-      display: flex;
-      width: 100%;
-      height: 2.25rem;
-      border-radius: calc(var(--radius) - 2px);
-      border: 1px solid hsl(var(--input));
-      background-color: hsl(var(--background));
-      padding-inline: 0.75rem;
-      padding-block: 0.25rem;
-      font-size: 1rem;
-      color: hsl(var(--foreground));
-      transition:
-        color 0.15s,
-        border-color 0.15s,
-        box-shadow 0.15s;
-    }
+  .root::placeholder { color: hsl(var(--muted-foreground)); }
+  .root:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--ring));
+  }
+  .root:disabled { cursor: not-allowed; opacity: 0.5; }
+  .root::file-selector-button {
+    border: 0;
+    background-color: transparent;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: hsl(var(--foreground));
+  }
+  .root[aria-invalid] { border-color: hsl(var(--destructive)); }
 
-    .root::placeholder {
-      color: hsl(var(--muted-foreground));
-    }
+  @media (min-width: 768px) {
+    .root { font-size: 0.875rem; }
+  }
+`
 
-    .root:focus-visible {
-      outline: none;
-      box-shadow:
-        0 0 0 2px hsl(var(--background)),
-        0 0 0 4px hsl(var(--ring));
-    }
+export class Input extends HTMLElement {
+  static observedAttributes = ['type', 'placeholder', 'disabled', 'required', 'readonly', 'aria-invalid']
 
-    .root:disabled {
-      cursor: not-allowed;
-      opacity: 0.5;
-    }
+  get type() {
+    return this.getAttribute('type') ?? 'text'
+  }
 
-    .root::file-selector-button {
-      border: 0;
-      background-color: transparent;
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: hsl(var(--foreground));
-    }
+  set type(value: string) {
+    this.setAttribute('type', value)
+  }
 
-    .root[aria-invalid] {
-      border-color: hsl(var(--destructive));
-    }
+  get placeholder() {
+    return this.getAttribute('placeholder') ?? ''
+  }
 
-    @media (min-width: 768px) {
-      .root {
-        font-size: 0.875rem;
-      }
-    }
-  `,
-  ]
+  set placeholder(value: string) {
+    this.setAttribute('placeholder', value)
+  }
 
-  render() {
-    return html`
+  get disabled() {
+    return this.hasAttribute('disabled')
+  }
+
+  set disabled(value: boolean) {
+    this.toggleAttribute('disabled', value)
+  }
+
+  get required() {
+    return this.hasAttribute('required')
+  }
+
+  set required(value: boolean) {
+    this.toggleAttribute('required', value)
+  }
+
+  get readonly() {
+    return this.hasAttribute('readonly')
+  }
+
+  set readonly(value: boolean) {
+    this.toggleAttribute('readonly', value)
+  }
+
+  get ariaInvalid() {
+    return this.getAttribute('aria-invalid')
+  }
+
+  set ariaInvalid(value: string | null) {
+    if (value === null) this.removeAttribute('aria-invalid')
+    else this.setAttribute('aria-invalid', value)
+  }
+
+  connectedCallback() {
+    if (!this.shadowRoot) this.attachShadow({ mode: 'open' })
+    this.render()
+  }
+
+  attributeChangedCallback() {
+    this.render()
+  }
+
+  private render() {
+    if (!this.shadowRoot) return
+    this.shadowRoot.innerHTML = `
+      <style>${styles}</style>
       <input
         part="root"
         class="root"
-        type=${this.type}
-        placeholder=${this.placeholder}
-        ?disabled=${this.disabled}
-        ?required=${this.required}
-        ?readonly=${this.readonly}
-        aria-invalid=${this.ariaInvalid || nothing}
+        type="${this.type}"
+        placeholder="${this.placeholder}"
+        ${this.disabled ? 'disabled' : ''}
+        ${this.required ? 'required' : ''}
+        ${this.readonly ? 'readonly' : ''}
+        ${this.ariaInvalid ? `aria-invalid="${this.ariaInvalid}"` : ''}
       >
     `
   }
+}
+
+if (!customElements.get('shadcx-input')) {
+  customElements.define('shadcx-input', Input)
 }
 
 declare global {

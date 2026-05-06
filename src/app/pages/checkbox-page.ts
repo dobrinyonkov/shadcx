@@ -1,6 +1,9 @@
 import { LitElement, css, html } from 'lit'
 import { customElement, state } from 'lit/decorators.js'
 import '../../lib/checkbox.ts'
+import '../source-code-block.ts'
+import checkboxSource from '../../lib/checkbox.ts?raw'
+import checkboxJavaScriptSource from '../../lib/checkbox.ts?source-js'
 
 @customElement('checkbox-page')
 export class CheckboxPage extends LitElement {
@@ -169,8 +172,11 @@ export class CheckboxPage extends LitElement {
       </p>
 
       <h2>Installation</h2>
-      <pre><code>&lt;link rel="stylesheet" href=".../assets/index.css"&gt;
-&lt;script type="module" src=".../assets/index.js"&gt;&lt;/script&gt;</code></pre>
+      <pre><code>&lt;link rel="stylesheet" href="https://dobrinyonkov.github.io/shadcx/assets/theme.css"&gt;
+&lt;script type="module" src="https://dobrinyonkov.github.io/shadcx/assets/checkbox.js"&gt;&lt;/script&gt;</code></pre>
+
+      <h2>Copy Paste Source</h2>
+      <source-code-block filename="checkbox.ts" .source=${checkboxSource} .jsSource=${checkboxJavaScriptSource}></source-code-block>
 
       <h2>Usage</h2>
       <pre><code>&lt;shadcx-checkbox&gt;&lt;/shadcx-checkbox&gt;</code></pre>

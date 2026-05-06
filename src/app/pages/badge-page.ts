@@ -1,6 +1,9 @@
 import { LitElement, css, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
 import '../../lib/badge.ts'
+import '../source-code-block.ts'
+import badgeSource from '../../lib/badge.ts?raw'
+import badgeJavaScriptSource from '../../lib/badge.ts?source-js'
 
 @customElement('badge-page')
 export class BadgePage extends LitElement {
@@ -180,8 +183,11 @@ export class BadgePage extends LitElement {
       <p class="desc">Displays a badge or a component that looks like a badge.</p>
 
       <h2>Installation</h2>
-      <pre><code>&lt;link rel="stylesheet" href=".../assets/index.css"&gt;
-&lt;script type="module" src=".../assets/index.js"&gt;&lt;/script&gt;</code></pre>
+      <pre><code>&lt;link rel="stylesheet" href="https://dobrinyonkov.github.io/shadcx/assets/theme.css"&gt;
+&lt;script type="module" src="https://dobrinyonkov.github.io/shadcx/assets/badge.js"&gt;&lt;/script&gt;</code></pre>
+
+      <h2>Copy Paste Source</h2>
+      <source-code-block filename="badge.ts" .source=${badgeSource} .jsSource=${badgeJavaScriptSource}></source-code-block>
 
       <h2>Usage</h2>
       <pre><code>&lt;shadcx-badge variant="default"&gt;Badge&lt;/shadcx-badge&gt;</code></pre>

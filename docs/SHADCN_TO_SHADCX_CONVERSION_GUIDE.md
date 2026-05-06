@@ -1,6 +1,6 @@
 # shadcn/ui → shadcx Conversion Guide
 
-This guide provides a repeatable methodology for converting **shadcn/ui** (React + Tailwind CSS) components into **shadcx** (Web Components + CSS Custom Properties). It preserves meaning, accessibility, and the shadcn API surface while targeting a framework-agnostic, no-Tailwind output.
+This guide provides a repeatable methodology for converting **shadcn/ui** (React + Tailwind CSS) components into **shadcx** (vanilla Web Components + CSS Custom Properties). It preserves meaning, accessibility, and the shadcn API surface while targeting framework-agnostic, no-Tailwind, copy-pasteable output.
 
 ## Philosophy
 
@@ -10,8 +10,8 @@ This guide provides a repeatable methodology for converting **shadcn/ui** (React
 |---------|-----------|--------|
 | **Framework lock-in** | React only | Any HTML page, any framework |
 | **Styling system** | Tailwind CSS required | CSS custom properties (theme layer) |
-| **Build dependency** | JSX → React → Tailwind → PostCSS | Standard ES modules, no preprocessor |
-| **Distribution** | Copy source files | CDN-importable `<script type="module">` |
+| **Build dependency** | JSX → React → Tailwind → PostCSS | Component source has no runtime framework dependency |
+| **Distribution** | Copy source files | Per-component CDN files or copy-paste source |
 | **Scoped styles** | Tailwind utility classes | Shadow DOM |
 | **Customization** | Override via className / tailwind.config | CSS custom properties + `::part()` |
 
@@ -20,7 +20,7 @@ This guide provides a repeatable methodology for converting **shadcn/ui** (React
 1. **Preserve Meaning First** — Every variant, size, state, and behavior must be accounted for
 2. **No Silent Loss** — Each shadcn feature is explicitly mapped, adapted, or documented as out-of-scope
 3. **Clarity Over Fidelity** — Use idiomatic Web Component patterns instead of 1:1 React translation
-4. **Consistency by Default** — Follow Lit conventions, shadow DOM best practices, CSS property naming
+4. **Self-Contained Components** — Each component file owns its HTML, CSS, and JS behavior; only theme variables are shared
 5. **Extensibility** — Components must be styleable from outside via `::part()` and CSS custom properties
 
 ---
@@ -65,25 +65,38 @@ For each shadcn component being converted, document:
 
 ### Phase 2: Design the Target Model (shadcx Web Component)
 
+#### Architecture Requirements
+
+Each converted component must be a standalone vanilla custom element file:
+
+- Use `HTMLElement`, `customElements.define`, `connectedCallback`, `attributeChangedCallback`, and native DOM APIs.
+- Do not import `lit`, decorators, React, Tailwind, CVA, Radix, or shared component helpers.
+- Keep component CSS inside the component file as a string injected into the shadow root.
+- Keep component HTML/template generation inside the component file.
+- Keep behavior/events inside the component file.
+- Shared CSS variables live in `src/lib/theme.css`; component files should consume them with `hsl(var(--...))`.
+- A user should be able to copy either `component.ts` or generated `component.js` plus load `theme.css` and use the component.
+- The docs app may use Lit, but `src/lib/*.ts` component files must not depend on Lit.
+
 #### Mapping Table
 
 | shadcn Concept | shadcx Equivalent | Notes |
 |----------------|-------------------|-------|
-| **JSX element** | `render()` returning `html\`<...>\`` | Lit template literal |
-| **Props** | `@property()` decorators | Reflect to attributes for CSS selectors |
+| **JSX element** | String template rendered into `shadowRoot.innerHTML` | Vanilla custom element |
+| **Props** | Getters/setters + `observedAttributes` | Reflect to attributes for CSS selectors |
 | **className** | `data-*` attributes in shadow DOM | Enables variant/size-based CSS |
-| **Tailwind classes** | Shadow DOM `css\`...\`` static styles | Scoped, no collision |
+| **Tailwind classes** | Shadow DOM CSS string | Scoped, no collision |
 | **CVA variants** | `data-variant="..."` + CSS attribute selectors | `[data-variant="ghost"] { ... }` |
 | **`asChild`** | Slot | User puts content inside `<shadcx-button>` |
 | **hover:** | `:hover` in shadow CSS | `[data-variant="outline"]:hover { ... }` |
 | **focus-visible:** | `:focus-visible` in shadow CSS | `:focus-visible { box-shadow: ... }` |
 | **Tailwind colors** | `hsl(var(--primary))` | Theme tokens as HSL channels |
 | **Tailwind spacing** | `rem`-based inline values | `height: 2.25rem; padding-inline: 1rem` |
-| **`onClick` handler** | `@click=${this._handler}` in template | Lit event binding |
+| **`onClick` handler** | `addEventListener('click', this.handler)` | Native event binding after render |
 | **React children** | `<slot></slot>` | Default slot for content |
-| **forwardRef** | `this.shadowRoot?.querySelector(...)` | Or expose via `@query()` |
+| **forwardRef** | `this.shadowRoot?.querySelector(...)` | Native DOM query |
 | **`aria-*` props** | `aria-*` attributes on shadow elements | Same semantics |
-| **`disabled` prop** | `@property({ reflect: true })` | `:host([disabled])` for styling |
+| **`disabled` prop** | Boolean getter/setter using `toggleAttribute` | `:host([disabled])` for styling |
 
 #### Unmappable Features (Explicit Decisions)
 
@@ -93,21 +106,26 @@ For each shadcn component being converted, document:
 | `className` merging | No Tailwind class strings | Expose `::part()` for external CSS |
 | `forwardRef` | No imperative refs | Use DOM APIs, events, or `::part()` |
 | Tailwind `dark:` prefix | Media query or class toggle | Use `.dark` class on `<html>` → CSS custom properties cascade through shadow DOM |
-| CVA `compoundVariants` | Conditional variant logic | Handle with explicit CSS rules or Lit reactive properties |
+| CVA `compoundVariants` | Conditional variant logic | Handle with explicit CSS rules or vanilla property/state logic |
 
 #### Component Structure Template
 
 ```
 target-component.ts
-├── @customElement('shadcx-<name>')
-├── @property() declarations (variant, size, disabled, ...)
-├── static styles = css`...` (shadow DOM styles)
+├── type exports for public string unions, if useful for TS consumers
+├── const styles = `...` (preflight + component shadow DOM styles)
+├── export class <Name> extends HTMLElement
+├── static observedAttributes = ['variant', 'size', 'disabled', ...]
+├── getters/setters for public props (variant, size, disabled, ...)
 │   ├── :host { base host styles }
 │   ├── [data-variant="..."] { variant styles }
 │   ├── [data-size="..."] { size styles }
 │   ├── :hover, :focus-visible, :disabled states
 │   └── ::slotted() styles for icon spacing
-├── render() → html`<element part="root" data-*="..."><slot></slot></element>`
+├── connectedCallback() attaches shadow root and renders
+├── attributeChangedCallback() re-renders attribute-driven UI
+├── render() → shadowRoot.innerHTML = `<style>...</style><element part="root" data-*="..."><slot></slot></element>`
+├── if (!customElements.get(...)) customElements.define(...)
 └── declare global { HTMLElementTagNameMap }
 ```
 
@@ -184,19 +202,55 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
 **shadcx button.ts:**
 ```ts
-@customElement('shadcx-button')
-export class Button extends LitElement {
-  @property({ type: String, reflect: true }) variant: ButtonVariant = 'default'
-  @property({ type: String, reflect: true }) size: ButtonSize = 'default'
-  @property({ type: Boolean, reflect: true }) disabled = false
+export class Button extends HTMLElement {
+  static observedAttributes = ['variant', 'size', 'disabled']
 
-  render() {
-    return html`
-      <button part="root" data-variant=${this.variant} data-size=${this.size} ?disabled=${this.disabled}>
+  get variant() {
+    return this.getAttribute('variant') ?? 'default'
+  }
+
+  set variant(value: string) {
+    this.setAttribute('variant', value)
+  }
+
+  get size() {
+    return this.getAttribute('size') ?? 'default'
+  }
+
+  set size(value: string) {
+    this.setAttribute('size', value)
+  }
+
+  get disabled() {
+    return this.hasAttribute('disabled')
+  }
+
+  set disabled(value: boolean) {
+    this.toggleAttribute('disabled', value)
+  }
+
+  connectedCallback() {
+    if (!this.shadowRoot) this.attachShadow({ mode: 'open' })
+    this.render()
+  }
+
+  attributeChangedCallback() {
+    this.render()
+  }
+
+  private render() {
+    if (!this.shadowRoot) return
+    this.shadowRoot.innerHTML = `
+      <style>${styles}</style>
+      <button part="root" data-variant="${this.variant}" data-size="${this.size}" ${this.disabled ? 'disabled' : ''}>
         <slot></slot>
       </button>
     `
   }
+}
+
+if (!customElements.get('shadcx-button')) {
+  customElements.define('shadcx-button', Button)
 }
 ```
 
@@ -206,6 +260,7 @@ Key differences explained:
 2. **No `asChild`** — The default `<slot>` achieves the same goal: place your own element inside the component.
 3. **`data-*` attributes instead of `className`** — Enables variant/size CSS in shadow DOM without class string manipulation.
 4. **No CVA** — Variant composition is handled by CSS attribute selectors, which cascade naturally.
+5. **No Lit runtime** — The component is plain `HTMLElement`, so consumers can install from a single CDN file or copy-paste source.
 
 #### Step 2: Translate Styling
 
@@ -299,11 +354,11 @@ const buttonVariants = cva(
 
 | shadcn Pattern | shadcx Pattern |
 |----------------|----------------|
-| `onClick={handler}` | `@click=${this._handler}` in Lit template |
-| `onChange={(e) => setValue(e.target.value)}` | `@input=${this._onInput}` → dispatch `CustomEvent` |
-| `disabled` prop | `@property({ reflect: true })` → CSS `:host([disabled])` + `:disabled` |
+| `onClick={handler}` | `button.addEventListener('click', this.handler)` after render |
+| `onChange={(e) => setValue(e.target.value)}` | Native `input` listener → dispatch `CustomEvent` |
+| `disabled` prop | Boolean getter/setter with `toggleAttribute` → CSS `:host([disabled])` + `:disabled` |
 | `aria-*` attributes | Same attributes on shadow DOM elements |
-| Controlled vs uncontrolled | One-way binding with `@property()`; two-way via custom events |
+| Controlled vs uncontrolled | Attribute/property setters plus custom events |
 
 ---
 
@@ -369,10 +424,11 @@ shadcx-button::part(root) {
 Before marking a conversion complete, verify:
 
 **Props**
-- [ ] All shadcn props are mapped to `@property()` declarations
+- [ ] All shadcn props are mapped to vanilla getters/setters and `observedAttributes` when attribute-driven
 - [ ] Prop defaults match shadcn defaults
 - [ ] Props reflect to attributes for CSS targeting
 - [ ] Missing props are documented in a "Not Yet Implemented" section
+- [ ] Component file has no imports from `lit`, React, Tailwind, Radix, CVA, or shared component helpers
 
 **Variants & Sizes**
 - [ ] Every shadcn `variant` value has a corresponding CSS `[data-variant="..."]` rule
@@ -408,27 +464,32 @@ Before marking a conversion complete, verify:
 
 ### Phase 7: Wire Up the Playground
 
-Once the component is converted, add it to the docs playground so users can see live examples and API documentation.
+Once the component is converted, add it to the docs playground so users can see live examples, installation snippets, copy-paste source, and API documentation.
 
-The playground is a SPA built with Lit. Each component gets its own docs page with live previews, code snippets, and API reference tables.
+The playground is a SPA built with Lit. That Lit usage is docs-only. Components under `src/lib/*.ts` remain vanilla custom elements.
 
-**Step-by-step wiring (7 files to touch):**
+**Step-by-step wiring (8 files to touch):**
 
 | # | File | Action |
 |---|------|--------|
 | 1 | `src/lib/<name>.ts` | Your converted component |
 | 2 | `src/main.ts` | `import './lib/<name>.ts'` to register the custom element |
 | 3 | `src/lib/index.ts` | `export { <Name> } from './<name>.ts'` for consumers |
-| 4 | `src/app/pages/<name>-page.ts` | Create the docs page (template below) |
-| 5 | `src/app/app-layout.ts` | Import page + add `case` in `_renderPage()` router |
-| 6 | `src/app/app-sidebar.ts` | Add nav link under "Components" section |
-| 7 | `src/app/pages/overview-page.ts` | Add a card linking to the new page |
+| 4 | `vite.config.ts` | Add `<name>: 'src/lib/<name>.ts'` to `rollupOptions.input` so CDN emits `assets/<name>.js` |
+| 5 | `src/app/pages/<name>-page.ts` | Create the docs page (template below) |
+| 6 | `src/app/app-layout.ts` | Import page + add `case` in `_renderPage()` router |
+| 7 | `src/app/app-sidebar.ts` | Add nav link under "Components" section |
+| 8 | `src/app/pages/overview-page.ts` | Add a card linking to the new page |
 
 **Page template (`src/app/pages/<name>-page.ts`):**
 
 ```ts
 import { LitElement, css, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
+import '../../lib/<name>.ts'
+import '../source-code-block.ts'
+import <name>Source from '../../lib/<name>.ts?raw'
+import <name>JavaScriptSource from '../../lib/<name>.ts?source-js'
 
 @customElement('<name>-page')
 export class <Name>Page extends LitElement {
@@ -487,8 +548,11 @@ export class <Name>Page extends LitElement {
       <p class="desc"><Description of the component></p>
 
       <h2>Installation</h2>
-      <pre><code>&lt;link rel="stylesheet" href=".../assets/index.css"&gt;
-&lt;script type="module" src=".../assets/index.js"&gt;&lt;/script&gt;</code></pre>
+      <pre><code>&lt;link rel="stylesheet" href="https://dobrinyonkov.github.io/shadcx/assets/theme.css"&gt;
+&lt;script type="module" src="https://dobrinyonkov.github.io/shadcx/assets/<name>.js"&gt;&lt;/script&gt;</code></pre>
+
+      <h2>Copy Paste Source</h2>
+      <source-code-block filename="<name>.ts" .source=${<name>Source} .jsSource=${<name>JavaScriptSource}></source-code-block>
 
       <h2>Usage</h2>
       <pre><code>&lt;shadcx-<name>&gt;&lt;/shadcx-<name>&gt;</code></pre>
@@ -578,9 +642,11 @@ private _navigate<Name>(e: Event) {
 ```
 
 **Docs page completeness checklist (`src/app/pages/<name>-page.ts`):**
-- Include sections for: `Installation`, `Usage`, and representative `Examples`.
+- Include sections in this order: `Installation`, `Copy Paste Source`, `Usage`, and representative `Examples`.
+- `Installation` must use `assets/theme.css` plus the per-component CDN file `assets/<name>.js`.
+- `Copy Paste Source` must use `<source-code-block>` with both `?raw` TypeScript and `?source-js` generated JavaScript sources.
 - End every component page with an **`API Reference`** section that contains a 3-column table: `Prop`, `Type`, `Default`.
-- Ensure every public property exposed in the component class (`@property`) is represented in the API table.
+- Ensure every public property exposed in the component class getters/setters is represented in the API table.
 - Keep table row order stable: primary props first, state/boolean flags next, aria/data attributes last.
 
 ---
@@ -619,12 +685,12 @@ private _navigate<Name>(e: Event) {
 | `className={cn(...)}` | `data-*` attributes + shadow CSS selectors |
 | `variant="ghost"` | `data-variant="ghost"` → `[data-variant="ghost"] { ... }` |
 | `size="lg"` | `data-size="lg"` → `[data-size="lg"] { ... }` |
-| `{...props}` spread | Individual `@property()` declarations |
+| `{...props}` spread | Explicit getters/setters and attribute forwarding where needed |
 | `{children}` | `<slot></slot>` |
 | `ref={ref}` | `this.shadowRoot?.querySelector('button[part="root"]')` |
-| `onClick={fn}` | `@click=${this._fn}` |
+| `onClick={fn}` | `addEventListener('click', this.fn)` |
 | `asChild={true}` | User's element as slotted child |
-| `disabled={true}` | `?disabled=${true}` on shadow element |
+| `disabled={true}` | Boolean getter/setter with `toggleAttribute`; render `disabled` on shadow element |
 | Tailwind `shadow` | `box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05)` |
 | Tailwind `rounded-md` | `border-radius: calc(var(--radius) - 2px)` |
 | Tailwind `bg-primary` | `background-color: hsl(var(--primary))` |

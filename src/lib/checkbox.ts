@@ -1,106 +1,148 @@
-import { LitElement, css, html, nothing } from 'lit'
-import { customElement, property } from 'lit/decorators.js'
-import { preflight } from './preflight.ts'
-
 export type CheckboxState = 'unchecked' | 'checked' | 'indeterminate'
 
-@customElement('shadcx-checkbox')
-export class Checkbox extends LitElement {
-  @property({ type: Boolean, reflect: true }) checked = false
-  @property({ type: Boolean, reflect: true }) indeterminate = false
-  @property({ type: Boolean, reflect: true }) disabled = false
-  @property({ type: String, attribute: 'aria-invalid' }) ariaInvalid: string | null = null
+const styles = `
+  *, *::before, *::after { box-sizing: border-box; }
+  * { margin: 0; }
+  img, svg, video, canvas, audio, iframe, embed, object { display: block; vertical-align: middle; }
+  img, video { max-width: 100%; height: auto; }
+  h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
+  blockquote, dl, dd, hr, figure, p, pre { margin: 0; }
+  ol, ul { list-style: none; margin: 0; padding: 0; }
+  a { color: inherit; text-decoration: inherit; }
+  button, input, optgroup, select, textarea {
+    font-family: inherit;
+    font-feature-settings: inherit;
+    font-variation-settings: inherit;
+    font-size: 100%;
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    margin: 0;
+    padding: 0;
+  }
+  button, select { text-transform: none; }
+  button, [type='button'], [type='reset'], [type='submit'] {
+    appearance: button;
+    background-color: transparent;
+    background-image: none;
+  }
+  :-moz-focusring { outline: auto; }
+  :-moz-ui-invalid { box-shadow: none; }
+  progress { vertical-align: baseline; }
+  ::-webkit-inner-spin-button, ::-webkit-outer-spin-button { height: auto; }
+  [type='search'] { appearance: textfield; outline-offset: -2px; }
+  ::-webkit-search-decoration { -webkit-appearance: none; }
+  ::-webkit-file-upload-button { font: inherit; appearance: button; }
+  textarea { resize: vertical; }
+  fieldset { margin: 0; padding: 0; min-width: 0; }
+  legend { padding: 0; }
+  ::placeholder { color: hsl(var(--muted-foreground)); opacity: 1; }
+  [hidden] { display: none !important; }
 
-  static styles = [
-    preflight,
-    css`
-    :host {
-      display: inline-flex;
-      vertical-align: middle;
-    }
+  :host { display: inline-flex; vertical-align: middle; }
+  :host([disabled]) { pointer-events: none; }
 
-    :host([disabled]) {
-      pointer-events: none;
-    }
+  .root {
+    appearance: none;
+    border: 1px solid hsl(var(--primary));
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    outline: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    border-radius: calc(var(--radius) - 4px);
+    background-color: hsl(var(--background));
+    color: transparent;
+    cursor: pointer;
+    transition: background-color 0.15s, border-color 0.15s, box-shadow 0.15s, color 0.15s;
+  }
 
-    .root {
-      appearance: none;
-      border: 1px solid hsl(var(--primary));
-      box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-      outline: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 1rem;
-      height: 1rem;
-      flex-shrink: 0;
-      border-radius: calc(var(--radius) - 4px);
-      background-color: hsl(var(--background));
-      color: transparent;
-      cursor: pointer;
-      transition:
-        background-color 0.15s,
-        border-color 0.15s,
-        box-shadow 0.15s,
-        color 0.15s;
-    }
+  .root:focus-visible { box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--ring)); }
+  .root:disabled { opacity: 0.5; cursor: not-allowed; }
+  .root[data-state='checked'], .root[data-state='indeterminate'] {
+    border-color: hsl(var(--primary));
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+  }
+  .root[aria-invalid='true'] {
+    border-color: hsl(var(--destructive));
+    box-shadow: 0 0 0 1px hsl(var(--destructive) / 0.2);
+  }
+  .indicator {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  .icon {
+    width: 0.875rem;
+    height: 0.875rem;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2.25;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+`
 
-    .root:focus-visible {
-      box-shadow:
-        0 0 0 2px hsl(var(--background)),
-        0 0 0 4px hsl(var(--ring));
-    }
+export class Checkbox extends HTMLElement {
+  static observedAttributes = ['checked', 'indeterminate', 'disabled', 'aria-invalid']
 
-    .root:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
+  get checked() {
+    return this.hasAttribute('checked')
+  }
 
-    .root[data-state='checked'],
-    .root[data-state='indeterminate'] {
-      border-color: hsl(var(--primary));
-      background-color: hsl(var(--primary));
-      color: hsl(var(--primary-foreground));
-    }
+  set checked(value: boolean) {
+    this.toggleAttribute('checked', value)
+  }
 
-    .root[aria-invalid='true'] {
-      border-color: hsl(var(--destructive));
-      box-shadow: 0 0 0 1px hsl(var(--destructive) / 0.2);
-    }
+  get indeterminate() {
+    return this.hasAttribute('indeterminate')
+  }
 
-    .indicator {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-    }
+  set indeterminate(value: boolean) {
+    this.toggleAttribute('indeterminate', value)
+  }
 
-    .icon {
-      width: 0.875rem;
-      height: 0.875rem;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 2.25;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-  `,
-  ]
+  get disabled() {
+    return this.hasAttribute('disabled')
+  }
 
-  private get _state(): CheckboxState {
-    if (this.indeterminate) {
-      return 'indeterminate'
-    }
+  set disabled(value: boolean) {
+    this.toggleAttribute('disabled', value)
+  }
 
+  get ariaInvalid() {
+    return this.getAttribute('aria-invalid')
+  }
+
+  set ariaInvalid(value: string | null) {
+    if (value === null) this.removeAttribute('aria-invalid')
+    else this.setAttribute('aria-invalid', value)
+  }
+
+  private get state(): CheckboxState {
+    if (this.indeterminate) return 'indeterminate'
     return this.checked ? 'checked' : 'unchecked'
   }
 
-  private _toggle() {
-    if (this.disabled) {
-      return
-    }
+  connectedCallback() {
+    if (!this.shadowRoot) this.attachShadow({ mode: 'open' })
+    this.render()
+  }
+
+  attributeChangedCallback() {
+    this.render()
+  }
+
+  private toggle = () => {
+    if (this.disabled) return
 
     if (this.indeterminate) {
       this.indeterminate = false
@@ -116,7 +158,7 @@ export class Checkbox extends LitElement {
         detail: {
           checked: this.checked,
           indeterminate: this.indeterminate,
-          state: this._state,
+          state: this.state,
         },
         bubbles: true,
         composed: true,
@@ -124,39 +166,43 @@ export class Checkbox extends LitElement {
     )
   }
 
-  private _onKeyDown(event: KeyboardEvent) {
-    if (event.key !== 'Enter') {
-      return
-    }
-
+  private onKeyDown = (event: KeyboardEvent) => {
+    if (event.key !== 'Enter') return
     event.preventDefault()
-    this._toggle()
+    this.toggle()
   }
 
-  render() {
-    return html`
+  private render() {
+    if (!this.shadowRoot) return
+    const icon = this.state === 'checked'
+      ? '<svg class="icon" viewBox="0 0 16 16"><polyline points="3.5 8.5 6.8 11.8 12.5 5.5" /></svg>'
+      : this.state === 'indeterminate'
+        ? '<svg class="icon" viewBox="0 0 16 16"><line x1="3.5" y1="8" x2="12.5" y2="8" /></svg>'
+        : ''
+
+    this.shadowRoot.innerHTML = `
+      <style>${styles}</style>
       <button
         part="root"
         class="root"
         type="button"
         role="checkbox"
-        data-state=${this._state}
-        aria-checked=${this.indeterminate ? 'mixed' : String(this.checked)}
-        aria-invalid=${this.ariaInvalid || nothing}
-        ?disabled=${this.disabled}
-        @click=${this._toggle}
-        @keydown=${this._onKeyDown}
+        data-state="${this.state}"
+        aria-checked="${this.indeterminate ? 'mixed' : String(this.checked)}"
+        ${this.ariaInvalid ? `aria-invalid="${this.ariaInvalid}"` : ''}
+        ${this.disabled ? 'disabled' : ''}
       >
-        <span part="indicator" class="indicator" aria-hidden="true">
-          ${this._state === 'checked'
-            ? html`<svg class="icon" viewBox="0 0 16 16"><polyline points="3.5 8.5 6.8 11.8 12.5 5.5" /></svg>`
-            : this._state === 'indeterminate'
-              ? html`<svg class="icon" viewBox="0 0 16 16"><line x1="3.5" y1="8" x2="12.5" y2="8" /></svg>`
-              : nothing}
-        </span>
+        <span part="indicator" class="indicator" aria-hidden="true">${icon}</span>
       </button>
     `
+    const button = this.shadowRoot.querySelector('button')
+    button?.addEventListener('click', this.toggle)
+    button?.addEventListener('keydown', this.onKeyDown)
   }
+}
+
+if (!customElements.get('shadcx-checkbox')) {
+  customElements.define('shadcx-checkbox', Checkbox)
 }
 
 declare global {
