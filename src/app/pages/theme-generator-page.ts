@@ -2,9 +2,12 @@ import { LitElement, css, html } from 'lit'
 import { customElement, state } from 'lit/decorators.js'
 import '../../lib/badge.ts'
 import '../../lib/button.ts'
+import '../../lib/card.ts'
 import '../../lib/checkbox.ts'
 import '../../lib/combobox.ts'
+import '../../lib/dropdown-menu.ts'
 import '../../lib/input.ts'
+import '../../lib/textarea.ts'
 
 type ThemeVariable =
   | 'font-sans'
@@ -461,24 +464,60 @@ export class ThemeGeneratorPage extends LitElement {
       align-items: center;
     }
 
-    .preview-body {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(16rem, 0.9fr);
-      gap: 1rem;
-      align-items: start;
+    .preview-scroll {
+      overflow-x: auto;
+      overflow-y: hidden;
       padding: 1rem;
+      -webkit-overflow-scrolling: touch;
     }
 
-    .showcase,
-    .surface {
+    .preview-body {
       display: grid;
+      grid-template-columns: repeat(4, minmax(18rem, 1fr));
+      grid-auto-rows: minmax(0, auto);
       gap: 1rem;
+      min-width: 76rem;
+      align-items: start;
+    }
+
+    .preview-card::part(root) {
+      height: 100%;
+    }
+
+    .preview-card.tall {
+      grid-row: span 2;
+    }
+
+    .card-section {
+      display: grid;
+      gap: 0.75rem;
       align-content: start;
-      padding: 1rem;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+
+    .metric {
+      display: grid;
+      gap: 0.125rem;
+      padding: 0.75rem;
       border: 1px solid hsl(var(--border));
-      border-radius: var(--radius);
-      background-color: hsl(var(--card));
-      color: hsl(var(--card-foreground));
+      border-radius: calc(var(--radius) - 2px);
+      background-color: hsl(var(--muted) / 0.45);
+    }
+
+    .metric strong {
+      color: hsl(var(--foreground));
+      font-size: 1.25rem;
+      line-height: 1;
+    }
+
+    .metric span {
+      color: hsl(var(--muted-foreground));
+      font-size: 0.75rem;
     }
 
     .section-title {
@@ -524,6 +563,10 @@ export class ThemeGeneratorPage extends LitElement {
       border: 1px solid hsl(var(--border));
       border-radius: calc(var(--radius) - 2px);
       background-color: hsl(var(--muted) / 0.45);
+    }
+
+    .chart-row.compact {
+      min-height: 5rem;
     }
 
     .bar {
@@ -582,9 +625,18 @@ export class ThemeGeneratorPage extends LitElement {
     }
 
     @media (max-width: 780px) {
-      .preview-body,
       .form-grid {
         grid-template-columns: 1fr;
+      }
+
+      .preview-scroll {
+        overflow: visible;
+        padding: 0.875rem;
+      }
+
+      .preview-body {
+        grid-template-columns: 1fr;
+        min-width: 0;
       }
 
       .preview-header {
@@ -848,73 +900,140 @@ export class ThemeGeneratorPage extends LitElement {
             </div>
           </div>
 
-          <div class="preview-body">
-            <div class="showcase">
-              <div class="section-title">
-                <h2>Components</h2>
-                <span class="muted">${this.base} / ${this.presetStyle}</span>
-              </div>
+          <div class="preview-scroll">
+            <div class="preview-body">
+              <shadcx-card class="preview-card tall">
+                <shadcx-card-header>
+                  <shadcx-card-title>Dashboard</shadcx-card-title>
+                  <shadcx-card-description>${this.base} / ${this.presetStyle}</shadcx-card-description>
+                  <shadcx-card-action>
+                    <shadcx-dropdown-menu>
+                      <shadcx-dropdown-menu-trigger>
+                        <shadcx-button size="sm" variant="outline">Actions</shadcx-button>
+                      </shadcx-dropdown-menu-trigger>
+                      <shadcx-dropdown-menu-content align="end">
+                        <shadcx-dropdown-menu-label>Theme</shadcx-dropdown-menu-label>
+                        <shadcx-dropdown-menu-item @click=${this.shuffle}>Shuffle</shadcx-dropdown-menu-item>
+                        <shadcx-dropdown-menu-item @click=${this.copyCss}>Copy CSS</shadcx-dropdown-menu-item>
+                        <shadcx-dropdown-menu-separator></shadcx-dropdown-menu-separator>
+                        <shadcx-dropdown-menu-item variant="destructive">Reset</shadcx-dropdown-menu-item>
+                      </shadcx-dropdown-menu-content>
+                    </shadcx-dropdown-menu>
+                  </shadcx-card-action>
+                </shadcx-card-header>
+                <shadcx-card-content>
+                  <div class="card-section">
+                    <div class="metric-grid">
+                      <div class="metric"><strong>2.4k</strong><span>Visitors</span></div>
+                      <div class="metric"><strong>18%</strong><span>Growth</span></div>
+                      <div class="metric"><strong>42</strong><span>Projects</span></div>
+                      <div class="metric"><strong>8ms</strong><span>Latency</span></div>
+                    </div>
+                    <div class="chart-row compact" aria-hidden="true">
+                      <span class="bar"></span>
+                      <span class="bar"></span>
+                      <span class="bar"></span>
+                      <span class="bar"></span>
+                      <span class="bar"></span>
+                    </div>
+                  </div>
+                </shadcx-card-content>
+              </shadcx-card>
 
-              <div class="button-row">
-                <shadcx-button>Primary</shadcx-button>
-                <shadcx-button variant="secondary">Secondary</shadcx-button>
-                <shadcx-button variant="outline">Outline</shadcx-button>
-                <shadcx-button variant="ghost">Ghost</shadcx-button>
-                <shadcx-button variant="destructive">Delete</shadcx-button>
-              </div>
+              <shadcx-card class="preview-card">
+                <shadcx-card-header>
+                  <shadcx-card-title>Buttons</shadcx-card-title>
+                  <shadcx-card-description>Primary, secondary, outline, ghost, destructive.</shadcx-card-description>
+                </shadcx-card-header>
+                <shadcx-card-content>
+                  <div class="button-row">
+                    <shadcx-button>Primary</shadcx-button>
+                    <shadcx-button variant="secondary">Secondary</shadcx-button>
+                    <shadcx-button variant="outline">Outline</shadcx-button>
+                    <shadcx-button variant="ghost">Ghost</shadcx-button>
+                    <shadcx-button variant="destructive">Delete</shadcx-button>
+                  </div>
+                </shadcx-card-content>
+              </shadcx-card>
 
-              <div class="badge-row">
-                <shadcx-badge>Default</shadcx-badge>
-                <shadcx-badge variant="secondary">Secondary</shadcx-badge>
-                <shadcx-badge variant="outline">Outline</shadcx-badge>
-                <shadcx-badge variant="destructive">Invalid</shadcx-badge>
-              </div>
+              <shadcx-card class="preview-card">
+                <shadcx-card-header>
+                  <shadcx-card-title>Badges</shadcx-card-title>
+                  <shadcx-card-description>Status labels using semantic tokens.</shadcx-card-description>
+                </shadcx-card-header>
+                <shadcx-card-content>
+                  <div class="badge-row">
+                    <shadcx-badge>Default</shadcx-badge>
+                    <shadcx-badge variant="secondary">Secondary</shadcx-badge>
+                    <shadcx-badge variant="outline">Outline</shadcx-badge>
+                    <shadcx-badge variant="destructive">Invalid</shadcx-badge>
+                  </div>
+                </shadcx-card-content>
+              </shadcx-card>
 
-              <div class="form-grid">
-                <div class="field">
-                  <label>Email</label>
-                  <shadcx-input value="hello@shadcx.dev" placeholder="Email"></shadcx-input>
-                  <small>Border, input, text, and focus ring tokens.</small>
-                </div>
-                <div class="field">
-                  <label>Invalid state</label>
-                  <shadcx-input placeholder="Missing value" aria-invalid="true"></shadcx-input>
-                  <small>Uses aria-invalid and destructive tokens.</small>
-                </div>
-                <div class="field wide">
-                  <label>Framework</label>
-                  <shadcx-combobox .items=${['Native HTML', 'React', 'Vue', 'Svelte']} value="Native HTML"></shadcx-combobox>
-                </div>
-                <label class="checkbox-line">
-                  <shadcx-checkbox checked></shadcx-checkbox>
-                  Receive release notes
-                </label>
-              </div>
-            </div>
+              <shadcx-card class="preview-card tall">
+                <shadcx-card-header>
+                  <shadcx-card-title>Form</shadcx-card-title>
+                  <shadcx-card-description>Input, textarea, checkbox, and combobox.</shadcx-card-description>
+                </shadcx-card-header>
+                <shadcx-card-content>
+                  <div class="form-grid">
+                    <div class="field">
+                      <label>Email</label>
+                      <shadcx-input value="hello@shadcx.dev" placeholder="Email"></shadcx-input>
+                    </div>
+                    <div class="field">
+                      <label>Invalid state</label>
+                      <shadcx-input placeholder="Missing value" aria-invalid="true"></shadcx-input>
+                    </div>
+                    <div class="field wide">
+                      <label>Framework</label>
+                      <shadcx-combobox .items=${['Native HTML', 'React', 'Vue', 'Svelte']} value="Native HTML"></shadcx-combobox>
+                    </div>
+                    <div class="field wide">
+                      <label>Message</label>
+                      <shadcx-textarea rows="4" placeholder="Tell us what you are building..."></shadcx-textarea>
+                    </div>
+                    <label class="checkbox-line">
+                      <shadcx-checkbox checked></shadcx-checkbox>
+                      Receive release notes
+                    </label>
+                  </div>
+                </shadcx-card-content>
+              </shadcx-card>
 
-            <div class="surface">
-              <div>
-                <h2>Color Tokens</h2>
-                <p>Every swatch below is composed from the exported CSS variables.</p>
-              </div>
+              <shadcx-card class="preview-card">
+                <shadcx-card-header>
+                  <shadcx-card-title>Color Tokens</shadcx-card-title>
+                  <shadcx-card-description>Theme variables as UI surfaces.</shadcx-card-description>
+                </shadcx-card-header>
+                <shadcx-card-content>
+                  <div class="token-strip" aria-hidden="true">
+                    <div class="token"><span></span><strong>primary</strong></div>
+                    <div class="token"><span></span><strong>secondary</strong></div>
+                    <div class="token"><span></span><strong>accent</strong></div>
+                    <div class="token"><span></span><strong>destructive</strong></div>
+                    <div class="token"><span></span><strong>ring</strong></div>
+                  </div>
+                </shadcx-card-content>
+                <shadcx-card-footer>
+                  <shadcx-button variant="outline" @click=${this.copyCss}>${this.copied ? 'Copied CSS' : 'Copy variables'}</shadcx-button>
+                </shadcx-card-footer>
+              </shadcx-card>
 
-              <div class="token-strip" aria-hidden="true">
-                <div class="token"><span></span><strong>primary</strong></div>
-                <div class="token"><span></span><strong>secondary</strong></div>
-                <div class="token"><span></span><strong>accent</strong></div>
-                <div class="token"><span></span><strong>destructive</strong></div>
-                <div class="token"><span></span><strong>ring</strong></div>
-              </div>
-
-              <div class="chart-row" aria-hidden="true">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-              </div>
-
-              <shadcx-button variant="outline" @click=${this.copyCss}>${this.copied ? 'Copied CSS to clipboard' : 'Copy current variables'}</shadcx-button>
+              <shadcx-card class="preview-card">
+                <shadcx-card-header>
+                  <shadcx-card-title>Card Surface</shadcx-card-title>
+                  <shadcx-card-description>Radius, border, card, and muted tokens.</shadcx-card-description>
+                </shadcx-card-header>
+                <shadcx-card-content>
+                  <p>Every piece in this preview is rendered with real shadcx components and the currently generated CSS variables.</p>
+                </shadcx-card-content>
+                <shadcx-card-footer>
+                  <shadcx-button size="sm">Save</shadcx-button>
+                  <shadcx-button size="sm" variant="outline">Cancel</shadcx-button>
+                </shadcx-card-footer>
+              </shadcx-card>
             </div>
           </div>
         </section>
