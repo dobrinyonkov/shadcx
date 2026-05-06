@@ -1,11 +1,10 @@
 import { LitElement, css, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
-import '../../lib/input.ts'
-import '../../lib/button.ts'
+import { componentStyles } from '../component-styles.ts'
 
 @customElement('input-page')
 export class InputPage extends LitElement {
-  static styles = css`
+  static styles = [componentStyles, css`
     :host {
       display: block;
       font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
@@ -149,7 +148,7 @@ export class InputPage extends LitElement {
         font-size: 0.75rem;
       }
     }
-  `
+  `]
 
   render() {
     return html`
@@ -160,66 +159,65 @@ export class InputPage extends LitElement {
       </p>
 
       <h2>Installation</h2>
-      <pre><code>&lt;link rel="stylesheet" href=".../assets/index.css"&gt;
-&lt;script type="module" src=".../assets/index.js"&gt;&lt;/script&gt;</code></pre>
+      <pre><code>&lt;link rel="stylesheet" href=".../assets/index.css"&gt;</code></pre>
 
       <h2>Usage</h2>
-      <pre><code>&lt;shadcx-input placeholder="Enter text"&gt;&lt;/shadcx-input&gt;</code></pre>
+      <pre><code>&lt;input placeholder="Enter text"&gt;</code></pre>
 
       <h2>Examples</h2>
 
       <h3>Basic</h3>
       <div class="preview">
-        <shadcx-input placeholder="Enter text"></shadcx-input>
+        <input placeholder="Enter text">
       </div>
-      <pre><code>&lt;shadcx-input placeholder="Enter text"&gt;&lt;/shadcx-input&gt;</code></pre>
+      <pre><code>&lt;input placeholder="Enter text"&gt;</code></pre>
 
       <h3>Types</h3>
       <div class="preview">
-        <shadcx-input type="text" placeholder="Text"></shadcx-input>
-        <shadcx-input type="email" placeholder="Email"></shadcx-input>
-        <shadcx-input type="password" placeholder="Password"></shadcx-input>
-        <shadcx-input type="search" placeholder="Search"></shadcx-input>
+        <input type="text" placeholder="Text">
+        <input type="email" placeholder="Email">
+        <input type="password" placeholder="Password">
+        <input type="search" placeholder="Search">
       </div>
-      <pre><code>&lt;shadcx-input type="text" placeholder="Text"&gt;&lt;/shadcx-input&gt;
-&lt;shadcx-input type="email" placeholder="Email"&gt;&lt;/shadcx-input&gt;
-&lt;shadcx-input type="password" placeholder="Password"&gt;&lt;/shadcx-input&gt;
-&lt;shadcx-input type="search" placeholder="Search"&gt;&lt;/shadcx-input&gt;</code></pre>
+      <pre><code>&lt;input type="text" placeholder="Text"&gt;
+&lt;input type="email" placeholder="Email"&gt;
+&lt;input type="password" placeholder="Password"&gt;
+&lt;input type="search" placeholder="Search"&gt;</code></pre>
 
       <h3>Disabled</h3>
       <div class="preview">
-        <shadcx-input placeholder="Disabled" disabled></shadcx-input>
+        <input placeholder="Disabled" disabled>
       </div>
-      <pre><code>&lt;shadcx-input placeholder="Disabled" disabled&gt;&lt;/shadcx-input&gt;</code></pre>
+      <pre><code>&lt;input placeholder="Disabled" disabled&gt;</code></pre>
 
       <h3>Invalid</h3>
       <div class="preview">
-        <shadcx-input placeholder="Error" aria-invalid="true"></shadcx-input>
+        <input placeholder="Error" aria-invalid="true">
       </div>
-      <pre><code>&lt;shadcx-input placeholder="Error" aria-invalid="true"&gt;&lt;/shadcx-input&gt;</code></pre>
+      <pre><code>&lt;input placeholder="Error" aria-invalid="true"&gt;</code></pre>
 
       <h3>File</h3>
       <div class="preview">
-        <shadcx-input type="file"></shadcx-input>
+        <input type="file">
       </div>
-      <pre><code>&lt;shadcx-input type="file"&gt;&lt;/shadcx-input&gt;</code></pre>
+      <pre><code>&lt;input type="file"&gt;</code></pre>
 
       <h3>Required</h3>
       <div class="preview">
-        <shadcx-input placeholder="Required field" required></shadcx-input>
+        <input placeholder="Required field" required>
       </div>
-      <pre><code>&lt;shadcx-input placeholder="Required field" required&gt;&lt;/shadcx-input&gt;</code></pre>
+      <pre><code>&lt;input placeholder="Required field" required&gt;</code></pre>
 
       <h3>With Button</h3>
       <div class="preview">
         <div class="inline-row">
-          <shadcx-input type="search" placeholder="Search..."></shadcx-input>
-          <shadcx-button variant="outline">Search</shadcx-button>
+          <input type="search" placeholder="Search...">
+          <button class="scx-outline">Search</button>
         </div>
       </div>
       <pre><code>&lt;div style="display: flex; gap: 0.5rem;"&gt;
-  &lt;shadcx-input type="search" placeholder="Search..."&gt;&lt;/shadcx-input&gt;
-  &lt;shadcx-button variant="outline"&gt;Search&lt;/shadcx-button&gt;
+  &lt;input type="search" placeholder="Search..."&gt;
+  &lt;button class="scx-outline"&gt;Search&lt;/button&gt;
 &lt;/div&gt;</code></pre>
 
       <h2>API Reference</h2>
@@ -227,59 +225,59 @@ export class InputPage extends LitElement {
         <table>
           <thead>
             <tr>
-              <th>Prop</th>
-              <th>Type</th>
-              <th>Default</th>
+              <th>Element / attribute</th>
+              <th>Values</th>
+              <th>Purpose</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td><code>type</code></td>
-              <td><code>string</code></td>
-              <td><code>"text"</code></td>
+              <td>Native input types</td>
+              <td>Text-like input styling, including file inputs.</td>
             </tr>
             <tr>
               <td><code>placeholder</code></td>
-              <td><code>string</code></td>
-              <td><code>""</code></td>
+              <td>Native attribute</td>
+              <td>Placeholder text uses <code>--muted-foreground</code>.</td>
             </tr>
             <tr>
               <td><code>disabled</code></td>
-              <td><code>boolean</code></td>
-              <td><code>false</code></td>
+              <td>Boolean attribute</td>
+              <td>Applies disabled opacity and cursor.</td>
             </tr>
             <tr>
               <td><code>required</code></td>
-              <td><code>boolean</code></td>
-              <td><code>false</code></td>
+              <td>Boolean attribute</td>
+              <td>Native form validation remains unchanged.</td>
             </tr>
             <tr>
               <td><code>readonly</code></td>
-              <td><code>boolean</code></td>
-              <td><code>false</code></td>
+              <td>Boolean attribute</td>
+              <td>Native read-only behavior remains unchanged.</td>
             </tr>
             <tr>
               <td><code>aria-invalid</code></td>
-              <td><code>string</code></td>
-              <td><code>—</code></td>
+              <td><code>true</code></td>
+              <td>Applies destructive border and invalid ring.</td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <h3>CSS Parts</h3>
+      <h3>Styled Elements</h3>
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
-              <th>Part</th>
+              <th>Selector</th>
               <th>Description</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><code>root</code></td>
-              <td>The <code>&lt;input&gt;</code> element</td>
+              <td><code>input</code>, <code>textarea</code></td>
+              <td>Text-like controls are styled directly. Checkboxes have their own styles.</td>
             </tr>
           </tbody>
         </table>

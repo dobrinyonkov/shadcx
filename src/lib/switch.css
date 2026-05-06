@@ -1,0 +1,83 @@
+input[type='checkbox'][role='switch'] {
+  --scx-switch-width: 2.75rem;
+  --scx-switch-height: 1.5rem;
+  --scx-switch-thumb-size: 1.25rem;
+  --scx-switch-track-padding: 0.125rem;
+
+  appearance: none;
+  position: relative;
+  display: inline-block;
+  width: var(--scx-switch-width);
+  height: var(--scx-switch-height);
+  border: 1px solid hsl(var(--input));
+  border-radius: 9999px;
+  background-color: hsl(var(--input) / 0.35);
+  box-shadow: inset 0 1px 2px rgb(0 0 0 / 0.06);
+  cursor: pointer;
+  transition:
+    background-color 0.15s,
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+
+input[type='checkbox'][role='switch']::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: var(--scx-switch-track-padding);
+  width: var(--scx-switch-thumb-size);
+  height: var(--scx-switch-thumb-size);
+  border-radius: 9999px;
+  background-color: hsl(var(--background));
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 0.2),
+    0 0 0 1px hsl(var(--border) / 0.7);
+  transform: translate(0, -50%);
+  transition: transform 0.15s ease;
+}
+
+input[type='checkbox'][role='switch']:checked {
+  background-color: hsl(var(--primary));
+  border-color: hsl(var(--primary));
+}
+
+input[type='checkbox'][role='switch']:checked::before {
+  transform: translate(calc(var(--scx-switch-width) - var(--scx-switch-thumb-size) - (var(--scx-switch-track-padding) * 2)), -50%);
+}
+
+input[type='checkbox'][role='switch']:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+  box-shadow:
+    0 0 0 2px hsl(var(--background)),
+    0 0 0 4px hsl(var(--ring));
+}
+
+input[type='checkbox'][role='switch']:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+input[type='checkbox'][role='switch'][aria-invalid='true'] {
+  border-color: hsl(var(--destructive));
+  box-shadow: 0 0 0 1px hsl(var(--destructive) / 0.2);
+}
+
+input[type='checkbox'][role='switch'][aria-invalid='true']:focus-visible {
+  outline-color: hsl(var(--destructive));
+  box-shadow:
+    0 0 0 2px hsl(var(--background)),
+    0 0 0 4px hsl(var(--destructive));
+}
+
+input[type='checkbox'][role='switch'].scx-switch-sm {
+  --scx-switch-width: 2.25rem;
+  --scx-switch-height: 1.25rem;
+  --scx-switch-thumb-size: 1rem;
+}
+
+input[type='checkbox'][role='switch'].scx-switch-lg {
+  --scx-switch-width: 3.25rem;
+  --scx-switch-height: 1.75rem;
+  --scx-switch-thumb-size: 1.5rem;
+}

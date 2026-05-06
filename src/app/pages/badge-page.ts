@@ -1,10 +1,10 @@
 import { LitElement, css, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
-import '../../lib/badge.ts'
+import { componentStyles } from '../component-styles.ts'
 
 @customElement('badge-page')
 export class BadgePage extends LitElement {
-  static styles = css`
+  static styles = [componentStyles, css`
     :host {
       display: block;
       font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
@@ -139,13 +139,13 @@ export class BadgePage extends LitElement {
       display: inline-block;
     }
 
-    shadcx-badge.success::part(root) {
+    mark.success {
       background-color: hsl(142 71% 45% / 0.15);
       border-color: hsl(142 71% 45% / 0.35);
       color: hsl(142 84% 25%);
     }
 
-    :host-context(.dark) shadcx-badge.success::part(root) {
+    :host-context(.dark) mark.success {
       background-color: hsl(142 70% 35% / 0.25);
       border-color: hsl(142 70% 45% / 0.45);
       color: hsl(142 100% 85%);
@@ -172,7 +172,7 @@ export class BadgePage extends LitElement {
         font-size: 0.75rem;
       }
     }
-  `
+  `]
 
   render() {
     return html`
@@ -180,73 +180,72 @@ export class BadgePage extends LitElement {
       <p class="desc">Displays a badge or a component that looks like a badge.</p>
 
       <h2>Installation</h2>
-      <pre><code>&lt;link rel="stylesheet" href=".../assets/index.css"&gt;
-&lt;script type="module" src=".../assets/index.js"&gt;&lt;/script&gt;</code></pre>
+      <pre><code>&lt;link rel="stylesheet" href=".../assets/index.css"&gt;</code></pre>
 
       <h2>Usage</h2>
-      <pre><code>&lt;shadcx-badge variant="default"&gt;Badge&lt;/shadcx-badge&gt;</code></pre>
+      <pre><code>&lt;mark&gt;Badge&lt;/mark&gt;</code></pre>
 
       <h2>Examples</h2>
 
       <h3>Variants</h3>
       <div class="preview">
-        <shadcx-badge>Default</shadcx-badge>
-        <shadcx-badge variant="secondary">Secondary</shadcx-badge>
-        <shadcx-badge variant="destructive">Destructive</shadcx-badge>
-        <shadcx-badge variant="outline">Outline</shadcx-badge>
-        <shadcx-badge variant="ghost">Ghost</shadcx-badge>
-        <shadcx-badge variant="link">Link</shadcx-badge>
+        <mark>Default</mark>
+        <mark class="scx-secondary">Secondary</mark>
+        <mark class="scx-destructive">Destructive</mark>
+        <mark class="scx-outline">Outline</mark>
+        <mark class="scx-ghost">Ghost</mark>
+        <mark class="scx-link">Link</mark>
       </div>
-      <pre><code>&lt;shadcx-badge&gt;Default&lt;/shadcx-badge&gt;
-&lt;shadcx-badge variant="secondary"&gt;Secondary&lt;/shadcx-badge&gt;
-&lt;shadcx-badge variant="destructive"&gt;Destructive&lt;/shadcx-badge&gt;
-&lt;shadcx-badge variant="outline"&gt;Outline&lt;/shadcx-badge&gt;
-&lt;shadcx-badge variant="ghost"&gt;Ghost&lt;/shadcx-badge&gt;
-&lt;shadcx-badge variant="link"&gt;Link&lt;/shadcx-badge&gt;</code></pre>
+      <pre><code>&lt;mark&gt;Default&lt;/mark&gt;
+&lt;mark class="scx-secondary"&gt;Secondary&lt;/mark&gt;
+&lt;mark class="scx-destructive"&gt;Destructive&lt;/mark&gt;
+&lt;mark class="scx-outline"&gt;Outline&lt;/mark&gt;
+&lt;mark class="scx-ghost"&gt;Ghost&lt;/mark&gt;
+&lt;mark class="scx-link"&gt;Link&lt;/mark&gt;</code></pre>
 
       <h3>With Icon</h3>
       <div class="preview">
-        <shadcx-badge>
+        <mark>
           <svg data-icon="inline-start" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>
           Verified
-        </shadcx-badge>
-        <shadcx-badge variant="outline">
+        </mark>
+        <mark class="scx-outline">
           New
           <svg data-icon="inline-end" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
-        </shadcx-badge>
+        </mark>
       </div>
-      <pre><code>&lt;shadcx-badge&gt;
+      <pre><code>&lt;mark&gt;
   &lt;svg data-icon="inline-start" ...&gt;&lt;/svg&gt;
   Verified
-&lt;/shadcx-badge&gt;</code></pre>
+&lt;/mark&gt;</code></pre>
 
       <h3>With Spinner</h3>
       <div class="preview">
-        <shadcx-badge variant="secondary">
+        <mark class="scx-secondary">
           <span data-icon="inline-start" class="spinner"></span>
           Syncing
-        </shadcx-badge>
+        </mark>
       </div>
-      <pre><code>&lt;shadcx-badge variant="secondary"&gt;
+      <pre><code>&lt;mark class="scx-secondary"&gt;
   &lt;span data-icon="inline-start" class="spinner"&gt;&lt;/span&gt;
   Syncing
-&lt;/shadcx-badge&gt;</code></pre>
+&lt;/mark&gt;</code></pre>
 
       <h3>Link</h3>
       <div class="preview">
         <a class="inline-link" href="https://example.com" target="_blank" rel="noreferrer">
-          <shadcx-badge variant="link">Read docs</shadcx-badge>
+          <mark class="scx-link">Read docs</mark>
         </a>
       </div>
       <pre><code>&lt;a href="https://example.com"&gt;
-  &lt;shadcx-badge variant="link"&gt;Read docs&lt;/shadcx-badge&gt;
+  &lt;mark class="scx-link"&gt;Read docs&lt;/mark&gt;
 &lt;/a&gt;</code></pre>
 
       <h3>Custom Colors</h3>
       <div class="preview">
-        <shadcx-badge class="success">Success</shadcx-badge>
+        <mark class="success">Success</mark>
       </div>
-      <pre><code>shadcx-badge.success::part(root) {
+      <pre><code>mark.success {
   background-color: hsl(142 71% 45% / 0.15);
   border-color: hsl(142 71% 45% / 0.35);
   color: hsl(142 84% 25%);
@@ -257,34 +256,34 @@ export class BadgePage extends LitElement {
         <table>
           <thead>
             <tr>
-              <th>Prop</th>
-              <th>Type</th>
-              <th>Default</th>
+              <th>Element / class</th>
+              <th>Values</th>
+              <th>Purpose</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><code>variant</code></td>
-              <td><code>"default" | "secondary" | "destructive" | "outline" | "ghost" | "link"</code></td>
-              <td><code>"default"</code></td>
+              <td><code>mark</code></td>
+              <td><code>scx-secondary | scx-destructive | scx-outline | scx-ghost | scx-link</code></td>
+              <td>Badge variants. No class is the default badge.</td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <h3>CSS Parts</h3>
+      <h3>Customization</h3>
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
-              <th>Part</th>
+              <th>Selector</th>
               <th>Description</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><code>root</code></td>
-              <td>The internal <code>&lt;span&gt;</code> badge element.</td>
+              <td><code>mark.your-class</code></td>
+              <td>Override colors, borders, radius, or spacing directly with CSS variables or standard CSS.</td>
             </tr>
           </tbody>
         </table>

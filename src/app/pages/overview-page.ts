@@ -126,44 +126,74 @@ export class OverviewPage extends LitElement {
     location.hash = 'input'
   }
 
+  private _navigateCheckbox(e: Event) {
+    e.preventDefault()
+    location.hash = 'checkbox'
+  }
+
   private _navigateCombobox(e: Event) {
     e.preventDefault()
     location.hash = 'combobox'
+  }
+
+  private _navigateThemeGenerator(e: Event) {
+    e.preventDefault()
+    location.hash = 'theme-generator'
   }
 
   render() {
     return html`
       <h1>shadcx</h1>
       <p class="lead">
-        shadcn/ui reimagined as Web Components. No framework lock-in, no
-        Tailwind CSS &mdash; just reusable components that work anywhere.
+        shadcn/ui reimagined as pure CSS for native HTML. No framework lock-in,
+        no Tailwind CSS, no component runtime &mdash; just semantic elements
+        styled by shadcn-compatible variables.
       </p>
 
       <h2>Getting Started</h2>
       <p>
-        Load the library via CDN and start using the components in any HTML
+        Load the stylesheet via CDN and start using native HTML elements in any
         page:
       </p>
-      <pre><code>&lt;link rel="stylesheet" href="https://dobrinyonkov.github.io/shadcx/assets/index.css"&gt;
-&lt;script type="module" src="https://dobrinyonkov.github.io/shadcx/assets/index.js"&gt;&lt;/script&gt;</code></pre>
+      <pre><code>&lt;link rel="stylesheet" href="https://dobrinyonkov.github.io/shadcx/assets/index.css"&gt;</code></pre>
+
+      <h2>Theme Generator</h2>
+      <p>
+        Build a shadcn-compatible variable set visually, preview it against the
+        native components, and export the CSS in one click.
+      </p>
+      <div class="cards">
+        <a
+          class="card"
+          href="#/theme-generator"
+          @click=${(event: Event) => this._navigateThemeGenerator(event)}
+        >
+          <h3>Theme Generator</h3>
+          <p>Tweak color tokens, radius, fonts, borders, rings, and charts.</p>
+        </a>
+      </div>
 
       <h2>Components</h2>
       <div class="cards">
-        <a class="card" href="#/badge" @click=${this._navigateBadge}>
+        <a class="card" href="#/badge" @click=${(event: Event) => this._navigateBadge(event)}>
           <h3>Badge</h3>
           <p>Displays a badge or a component that looks like a badge.</p>
         </a>
-        <a class="card" href="#/button" @click=${this._navigateButton}>
+        <a class="card" href="#/button" @click=${(event: Event) => this._navigateButton(event)}>
           <h3>Button</h3>
           <p>Displays a button or a component that looks like a button.</p>
         </a>
-        <a class="card" href="#/input" @click=${this._navigateInput}>
+        <a class="card" href="#/input" @click=${(event: Event) => this._navigateInput(event)}>
           <h3>Input</h3>
           <p>A text input component for forms and user data entry.</p>
         </a>
-        <a class="card" href="#/combobox" @click=${this._navigateCombobox}>
+        <a class="card" href="#/checkbox" @click=${(event: Event) => this._navigateCheckbox(event)}>
+          <h3>Checkbox</h3>
+          <p>A native checkbox styled with shadcn states.</p>
+        </a>
+        <a class="card" href="#/combobox" @click=${(event: Event) => this._navigateCombobox(event)}>
           <h3>Combobox</h3>
-          <p>Autocomplete input with suggestion list and multi-select support.</p>
+          <p>Native select and datalist controls with shadcn styling.</p>
         </a>
       </div>
     `
