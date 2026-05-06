@@ -1,13 +1,8 @@
 import { LitElement, css, html } from 'lit'
+import { html as staticHtml, unsafeStatic } from 'lit/static-html.js'
 import { customElement, state } from 'lit/decorators.js'
 import './app-sidebar.ts'
-import './pages/overview-page.ts'
-import './pages/theming-page.ts'
-import './pages/button-page.ts'
-import './pages/badge-page.ts'
-import './pages/input-page.ts'
-import './pages/checkbox-page.ts'
-import './pages/combobox-page.ts'
+import { getPageRoute, renderMissingPage } from './page-registry.ts'
 
 @customElement('app-layout')
 export class AppLayout extends LitElement {
@@ -28,7 +23,8 @@ export class AppLayout extends LitElement {
   }
 
   private _updatePage() {
-    const hash = location.hash.slice(1) || '/'
+    const rawHash = location.hash.slice(1) || '/'
+    const hash = rawHash === '/' ? '/' : rawHash.replace(/^\//, '')
     this._page = hash
     this._sidebarOpen = false
   }
@@ -111,6 +107,15 @@ export class AppLayout extends LitElement {
       color: hsl(var(--accent-foreground));
     }
 
+    .menu-btn:focus-visible,
+    .theme-btn:focus-visible {
+      outline: 2px solid hsl(var(--ring));
+      outline-offset: 2px;
+      box-shadow:
+        0 0 0 2px hsl(var(--background)),
+        0 0 0 4px hsl(var(--ring));
+    }
+
     /* --- body layout --- */
     .layout-body {
       display: flex;
@@ -154,6 +159,10 @@ export class AppLayout extends LitElement {
       background-color: hsl(var(--background));
     }
 
+    .content.wide {
+      max-width: none;
+    }
+
     @media (min-width: 768px) {
       .topbar {
         padding-left: 1.5rem;
@@ -184,6 +193,8 @@ export class AppLayout extends LitElement {
   render() {
     const sidebarClasses = this._sidebarOpen ? 'sidebar open' : 'sidebar'
     const overlayClasses = this._sidebarOpen ? 'overlay open' : 'overlay'
+    const pageRoute = getPageRoute(this._page)
+    const contentClasses = pageRoute.wide ? 'content wide' : 'content'
     const themeIcon = this._dark ? '\u2600' : '\u263D'
 
     return html`
@@ -199,7 +210,7 @@ export class AppLayout extends LitElement {
         <span class="topbar-brand">shadcx</span>
         <button
           class="theme-btn"
-          @click=${this._toggleTheme}
+          @click=${() => this._toggleTheme()}
           aria-label="Toggle theme"
         >
           ${themeIcon}
@@ -216,28 +227,19 @@ export class AppLayout extends LitElement {
           <app-sidebar active=${this._page}></app-sidebar>
         </aside>
 
-        <main class="content">${this._renderPage()}</main>
+        <main class=${contentClasses}>${this._renderPage()}</main>
       </div>
     `
   }
 
   private _renderPage() {
-    switch (this._page) {
-      case 'badge':
-        return html`<badge-page></badge-page>`
-      case 'button':
-        return html`<button-page></button-page>`
-      case 'input':
-        return html`<input-page></input-page>`
-      case 'checkbox':
-        return html`<checkbox-page></checkbox-page>`
-      case 'combobox':
-        return html`<combobox-page></combobox-page>`
-      case 'theming':
-        return html`<theming-page></theming-page>`
-      default:
-        return html`<overview-page></overview-page>`
+    const pageRoute = getPageRoute(this._page)
+    if (!customElements.get(pageRoute.elementName)) {
+      return renderMissingPage(this._page)
     }
+
+    const tag = unsafeStatic(pageRoute.elementName)
+    return staticHtml`<${tag}></${tag}>`
   }
 }
 

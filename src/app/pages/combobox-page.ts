@@ -1,15 +1,18 @@
 import { LitElement, css, html } from 'lit'
 import { customElement, state } from 'lit/decorators.js'
-import '../../lib/combobox.ts'
+import { componentStyles } from '../component-styles.ts'
+import '../../components/scx-select.ts'
+import '../../components/scx-input.ts'
 
 const frameworks = ['Next.js', 'SvelteKit', 'Nuxt.js', 'Remix', 'Astro']
 
 @customElement('combobox-page')
 export class ComboboxPage extends LitElement {
   @state() private _singleValue = ''
+  @state() private _autocompleteValue = ''
   @state() private _multipleValues: string[] = []
 
-  static styles = css`
+  static styles = [componentStyles, css`
     :host {
       display: block;
       font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
@@ -120,113 +123,249 @@ export class ComboboxPage extends LitElement {
       color: hsl(var(--foreground));
       font-weight: 500;
     }
-  `
+
+    fieldset.scx-option-list {
+      display: grid;
+      width: 100%;
+      max-width: 24rem;
+      gap: 0.25rem;
+      margin: 0;
+      padding: 0.25rem;
+      border: 1px solid hsl(var(--input));
+      border-radius: calc(var(--radius) - 2px);
+      background-color: hsl(var(--background));
+      color: hsl(var(--foreground));
+      font-family: var(--font-sans);
+    }
+
+    fieldset.scx-option-list:focus-within {
+      outline: 2px solid hsl(var(--ring));
+      outline-offset: 2px;
+      box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--ring));
+    }
+
+    fieldset.scx-option-list[aria-invalid='true'] {
+      border-color: hsl(var(--destructive));
+      box-shadow: 0 0 0 1px hsl(var(--destructive) / 0.2);
+    }
+
+    fieldset.scx-option-list[aria-invalid='true']:focus-within {
+      outline-color: hsl(var(--destructive));
+      box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--destructive));
+    }
+
+    fieldset.scx-option-list legend {
+      padding: 0 0.25rem;
+      color: hsl(var(--muted-foreground));
+      font-size: 0.8125rem;
+      font-weight: 500;
+    }
+
+    fieldset.scx-option-list label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-height: 2rem;
+      padding: 0.375rem 0.5rem;
+      border-radius: calc(var(--radius) - 4px);
+      color: hsl(var(--foreground));
+      cursor: pointer;
+      font-size: 0.875rem;
+      line-height: 1.25;
+    }
+
+    fieldset.scx-option-list label:hover {
+      background-color: hsl(var(--accent));
+      color: hsl(var(--accent-foreground));
+    }
+
+    fieldset.scx-option-list button {
+      justify-content: flex-start;
+      width: 100%;
+      height: 2rem;
+      box-shadow: none;
+    }
+
+    fieldset.scx-option-list button[aria-pressed='true'] {
+      border-color: hsl(var(--primary));
+      background-color: hsl(var(--primary));
+      color: hsl(var(--primary-foreground));
+    }
+
+    fieldset.scx-option-list button[aria-pressed='true']:hover {
+      background-color: hsl(var(--primary) / 0.9);
+    }
+
+    fieldset.scx-option-list button:focus-visible {
+      outline: 2px solid hsl(var(--ring));
+      outline-offset: 2px;
+      box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--ring));
+    }
+  `]
 
   private _onSingleValueChange(event: Event) {
-    const customEvent = event as CustomEvent<{ value: string }>
-    this._singleValue = customEvent.detail.value
+    const select = event.currentTarget as HTMLSelectElement
+    this._singleValue = select.value
   }
 
-  private _onMultipleValueChange(event: Event) {
-    const customEvent = event as CustomEvent<{ value: string[] }>
-    this._multipleValues = customEvent.detail.value
+  private _onOptionListClick(event: Event) {
+    const target = event.target
+    if (!(target instanceof Node)) {
+      return
+    }
+
+    const element = target instanceof Element ? target : target.parentElement
+    const button = element?.closest<HTMLButtonElement>('button[data-value]')
+    if (!button) {
+      return
+    }
+
+    const selected = new Set(this._multipleValues)
+    const framework = button.dataset.value || ''
+    if (selected.has(framework)) {
+      selected.delete(framework)
+    } else {
+      selected.add(framework)
+    }
+
+    this._multipleValues = frameworks.filter((item) => selected.has(item))
+  }
+
+  private _onAutocompleteInput(event: Event) {
+    const input = event.currentTarget as HTMLInputElement
+    this._autocompleteValue = input.value
   }
 
   render() {
     return html`
       <h1>Combobox</h1>
       <p class="desc">
-        Autocomplete input with suggestion filtering, keyboard navigation, clear
-        behavior, and optional multi-select chips.
+        Native select and datalist controls styled to sit beside the rest of
+        the shadcn-inspired form elements.
       </p>
 
       <h2>Installation</h2>
-      <pre><code>&lt;link rel="stylesheet" href=".../assets/index.css"&gt;
-&lt;script type="module" src=".../assets/index.js"&gt;&lt;/script&gt;</code></pre>
+      <pre><code>import './scx-select.js'</code></pre>
 
       <h2>Usage</h2>
       <p>
-        In shadcx, list rendering is handled internally by
-        <code>&lt;shadcx-combobox&gt;</code>, so there is no separate
-        <code>ComboboxItem</code> component to compose.
+        Use <code>&lt;scx-select&gt;</code> for fixed choices or
+        <code>&lt;scx-input list&gt;</code> when you want browser-provided
+        autocomplete.
       </p>
-      <pre><code>&lt;shadcx-combobox id="framework-combobox" placeholder="Select a framework"&gt;&lt;/shadcx-combobox&gt;
-&lt;script type="module"&gt;
-  const frameworks = ["Next.js", "SvelteKit", "Nuxt.js", "Remix", "Astro"]
-  const combobox = document.getElementById("framework-combobox")
-  combobox.items = frameworks
-&lt;/script&gt;</code></pre>
+      <pre><code>&lt;scx-select name="framework"&gt;
+  &lt;option value=""&gt;Select a framework&lt;/option&gt;
+  &lt;option&gt;Next.js&lt;/option&gt;
+  &lt;option&gt;SvelteKit&lt;/option&gt;
+  &lt;option&gt;Nuxt.js&lt;/option&gt;
+&lt;/scx-select&gt;</code></pre>
 
       <h2>Examples</h2>
       <h3>Basic</h3>
       <div class="preview">
-        <shadcx-combobox
-          .items=${frameworks}
-          placeholder="Select a framework"
-          show-clear
-          auto-highlight
-          .value=${this._singleValue}
-          @value-change=${this._onSingleValueChange}
-        ></shadcx-combobox>
+        <scx-select
+          aria-label="Select a framework"
+          @change=${(event: Event) => this._onSingleValueChange(event)}
+        >
+          <option value="">Select a framework</option>
+          ${frameworks.map((framework) => html`<option value=${framework}>${framework}</option>`)}
+        </scx-select>
         <div class="state">Value: ${this._singleValue || '(none)'}</div>
       </div>
-      <pre><code>&lt;shadcx-combobox
-  id="framework-single"
-  placeholder="Select a framework"
-  show-clear
-  auto-highlight
-&gt;&lt;/shadcx-combobox&gt;</code></pre>
+      <pre><code>&lt;scx-select name="framework"&gt;
+  &lt;option value=""&gt;Select a framework&lt;/option&gt;
+  &lt;option&gt;Next.js&lt;/option&gt;
+  &lt;option&gt;SvelteKit&lt;/option&gt;
+  &lt;option&gt;Nuxt.js&lt;/option&gt;
+&lt;/scx-select&gt;</code></pre>
+
+      <h3>Autocomplete</h3>
+      <p>
+        The input itself is fully styled, but the suggestion popup belongs to
+        the browser and operating system, so its visual styling is limited.
+      </p>
+      <div class="preview">
+        <scx-input
+          list="framework-options"
+          placeholder="Search frameworks"
+          @input=${(event: Event) => this._onAutocompleteInput(event)}
+        ></scx-input>
+        <datalist id="framework-options">
+          ${frameworks.map((framework) => html`<option value=${framework}></option>`)}
+        </datalist>
+        <div class="state">Value: ${this._autocompleteValue || '(none)'}</div>
+      </div>
+      <pre><code>&lt;scx-input list="framework-options" placeholder="Search frameworks"&gt;&lt;/scx-input&gt;
+&lt;datalist id="framework-options"&gt;
+  &lt;option value="Next.js"&gt;&lt;/option&gt;
+  &lt;option value="SvelteKit"&gt;&lt;/option&gt;
+  &lt;option value="Nuxt.js"&gt;&lt;/option&gt;
+&lt;/datalist&gt;</code></pre>
 
       <h3>Multiple</h3>
       <div class="preview">
-        <shadcx-combobox
-          .items=${frameworks}
-          multiple
-          show-clear
-          auto-highlight
-          placeholder="Add framework"
-          .values=${this._multipleValues}
-          @value-change=${this._onMultipleValueChange}
-        ></shadcx-combobox>
+        <fieldset
+          class="scx-option-list"
+          @click=${(event: Event) => this._onOptionListClick(event)}
+        >
+          <legend>Frameworks</legend>
+          ${frameworks.map(
+            (framework) => html`
+              <button
+                type="button"
+                class="scx-outline"
+                data-value=${framework}
+                aria-pressed=${String(this._multipleValues.includes(framework))}
+              >
+                ${framework}
+              </button>
+            `,
+          )}
+        </fieldset>
         <div class="state">Values: ${this._multipleValues.length > 0 ? this._multipleValues.join(', ') : '(none)'}</div>
       </div>
-      <pre><code>&lt;shadcx-combobox
-  id="framework-multiple"
-  multiple
-  show-clear
-  auto-highlight
-  placeholder="Add framework"
-&gt;&lt;/shadcx-combobox&gt;</code></pre>
+<pre><code>&lt;fieldset class="scx-option-list"&gt;
+  &lt;legend&gt;Frameworks&lt;/legend&gt;
+  &lt;button type="button" class="scx-outline" aria-pressed="false"&gt;Next.js&lt;/button&gt;
+  &lt;button type="button" class="scx-outline" aria-pressed="false"&gt;SvelteKit&lt;/button&gt;
+  &lt;button type="button" class="scx-outline" aria-pressed="false"&gt;Nuxt.js&lt;/button&gt;
+&lt;/fieldset&gt;</code></pre>
 
       <h3>Disabled + Invalid</h3>
       <div class="preview">
-        <shadcx-combobox .items=${frameworks} disabled placeholder="Disabled"></shadcx-combobox>
+        <scx-select disabled aria-label="Disabled framework">
+          <option>Disabled</option>
+        </scx-select>
         <br><br>
-        <shadcx-combobox .items=${frameworks} aria-invalid="true" placeholder="Required framework"></shadcx-combobox>
+        <scx-select aria-invalid="true" aria-label="Required framework">
+          <option value="">Required framework</option>
+          ${frameworks.map((framework) => html`<option value=${framework}>${framework}</option>`)}
+        </scx-select>
       </div>
-      <pre><code>&lt;shadcx-combobox disabled&gt;&lt;/shadcx-combobox&gt;
-&lt;shadcx-combobox aria-invalid="true"&gt;&lt;/shadcx-combobox&gt;</code></pre>
+      <pre><code>&lt;scx-select disabled&gt;
+  &lt;option&gt;Disabled&lt;/option&gt;
+&lt;/scx-select&gt;
+&lt;scx-select aria-invalid="true"&gt;
+  &lt;option value=""&gt;Required framework&lt;/option&gt;
+&lt;/scx-select&gt;</code></pre>
 
       <h2>API Reference</h2>
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
-              <th>Prop</th>
-              <th>Type</th>
-              <th>Default</th>
+              <th>Element / attribute</th>
+              <th>Values</th>
+              <th>Purpose</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td><code>items</code></td><td><code>string[]</code></td><td><code>[]</code></td></tr>
-            <tr><td><code>placeholder</code></td><td><code>string</code></td><td><code>"Select an option"</code></td></tr>
-            <tr><td><code>value</code></td><td><code>string</code></td><td><code>""</code></td></tr>
-            <tr><td><code>values</code></td><td><code>string[]</code></td><td><code>[]</code></td></tr>
-            <tr><td><code>multiple</code></td><td><code>boolean</code></td><td><code>false</code></td></tr>
-            <tr><td><code>show-clear</code></td><td><code>boolean</code></td><td><code>false</code></td></tr>
-            <tr><td><code>auto-highlight</code></td><td><code>boolean</code></td><td><code>false</code></td></tr>
-            <tr><td><code>disabled</code></td><td><code>boolean</code></td><td><code>false</code></td></tr>
-            <tr><td><code>aria-invalid</code></td><td><code>string | null</code></td><td><code>null</code></td></tr>
+            <tr><td><code>scx-select</code></td><td>Custom element</td><td>Styled as the shadcn-like combobox/select trigger.</td></tr>
+            <tr><td><code>scx-input[list]</code></td><td>Custom element</td><td>Styled like an input while the browser owns autocomplete UI.</td></tr>
+            <tr><td><code>fieldset.scx-option-list</code></td><td>Native fieldset</td><td>Styled option group for ergonomic multiple selection.</td></tr>
+            <tr><td><code>option</code></td><td>Native child</td><td>Defines available choices.</td></tr>
+            <tr><td><code>disabled</code></td><td>Boolean attribute</td><td>Applies disabled opacity and cursor.</td></tr>
+            <tr><td><code>aria-invalid</code></td><td><code>true</code></td><td>Applies destructive border and invalid ring.</td></tr>
           </tbody>
         </table>
       </div>
@@ -236,15 +375,15 @@ export class ComboboxPage extends LitElement {
           <thead>
             <tr>
               <th>Event</th>
-              <th>Detail</th>
+              <th>Target</th>
               <th>Description</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><code>value-change</code></td>
-              <td><code>{ value: string | string[] }</code></td>
-              <td>Fires whenever selected value(s) change.</td>
+              <td><code>change</code>, <code>input</code></td>
+              <td><code>scx-select</code>, <code>scx-input[list]</code>, buttons</td>
+              <td>Use native form events and read <code>event.currentTarget.value</code> or update <code>aria-pressed</code>.</td>
             </tr>
           </tbody>
         </table>

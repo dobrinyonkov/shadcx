@@ -1,10 +1,11 @@
 import { LitElement, css, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
-import '../../lib/badge.ts'
+import { componentStyles } from '../component-styles.ts'
+import '../../components/scx-badge.ts'
 
 @customElement('badge-page')
 export class BadgePage extends LitElement {
-  static styles = css`
+  static styles = [componentStyles, css`
     :host {
       display: block;
       font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
@@ -139,13 +140,13 @@ export class BadgePage extends LitElement {
       display: inline-block;
     }
 
-    shadcx-badge.success::part(root) {
+    scx-badge.success::part(badge) {
       background-color: hsl(142 71% 45% / 0.15);
       border-color: hsl(142 71% 45% / 0.35);
       color: hsl(142 84% 25%);
     }
 
-    :host-context(.dark) shadcx-badge.success::part(root) {
+    :host-context(.dark) scx-badge.success::part(badge) {
       background-color: hsl(142 70% 35% / 0.25);
       border-color: hsl(142 70% 45% / 0.45);
       color: hsl(142 100% 85%);
@@ -172,7 +173,7 @@ export class BadgePage extends LitElement {
         font-size: 0.75rem;
       }
     }
-  `
+  `]
 
   render() {
     return html`
@@ -180,73 +181,72 @@ export class BadgePage extends LitElement {
       <p class="desc">Displays a badge or a component that looks like a badge.</p>
 
       <h2>Installation</h2>
-      <pre><code>&lt;link rel="stylesheet" href=".../assets/index.css"&gt;
-&lt;script type="module" src=".../assets/index.js"&gt;&lt;/script&gt;</code></pre>
+      <pre><code>import './scx-badge.js'</code></pre>
 
       <h2>Usage</h2>
-      <pre><code>&lt;shadcx-badge variant="default"&gt;Badge&lt;/shadcx-badge&gt;</code></pre>
+      <pre><code>&lt;scx-badge&gt;Badge&lt;/scx-badge&gt;</code></pre>
 
       <h2>Examples</h2>
 
       <h3>Variants</h3>
       <div class="preview">
-        <shadcx-badge>Default</shadcx-badge>
-        <shadcx-badge variant="secondary">Secondary</shadcx-badge>
-        <shadcx-badge variant="destructive">Destructive</shadcx-badge>
-        <shadcx-badge variant="outline">Outline</shadcx-badge>
-        <shadcx-badge variant="ghost">Ghost</shadcx-badge>
-        <shadcx-badge variant="link">Link</shadcx-badge>
+        <scx-badge>Default</scx-badge>
+        <scx-badge variant="secondary">Secondary</scx-badge>
+        <scx-badge variant="destructive">Destructive</scx-badge>
+        <scx-badge variant="outline">Outline</scx-badge>
+        <scx-badge variant="ghost">Ghost</scx-badge>
+        <scx-badge variant="link">Link</scx-badge>
       </div>
-      <pre><code>&lt;shadcx-badge&gt;Default&lt;/shadcx-badge&gt;
-&lt;shadcx-badge variant="secondary"&gt;Secondary&lt;/shadcx-badge&gt;
-&lt;shadcx-badge variant="destructive"&gt;Destructive&lt;/shadcx-badge&gt;
-&lt;shadcx-badge variant="outline"&gt;Outline&lt;/shadcx-badge&gt;
-&lt;shadcx-badge variant="ghost"&gt;Ghost&lt;/shadcx-badge&gt;
-&lt;shadcx-badge variant="link"&gt;Link&lt;/shadcx-badge&gt;</code></pre>
+      <pre><code>&lt;scx-badge&gt;Default&lt;/scx-badge&gt;
+&lt;scx-badge variant="secondary"&gt;Secondary&lt;/scx-badge&gt;
+&lt;scx-badge variant="destructive"&gt;Destructive&lt;/scx-badge&gt;
+&lt;scx-badge variant="outline"&gt;Outline&lt;/scx-badge&gt;
+&lt;scx-badge variant="ghost"&gt;Ghost&lt;/scx-badge&gt;
+&lt;scx-badge variant="link"&gt;Link&lt;/scx-badge&gt;</code></pre>
 
       <h3>With Icon</h3>
       <div class="preview">
-        <shadcx-badge>
+        <scx-badge>
           <svg data-icon="inline-start" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>
           Verified
-        </shadcx-badge>
-        <shadcx-badge variant="outline">
+        </scx-badge>
+        <scx-badge variant="outline">
           New
           <svg data-icon="inline-end" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
-        </shadcx-badge>
+        </scx-badge>
       </div>
-      <pre><code>&lt;shadcx-badge&gt;
+      <pre><code>&lt;scx-badge&gt;
   &lt;svg data-icon="inline-start" ...&gt;&lt;/svg&gt;
   Verified
-&lt;/shadcx-badge&gt;</code></pre>
+&lt;/scx-badge&gt;</code></pre>
 
       <h3>With Spinner</h3>
       <div class="preview">
-        <shadcx-badge variant="secondary">
+        <scx-badge variant="secondary">
           <span data-icon="inline-start" class="spinner"></span>
           Syncing
-        </shadcx-badge>
+        </scx-badge>
       </div>
-      <pre><code>&lt;shadcx-badge variant="secondary"&gt;
+      <pre><code>&lt;scx-badge variant="secondary"&gt;
   &lt;span data-icon="inline-start" class="spinner"&gt;&lt;/span&gt;
   Syncing
-&lt;/shadcx-badge&gt;</code></pre>
+&lt;/scx-badge&gt;</code></pre>
 
       <h3>Link</h3>
       <div class="preview">
         <a class="inline-link" href="https://example.com" target="_blank" rel="noreferrer">
-          <shadcx-badge variant="link">Read docs</shadcx-badge>
+          <scx-badge variant="link">Read docs</scx-badge>
         </a>
       </div>
       <pre><code>&lt;a href="https://example.com"&gt;
-  &lt;shadcx-badge variant="link"&gt;Read docs&lt;/shadcx-badge&gt;
+  &lt;scx-badge variant="link"&gt;Read docs&lt;/scx-badge&gt;
 &lt;/a&gt;</code></pre>
 
       <h3>Custom Colors</h3>
       <div class="preview">
-        <shadcx-badge class="success">Success</shadcx-badge>
+        <scx-badge class="success">Success</scx-badge>
       </div>
-      <pre><code>shadcx-badge.success::part(root) {
+      <pre><code>scx-badge.success::part(badge) {
   background-color: hsl(142 71% 45% / 0.15);
   border-color: hsl(142 71% 45% / 0.35);
   color: hsl(142 84% 25%);
@@ -257,34 +257,34 @@ export class BadgePage extends LitElement {
         <table>
           <thead>
             <tr>
-              <th>Prop</th>
-              <th>Type</th>
-              <th>Default</th>
+              <th>Attribute</th>
+              <th>Values</th>
+              <th>Purpose</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td><code>variant</code></td>
-              <td><code>"default" | "secondary" | "destructive" | "outline" | "ghost" | "link"</code></td>
-              <td><code>"default"</code></td>
+              <td><code>secondary | destructive | outline | ghost | link</code></td>
+              <td>Badge variants. No attribute is the default badge.</td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <h3>CSS Parts</h3>
+      <h3>Customization</h3>
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
-              <th>Part</th>
+              <th>Selector</th>
               <th>Description</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><code>root</code></td>
-              <td>The internal <code>&lt;span&gt;</code> badge element.</td>
+              <td><code>scx-badge.your-class::part(badge)</code></td>
+              <td>Override colors, borders, radius, or spacing directly with CSS variables or standard CSS.</td>
             </tr>
           </tbody>
         </table>
