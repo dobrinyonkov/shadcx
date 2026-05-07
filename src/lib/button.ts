@@ -128,7 +128,7 @@ const styles = `
 `
 
 export class Button extends HTMLElement {
-  static observedAttributes = ['variant', 'size', 'disabled']
+  static observedAttributes = ['variant', 'size', 'type', 'disabled']
 
   get variant(): ButtonVariant {
     return (this.getAttribute('variant') as ButtonVariant | null) ?? 'default'
@@ -144,6 +144,14 @@ export class Button extends HTMLElement {
 
   set size(value: ButtonSize) {
     this.setAttribute('size', value)
+  }
+
+  get type() {
+    return this.getAttribute('type') ?? 'button'
+  }
+
+  set type(value: string) {
+    this.setAttribute('type', value)
   }
 
   get disabled() {
@@ -167,10 +175,26 @@ export class Button extends HTMLElement {
     if (!this.shadowRoot) return
     this.shadowRoot.innerHTML = `
       <style>${styles}</style>
-      <button part="root" class="root" data-variant="${this.variant}" data-size="${this.size}" ${this.disabled ? 'disabled' : ''}>
+      <button part="root" class="root" type="${this.type}" data-variant="${this.variant}" data-size="${this.size}" ${this.disabled ? 'disabled' : ''}>
         <slot></slot>
       </button>
     `
+    this.shadowRoot.querySelector('button')?.addEventListener('click', (event) => {
+      if (this.type === 'submit') {
+        event.preventDefault()
+        const form = this.closest('form')
+        if (!form) return
+        try {
+          form.requestSubmit()
+        } catch {
+          form.dispatchEvent(new SubmitEvent('submit', { bubbles: true, cancelable: true, submitter: this }))
+        }
+      }
+      if (this.type === 'reset') {
+        event.preventDefault()
+        this.closest('form')?.reset()
+      }
+    })
   }
 }
 

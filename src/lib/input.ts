@@ -75,7 +75,11 @@ const styles = `
 `
 
 export class Input extends HTMLElement {
-  static observedAttributes = ['type', 'placeholder', 'disabled', 'required', 'readonly', 'aria-invalid']
+  static formAssociated = true
+  static observedAttributes = ['type', 'name', 'placeholder', 'value', 'disabled', 'required', 'readonly', 'aria-invalid']
+
+  private _input: HTMLInputElement | null = null
+  private _internals = this.attachInternals()
 
   get type() {
     return this.getAttribute('type') ?? 'text'
@@ -85,12 +89,30 @@ export class Input extends HTMLElement {
     this.setAttribute('type', value)
   }
 
+  get name() {
+    return this.getAttribute('name') ?? ''
+  }
+
+  set name(value: string) {
+    this.setAttribute('name', value)
+  }
+
   get placeholder() {
     return this.getAttribute('placeholder') ?? ''
   }
 
   set placeholder(value: string) {
     this.setAttribute('placeholder', value)
+  }
+
+  get value() {
+    return this._input?.value ?? this.getAttribute('value') ?? ''
+  }
+
+  set value(value: string) {
+    this.setAttribute('value', value)
+    if (this._input) this._input.value = value
+    this.updateFormValue()
   }
 
   get disabled() {
@@ -135,8 +157,38 @@ export class Input extends HTMLElement {
     this.render()
   }
 
+  /* v8 ignore start -- jsdom does not implement ElementInternals.setFormValue */
+  formResetCallback() {
+    this.value = this.getAttribute('value') ?? ''
+  }
+
+  private updateFormValue() {
+    if (typeof this._internals.setFormValue !== 'function') return
+
+    if (this.disabled || !this.name) {
+      this._internals.setFormValue(null)
+      return
+    }
+
+    if (this.type === 'file') {
+      const files = this._input?.files
+      if (!files?.length) {
+        this._internals.setFormValue(null)
+        return
+      }
+      const data = new FormData()
+      for (const file of files) data.append(this.name, file)
+      this._internals.setFormValue(data)
+      return
+    }
+
+    this._internals.setFormValue(this.value)
+  }
+  /* v8 ignore stop */
+
   private render() {
     if (!this.shadowRoot) return
+    const value = this.value
     this.shadowRoot.innerHTML = `
       <style>${styles}</style>
       <input
@@ -150,6 +202,12 @@ export class Input extends HTMLElement {
         ${this.ariaInvalid ? `aria-invalid="${this.ariaInvalid}"` : ''}
       >
     `
+    this._input = this.shadowRoot.querySelector('input')
+    if (!this._input) return
+    if (this.type !== 'file') this._input.value = value
+    this._input.addEventListener('input', () => this.updateFormValue())
+    this._input.addEventListener('change', () => this.updateFormValue())
+    this.updateFormValue()
   }
 }
 

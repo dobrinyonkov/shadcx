@@ -169,13 +169,23 @@ function escapeHtml(value: string) {
 }
 
 export class Combobox extends HTMLElement {
-  static observedAttributes = ['placeholder', 'disabled', 'multiple', 'show-clear', 'auto-highlight', 'aria-invalid', 'value']
+  static formAssociated = true
+  static observedAttributes = ['name', 'placeholder', 'disabled', 'multiple', 'show-clear', 'auto-highlight', 'aria-invalid', 'value']
 
   private _items: string[] = []
   private _values: string[] = []
   private _query = ''
   private _open = false
   private _highlightedIndex = -1
+  private _internals = this.attachInternals()
+
+  get name() {
+    return this.getAttribute('name') ?? ''
+  }
+
+  set name(value: string) {
+    this.setAttribute('name', value)
+  }
 
   get items() {
     return this._items
@@ -242,6 +252,7 @@ export class Combobox extends HTMLElement {
   set value(value: string) {
     if (value) this.setAttribute('value', value)
     else this.removeAttribute('value')
+    this.updateFormValue()
   }
 
   get values() {
@@ -250,6 +261,7 @@ export class Combobox extends HTMLElement {
 
   set values(value: string[]) {
     this._values = Array.isArray(value) ? value : []
+    this.updateFormValue()
     this.render()
   }
 
@@ -267,8 +279,37 @@ export class Combobox extends HTMLElement {
     if (!this.multiple && !this._query && this.value) {
       this._query = this.value
     }
+    this.updateFormValue()
     this.render()
   }
+
+  /* v8 ignore start -- jsdom does not implement ElementInternals.setFormValue */
+  formResetCallback() {
+    this.value = this.getAttribute('value') ?? ''
+    this._values = []
+    this._query = this.value
+    this.updateFormValue()
+    this.render()
+  }
+
+  private updateFormValue() {
+    if (typeof this._internals.setFormValue !== 'function') return
+
+    if (this.disabled || !this.name) {
+      this._internals.setFormValue(null)
+      return
+    }
+
+    if (this.multiple) {
+      const data = new FormData()
+      for (const value of this.values) data.append(this.name, value)
+      this._internals.setFormValue(data)
+      return
+    }
+
+    this._internals.setFormValue(this.value || null)
+  }
+  /* v8 ignore stop */
 
   private get filteredItems() {
     const query = this._query.trim().toLowerCase()
@@ -346,6 +387,7 @@ export class Combobox extends HTMLElement {
         this._values = [...this.values, item]
       }
       this._query = ''
+      this.updateFormValue()
       this.dispatchValueChange(this.values)
       this.render(true)
       return
@@ -355,6 +397,7 @@ export class Combobox extends HTMLElement {
     this._query = item
     this._open = false
     this.dispatchValueChange(this.value)
+    this.updateFormValue()
     this.render()
   }
 
@@ -362,6 +405,7 @@ export class Combobox extends HTMLElement {
     this.value = ''
     this._values = []
     this._query = ''
+    this.updateFormValue()
     this.dispatchValueChange(this.multiple ? this.values : this.value)
     this.render(true)
   }
@@ -377,6 +421,7 @@ export class Combobox extends HTMLElement {
 
   private removeValue(item: string) {
     this._values = this.values.filter((value) => value !== item)
+    this.updateFormValue()
     this.dispatchValueChange(this.values)
     this.render(true)
   }

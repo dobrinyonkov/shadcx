@@ -75,9 +75,32 @@ const autoBarrelPlugin = {
   },
 }
 
+const formPlaygroundApiPlugin = {
+  name: 'form-playground-api',
+  configureServer(server: any) {
+    server.middlewares.use('/shadcx/form-playground-submit', (req: any, res: any) => {
+      if (req.method !== 'POST') return res.writeHead(405).end()
+
+      let body = ''
+      req.on('data', (chunk: Buffer) => {
+        body += chunk.toString()
+      })
+      req.on('end', () => {
+        const contentType = req.headers['content-type'] ?? ''
+        const received = contentType.includes('application/json')
+          ? JSON.parse(body || '{}')
+          : Object.fromEntries(new URLSearchParams(body))
+        res.setHeader('Content-Type', 'application/json')
+        res.writeHead(200)
+        res.end(JSON.stringify({ ok: true, received }))
+      })
+    })
+  },
+}
+
 export default defineConfig({
   base: process.env.BASE_PATH || '/shadcx/',
-  plugins: [sourceJsPlugin, autoBarrelPlugin],
+  plugins: [sourceJsPlugin, autoBarrelPlugin, formPlaygroundApiPlugin],
   build: {
     rollupOptions: {
       input: {

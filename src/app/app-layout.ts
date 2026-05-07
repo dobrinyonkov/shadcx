@@ -211,7 +211,7 @@ export class AppLayout extends LitElement {
     const sidebarClasses = this._sidebarOpen ? 'sidebar open' : 'sidebar'
     const overlayClasses = this._sidebarOpen ? 'overlay open' : 'overlay'
     const themeIcon = this._dark ? '\u2600' : '\u263D'
-    const contentClasses = this._page === 'theme-generator' ? 'content wide' : 'content'
+    const contentClasses = ['theme-generator', 'form-playground'].includes(this._page) ? 'content wide' : 'content'
 
     return html`
       <!-- topbar (mobile only) -->

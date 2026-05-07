@@ -63,6 +63,7 @@ describe('input and textarea', () => {
 
     input.type = 'email'
     input.placeholder = 'Email'
+    input.value = 'ada@example.com'
     input.disabled = true
     input.required = true
     input.readonly = true
@@ -71,6 +72,7 @@ describe('input and textarea', () => {
     const control = input.shadowRoot?.querySelector<HTMLInputElement>('input')
     expect(control?.type).toBe('email')
     expect(control?.placeholder).toBe('Email')
+    expect(control?.value).toBe('ada@example.com')
     expect(control?.disabled).toBe(true)
     expect(control?.required).toBe(true)
     expect(control?.readOnly).toBe(true)
@@ -78,6 +80,7 @@ describe('input and textarea', () => {
 
     input.ariaInvalid = null
     expect(input.shadowRoot?.querySelector('input')?.hasAttribute('aria-invalid')).toBe(false)
+    expect(input.value).toBe('ada@example.com')
   })
 
   it('reflects textarea attributes and keeps live value', () => {

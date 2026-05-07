@@ -69,7 +69,9 @@ const styles = `
 `
 
 export class Textarea extends HTMLElement {
+  static formAssociated = true
   static observedAttributes = [
+    'name',
     'placeholder',
     'value',
     'rows',
@@ -80,6 +82,15 @@ export class Textarea extends HTMLElement {
   ]
 
   private _textarea: HTMLTextAreaElement | null = null
+  private _internals = this.attachInternals()
+
+  get name() {
+    return this.getAttribute('name') ?? ''
+  }
+
+  set name(value: string) {
+    this.setAttribute('name', value)
+  }
 
   get placeholder() {
     return this.getAttribute('placeholder') ?? ''
@@ -96,6 +107,7 @@ export class Textarea extends HTMLElement {
   set value(value: string) {
     this.setAttribute('value', value)
     if (this._textarea) this._textarea.value = value
+    this.updateFormValue()
   }
 
   get rows() {
@@ -148,6 +160,23 @@ export class Textarea extends HTMLElement {
     this.render()
   }
 
+  /* v8 ignore start -- jsdom does not implement ElementInternals.setFormValue */
+  formResetCallback() {
+    this.value = this.getAttribute('value') ?? ''
+  }
+
+  private updateFormValue() {
+    if (typeof this._internals.setFormValue !== 'function') return
+
+    if (this.disabled || !this.name) {
+      this._internals.setFormValue(null)
+      return
+    }
+
+    this._internals.setFormValue(this.value)
+  }
+  /* v8 ignore stop */
+
   private render() {
     if (!this.shadowRoot) return
     const value = this.value
@@ -167,6 +196,8 @@ export class Textarea extends HTMLElement {
     this._textarea = this.shadowRoot.querySelector('textarea')
     if (!this._textarea) return
     this._textarea.value = value
+    this._textarea.addEventListener('input', () => this.updateFormValue())
+    this.updateFormValue()
   }
 }
 

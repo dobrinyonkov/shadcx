@@ -12,6 +12,7 @@ shadcx components are:
 - **Self-contained**: Each component is a single file with its own CSS, HTML template, and JS. No shared imports.
 - **Framework-agnostic**: Vanilla `HTMLElement` custom elements. Works in React, Vue, Svelte, or plain HTML.
 - **Theme-driven**: All styling comes from CSS custom properties in `theme.css`. Change variables, change the look.
+- **Native-form friendly**: Inputs, textareas, checkboxes, and comboboxes use form-associated custom element APIs so named controls participate in native `FormData`, HTML form posts, and htmx submissions.
 - **CDN-ready**: Use with `<script type="module">` — no bundler needed.
 - **Test-gated**: `pnpm build` runs Vitest coverage and fails below 80% global component coverage.
 
@@ -24,8 +25,8 @@ Load the theme and any components you need:
 <script type="module" src="https://dobrinyonkov.github.io/shadcx/assets/button.js"></script>
 <script type="module" src="https://dobrinyonkov.github.io/shadcx/assets/input.js"></script>
 
-<shadcx-button>Click me</shadcx-button>
-<shadcx-input placeholder="Type here..."></shadcx-input>
+<shadcx-button type="button">Click me</shadcx-button>
+<shadcx-input name="message" placeholder="Type here..."></shadcx-input>
 ```
 
 ## Components
@@ -33,20 +34,22 @@ Load the theme and any components you need:
 ### Button
 - **Variants**: `default` | `secondary` | `destructive` | `outline` | `ghost` | `link`
 - **Sizes**: `default` | `xs` | `sm` | `lg` | `icon` | `icon-xs` | `icon-sm` | `icon-lg`
-- **Attributes**: `variant`, `size`, `disabled`
+- **Attributes**: `variant`, `size`, `type`, `disabled`
+- **Native forms**: `type="submit"` and `type="reset"` trigger the nearest parent form, matching native button behavior
 - **CSS Part**: `::part(root)` for custom overrides
 
 ```html
-<shadcx-button variant="destructive" size="sm">Delete</shadcx-button>
+<shadcx-button type="button" variant="destructive" size="sm">Delete</shadcx-button>
 ```
 
 ### Input
-- **Attributes**: `type`, `placeholder`, `value`, `disabled`, `aria-invalid`
+- **Attributes**: `name`, `type`, `placeholder`, `value`, `disabled`, `required`, `readonly`, `aria-invalid`
+- **Native forms**: Form-associated custom element. Add `name` to include the current value in `FormData` and regular HTML form posts.
 - When `aria-invalid="true"`, shows destructive border and focus ring
 - **CSS Part**: `::part(root)`
 
 ```html
-<shadcx-input placeholder="Email" aria-invalid="true"></shadcx-input>
+<shadcx-input name="email" type="email" placeholder="Email" aria-invalid="true"></shadcx-input>
 ```
 
 ### Badge
@@ -61,18 +64,20 @@ Load the theme and any components you need:
 ```
 
 ### Checkbox
-- **Attributes**: `checked`, `indeterminate`, `disabled`, `aria-invalid`
+- **Attributes**: `name`, `value`, `checked`, `indeterminate`, `disabled`, `aria-invalid`
 - **Events**: `input`, `change`, `checked-change` (CustomEvent with `{ checked, indeterminate, state }`)
+- **Native forms**: Form-associated custom element. Checked named boxes submit their `value` attribute, defaulting to `on`.
 
 ```html
-<shadcx-checkbox checked></shadcx-checkbox>
+<shadcx-checkbox name="subscribe" value="yes" checked></shadcx-checkbox>
 ```
 
 ### Combobox
 - **Properties**: `.items` (array of strings), `.value` (string), `.values` (array of strings)
-- **Attributes**: `multiple`, `show-clear`, `auto-highlight`, `disabled`, `aria-invalid`
+- **Attributes**: `name`, `multiple`, `show-clear`, `auto-highlight`, `disabled`, `aria-invalid`
 - **Keyboard**: Arrow keys to navigate, Enter to select, Escape to close
 - **Clear button**: Appears when a value is selected
+- **Native forms**: Form-associated custom element. Single mode submits `value`; multiple mode appends repeated values under the same `name`.
 
 ```html
 <script type="module">
@@ -80,15 +85,16 @@ Load the theme and any components you need:
   cb.items = ['React', 'Vue', 'Svelte', 'Angular']
   cb.value = 'React'
 </script>
-<shadcx-combobox></shadcx-combobox>
+<shadcx-combobox name="framework"></shadcx-combobox>
 ```
 
 ### Textarea
-- **Attributes**: `placeholder`, `value`, `rows`, `disabled`, `required`, `readonly`, `aria-invalid`
+- **Attributes**: `name`, `placeholder`, `value`, `rows`, `disabled`, `required`, `readonly`, `aria-invalid`
+- **Native forms**: Form-associated custom element. Add `name` to include the current value in `FormData` and regular HTML form posts.
 - **CSS Part**: `::part(root)`
 
 ```html
-<shadcx-textarea placeholder="Tell us more..."></shadcx-textarea>
+<shadcx-textarea name="message" placeholder="Tell us more..."></shadcx-textarea>
 ```
 
 ### Card
@@ -158,6 +164,10 @@ Override variables to retheme:
 
 The docs app includes a Theme Generator at `/#/theme-generator`. It previews real shadcx components in a horizontally scrollable card grid and exports CSS variables. In dark mode, base color palettes do not override dark foreground, border, muted, input, and background tokens, so shuffled themes stay readable.
 
+### Form Playground
+
+The docs app includes a Form Playground at `/#/form-playground`. It demonstrates native HTML form submission with shadcx controls, including form-associated `Input`, `Textarea`, `Checkbox`, and `Combobox` values. The page uses a regular `<form action method target>` submission, posts as `application/x-www-form-urlencoded`, and mirrors the native `FormData` object in the UI for inspection.
+
 ## Layout Patterns
 
 ### Form field with label
@@ -165,10 +175,32 @@ The docs app includes a Theme Generator at `/#/theme-generator`. It previews rea
 ```html
 <div style="display:grid;gap:0.375rem">
   <label style="font-size:0.875rem;font-weight:500">Email</label>
-  <shadcx-input placeholder="you@example.com"></shadcx-input>
+  <shadcx-input name="email" type="email" placeholder="you@example.com"></shadcx-input>
   <small style="font-size:0.8125rem;color:hsl(var(--muted-foreground))">We won't spam you.</small>
 </div>
 ```
+
+### Native HTML form / htmx form
+
+```html
+<form action="/contact" method="post">
+  <label>Email</label>
+  <shadcx-input name="email" type="email" required></shadcx-input>
+
+  <label>Message</label>
+  <shadcx-textarea name="message" rows="4"></shadcx-textarea>
+
+  <label>
+    <shadcx-checkbox name="subscribe" value="yes"></shadcx-checkbox>
+    Subscribe to updates
+  </label>
+
+  <shadcx-button type="submit">Send</shadcx-button>
+  <shadcx-button type="reset" variant="outline">Reset</shadcx-button>
+</form>
+```
+
+For htmx, put `hx-post`, `hx-target`, etc. on the `<form>` the same way you would with native controls. Always include `name` on form-associated shadcx controls.
 
 ### Card layout
 
@@ -237,4 +269,5 @@ pnpm build
 - Components self-register on import. Do not manually call `customElements.define`.
 - Use `shadcx-*` tag names as shown — custom element names are fixed.
 - Prefer real shadcx components over inline HTML/CSS when a component exists.
+- For forms, prefer standard `<form action method>` semantics and named shadcx controls. Do not replace native form submission with `fetch()` unless the user explicitly asks for a JavaScript-driven flow.
 - For missing primitives (Select, Dialog, Tabs, Table, Alert, Separator), compose with HTML + CSS using the theme variables, or inline a custom element. Mark with a comment `<!-- replace with shadcx X -->` for future migration.
