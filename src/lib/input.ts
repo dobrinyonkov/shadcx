@@ -75,7 +75,9 @@ const styles = `
 `
 
 export class Input extends HTMLElement {
-  static observedAttributes = ['type', 'placeholder', 'disabled', 'required', 'readonly', 'aria-invalid']
+  static observedAttributes = ['type', 'placeholder', 'value', 'disabled', 'required', 'readonly', 'aria-invalid']
+
+  private _input: HTMLInputElement | null = null
 
   get type() {
     return this.getAttribute('type') ?? 'text'
@@ -91,6 +93,15 @@ export class Input extends HTMLElement {
 
   set placeholder(value: string) {
     this.setAttribute('placeholder', value)
+  }
+
+  get value() {
+    return this._input?.value ?? this.getAttribute('value') ?? ''
+  }
+
+  set value(value: string) {
+    this.setAttribute('value', value)
+    if (this._input) this._input.value = value
   }
 
   get disabled() {
@@ -137,6 +148,7 @@ export class Input extends HTMLElement {
 
   private render() {
     if (!this.shadowRoot) return
+    const value = this.value
     this.shadowRoot.innerHTML = `
       <style>${styles}</style>
       <input
@@ -150,6 +162,9 @@ export class Input extends HTMLElement {
         ${this.ariaInvalid ? `aria-invalid="${this.ariaInvalid}"` : ''}
       >
     `
+    this._input = this.shadowRoot.querySelector('input')
+    if (!this._input || this.type === 'file') return
+    this._input.value = value
   }
 }
 

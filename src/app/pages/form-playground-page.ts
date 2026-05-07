@@ -359,29 +359,29 @@ export class FormPlaygroundPage extends LitElement {
             <div class="fields">
               <div class="field">
                 <label for="name">Name</label>
-                <shadcx-input data-name="name" id="name" placeholder="Ada Lovelace" required @input=${(event: InputEvent) => this._onInput('name', event)}></shadcx-input>
+                <shadcx-input data-name="name" id="name" placeholder="Ada Lovelace" required .value=${this._values.name ?? ''} @input=${(event: InputEvent) => this._onInput('name', event)}></shadcx-input>
                 <span class="hint">Text input with required validation.</span>
               </div>
 
               <div class="field">
                 <label for="email">Email</label>
-                <shadcx-input data-name="email" id="email" type="email" placeholder="ada@example.com" required @input=${(event: InputEvent) => this._onInput('email', event)}></shadcx-input>
+                <shadcx-input data-name="email" id="email" type="email" placeholder="ada@example.com" required .value=${this._values.email ?? ''} @input=${(event: InputEvent) => this._onInput('email', event)}></shadcx-input>
                 <span class="hint">Email input type and invalid state support.</span>
               </div>
 
               <div class="field">
                 <label for="password">Password</label>
-                <shadcx-input data-name="password" id="password" type="password" placeholder="••••••••" @input=${(event: InputEvent) => this._onInput('password', event)}></shadcx-input>
+                <shadcx-input data-name="password" id="password" type="password" placeholder="••••••••" .value=${this._values.password ?? ''} @input=${(event: InputEvent) => this._onInput('password', event)}></shadcx-input>
               </div>
 
               <div class="field">
                 <label for="search">Search</label>
-                <shadcx-input data-name="search" id="search" type="search" placeholder="Search components" @input=${(event: InputEvent) => this._onInput('search', event)}></shadcx-input>
+                <shadcx-input data-name="search" id="search" type="search" placeholder="Search components" .value=${this._values.search ?? ''} @input=${(event: InputEvent) => this._onInput('search', event)}></shadcx-input>
               </div>
 
               <div class="field">
                 <label for="date">Launch date</label>
-                <shadcx-input data-name="date" id="date" type="date" @input=${(event: InputEvent) => this._onInput('date', event)}></shadcx-input>
+                <shadcx-input data-name="date" id="date" type="date" .value=${this._values.date ?? ''} @input=${(event: InputEvent) => this._onInput('date', event)}></shadcx-input>
               </div>
 
               <div class="field">
