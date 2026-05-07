@@ -86,9 +86,13 @@ const formPlaygroundApiPlugin = {
         body += chunk.toString()
       })
       req.on('end', () => {
+        const contentType = req.headers['content-type'] ?? ''
+        const received = contentType.includes('application/json')
+          ? JSON.parse(body || '{}')
+          : Object.fromEntries(new URLSearchParams(body))
         res.setHeader('Content-Type', 'application/json')
         res.writeHead(200)
-        res.end(JSON.stringify({ ok: true, received: JSON.parse(body || '{}') }))
+        res.end(JSON.stringify({ ok: true, received }))
       })
     })
   },

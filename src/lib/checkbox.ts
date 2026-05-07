@@ -92,7 +92,26 @@ const styles = `
 `
 
 export class Checkbox extends HTMLElement {
-  static observedAttributes = ['checked', 'indeterminate', 'disabled', 'aria-invalid']
+  static formAssociated = true
+  static observedAttributes = ['name', 'value', 'checked', 'indeterminate', 'disabled', 'aria-invalid']
+
+  private _internals = this.attachInternals()
+
+  get name() {
+    return this.getAttribute('name') ?? ''
+  }
+
+  set name(value: string) {
+    this.setAttribute('name', value)
+  }
+
+  get value() {
+    return this.getAttribute('value') ?? 'on'
+  }
+
+  set value(value: string) {
+    this.setAttribute('value', value)
+  }
 
   get checked() {
     return this.hasAttribute('checked')
@@ -141,6 +160,25 @@ export class Checkbox extends HTMLElement {
     this.render()
   }
 
+  /* v8 ignore start -- jsdom does not implement ElementInternals.setFormValue */
+  formResetCallback() {
+    this.checked = this.hasAttribute('checked')
+    this.indeterminate = this.hasAttribute('indeterminate')
+    this.updateFormValue()
+  }
+
+  private updateFormValue() {
+    if (typeof this._internals.setFormValue !== 'function') return
+
+    if (this.disabled || !this.name || !this.checked) {
+      this._internals.setFormValue(null)
+      return
+    }
+
+    this._internals.setFormValue(this.value)
+  }
+  /* v8 ignore stop */
+
   private toggle = () => {
     if (this.disabled) return
 
@@ -150,6 +188,8 @@ export class Checkbox extends HTMLElement {
     } else {
       this.checked = !this.checked
     }
+
+    this.updateFormValue()
 
     this.dispatchEvent(new Event('input', { bubbles: true, composed: true }))
     this.dispatchEvent(new Event('change', { bubbles: true, composed: true }))
@@ -198,6 +238,7 @@ export class Checkbox extends HTMLElement {
     const button = this.shadowRoot.querySelector('button')
     button?.addEventListener('click', this.toggle)
     button?.addEventListener('keydown', this.onKeyDown)
+    this.updateFormValue()
   }
 }
 

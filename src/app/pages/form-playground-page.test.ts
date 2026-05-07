@@ -11,7 +11,6 @@ describe('form playground page', () => {
   })
 
   it('validates required form controls and submits valid data', async () => {
-    const fetchMock = vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response(null, { status: 204 }))
     const page = document.createElement('form-playground-page')
     document.body.append(page)
     await page.updateComplete
@@ -40,10 +39,6 @@ describe('form playground page', () => {
     expect(root.textContent).toContain('Last Request')
     expect(root.textContent).toContain('form-playground-submit')
     expect(root.textContent).toContain('ada@example.com')
-    expect(fetchMock).toHaveBeenCalledWith(
-      expect.stringContaining('form-playground-submit'),
-      expect.objectContaining({ method: 'POST' }),
-    )
     expect(root.querySelector('shadcx-input[data-name="name"]')?.hasAttribute('aria-invalid')).toBe(false)
     expect(root.querySelector('shadcx-checkbox[data-name="accepted"]')?.hasAttribute('aria-invalid')).toBe(false)
   })

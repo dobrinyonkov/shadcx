@@ -309,6 +309,10 @@ export class FormPlaygroundPage extends LitElement {
     this._log(`combobox channels: ${this._contactChannels.join(', ') || 'none'}`)
   }
 
+  private _formAction() {
+    return new URL('./form-playground-submit', window.location.href).toString()
+  }
+
   private _validate() {
     const invalid = !this._inputValue('name') || !this._inputValue('email') || !this._accepted
     for (const name of ['name', 'email']) {
@@ -319,69 +323,60 @@ export class FormPlaygroundPage extends LitElement {
     return !invalid
   }
 
-  private _buildPayload() {
-    return {
-      name: this._inputValue('name'),
-      email: this._inputValue('email'),
-      password: this._inputValue('password'),
-      search: this._inputValue('search'),
-      launchDate: this._inputValue('date'),
-      notes: this._notesValue(),
-      framework: this._framework,
-      contactChannels: this._contactChannels,
-      acceptedTerms: this._accepted,
-      newsletter: this._newsletter,
+  private _formDataObject(form: HTMLFormElement) {
+    const data = new FormData(form)
+    const payload: Record<string, FormDataEntryValue | FormDataEntryValue[]> = {}
+
+    for (const key of data.keys()) {
+      const values = data.getAll(key)
+      payload[key] = values.length > 1 ? values : values[0]
     }
+
+    if (Object.keys(payload).length === 0) {
+      payload.name = this._inputValue('name')
+      payload.email = this._inputValue('email')
+      payload.password = this._inputValue('password')
+      payload.search = this._inputValue('search')
+      payload.launchDate = this._inputValue('date')
+      payload.notes = this._notesValue()
+      payload.framework = this._framework
+      payload.contactChannels = this._contactChannels
+      if (this._accepted) payload.acceptedTerms = 'yes'
+      if (this._newsletter) payload.newsletter = 'yes'
+    }
+
+    return payload
   }
 
-  private async _submit(event?: Event) {
-    event?.preventDefault()
+  private _submit(event: SubmitEvent) {
     this._submitted = true
     if (!this._validate()) {
+      event.preventDefault()
       this._message = 'Please complete the required fields and accept the terms.'
       this._log('submit blocked: validation failed')
       return
     }
 
-    const url = new URL('./form-playground-submit', window.location.href).toString()
-    const payload = this._buildPayload()
-    this._values = {
-      ...this._values,
-      name: payload.name,
-      email: payload.email,
-      password: payload.password,
-      search: payload.search,
-      date: payload.launchDate,
-    }
-    this._notes = payload.notes
+    const form = event.currentTarget as HTMLFormElement
+    const payload = this._formDataObject(form)
+    const name = String(payload.name ?? '')
+    this._values = { ...this._values, name }
+    this._notes = String(payload.notes ?? '')
     this._requestPreview = {
-      url,
+      url: form.action,
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      encoding: form.enctype,
       body: payload,
     }
-    this._message = `Submitted ${payload.name} using ${this._framework}.`
-    this._log('submit passed: POST sent')
-
-    try {
-      await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      })
-    } catch {
-      this._log('network request failed')
-    }
+    this._message = `Submitted ${name} using ${this._framework}.`
+    this._log('native form POST submitted')
   }
 
-  private _reset() {
+  private _reset(event: Event) {
+    const form = event.currentTarget as HTMLFormElement
     for (const input of this.renderRoot.querySelectorAll('shadcx-input')) {
-      const control = input.shadowRoot?.querySelector('input')
-      if (control) control.value = ''
       input.removeAttribute('aria-invalid')
     }
-    const textarea = this.renderRoot.querySelector('shadcx-textarea')?.shadowRoot?.querySelector('textarea')
-    if (textarea) textarea.value = ''
     this._accepted = false
     this._newsletter = true
     this._framework = 'Lit'
@@ -392,6 +387,11 @@ export class FormPlaygroundPage extends LitElement {
     this._message = 'Form reset.'
     this._requestPreview = null
     this._log('reset complete')
+    queueMicrotask(() => {
+      for (const element of form.querySelectorAll('shadcx-input, shadcx-textarea, shadcx-combobox, shadcx-checkbox')) {
+        element.dispatchEvent(new Event('change', { bubbles: true, composed: true }))
+      }
+    })
   }
 
   render() {
@@ -418,44 +418,44 @@ export class FormPlaygroundPage extends LitElement {
             <span class="status">${this._message}</span>
           </div>
 
-          <form @submit=${this._submit} novalidate>
+          <form action=${this._formAction()} method="post" target="form-playground-result" @submit=${this._submit} @reset=${this._reset}>
             <div class="fields">
               <div class="field">
                 <label for="name">Name</label>
-                <shadcx-input data-name="name" id="name" placeholder="Ada Lovelace" required></shadcx-input>
+                <shadcx-input name="name" data-name="name" id="name" placeholder="Ada Lovelace" required></shadcx-input>
                 <span class="hint">Text input with required validation.</span>
               </div>
 
               <div class="field">
                 <label for="email">Email</label>
-                <shadcx-input data-name="email" id="email" type="email" placeholder="ada@example.com" required></shadcx-input>
+                <shadcx-input name="email" data-name="email" id="email" type="email" placeholder="ada@example.com" required></shadcx-input>
                 <span class="hint">Email input type and invalid state support.</span>
               </div>
 
               <div class="field">
                 <label for="password">Password</label>
-                <shadcx-input data-name="password" id="password" type="password" placeholder="••••••••"></shadcx-input>
+                <shadcx-input name="password" data-name="password" id="password" type="password" placeholder="••••••••"></shadcx-input>
               </div>
 
               <div class="field">
                 <label for="search">Search</label>
-                <shadcx-input data-name="search" id="search" type="search" placeholder="Search components"></shadcx-input>
+                <shadcx-input name="search" data-name="search" id="search" type="search" placeholder="Search components"></shadcx-input>
               </div>
 
               <div class="field">
                 <label for="date">Launch date</label>
-                <shadcx-input data-name="date" id="date" type="date"></shadcx-input>
+                <shadcx-input name="launchDate" data-name="date" id="date" type="date"></shadcx-input>
               </div>
 
               <div class="field">
                 <label for="file">Attachment</label>
-                <shadcx-input data-name="file" id="file" type="file"></shadcx-input>
+                <shadcx-input name="attachment" data-name="file" id="file" type="file"></shadcx-input>
               </div>
             </div>
 
             <div class="field">
               <label for="notes">Notes</label>
-              <shadcx-textarea id="notes" rows="5" placeholder="Describe the form scenario to test..." @input=${this._onNotes}></shadcx-textarea>
+              <shadcx-textarea name="notes" id="notes" rows="5" placeholder="Describe the form scenario to test..." @input=${this._onNotes}></shadcx-textarea>
             </div>
 
             <div class="fields">
@@ -463,6 +463,7 @@ export class FormPlaygroundPage extends LitElement {
                 <label for="framework">Framework combobox</label>
                 <shadcx-combobox
                   id="framework"
+                  name="framework"
                   placeholder="Pick a framework"
                   show-clear
                   auto-highlight
@@ -476,6 +477,7 @@ export class FormPlaygroundPage extends LitElement {
                 <label for="channels">Multi-select combobox</label>
                 <shadcx-combobox
                   id="channels"
+                  name="contactChannels"
                   placeholder="Pick channels"
                   multiple
                   show-clear
@@ -492,6 +494,8 @@ export class FormPlaygroundPage extends LitElement {
               <div class="check-row">
                 <shadcx-checkbox
                   data-name="accepted"
+                  name="acceptedTerms"
+                  value="yes"
                   ?checked=${this._accepted}
                   @checked-change=${this._onAccepted}
                 ></shadcx-checkbox>
@@ -501,14 +505,14 @@ export class FormPlaygroundPage extends LitElement {
                 </div>
               </div>
               <div class="check-row">
-                <shadcx-checkbox ?checked=${this._newsletter} @checked-change=${this._onNewsletter}></shadcx-checkbox>
+                <shadcx-checkbox name="newsletter" value="yes" ?checked=${this._newsletter} @checked-change=${this._onNewsletter}></shadcx-checkbox>
                 <div class="check-copy">
                   <label>Send product updates</label>
                   <span class="hint">Optional checked state starts enabled.</span>
                 </div>
               </div>
               <div class="check-row">
-                <shadcx-checkbox indeterminate></shadcx-checkbox>
+                <shadcx-checkbox name="triageState" value="checked" indeterminate></shadcx-checkbox>
                 <div class="check-copy">
                   <label>Indeterminate example</label>
                   <span class="hint">First activation resolves to checked.</span>
@@ -517,10 +521,11 @@ export class FormPlaygroundPage extends LitElement {
             </fieldset>
 
             <div class="actions">
-              <shadcx-button @click=${this._submit}>Submit playground</shadcx-button>
-              <shadcx-button variant="outline" @click=${this._reset}>Reset</shadcx-button>
+              <shadcx-button type="submit">Submit playground</shadcx-button>
+              <shadcx-button type="reset" variant="outline">Reset</shadcx-button>
               <shadcx-button variant="ghost" @click=${() => this._log('ghost button clicked')}>Ghost action</shadcx-button>
             </div>
+            <iframe name="form-playground-result" title="Form playground submission result" hidden></iframe>
           </form>
         </section>
 
