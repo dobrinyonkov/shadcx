@@ -865,7 +865,7 @@ const styles = \`
 \`
 
 export class Button extends HTMLElement {
-  static observedAttributes = ['variant', 'size', 'disabled']
+  static observedAttributes = ['variant', 'size', 'type', 'disabled']
 
   get variant(): ButtonVariant {
     return (this.getAttribute('variant') as ButtonVariant | null) ?? 'default'
@@ -881,6 +881,14 @@ export class Button extends HTMLElement {
 
   set size(value: ButtonSize) {
     this.setAttribute('size', value)
+  }
+
+  get type() {
+    return this.getAttribute('type') ?? 'button'
+  }
+
+  set type(value: string) {
+    this.setAttribute('type', value)
   }
 
   get disabled() {
@@ -904,10 +912,26 @@ export class Button extends HTMLElement {
     if (!this.shadowRoot) return
     this.shadowRoot.innerHTML = \`
       <style>\${styles}</style>
-      <button part="root" class="root" data-variant="\${this.variant}" data-size="\${this.size}" \${this.disabled ? 'disabled' : ''}>
+      <button part="root" class="root" type="\${this.type}" data-variant="\${this.variant}" data-size="\${this.size}" \${this.disabled ? 'disabled' : ''}>
         <slot></slot>
       </button>
     \`
+    this.shadowRoot.querySelector('button')?.addEventListener('click', (event) => {
+      if (this.type === 'submit') {
+        event.preventDefault()
+        const form = this.closest('form')
+        if (!form) return
+        try {
+          form.requestSubmit()
+        } catch {
+          form.dispatchEvent(new SubmitEvent('submit', { bubbles: true, cancelable: true, submitter: this }))
+        }
+      }
+      if (this.type === 'reset') {
+        event.preventDefault()
+        this.closest('form')?.reset()
+      }
+    })
   }
 }
 
@@ -1031,7 +1055,7 @@ declare global {
   [aria-invalid='true'] { border-color: hsl(var(--destructive)); box-shadow: 0 0 0 1px hsl(var(--destructive) / 0.2); }
 \`;
 export class Button extends HTMLElement {
-    static observedAttributes = ['variant', 'size', 'disabled'];
+    static observedAttributes = ['variant', 'size', 'type', 'disabled'];
     get variant() {
         return this.getAttribute('variant') ?? 'default';
     }
@@ -1043,6 +1067,12 @@ export class Button extends HTMLElement {
     }
     set size(value) {
         this.setAttribute('size', value);
+    }
+    get type() {
+        return this.getAttribute('type') ?? 'button';
+    }
+    set type(value) {
+        this.setAttribute('type', value);
     }
     get disabled() {
         return this.hasAttribute('disabled');
@@ -1063,10 +1093,28 @@ export class Button extends HTMLElement {
             return;
         this.shadowRoot.innerHTML = \`
       <style>\${styles}</style>
-      <button part="root" class="root" data-variant="\${this.variant}" data-size="\${this.size}" \${this.disabled ? 'disabled' : ''}>
+      <button part="root" class="root" type="\${this.type}" data-variant="\${this.variant}" data-size="\${this.size}" \${this.disabled ? 'disabled' : ''}>
         <slot></slot>
       </button>
     \`;
+        this.shadowRoot.querySelector('button')?.addEventListener('click', (event) => {
+            if (this.type === 'submit') {
+                event.preventDefault();
+                const form = this.closest('form');
+                if (!form)
+                    return;
+                try {
+                    form.requestSubmit();
+                }
+                catch {
+                    form.dispatchEvent(new SubmitEvent('submit', { bubbles: true, cancelable: true, submitter: this }));
+                }
+            }
+            if (this.type === 'reset') {
+                event.preventDefault();
+                this.closest('form')?.reset();
+            }
+        });
     }
 }
 if (!customElements.get('shadcx-button')) {
@@ -2030,7 +2078,26 @@ const styles = \`
 \`
 
 export class Checkbox extends HTMLElement {
-  static observedAttributes = ['checked', 'indeterminate', 'disabled', 'aria-invalid']
+  static formAssociated = true
+  static observedAttributes = ['name', 'value', 'checked', 'indeterminate', 'disabled', 'aria-invalid']
+
+  private _internals = this.attachInternals()
+
+  get name() {
+    return this.getAttribute('name') ?? ''
+  }
+
+  set name(value: string) {
+    this.setAttribute('name', value)
+  }
+
+  get value() {
+    return this.getAttribute('value') ?? 'on'
+  }
+
+  set value(value: string) {
+    this.setAttribute('value', value)
+  }
 
   get checked() {
     return this.hasAttribute('checked')
@@ -2079,6 +2146,25 @@ export class Checkbox extends HTMLElement {
     this.render()
   }
 
+  /* v8 ignore start -- jsdom does not implement ElementInternals.setFormValue */
+  formResetCallback() {
+    this.checked = this.hasAttribute('checked')
+    this.indeterminate = this.hasAttribute('indeterminate')
+    this.updateFormValue()
+  }
+
+  private updateFormValue() {
+    if (typeof this._internals.setFormValue !== 'function') return
+
+    if (this.disabled || !this.name || !this.checked) {
+      this._internals.setFormValue(null)
+      return
+    }
+
+    this._internals.setFormValue(this.value)
+  }
+  /* v8 ignore stop */
+
   private toggle = () => {
     if (this.disabled) return
 
@@ -2088,6 +2174,8 @@ export class Checkbox extends HTMLElement {
     } else {
       this.checked = !this.checked
     }
+
+    this.updateFormValue()
 
     this.dispatchEvent(new Event('input', { bubbles: true, composed: true }))
     this.dispatchEvent(new Event('change', { bubbles: true, composed: true }))
@@ -2136,6 +2224,7 @@ export class Checkbox extends HTMLElement {
     const button = this.shadowRoot.querySelector('button')
     button?.addEventListener('click', this.toggle)
     button?.addEventListener('keydown', this.onKeyDown)
+    this.updateFormValue()
   }
 }
 
@@ -2239,7 +2328,21 @@ declare global {
   }
 \`;
 export class Checkbox extends HTMLElement {
-    static observedAttributes = ['checked', 'indeterminate', 'disabled', 'aria-invalid'];
+    static formAssociated = true;
+    static observedAttributes = ['name', 'value', 'checked', 'indeterminate', 'disabled', 'aria-invalid'];
+    _internals = this.attachInternals();
+    get name() {
+        return this.getAttribute('name') ?? '';
+    }
+    set name(value) {
+        this.setAttribute('name', value);
+    }
+    get value() {
+        return this.getAttribute('value') ?? 'on';
+    }
+    set value(value) {
+        this.setAttribute('value', value);
+    }
     get checked() {
         return this.hasAttribute('checked');
     }
@@ -2280,6 +2383,22 @@ export class Checkbox extends HTMLElement {
     attributeChangedCallback() {
         this.render();
     }
+    /* v8 ignore start -- jsdom does not implement ElementInternals.setFormValue */
+    formResetCallback() {
+        this.checked = this.hasAttribute('checked');
+        this.indeterminate = this.hasAttribute('indeterminate');
+        this.updateFormValue();
+    }
+    updateFormValue() {
+        if (typeof this._internals.setFormValue !== 'function')
+            return;
+        if (this.disabled || !this.name || !this.checked) {
+            this._internals.setFormValue(null);
+            return;
+        }
+        this._internals.setFormValue(this.value);
+    }
+    /* v8 ignore stop */
     toggle = () => {
         if (this.disabled)
             return;
@@ -2290,6 +2409,7 @@ export class Checkbox extends HTMLElement {
         else {
             this.checked = !this.checked;
         }
+        this.updateFormValue();
         this.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
         this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
         this.dispatchEvent(new CustomEvent('checked-change', {
@@ -2334,6 +2454,7 @@ export class Checkbox extends HTMLElement {
         const button = this.shadowRoot.querySelector('button');
         button?.addEventListener('click', this.toggle);
         button?.addEventListener('keydown', this.onKeyDown);
+        this.updateFormValue();
     }
 }
 if (!customElements.get('shadcx-checkbox')) {
@@ -2761,13 +2882,23 @@ function escapeHtml(value: string) {
 }
 
 export class Combobox extends HTMLElement {
-  static observedAttributes = ['placeholder', 'disabled', 'multiple', 'show-clear', 'auto-highlight', 'aria-invalid', 'value']
+  static formAssociated = true
+  static observedAttributes = ['name', 'placeholder', 'disabled', 'multiple', 'show-clear', 'auto-highlight', 'aria-invalid', 'value']
 
   private _items: string[] = []
   private _values: string[] = []
   private _query = ''
   private _open = false
   private _highlightedIndex = -1
+  private _internals = this.attachInternals()
+
+  get name() {
+    return this.getAttribute('name') ?? ''
+  }
+
+  set name(value: string) {
+    this.setAttribute('name', value)
+  }
 
   get items() {
     return this._items
@@ -2834,6 +2965,7 @@ export class Combobox extends HTMLElement {
   set value(value: string) {
     if (value) this.setAttribute('value', value)
     else this.removeAttribute('value')
+    this.updateFormValue()
   }
 
   get values() {
@@ -2842,6 +2974,7 @@ export class Combobox extends HTMLElement {
 
   set values(value: string[]) {
     this._values = Array.isArray(value) ? value : []
+    this.updateFormValue()
     this.render()
   }
 
@@ -2859,8 +2992,37 @@ export class Combobox extends HTMLElement {
     if (!this.multiple && !this._query && this.value) {
       this._query = this.value
     }
+    this.updateFormValue()
     this.render()
   }
+
+  /* v8 ignore start -- jsdom does not implement ElementInternals.setFormValue */
+  formResetCallback() {
+    this.value = this.getAttribute('value') ?? ''
+    this._values = []
+    this._query = this.value
+    this.updateFormValue()
+    this.render()
+  }
+
+  private updateFormValue() {
+    if (typeof this._internals.setFormValue !== 'function') return
+
+    if (this.disabled || !this.name) {
+      this._internals.setFormValue(null)
+      return
+    }
+
+    if (this.multiple) {
+      const data = new FormData()
+      for (const value of this.values) data.append(this.name, value)
+      this._internals.setFormValue(data)
+      return
+    }
+
+    this._internals.setFormValue(this.value || null)
+  }
+  /* v8 ignore stop */
 
   private get filteredItems() {
     const query = this._query.trim().toLowerCase()
@@ -2938,6 +3100,7 @@ export class Combobox extends HTMLElement {
         this._values = [...this.values, item]
       }
       this._query = ''
+      this.updateFormValue()
       this.dispatchValueChange(this.values)
       this.render(true)
       return
@@ -2947,6 +3110,7 @@ export class Combobox extends HTMLElement {
     this._query = item
     this._open = false
     this.dispatchValueChange(this.value)
+    this.updateFormValue()
     this.render()
   }
 
@@ -2954,6 +3118,7 @@ export class Combobox extends HTMLElement {
     this.value = ''
     this._values = []
     this._query = ''
+    this.updateFormValue()
     this.dispatchValueChange(this.multiple ? this.values : this.value)
     this.render(true)
   }
@@ -2969,6 +3134,7 @@ export class Combobox extends HTMLElement {
 
   private removeValue(item: string) {
     this._values = this.values.filter((value) => value !== item)
+    this.updateFormValue()
     this.dispatchValueChange(this.values)
     this.render(true)
   }
@@ -3255,12 +3421,20 @@ function escapeHtml(value) {
         .replaceAll("'", '&#39;');
 }
 export class Combobox extends HTMLElement {
-    static observedAttributes = ['placeholder', 'disabled', 'multiple', 'show-clear', 'auto-highlight', 'aria-invalid', 'value'];
+    static formAssociated = true;
+    static observedAttributes = ['name', 'placeholder', 'disabled', 'multiple', 'show-clear', 'auto-highlight', 'aria-invalid', 'value'];
     _items = [];
     _values = [];
     _query = '';
     _open = false;
     _highlightedIndex = -1;
+    _internals = this.attachInternals();
+    get name() {
+        return this.getAttribute('name') ?? '';
+    }
+    set name(value) {
+        this.setAttribute('name', value);
+    }
     get items() {
         return this._items;
     }
@@ -3315,12 +3489,14 @@ export class Combobox extends HTMLElement {
             this.setAttribute('value', value);
         else
             this.removeAttribute('value');
+        this.updateFormValue();
     }
     get values() {
         return this._values;
     }
     set values(value) {
         this._values = Array.isArray(value) ? value : [];
+        this.updateFormValue();
         this.render();
     }
     connectedCallback() {
@@ -3336,8 +3512,34 @@ export class Combobox extends HTMLElement {
         if (!this.multiple && !this._query && this.value) {
             this._query = this.value;
         }
+        this.updateFormValue();
         this.render();
     }
+    /* v8 ignore start -- jsdom does not implement ElementInternals.setFormValue */
+    formResetCallback() {
+        this.value = this.getAttribute('value') ?? '';
+        this._values = [];
+        this._query = this.value;
+        this.updateFormValue();
+        this.render();
+    }
+    updateFormValue() {
+        if (typeof this._internals.setFormValue !== 'function')
+            return;
+        if (this.disabled || !this.name) {
+            this._internals.setFormValue(null);
+            return;
+        }
+        if (this.multiple) {
+            const data = new FormData();
+            for (const value of this.values)
+                data.append(this.name, value);
+            this._internals.setFormValue(data);
+            return;
+        }
+        this._internals.setFormValue(this.value || null);
+    }
+    /* v8 ignore stop */
     get filteredItems() {
         const query = this._query.trim().toLowerCase();
         if (!query)
@@ -3408,6 +3610,7 @@ export class Combobox extends HTMLElement {
                 this._values = [...this.values, item];
             }
             this._query = '';
+            this.updateFormValue();
             this.dispatchValueChange(this.values);
             this.render(true);
             return;
@@ -3416,12 +3619,14 @@ export class Combobox extends HTMLElement {
         this._query = item;
         this._open = false;
         this.dispatchValueChange(this.value);
+        this.updateFormValue();
         this.render();
     }
     clear() {
         this.value = '';
         this._values = [];
         this._query = '';
+        this.updateFormValue();
         this.dispatchValueChange(this.multiple ? this.values : this.value);
         this.render(true);
     }
@@ -3435,6 +3640,7 @@ export class Combobox extends HTMLElement {
     };
     removeValue(item) {
         this._values = this.values.filter((value) => value !== item);
+        this.updateFormValue();
         this.dispatchValueChange(this.values);
         this.render(true);
     }
@@ -5352,7 +5558,7 @@ defineElement('shadcx-dropdown-menu-sub-content', DropdownMenuSubContent);`,rt=t
         position: static;
       }
     }
-  `}_onNotes(e){let t=e.composedPath().find(e=>e instanceof HTMLTextAreaElement);this._notes=t?.value??``}_inputValue(e){return this.renderRoot.querySelector(`shadcx-input[data-name="${e}"]`)?.shadowRoot?.querySelector(`input`)?.value??this._values[e]??``}_notesValue(){return this.renderRoot.querySelector(`shadcx-textarea`)?.shadowRoot?.querySelector(`textarea`)?.value??this._notes}_log(e){this._events=[e,...this._events].slice(0,5)}_onAccepted(e){this._accepted=e.detail.checked,this._log(`checkbox accepted: ${String(this._accepted)}`)}_onNewsletter(e){this._newsletter=e.detail.checked,this._log(`checkbox newsletter: ${String(this._newsletter)}`)}_onFramework(e){this._framework=e.detail.value,this._log(`combobox framework: ${this._framework||`empty`}`)}_onChannels(e){this._contactChannels=e.detail.value,this._log(`combobox channels: ${this._contactChannels.join(`, `)||`none`}`)}_validate(){let e=!this._inputValue(`name`)||!this._inputValue(`email`)||!this._accepted;for(let e of[`name`,`email`])this.renderRoot.querySelector(`shadcx-input[data-name="${e}"]`)?.toggleAttribute(`aria-invalid`,!this._inputValue(e));return this.renderRoot.querySelector(`shadcx-checkbox[data-name="accepted"]`)?.toggleAttribute(`aria-invalid`,!this._accepted),!e}_buildPayload(){return{name:this._inputValue(`name`),email:this._inputValue(`email`),password:this._inputValue(`password`),search:this._inputValue(`search`),launchDate:this._inputValue(`date`),notes:this._notesValue(),framework:this._framework,contactChannels:this._contactChannels,acceptedTerms:this._accepted,newsletter:this._newsletter}}async _submit(e){if(e?.preventDefault(),this._submitted=!0,!this._validate()){this._message=`Please complete the required fields and accept the terms.`,this._log(`submit blocked: validation failed`);return}let t=new URL(`./form-playground-submit`,window.location.href).toString(),n=this._buildPayload();this._values={...this._values,name:n.name,email:n.email,password:n.password,search:n.search,date:n.launchDate},this._notes=n.notes,this._requestPreview={url:t,method:`POST`,headers:{"Content-Type":`application/json`},body:n},this._message=`Submitted ${n.name} using ${this._framework}.`,this._log(`submit passed: POST sent`);try{await fetch(t,{method:`POST`,headers:{"Content-Type":`application/json`},body:JSON.stringify(n)})}catch{this._log(`network request failed`)}}_reset(){for(let e of this.renderRoot.querySelectorAll(`shadcx-input`)){let t=e.shadowRoot?.querySelector(`input`);t&&(t.value=``),e.removeAttribute(`aria-invalid`)}let e=this.renderRoot.querySelector(`shadcx-textarea`)?.shadowRoot?.querySelector(`textarea`);e&&(e.value=``),this._accepted=!1,this._newsletter=!0,this._framework=`Lit`,this._contactChannels=[`Email`],this._values={},this._notes=``,this._submitted=!1,this._message=`Form reset.`,this._requestPreview=null,this._log(`reset complete`)}render(){let e=this._submitted&&!this._accepted;return E`
+  `}_onNotes(e){let t=e.composedPath().find(e=>e instanceof HTMLTextAreaElement);this._notes=t?.value??``}_inputValue(e){return this.renderRoot.querySelector(`shadcx-input[data-name="${e}"]`)?.shadowRoot?.querySelector(`input`)?.value??this._values[e]??``}_notesValue(){return this.renderRoot.querySelector(`shadcx-textarea`)?.shadowRoot?.querySelector(`textarea`)?.value??this._notes}_log(e){this._events=[e,...this._events].slice(0,5)}_onAccepted(e){this._accepted=e.detail.checked,this._log(`checkbox accepted: ${String(this._accepted)}`)}_onNewsletter(e){this._newsletter=e.detail.checked,this._log(`checkbox newsletter: ${String(this._newsletter)}`)}_onFramework(e){this._framework=e.detail.value,this._log(`combobox framework: ${this._framework||`empty`}`)}_onChannels(e){this._contactChannels=e.detail.value,this._log(`combobox channels: ${this._contactChannels.join(`, `)||`none`}`)}_formAction(){return new URL(`./form-playground-submit`,window.location.href).toString()}_validate(){let e=!this._inputValue(`name`)||!this._inputValue(`email`)||!this._accepted;for(let e of[`name`,`email`])this.renderRoot.querySelector(`shadcx-input[data-name="${e}"]`)?.toggleAttribute(`aria-invalid`,!this._inputValue(e));return this.renderRoot.querySelector(`shadcx-checkbox[data-name="accepted"]`)?.toggleAttribute(`aria-invalid`,!this._accepted),!e}_formDataObject(e){let t=new FormData(e),n={};for(let e of t.keys()){let r=t.getAll(e);n[e]=r.length>1?r:r[0]}return Object.keys(n).length===0&&(n.name=this._inputValue(`name`),n.email=this._inputValue(`email`),n.password=this._inputValue(`password`),n.search=this._inputValue(`search`),n.launchDate=this._inputValue(`date`),n.notes=this._notesValue(),n.framework=this._framework,n.contactChannels=this._contactChannels,this._accepted&&(n.acceptedTerms=`yes`),this._newsletter&&(n.newsletter=`yes`)),n}_submit(e){if(this._submitted=!0,!this._validate()){e.preventDefault(),this._message=`Please complete the required fields and accept the terms.`,this._log(`submit blocked: validation failed`);return}let t=e.currentTarget,n=this._formDataObject(t),r=String(n.name??``);this._values={...this._values,name:r},this._notes=String(n.notes??``),this._requestPreview={url:t.action,method:`POST`,encoding:t.enctype,body:n},this._message=`Submitted ${r} using ${this._framework}.`,this._log(`native form POST submitted`)}_reset(e){let t=e.currentTarget;for(let e of this.renderRoot.querySelectorAll(`shadcx-input`))e.removeAttribute(`aria-invalid`);this._accepted=!1,this._newsletter=!0,this._framework=`Lit`,this._contactChannels=[`Email`],this._values={},this._notes=``,this._submitted=!1,this._message=`Form reset.`,this._requestPreview=null,this._log(`reset complete`),queueMicrotask(()=>{for(let e of t.querySelectorAll(`shadcx-input, shadcx-textarea, shadcx-combobox, shadcx-checkbox`))e.dispatchEvent(new Event(`change`,{bubbles:!0,composed:!0}))})}render(){let e=this._submitted&&!this._accepted;return E`
       <section class="hero">
         <span class="eyebrow">Dedicated Playground</span>
         <h1>Form support lab for shadcx components.</h1>
@@ -5373,44 +5579,44 @@ defineElement('shadcx-dropdown-menu-sub-content', DropdownMenuSubContent);`,rt=t
             <span class="status">${this._message}</span>
           </div>
 
-          <form @submit=${this._submit} novalidate>
+          <form action=${this._formAction()} method="post" target="form-playground-result" @submit=${this._submit} @reset=${this._reset}>
             <div class="fields">
               <div class="field">
                 <label for="name">Name</label>
-                <shadcx-input data-name="name" id="name" placeholder="Ada Lovelace" required></shadcx-input>
+                <shadcx-input name="name" data-name="name" id="name" placeholder="Ada Lovelace" required></shadcx-input>
                 <span class="hint">Text input with required validation.</span>
               </div>
 
               <div class="field">
                 <label for="email">Email</label>
-                <shadcx-input data-name="email" id="email" type="email" placeholder="ada@example.com" required></shadcx-input>
+                <shadcx-input name="email" data-name="email" id="email" type="email" placeholder="ada@example.com" required></shadcx-input>
                 <span class="hint">Email input type and invalid state support.</span>
               </div>
 
               <div class="field">
                 <label for="password">Password</label>
-                <shadcx-input data-name="password" id="password" type="password" placeholder="••••••••"></shadcx-input>
+                <shadcx-input name="password" data-name="password" id="password" type="password" placeholder="••••••••"></shadcx-input>
               </div>
 
               <div class="field">
                 <label for="search">Search</label>
-                <shadcx-input data-name="search" id="search" type="search" placeholder="Search components"></shadcx-input>
+                <shadcx-input name="search" data-name="search" id="search" type="search" placeholder="Search components"></shadcx-input>
               </div>
 
               <div class="field">
                 <label for="date">Launch date</label>
-                <shadcx-input data-name="date" id="date" type="date"></shadcx-input>
+                <shadcx-input name="launchDate" data-name="date" id="date" type="date"></shadcx-input>
               </div>
 
               <div class="field">
                 <label for="file">Attachment</label>
-                <shadcx-input data-name="file" id="file" type="file"></shadcx-input>
+                <shadcx-input name="attachment" data-name="file" id="file" type="file"></shadcx-input>
               </div>
             </div>
 
             <div class="field">
               <label for="notes">Notes</label>
-              <shadcx-textarea id="notes" rows="5" placeholder="Describe the form scenario to test..." @input=${this._onNotes}></shadcx-textarea>
+              <shadcx-textarea name="notes" id="notes" rows="5" placeholder="Describe the form scenario to test..." @input=${this._onNotes}></shadcx-textarea>
             </div>
 
             <div class="fields">
@@ -5418,6 +5624,7 @@ defineElement('shadcx-dropdown-menu-sub-content', DropdownMenuSubContent);`,rt=t
                 <label for="framework">Framework combobox</label>
                 <shadcx-combobox
                   id="framework"
+                  name="framework"
                   placeholder="Pick a framework"
                   show-clear
                   auto-highlight
@@ -5431,6 +5638,7 @@ defineElement('shadcx-dropdown-menu-sub-content', DropdownMenuSubContent);`,rt=t
                 <label for="channels">Multi-select combobox</label>
                 <shadcx-combobox
                   id="channels"
+                  name="contactChannels"
                   placeholder="Pick channels"
                   multiple
                   show-clear
@@ -5447,6 +5655,8 @@ defineElement('shadcx-dropdown-menu-sub-content', DropdownMenuSubContent);`,rt=t
               <div class="check-row">
                 <shadcx-checkbox
                   data-name="accepted"
+                  name="acceptedTerms"
+                  value="yes"
                   ?checked=${this._accepted}
                   @checked-change=${this._onAccepted}
                 ></shadcx-checkbox>
@@ -5456,14 +5666,14 @@ defineElement('shadcx-dropdown-menu-sub-content', DropdownMenuSubContent);`,rt=t
                 </div>
               </div>
               <div class="check-row">
-                <shadcx-checkbox ?checked=${this._newsletter} @checked-change=${this._onNewsletter}></shadcx-checkbox>
+                <shadcx-checkbox name="newsletter" value="yes" ?checked=${this._newsletter} @checked-change=${this._onNewsletter}></shadcx-checkbox>
                 <div class="check-copy">
                   <label>Send product updates</label>
                   <span class="hint">Optional checked state starts enabled.</span>
                 </div>
               </div>
               <div class="check-row">
-                <shadcx-checkbox indeterminate></shadcx-checkbox>
+                <shadcx-checkbox name="triageState" value="checked" indeterminate></shadcx-checkbox>
                 <div class="check-copy">
                   <label>Indeterminate example</label>
                   <span class="hint">First activation resolves to checked.</span>
@@ -5472,10 +5682,11 @@ defineElement('shadcx-dropdown-menu-sub-content', DropdownMenuSubContent);`,rt=t
             </fieldset>
 
             <div class="actions">
-              <shadcx-button @click=${this._submit}>Submit playground</shadcx-button>
-              <shadcx-button variant="outline" @click=${this._reset}>Reset</shadcx-button>
+              <shadcx-button type="submit">Submit playground</shadcx-button>
+              <shadcx-button type="reset" variant="outline">Reset</shadcx-button>
               <shadcx-button variant="ghost" @click=${()=>this._log(`ghost button clicked`)}>Ghost action</shadcx-button>
             </div>
+            <iframe name="form-playground-result" title="Form playground submission result" hidden></iframe>
           </form>
         </section>
 
@@ -5591,9 +5802,11 @@ defineElement('shadcx-dropdown-menu-sub-content', DropdownMenuSubContent);`,rt=t
 \`
 
 export class Input extends HTMLElement {
-  static observedAttributes = ['type', 'placeholder', 'value', 'disabled', 'required', 'readonly', 'aria-invalid']
+  static formAssociated = true
+  static observedAttributes = ['type', 'name', 'placeholder', 'value', 'disabled', 'required', 'readonly', 'aria-invalid']
 
   private _input: HTMLInputElement | null = null
+  private _internals = this.attachInternals()
 
   get type() {
     return this.getAttribute('type') ?? 'text'
@@ -5601,6 +5814,14 @@ export class Input extends HTMLElement {
 
   set type(value: string) {
     this.setAttribute('type', value)
+  }
+
+  get name() {
+    return this.getAttribute('name') ?? ''
+  }
+
+  set name(value: string) {
+    this.setAttribute('name', value)
   }
 
   get placeholder() {
@@ -5618,6 +5839,7 @@ export class Input extends HTMLElement {
   set value(value: string) {
     this.setAttribute('value', value)
     if (this._input) this._input.value = value
+    this.updateFormValue()
   }
 
   get disabled() {
@@ -5662,6 +5884,35 @@ export class Input extends HTMLElement {
     this.render()
   }
 
+  /* v8 ignore start -- jsdom does not implement ElementInternals.setFormValue */
+  formResetCallback() {
+    this.value = this.getAttribute('value') ?? ''
+  }
+
+  private updateFormValue() {
+    if (typeof this._internals.setFormValue !== 'function') return
+
+    if (this.disabled || !this.name) {
+      this._internals.setFormValue(null)
+      return
+    }
+
+    if (this.type === 'file') {
+      const files = this._input?.files
+      if (!files?.length) {
+        this._internals.setFormValue(null)
+        return
+      }
+      const data = new FormData()
+      for (const file of files) data.append(this.name, file)
+      this._internals.setFormValue(data)
+      return
+    }
+
+    this._internals.setFormValue(this.value)
+  }
+  /* v8 ignore stop */
+
   private render() {
     if (!this.shadowRoot) return
     const value = this.value
@@ -5679,8 +5930,11 @@ export class Input extends HTMLElement {
       >
     \`
     this._input = this.shadowRoot.querySelector('input')
-    if (!this._input || this.type === 'file') return
-    this._input.value = value
+    if (!this._input) return
+    if (this.type !== 'file') this._input.value = value
+    this._input.addEventListener('input', () => this.updateFormValue())
+    this._input.addEventListener('change', () => this.updateFormValue())
+    this.updateFormValue()
   }
 }
 
@@ -5769,13 +6023,21 @@ declare global {
   }
 \`;
 export class Input extends HTMLElement {
-    static observedAttributes = ['type', 'placeholder', 'value', 'disabled', 'required', 'readonly', 'aria-invalid'];
+    static formAssociated = true;
+    static observedAttributes = ['type', 'name', 'placeholder', 'value', 'disabled', 'required', 'readonly', 'aria-invalid'];
     _input = null;
+    _internals = this.attachInternals();
     get type() {
         return this.getAttribute('type') ?? 'text';
     }
     set type(value) {
         this.setAttribute('type', value);
+    }
+    get name() {
+        return this.getAttribute('name') ?? '';
+    }
+    set name(value) {
+        this.setAttribute('name', value);
     }
     get placeholder() {
         return this.getAttribute('placeholder') ?? '';
@@ -5790,6 +6052,7 @@ export class Input extends HTMLElement {
         this.setAttribute('value', value);
         if (this._input)
             this._input.value = value;
+        this.updateFormValue();
     }
     get disabled() {
         return this.hasAttribute('disabled');
@@ -5826,6 +6089,32 @@ export class Input extends HTMLElement {
     attributeChangedCallback() {
         this.render();
     }
+    /* v8 ignore start -- jsdom does not implement ElementInternals.setFormValue */
+    formResetCallback() {
+        this.value = this.getAttribute('value') ?? '';
+    }
+    updateFormValue() {
+        if (typeof this._internals.setFormValue !== 'function')
+            return;
+        if (this.disabled || !this.name) {
+            this._internals.setFormValue(null);
+            return;
+        }
+        if (this.type === 'file') {
+            const files = this._input?.files;
+            if (!files?.length) {
+                this._internals.setFormValue(null);
+                return;
+            }
+            const data = new FormData();
+            for (const file of files)
+                data.append(this.name, file);
+            this._internals.setFormValue(data);
+            return;
+        }
+        this._internals.setFormValue(this.value);
+    }
+    /* v8 ignore stop */
     render() {
         if (!this.shadowRoot)
             return;
@@ -5844,9 +6133,13 @@ export class Input extends HTMLElement {
       >
     \`;
         this._input = this.shadowRoot.querySelector('input');
-        if (!this._input || this.type === 'file')
+        if (!this._input)
             return;
-        this._input.value = value;
+        if (this.type !== 'file')
+            this._input.value = value;
+        this._input.addEventListener('input', () => this.updateFormValue());
+        this._input.addEventListener('change', () => this.updateFormValue());
+        this.updateFormValue();
     }
 }
 if (!customElements.get('shadcx-input')) {
@@ -6346,7 +6639,9 @@ if (!customElements.get('shadcx-input')) {
 \`
 
 export class Textarea extends HTMLElement {
+  static formAssociated = true
   static observedAttributes = [
+    'name',
     'placeholder',
     'value',
     'rows',
@@ -6357,6 +6652,15 @@ export class Textarea extends HTMLElement {
   ]
 
   private _textarea: HTMLTextAreaElement | null = null
+  private _internals = this.attachInternals()
+
+  get name() {
+    return this.getAttribute('name') ?? ''
+  }
+
+  set name(value: string) {
+    this.setAttribute('name', value)
+  }
 
   get placeholder() {
     return this.getAttribute('placeholder') ?? ''
@@ -6373,6 +6677,7 @@ export class Textarea extends HTMLElement {
   set value(value: string) {
     this.setAttribute('value', value)
     if (this._textarea) this._textarea.value = value
+    this.updateFormValue()
   }
 
   get rows() {
@@ -6425,6 +6730,23 @@ export class Textarea extends HTMLElement {
     this.render()
   }
 
+  /* v8 ignore start -- jsdom does not implement ElementInternals.setFormValue */
+  formResetCallback() {
+    this.value = this.getAttribute('value') ?? ''
+  }
+
+  private updateFormValue() {
+    if (typeof this._internals.setFormValue !== 'function') return
+
+    if (this.disabled || !this.name) {
+      this._internals.setFormValue(null)
+      return
+    }
+
+    this._internals.setFormValue(this.value)
+  }
+  /* v8 ignore stop */
+
   private render() {
     if (!this.shadowRoot) return
     const value = this.value
@@ -6444,6 +6766,8 @@ export class Textarea extends HTMLElement {
     this._textarea = this.shadowRoot.querySelector('textarea')
     if (!this._textarea) return
     this._textarea.value = value
+    this._textarea.addEventListener('input', () => this.updateFormValue())
+    this.updateFormValue()
   }
 }
 
@@ -6526,7 +6850,9 @@ declare global {
   }
 \`;
 export class Textarea extends HTMLElement {
+    static formAssociated = true;
     static observedAttributes = [
+        'name',
         'placeholder',
         'value',
         'rows',
@@ -6536,6 +6862,13 @@ export class Textarea extends HTMLElement {
         'aria-invalid',
     ];
     _textarea = null;
+    _internals = this.attachInternals();
+    get name() {
+        return this.getAttribute('name') ?? '';
+    }
+    set name(value) {
+        this.setAttribute('name', value);
+    }
     get placeholder() {
         return this.getAttribute('placeholder') ?? '';
     }
@@ -6549,6 +6882,7 @@ export class Textarea extends HTMLElement {
         this.setAttribute('value', value);
         if (this._textarea)
             this._textarea.value = value;
+        this.updateFormValue();
     }
     get rows() {
         return this.getAttribute('rows') ?? '3';
@@ -6591,6 +6925,20 @@ export class Textarea extends HTMLElement {
     attributeChangedCallback() {
         this.render();
     }
+    /* v8 ignore start -- jsdom does not implement ElementInternals.setFormValue */
+    formResetCallback() {
+        this.value = this.getAttribute('value') ?? '';
+    }
+    updateFormValue() {
+        if (typeof this._internals.setFormValue !== 'function')
+            return;
+        if (this.disabled || !this.name) {
+            this._internals.setFormValue(null);
+            return;
+        }
+        this._internals.setFormValue(this.value);
+    }
+    /* v8 ignore stop */
     render() {
         if (!this.shadowRoot)
             return;
@@ -6612,6 +6960,8 @@ export class Textarea extends HTMLElement {
         if (!this._textarea)
             return;
         this._textarea.value = value;
+        this._textarea.addEventListener('input', () => this.updateFormValue());
+        this.updateFormValue();
     }
 }
 if (!customElements.get('shadcx-textarea')) {

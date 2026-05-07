@@ -107,9 +107,9 @@ var e=`
   [data-variant='link']:hover { text-decoration: underline; }
 
   [aria-invalid='true'] { border-color: hsl(var(--destructive)); box-shadow: 0 0 0 1px hsl(var(--destructive) / 0.2); }
-`,t=class extends HTMLElement{static{this.observedAttributes=[`variant`,`size`,`disabled`]}get variant(){return this.getAttribute(`variant`)??`default`}set variant(e){this.setAttribute(`variant`,e)}get size(){return this.getAttribute(`size`)??`default`}set size(e){this.setAttribute(`size`,e)}get disabled(){return this.hasAttribute(`disabled`)}set disabled(e){this.toggleAttribute(`disabled`,e)}connectedCallback(){this.shadowRoot||this.attachShadow({mode:`open`}),this.render()}attributeChangedCallback(){this.render()}render(){this.shadowRoot&&(this.shadowRoot.innerHTML=`
+`,t=class extends HTMLElement{static{this.observedAttributes=[`variant`,`size`,`type`,`disabled`]}get variant(){return this.getAttribute(`variant`)??`default`}set variant(e){this.setAttribute(`variant`,e)}get size(){return this.getAttribute(`size`)??`default`}set size(e){this.setAttribute(`size`,e)}get type(){return this.getAttribute(`type`)??`button`}set type(e){this.setAttribute(`type`,e)}get disabled(){return this.hasAttribute(`disabled`)}set disabled(e){this.toggleAttribute(`disabled`,e)}connectedCallback(){this.shadowRoot||this.attachShadow({mode:`open`}),this.render()}attributeChangedCallback(){this.render()}render(){this.shadowRoot&&(this.shadowRoot.innerHTML=`
       <style>${e}</style>
-      <button part="root" class="root" data-variant="${this.variant}" data-size="${this.size}" ${this.disabled?`disabled`:``}>
+      <button part="root" class="root" type="${this.type}" data-variant="${this.variant}" data-size="${this.size}" ${this.disabled?`disabled`:``}>
         <slot></slot>
       </button>
-    `)}};customElements.get(`shadcx-button`)||customElements.define(`shadcx-button`,t);
+    `,this.shadowRoot.querySelector(`button`)?.addEventListener(`click`,e=>{if(this.type===`submit`){e.preventDefault();let t=this.closest(`form`);if(!t)return;try{t.requestSubmit()}catch{t.dispatchEvent(new SubmitEvent(`submit`,{bubbles:!0,cancelable:!0,submitter:this}))}}this.type===`reset`&&(e.preventDefault(),this.closest(`form`)?.reset())}))}};customElements.get(`shadcx-button`)||customElements.define(`shadcx-button`,t);
