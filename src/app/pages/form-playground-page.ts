@@ -23,6 +23,7 @@ export class FormPlaygroundPage extends LitElement {
   @state() private _submitted = false
   @state() private _message = 'No submission yet.'
   @state() private _events = ['Playground ready']
+  @state() private _requestPreview: Record<string, unknown> | null = null
 
   static styles = css`
     :host {
@@ -244,6 +245,21 @@ export class FormPlaygroundPage extends LitElement {
       line-height: 1.5;
     }
 
+    .request-preview {
+      margin: 0;
+      max-height: 18rem;
+      overflow: auto;
+      border-radius: calc(var(--radius) - 2px);
+      background-color: hsl(var(--muted));
+      color: hsl(var(--foreground));
+      padding: 0.75rem;
+      font-family: var(--font-mono, ui-monospace, SFMono-Regular, monospace);
+      font-size: 0.75rem;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
     @media (max-width: 980px) {
       .grid,
       .fields {
@@ -256,14 +272,17 @@ export class FormPlaygroundPage extends LitElement {
     }
   `
 
-  private _onInput(name: string, event: InputEvent) {
-    const input = event.composedPath().find((target) => target instanceof HTMLInputElement) as HTMLInputElement | undefined
-    this._values = { ...this._values, [name]: input?.value ?? '' }
-  }
-
   private _onNotes(event: InputEvent) {
     const textarea = event.composedPath().find((target) => target instanceof HTMLTextAreaElement) as HTMLTextAreaElement | undefined
     this._notes = textarea?.value ?? ''
+  }
+
+  private _inputValue(name: string) {
+    return this.renderRoot.querySelector(`shadcx-input[data-name="${name}"]`)?.shadowRoot?.querySelector('input')?.value ?? this._values[name] ?? ''
+  }
+
+  private _notesValue() {
+    return this.renderRoot.querySelector('shadcx-textarea')?.shadowRoot?.querySelector('textarea')?.value ?? this._notes
   }
 
   private _log(message: string) {
@@ -291,16 +310,31 @@ export class FormPlaygroundPage extends LitElement {
   }
 
   private _validate() {
-    const invalid = !this._values.name || !this._values.email || !this._accepted
+    const invalid = !this._inputValue('name') || !this._inputValue('email') || !this._accepted
     for (const name of ['name', 'email']) {
       const field = this.renderRoot.querySelector(`shadcx-input[data-name="${name}"]`)
-      field?.toggleAttribute('aria-invalid', !this._values[name])
+      field?.toggleAttribute('aria-invalid', !this._inputValue(name))
     }
     this.renderRoot.querySelector('shadcx-checkbox[data-name="accepted"]')?.toggleAttribute('aria-invalid', !this._accepted)
     return !invalid
   }
 
-  private _submit(event?: Event) {
+  private _buildPayload() {
+    return {
+      name: this._inputValue('name'),
+      email: this._inputValue('email'),
+      password: this._inputValue('password'),
+      search: this._inputValue('search'),
+      launchDate: this._inputValue('date'),
+      notes: this._notesValue(),
+      framework: this._framework,
+      contactChannels: this._contactChannels,
+      acceptedTerms: this._accepted,
+      newsletter: this._newsletter,
+    }
+  }
+
+  private async _submit(event?: Event) {
     event?.preventDefault()
     this._submitted = true
     if (!this._validate()) {
@@ -308,8 +342,36 @@ export class FormPlaygroundPage extends LitElement {
       this._log('submit blocked: validation failed')
       return
     }
-    this._message = `Submitted ${this._values.name} using ${this._framework}.`
-    this._log('submit passed')
+
+    const url = new URL('./form-playground-submit', window.location.href).toString()
+    const payload = this._buildPayload()
+    this._values = {
+      ...this._values,
+      name: payload.name,
+      email: payload.email,
+      password: payload.password,
+      search: payload.search,
+      date: payload.launchDate,
+    }
+    this._notes = payload.notes
+    this._requestPreview = {
+      url,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: payload,
+    }
+    this._message = `Submitted ${payload.name} using ${this._framework}.`
+    this._log('submit passed: POST sent')
+
+    try {
+      await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+    } catch {
+      this._log('network request failed')
+    }
   }
 
   private _reset() {
@@ -328,6 +390,7 @@ export class FormPlaygroundPage extends LitElement {
     this._notes = ''
     this._submitted = false
     this._message = 'Form reset.'
+    this._requestPreview = null
     this._log('reset complete')
   }
 
@@ -359,34 +422,34 @@ export class FormPlaygroundPage extends LitElement {
             <div class="fields">
               <div class="field">
                 <label for="name">Name</label>
-                <shadcx-input data-name="name" id="name" placeholder="Ada Lovelace" required .value=${this._values.name ?? ''} @input=${(event: InputEvent) => this._onInput('name', event)}></shadcx-input>
+                <shadcx-input data-name="name" id="name" placeholder="Ada Lovelace" required></shadcx-input>
                 <span class="hint">Text input with required validation.</span>
               </div>
 
               <div class="field">
                 <label for="email">Email</label>
-                <shadcx-input data-name="email" id="email" type="email" placeholder="ada@example.com" required .value=${this._values.email ?? ''} @input=${(event: InputEvent) => this._onInput('email', event)}></shadcx-input>
+                <shadcx-input data-name="email" id="email" type="email" placeholder="ada@example.com" required></shadcx-input>
                 <span class="hint">Email input type and invalid state support.</span>
               </div>
 
               <div class="field">
                 <label for="password">Password</label>
-                <shadcx-input data-name="password" id="password" type="password" placeholder="••••••••" .value=${this._values.password ?? ''} @input=${(event: InputEvent) => this._onInput('password', event)}></shadcx-input>
+                <shadcx-input data-name="password" id="password" type="password" placeholder="••••••••"></shadcx-input>
               </div>
 
               <div class="field">
                 <label for="search">Search</label>
-                <shadcx-input data-name="search" id="search" type="search" placeholder="Search components" .value=${this._values.search ?? ''} @input=${(event: InputEvent) => this._onInput('search', event)}></shadcx-input>
+                <shadcx-input data-name="search" id="search" type="search" placeholder="Search components"></shadcx-input>
               </div>
 
               <div class="field">
                 <label for="date">Launch date</label>
-                <shadcx-input data-name="date" id="date" type="date" .value=${this._values.date ?? ''} @input=${(event: InputEvent) => this._onInput('date', event)}></shadcx-input>
+                <shadcx-input data-name="date" id="date" type="date"></shadcx-input>
               </div>
 
               <div class="field">
                 <label for="file">Attachment</label>
-                <shadcx-input data-name="file" id="file" type="file" @input=${(event: InputEvent) => this._onInput('file', event)}></shadcx-input>
+                <shadcx-input data-name="file" id="file" type="file"></shadcx-input>
               </div>
             </div>
 
@@ -488,6 +551,11 @@ export class FormPlaygroundPage extends LitElement {
           <section class="readout">
             <h2>Event Log</h2>
             <div class="log">${this._events.map((event) => html`<span>${event}</span>`)}</div>
+          </section>
+
+          <section class="readout">
+            <h2>Last Request</h2>
+            <pre class="request-preview">${this._requestPreview ? JSON.stringify(this._requestPreview, null, 2) : 'Submit the form to see the POST URL and payload.'}</pre>
           </section>
         </aside>
       </div>
