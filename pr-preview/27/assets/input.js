@@ -72,7 +72,7 @@ var e=`
   @media (min-width: 768px) {
     .root { font-size: 0.875rem; }
   }
-`,t=class extends HTMLElement{static{this.observedAttributes=[`type`,`placeholder`,`disabled`,`required`,`readonly`,`aria-invalid`]}get type(){return this.getAttribute(`type`)??`text`}set type(e){this.setAttribute(`type`,e)}get placeholder(){return this.getAttribute(`placeholder`)??``}set placeholder(e){this.setAttribute(`placeholder`,e)}get disabled(){return this.hasAttribute(`disabled`)}set disabled(e){this.toggleAttribute(`disabled`,e)}get required(){return this.hasAttribute(`required`)}set required(e){this.toggleAttribute(`required`,e)}get readonly(){return this.hasAttribute(`readonly`)}set readonly(e){this.toggleAttribute(`readonly`,e)}get ariaInvalid(){return this.getAttribute(`aria-invalid`)}set ariaInvalid(e){e===null?this.removeAttribute(`aria-invalid`):this.setAttribute(`aria-invalid`,e)}connectedCallback(){this.shadowRoot||this.attachShadow({mode:`open`}),this.render()}attributeChangedCallback(){this.render()}render(){this.shadowRoot&&(this.shadowRoot.innerHTML=`
+`,t=class extends HTMLElement{constructor(...e){super(...e),this._input=null}static{this.observedAttributes=[`type`,`placeholder`,`value`,`disabled`,`required`,`readonly`,`aria-invalid`]}get type(){return this.getAttribute(`type`)??`text`}set type(e){this.setAttribute(`type`,e)}get placeholder(){return this.getAttribute(`placeholder`)??``}set placeholder(e){this.setAttribute(`placeholder`,e)}get value(){return this._input?.value??this.getAttribute(`value`)??``}set value(e){this.setAttribute(`value`,e),this._input&&(this._input.value=e)}get disabled(){return this.hasAttribute(`disabled`)}set disabled(e){this.toggleAttribute(`disabled`,e)}get required(){return this.hasAttribute(`required`)}set required(e){this.toggleAttribute(`required`,e)}get readonly(){return this.hasAttribute(`readonly`)}set readonly(e){this.toggleAttribute(`readonly`,e)}get ariaInvalid(){return this.getAttribute(`aria-invalid`)}set ariaInvalid(e){e===null?this.removeAttribute(`aria-invalid`):this.setAttribute(`aria-invalid`,e)}connectedCallback(){this.shadowRoot||this.attachShadow({mode:`open`}),this.render()}attributeChangedCallback(){this.render()}render(){if(!this.shadowRoot)return;let t=this.value;this.shadowRoot.innerHTML=`
       <style>${e}</style>
       <input
         part="root"
@@ -84,4 +84,4 @@ var e=`
         ${this.readonly?`readonly`:``}
         ${this.ariaInvalid?`aria-invalid="${this.ariaInvalid}"`:``}
       >
-    `)}};customElements.get(`shadcx-input`)||customElements.define(`shadcx-input`,t);
+    `,this._input=this.shadowRoot.querySelector(`input`),!(!this._input||this.type===`file`)&&(this._input.value=t)}};customElements.get(`shadcx-input`)||customElements.define(`shadcx-input`,t);

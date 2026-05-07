@@ -5362,29 +5362,29 @@ defineElement('shadcx-dropdown-menu-sub-content', DropdownMenuSubContent);`,rt=t
             <div class="fields">
               <div class="field">
                 <label for="name">Name</label>
-                <shadcx-input data-name="name" id="name" placeholder="Ada Lovelace" required @input=${e=>this._onInput(`name`,e)}></shadcx-input>
+                <shadcx-input data-name="name" id="name" placeholder="Ada Lovelace" required .value=${this._values.name??``} @input=${e=>this._onInput(`name`,e)}></shadcx-input>
                 <span class="hint">Text input with required validation.</span>
               </div>
 
               <div class="field">
                 <label for="email">Email</label>
-                <shadcx-input data-name="email" id="email" type="email" placeholder="ada@example.com" required @input=${e=>this._onInput(`email`,e)}></shadcx-input>
+                <shadcx-input data-name="email" id="email" type="email" placeholder="ada@example.com" required .value=${this._values.email??``} @input=${e=>this._onInput(`email`,e)}></shadcx-input>
                 <span class="hint">Email input type and invalid state support.</span>
               </div>
 
               <div class="field">
                 <label for="password">Password</label>
-                <shadcx-input data-name="password" id="password" type="password" placeholder="••••••••" @input=${e=>this._onInput(`password`,e)}></shadcx-input>
+                <shadcx-input data-name="password" id="password" type="password" placeholder="••••••••" .value=${this._values.password??``} @input=${e=>this._onInput(`password`,e)}></shadcx-input>
               </div>
 
               <div class="field">
                 <label for="search">Search</label>
-                <shadcx-input data-name="search" id="search" type="search" placeholder="Search components" @input=${e=>this._onInput(`search`,e)}></shadcx-input>
+                <shadcx-input data-name="search" id="search" type="search" placeholder="Search components" .value=${this._values.search??``} @input=${e=>this._onInput(`search`,e)}></shadcx-input>
               </div>
 
               <div class="field">
                 <label for="date">Launch date</label>
-                <shadcx-input data-name="date" id="date" type="date" @input=${e=>this._onInput(`date`,e)}></shadcx-input>
+                <shadcx-input data-name="date" id="date" type="date" .value=${this._values.date??``} @input=${e=>this._onInput(`date`,e)}></shadcx-input>
               </div>
 
               <div class="field">
@@ -5571,7 +5571,9 @@ defineElement('shadcx-dropdown-menu-sub-content', DropdownMenuSubContent);`,rt=t
 \`
 
 export class Input extends HTMLElement {
-  static observedAttributes = ['type', 'placeholder', 'disabled', 'required', 'readonly', 'aria-invalid']
+  static observedAttributes = ['type', 'placeholder', 'value', 'disabled', 'required', 'readonly', 'aria-invalid']
+
+  private _input: HTMLInputElement | null = null
 
   get type() {
     return this.getAttribute('type') ?? 'text'
@@ -5587,6 +5589,15 @@ export class Input extends HTMLElement {
 
   set placeholder(value: string) {
     this.setAttribute('placeholder', value)
+  }
+
+  get value() {
+    return this._input?.value ?? this.getAttribute('value') ?? ''
+  }
+
+  set value(value: string) {
+    this.setAttribute('value', value)
+    if (this._input) this._input.value = value
   }
 
   get disabled() {
@@ -5633,6 +5644,7 @@ export class Input extends HTMLElement {
 
   private render() {
     if (!this.shadowRoot) return
+    const value = this.value
     this.shadowRoot.innerHTML = \`
       <style>\${styles}</style>
       <input
@@ -5646,6 +5658,9 @@ export class Input extends HTMLElement {
         \${this.ariaInvalid ? \`aria-invalid="\${this.ariaInvalid}"\` : ''}
       >
     \`
+    this._input = this.shadowRoot.querySelector('input')
+    if (!this._input || this.type === 'file') return
+    this._input.value = value
   }
 }
 
@@ -5734,7 +5749,8 @@ declare global {
   }
 \`;
 export class Input extends HTMLElement {
-    static observedAttributes = ['type', 'placeholder', 'disabled', 'required', 'readonly', 'aria-invalid'];
+    static observedAttributes = ['type', 'placeholder', 'value', 'disabled', 'required', 'readonly', 'aria-invalid'];
+    _input = null;
     get type() {
         return this.getAttribute('type') ?? 'text';
     }
@@ -5746,6 +5762,14 @@ export class Input extends HTMLElement {
     }
     set placeholder(value) {
         this.setAttribute('placeholder', value);
+    }
+    get value() {
+        return this._input?.value ?? this.getAttribute('value') ?? '';
+    }
+    set value(value) {
+        this.setAttribute('value', value);
+        if (this._input)
+            this._input.value = value;
     }
     get disabled() {
         return this.hasAttribute('disabled');
@@ -5785,6 +5809,7 @@ export class Input extends HTMLElement {
     render() {
         if (!this.shadowRoot)
             return;
+        const value = this.value;
         this.shadowRoot.innerHTML = \`
       <style>\${styles}</style>
       <input
@@ -5798,6 +5823,10 @@ export class Input extends HTMLElement {
         \${this.ariaInvalid ? \`aria-invalid="\${this.ariaInvalid}"\` : ''}
       >
     \`;
+        this._input = this.shadowRoot.querySelector('input');
+        if (!this._input || this.type === 'file')
+            return;
+        this._input.value = value;
     }
 }
 if (!customElements.get('shadcx-input')) {
