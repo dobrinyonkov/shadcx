@@ -5107,7 +5107,7 @@ defineElement('shadcx-dropdown-menu-sub-content', DropdownMenuSubContent);`,rt=t
           </tbody>
         </table>
       </div>
-    `}};R([L()],K.prototype,`_density`,void 0),K=R([F(`dropdown-menu-page`)],K);var at=t({FormPlaygroundPage:()=>q,description:()=>ot}),ot=`A dedicated playground for testing form components together in one interactive page.`,st=[`Lit`,`React`,`Vue`,`Svelte`,`Solid`,`Angular`,`Astro`],ct=[`Email`,`Slack`,`Discord`,`Phone`],q=class extends P{constructor(...e){super(...e),this._accepted=!1,this._newsletter=!0,this._framework=`Lit`,this._contactChannels=[`Email`],this._values={},this._notes=``,this._submitted=!1,this._message=`No submission yet.`,this._events=[`Playground ready`]}static{this.styles=c`
+    `}};R([L()],K.prototype,`_density`,void 0),K=R([F(`dropdown-menu-page`)],K);var at=t({FormPlaygroundPage:()=>q,description:()=>ot}),ot=`A dedicated playground for testing form components together in one interactive page.`,st=[`Lit`,`React`,`Vue`,`Svelte`,`Solid`,`Angular`,`Astro`],ct=[`Email`,`Slack`,`Discord`,`Phone`],q=class extends P{constructor(...e){super(...e),this._accepted=!1,this._newsletter=!0,this._framework=`Lit`,this._contactChannels=[`Email`],this._values={},this._notes=``,this._submitted=!1,this._message=`No submission yet.`,this._events=[`Playground ready`],this._requestPreview=null}static{this.styles=c`
     :host {
       display: block;
       font-family: var(--font-sans, 'Inter', system-ui, -apple-system, sans-serif);
@@ -5327,6 +5327,21 @@ defineElement('shadcx-dropdown-menu-sub-content', DropdownMenuSubContent);`,rt=t
       line-height: 1.5;
     }
 
+    .request-preview {
+      margin: 0;
+      max-height: 18rem;
+      overflow: auto;
+      border-radius: calc(var(--radius) - 2px);
+      background-color: hsl(var(--muted));
+      color: hsl(var(--foreground));
+      padding: 0.75rem;
+      font-family: var(--font-mono, ui-monospace, SFMono-Regular, monospace);
+      font-size: 0.75rem;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
     @media (max-width: 980px) {
       .grid,
       .fields {
@@ -5337,7 +5352,7 @@ defineElement('shadcx-dropdown-menu-sub-content', DropdownMenuSubContent);`,rt=t
         position: static;
       }
     }
-  `}_onInput(e,t){let n=t.composedPath().find(e=>e instanceof HTMLInputElement);this._values={...this._values,[e]:n?.value??``}}_onNotes(e){let t=e.composedPath().find(e=>e instanceof HTMLTextAreaElement);this._notes=t?.value??``}_log(e){this._events=[e,...this._events].slice(0,5)}_onAccepted(e){this._accepted=e.detail.checked,this._log(`checkbox accepted: ${String(this._accepted)}`)}_onNewsletter(e){this._newsletter=e.detail.checked,this._log(`checkbox newsletter: ${String(this._newsletter)}`)}_onFramework(e){this._framework=e.detail.value,this._log(`combobox framework: ${this._framework||`empty`}`)}_onChannels(e){this._contactChannels=e.detail.value,this._log(`combobox channels: ${this._contactChannels.join(`, `)||`none`}`)}_validate(){let e=!this._values.name||!this._values.email||!this._accepted;for(let e of[`name`,`email`])this.renderRoot.querySelector(`shadcx-input[data-name="${e}"]`)?.toggleAttribute(`aria-invalid`,!this._values[e]);return this.renderRoot.querySelector(`shadcx-checkbox[data-name="accepted"]`)?.toggleAttribute(`aria-invalid`,!this._accepted),!e}_submit(e){if(e?.preventDefault(),this._submitted=!0,!this._validate()){this._message=`Please complete the required fields and accept the terms.`,this._log(`submit blocked: validation failed`);return}this._message=`Submitted ${this._values.name} using ${this._framework}.`,this._log(`submit passed`)}_reset(){for(let e of this.renderRoot.querySelectorAll(`shadcx-input`)){let t=e.shadowRoot?.querySelector(`input`);t&&(t.value=``),e.removeAttribute(`aria-invalid`)}let e=this.renderRoot.querySelector(`shadcx-textarea`)?.shadowRoot?.querySelector(`textarea`);e&&(e.value=``),this._accepted=!1,this._newsletter=!0,this._framework=`Lit`,this._contactChannels=[`Email`],this._values={},this._notes=``,this._submitted=!1,this._message=`Form reset.`,this._log(`reset complete`)}render(){let e=this._submitted&&!this._accepted;return E`
+  `}_onNotes(e){let t=e.composedPath().find(e=>e instanceof HTMLTextAreaElement);this._notes=t?.value??``}_inputValue(e){return this.renderRoot.querySelector(`shadcx-input[data-name="${e}"]`)?.shadowRoot?.querySelector(`input`)?.value??this._values[e]??``}_notesValue(){return this.renderRoot.querySelector(`shadcx-textarea`)?.shadowRoot?.querySelector(`textarea`)?.value??this._notes}_log(e){this._events=[e,...this._events].slice(0,5)}_onAccepted(e){this._accepted=e.detail.checked,this._log(`checkbox accepted: ${String(this._accepted)}`)}_onNewsletter(e){this._newsletter=e.detail.checked,this._log(`checkbox newsletter: ${String(this._newsletter)}`)}_onFramework(e){this._framework=e.detail.value,this._log(`combobox framework: ${this._framework||`empty`}`)}_onChannels(e){this._contactChannels=e.detail.value,this._log(`combobox channels: ${this._contactChannels.join(`, `)||`none`}`)}_validate(){let e=!this._inputValue(`name`)||!this._inputValue(`email`)||!this._accepted;for(let e of[`name`,`email`])this.renderRoot.querySelector(`shadcx-input[data-name="${e}"]`)?.toggleAttribute(`aria-invalid`,!this._inputValue(e));return this.renderRoot.querySelector(`shadcx-checkbox[data-name="accepted"]`)?.toggleAttribute(`aria-invalid`,!this._accepted),!e}_buildPayload(){return{name:this._inputValue(`name`),email:this._inputValue(`email`),password:this._inputValue(`password`),search:this._inputValue(`search`),launchDate:this._inputValue(`date`),notes:this._notesValue(),framework:this._framework,contactChannels:this._contactChannels,acceptedTerms:this._accepted,newsletter:this._newsletter}}async _submit(e){if(e?.preventDefault(),this._submitted=!0,!this._validate()){this._message=`Please complete the required fields and accept the terms.`,this._log(`submit blocked: validation failed`);return}let t=new URL(`./form-playground-submit`,window.location.href).toString(),n=this._buildPayload();this._values={...this._values,name:n.name,email:n.email,password:n.password,search:n.search,date:n.launchDate},this._notes=n.notes,this._requestPreview={url:t,method:`POST`,headers:{"Content-Type":`application/json`},body:n},this._message=`Submitted ${n.name} using ${this._framework}.`,this._log(`submit passed: POST sent`);try{await fetch(t,{method:`POST`,headers:{"Content-Type":`application/json`},body:JSON.stringify(n)})}catch{this._log(`network request failed`)}}_reset(){for(let e of this.renderRoot.querySelectorAll(`shadcx-input`)){let t=e.shadowRoot?.querySelector(`input`);t&&(t.value=``),e.removeAttribute(`aria-invalid`)}let e=this.renderRoot.querySelector(`shadcx-textarea`)?.shadowRoot?.querySelector(`textarea`);e&&(e.value=``),this._accepted=!1,this._newsletter=!0,this._framework=`Lit`,this._contactChannels=[`Email`],this._values={},this._notes=``,this._submitted=!1,this._message=`Form reset.`,this._requestPreview=null,this._log(`reset complete`)}render(){let e=this._submitted&&!this._accepted;return E`
       <section class="hero">
         <span class="eyebrow">Dedicated Playground</span>
         <h1>Form support lab for shadcx components.</h1>
@@ -5362,34 +5377,34 @@ defineElement('shadcx-dropdown-menu-sub-content', DropdownMenuSubContent);`,rt=t
             <div class="fields">
               <div class="field">
                 <label for="name">Name</label>
-                <shadcx-input data-name="name" id="name" placeholder="Ada Lovelace" required .value=${this._values.name??``} @input=${e=>this._onInput(`name`,e)}></shadcx-input>
+                <shadcx-input data-name="name" id="name" placeholder="Ada Lovelace" required></shadcx-input>
                 <span class="hint">Text input with required validation.</span>
               </div>
 
               <div class="field">
                 <label for="email">Email</label>
-                <shadcx-input data-name="email" id="email" type="email" placeholder="ada@example.com" required .value=${this._values.email??``} @input=${e=>this._onInput(`email`,e)}></shadcx-input>
+                <shadcx-input data-name="email" id="email" type="email" placeholder="ada@example.com" required></shadcx-input>
                 <span class="hint">Email input type and invalid state support.</span>
               </div>
 
               <div class="field">
                 <label for="password">Password</label>
-                <shadcx-input data-name="password" id="password" type="password" placeholder="••••••••" .value=${this._values.password??``} @input=${e=>this._onInput(`password`,e)}></shadcx-input>
+                <shadcx-input data-name="password" id="password" type="password" placeholder="••••••••"></shadcx-input>
               </div>
 
               <div class="field">
                 <label for="search">Search</label>
-                <shadcx-input data-name="search" id="search" type="search" placeholder="Search components" .value=${this._values.search??``} @input=${e=>this._onInput(`search`,e)}></shadcx-input>
+                <shadcx-input data-name="search" id="search" type="search" placeholder="Search components"></shadcx-input>
               </div>
 
               <div class="field">
                 <label for="date">Launch date</label>
-                <shadcx-input data-name="date" id="date" type="date" .value=${this._values.date??``} @input=${e=>this._onInput(`date`,e)}></shadcx-input>
+                <shadcx-input data-name="date" id="date" type="date"></shadcx-input>
               </div>
 
               <div class="field">
                 <label for="file">Attachment</label>
-                <shadcx-input data-name="file" id="file" type="file" @input=${e=>this._onInput(`file`,e)}></shadcx-input>
+                <shadcx-input data-name="file" id="file" type="file"></shadcx-input>
               </div>
             </div>
 
@@ -5492,9 +5507,14 @@ defineElement('shadcx-dropdown-menu-sub-content', DropdownMenuSubContent);`,rt=t
             <h2>Event Log</h2>
             <div class="log">${this._events.map(e=>E`<span>${e}</span>`)}</div>
           </section>
+
+          <section class="readout">
+            <h2>Last Request</h2>
+            <pre class="request-preview">${this._requestPreview?JSON.stringify(this._requestPreview,null,2):`Submit the form to see the POST URL and payload.`}</pre>
+          </section>
         </aside>
       </div>
-    `}};R([L()],q.prototype,`_accepted`,void 0),R([L()],q.prototype,`_newsletter`,void 0),R([L()],q.prototype,`_framework`,void 0),R([L()],q.prototype,`_contactChannels`,void 0),R([L()],q.prototype,`_values`,void 0),R([L()],q.prototype,`_notes`,void 0),R([L()],q.prototype,`_submitted`,void 0),R([L()],q.prototype,`_message`,void 0),R([L()],q.prototype,`_events`,void 0),q=R([F(`form-playground-page`)],q);var lt=`const styles = \`
+    `}};R([L()],q.prototype,`_accepted`,void 0),R([L()],q.prototype,`_newsletter`,void 0),R([L()],q.prototype,`_framework`,void 0),R([L()],q.prototype,`_contactChannels`,void 0),R([L()],q.prototype,`_values`,void 0),R([L()],q.prototype,`_notes`,void 0),R([L()],q.prototype,`_submitted`,void 0),R([L()],q.prototype,`_message`,void 0),R([L()],q.prototype,`_events`,void 0),R([L()],q.prototype,`_requestPreview`,void 0),q=R([F(`form-playground-page`)],q);var lt=`const styles = \`
   *, *::before, *::after { box-sizing: border-box; }
   * { margin: 0; }
   img, svg, video, canvas, audio, iframe, embed, object { display: block; vertical-align: middle; }
